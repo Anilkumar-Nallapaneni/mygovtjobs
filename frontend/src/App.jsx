@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "reac
 import { useTranslation } from "react-i18next";
 import { applyColorMode } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
-import { vacanciesForStateId } from "@/data/jobRegion";
+import { computeJobAggregates } from "@/utils/jobAggregates";
 import { useLiveJobs } from "@/hooks/useLiveJobs";
 import { FEED_POOL } from "@/data/feed";
 import Ticker from "@/components/layout/Ticker";
@@ -24,6 +24,7 @@ export default function App() {
   const [view, setView] = useState("home");
   const [selectedState, setSelectedState] = useState(null);
   const [activeCat, setActiveCat] = useState(null);
+  const [quickFilter, setQuickFilter] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
   const [search, setSearch] = useState("");
   const [headlinesTopicKey, setHeadlinesTopicKey] = useState(null);
@@ -67,7 +68,7 @@ export default function App() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/data/official-feed-items.json", { cache: "no-store" });
+          const res = await fetch("/data/official-feed-items.json");
         if (!res.ok || cancelled) return;
         const json = await res.json();
         const rows = Array.isArray(json.items) ? json.items : [];
@@ -100,14 +101,8 @@ export default function App() {
     return () => clearInterval(t);
   }, []);
 
-  /** Per-state vacancy totals — same attribution as the state-filtered job list (nationwide-all-states jobs excluded). */
-  const stateCounts = useMemo(() => {
-    const c = {};
-    STATES.forEach((s) => {
-      c[s.id] = jobs.reduce((sum, j) => sum + vacanciesForStateId(j, s.id), 0);
-    });
-    return c;
-  }, [jobs]);
+  /** Per-state job listing counts — matches state-filtered job list. */
+  const { stateCounts, categoryCounts } = useMemo(() => computeJobAggregates(jobs), [jobs]);
 
   const mapStateData = useMemo(
     () =>
@@ -117,7 +112,7 @@ export default function App() {
         fill: "#ffffff",
         customData: {
           name: state.n,
-          jobs: (stateCounts[state.id] || 0).toLocaleString(),
+          listings: (stateCounts[state.id] || 0).toLocaleString(),
         },
       })),
     [stateCounts]
@@ -132,8 +127,14 @@ export default function App() {
     setSelectedJob(null);
     setSelectedState(null);
     setActiveCat(null);
+    setQuickFilter(null);
     setHeadlinesTopicKey(null);
     scrollToSection("main-jobs");
+  }, []);
+
+  const handleBrowseJobs = useCallback(() => {
+    setView("jobs");
+    setSelectedJob(null);
   }, []);
 
   const handleNavigate = useCallback(
@@ -152,6 +153,7 @@ export default function App() {
       if (nextView === "jobs") {
         setSelectedState(null);
         setActiveCat(null);
+        setQuickFilter(null);
       }
 
       const sectionByView = {
@@ -185,6 +187,7 @@ export default function App() {
     if (target.section === "main-jobs") {
       setSelectedState(null);
       setActiveCat(null);
+      setQuickFilter(null);
       scrollToSection("main-jobs");
       return;
     }
@@ -245,6 +248,10 @@ export default function App() {
               setSelectedState={setSelectedState}
               activeCat={activeCat}
               setActiveCat={setActiveCat}
+              quickFilter={quickFilter}
+              setQuickFilter={setQuickFilter}
+              onBrowseJobs={handleBrowseJobs}
+              categoryCounts={categoryCounts}
               stateCounts={stateCounts}
               onJobClick={handleJobClick}
               search={search}

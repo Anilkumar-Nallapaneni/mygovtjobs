@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import { CATS } from "@/data/categories";
 
-export default function CategoryGrid({ activeCat, setActiveCat, counts }) {
+export default function CategoryGrid({ activeCat, onSelectCategory, counts }) {
   const { t } = useTranslation();
 
   return (
@@ -12,7 +12,7 @@ export default function CategoryGrid({ activeCat, setActiveCat, counts }) {
         {activeCat && (
           <button
             type="button"
-            onClick={() => setActiveCat(null)}
+            onClick={() => onSelectCategory(activeCat)}
             style={{ background: "transparent", border: `1px solid ${DS.borderHi}`, borderRadius: 8, padding: "4px 12px", fontSize: 11, color: DS.mutedHi, cursor: "pointer", fontFamily: "'Outfit',sans-serif" }}
           >
             {t("categoryGrid.clearFilter")}
@@ -27,7 +27,7 @@ export default function CategoryGrid({ activeCat, setActiveCat, counts }) {
             <button
               key={c.id}
               type="button"
-              onClick={() => setActiveCat(active ? null : c.id)}
+              onClick={() => onSelectCategory(c.id)}
               style={{
                 background: active ? `${c.color}18` : DS.bg1,
                 border: `1px solid ${active ? c.color + "50" : DS.border}`,

@@ -1,20 +1,20 @@
-import { STATES } from '@/data/states'
 import { resolvePdfUrl } from '@/utils/resolvePdfUrl'
 import { cleanJobTitle, cleanDept } from '@/utils/jobNoiseFilter'
 import { enrichJobMetadata } from '@/utils/jobMetadataUtils'
 import { isJobExpired } from '@/utils/jobFilters'
+import { resolveStateDisplay } from '@/utils/jobStateResolve'
+import { resolveJobQualification } from '@/utils/jobQualification'
 
 /** Map API / Supabase job row → shape used by JobCard / HomePage. */
 export function adaptLiveJob(row, index = 0) {
-  const stateCodes = (row.state_codes || []).map((c) => String(c).toLowerCase())
-  const isNationwide = stateCodes.length === 0
-  const stateIds = isNationwide ? ['all'] : stateCodes
-
-  const stateName = isNationwide
-    ? 'All India'
-    : stateCodes.length === 1
-      ? STATES.find((s) => s.id === stateCodes[0])?.n || stateCodes[0]
-      : stateCodes.map((id) => STATES.find((s) => s.id === id)?.n || id).join(', ')
+  const { stateIds, stateName } = resolveStateDisplay(row)
+  const qualResolved = resolveJobQualification({
+    qual: row.qualification,
+    title: row.title,
+    about: row.detail?.summary,
+    dept: row.dept,
+    detail: row.detail,
+  })
 
   const category = row.category && String(row.category).trim() ? String(row.category).trim() : 'state'
   const rawStatus = String(row.status || 'live').toLowerCase()
@@ -35,7 +35,8 @@ export function adaptLiveJob(row, index = 0) {
     stateIds,
     category,
     vacancies: Number(row.vacancies) || 0,
-    qual: row.qualification || 'As per notification',
+    qual: qualResolved.label || 'See notification',
+    eduFilterKey: qualResolved.key,
     lastDate,
     published_at: row.published_at || row.detail?.published || null,
     salary: row.salary || '—',

@@ -8,13 +8,16 @@ import { isPortalNoiseJob } from '@/utils/jobNoiseFilter'
 
 const RECRUIT_RE =
   /recruit|vacanc|notif|advert|exam|bharti|apply|post|constable|group[\s-]*[i1-4]|cgl|ntpc|psc|ssc|upsc|railway|bank|police|teacher|defence|apprentice|walk-?in|selection|appointment/i
-/** Nav/menu links scraped from portals — not job listings. */
 const NOISE_TITLE_RE =
   /^(careers?|tenders?|contact(\s+us)?|login|sign\s*up|privacy|sitemap|gallery|tourism|about\s+us|governing\s+board|policies|rules|guidelines|circulars\s+withdrawn|home|news\s*&\s*events)$/i
-const MAX_LIVE_ROWS = 1500
-const SUPABASE_PAGE = 500
-/** Demo rows from database/supabase_setup.sql — hide when real ingest data is present. */
+
+const MAX_LIVE_ROWS = 800
+const SUPABASE_PAGE = 400
+const JSON_CAP = 800
 const DEMO_SLUG_PREFIX = /^demo-/
+
+let CACHE = null
+let INFLIGHT = null
 
 function isUsefulLiveRow(row, { strict = false } = {}) {
   const title = String(row?.title || '').trim()
@@ -24,8 +27,7 @@ function isUsefulLiveRow(row, { strict = false } = {}) {
   if (/translate\s*\}\}/i.test(title)) return false
   if (NOISE_TITLE_RE.test(title)) return false
   if (/reach out to|contact us|privacy policy|sitemap|login|gallery|tourism/i.test(title)) return false
-  const status = String(row?.status || '').toLowerCase()
-  if (status === 'draft') return false
+  if (String(row?.status || '').toLowerCase() === 'draft') return false
 
   if (!strict) {
     if (Number(row?.vacancies) > 0) return true
@@ -52,7 +54,7 @@ function dedupeLiveRows(rows, { strictFilter = false } = {}) {
   const out = []
   const sorted = [...rows].sort((a, b) => scoreLiveRow(b) - scoreLiveRow(a))
   for (const row of sorted) {
-    if (!isUsefulLiveRow(row, { strict: strictFilter })) continue
+    if (!isUsefulLiveRow(row, { strictFilter })) continue
     const slug = String(row?.slug || row?.id || '').trim()
     if (!slug) continue
     const key = slug.toLowerCase()
@@ -91,63 +93,97 @@ async function fetchJobsFromSupabase() {
   return all
 }
 
-/**
- * Live + expired jobs from Supabase / API / JSON. Demo catalog used only when no backend data.
- */
+async function loadJobsPayload() {
+  if (isSupabaseConfigured()) {
+    const supaRows = await fetchJobsFromSupabase()
+    const real = supaRows.filter(
+      (r) =>
+        !DEMO_SLUG_PREFIX.test(String(r.slug || '')) &&
+        (r.detail?.source || '') !== 'demo'
+    )
+    if (real.length) {
+      return {
+        raw: real,
+        sources: ['supabase'],
+        hasBackend: true,
+        error: null,
+        strictFilter: true,
+      }
+    }
+  }
+
+  const apiResult = await fetchJobsFromApi({ limit: MAX_LIVE_ROWS })
+  if (apiResult.items.length && !apiResult.degraded) {
+    return {
+      raw: apiResult.items.filter((r) => r.status !== 'draft'),
+      sources: ['api'],
+      hasBackend: true,
+      error: null,
+      strictFilter: true,
+    }
+  }
+
+  const jsonRows = await fetchJobsFromJson()
+  if (jsonRows.length) {
+    return {
+      raw: jsonRows.slice(0, JSON_CAP).filter((r) => !r.status || r.status !== 'draft'),
+      sources: ['official-sites'],
+      hasBackend: true,
+      error: apiResult.degraded ? 'Job database temporarily unavailable' : null,
+      strictFilter: false,
+    }
+  }
+
+  if (apiResult.degraded) {
+    return { raw: [], sources: ['static'], hasBackend: false, error: 'Job database temporarily unavailable', strictFilter: false }
+  }
+
+  return { raw: [], sources: ['static'], hasBackend: false, error: null, strictFilter: false }
+}
+
 export function useLiveJobs() {
-  const [liveRows, setLiveRows] = useState([])
-  const [sources, setSources] = useState(['static'])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [liveRows, setLiveRows] = useState(CACHE?.rows || [])
+  const [sources, setSources] = useState(CACHE?.sources || ['static'])
+  const [loading, setLoading] = useState(!CACHE)
+  const [error, setError] = useState(CACHE?.error || null)
+  const [hasBackend, setHasBackend] = useState(Boolean(CACHE?.hasBackend))
 
   useEffect(() => {
     let cancelled = false
 
     ;(async () => {
+      if (CACHE?.rows) {
+        setLiveRows(CACHE.rows)
+        setSources(CACHE.sources)
+        setHasBackend(CACHE.hasBackend)
+        setError(CACHE.error)
+        setLoading(false)
+        return
+      }
+
       setLoading(true)
       setError(null)
       try {
-        const [apiResult, jsonRows, supaRows] = await Promise.all([
-          fetchJobsFromApi({ limit: 1000 }),
-          fetchJobsFromJson(),
-          isSupabaseConfigured() ? fetchJobsFromSupabase() : Promise.resolve([]),
-        ])
-
-        const apiRows = apiResult.items
-        const active = []
-        const liveRaw = []
-        let loadError = null
-
-        if (apiResult.degraded) {
-          loadError = 'Job database temporarily unavailable'
+        if (!INFLIGHT) {
+          INFLIGHT = loadJobsPayload().finally(() => {
+            INFLIGHT = null
+          })
         }
+        const payload = await INFLIGHT
+        const rows = dedupeLiveRows(payload.raw, { strictFilter: payload.strictFilter }).map(adaptLiveJob)
 
-        if (supaRows.length) {
-          active.push('supabase')
-          const real = supaRows.filter(
-            (r) =>
-              !DEMO_SLUG_PREFIX.test(String(r.slug || '')) &&
-              (r.detail?.source || '') !== 'demo'
-          )
-          liveRaw.push(...(real.length ? real : supaRows))
+        CACHE = {
+          rows,
+          sources: payload.sources,
+          hasBackend: payload.hasBackend,
+          error: payload.error,
         }
-        if (apiRows.length) {
-          active.push('api')
-          liveRaw.push(...apiRows.filter((r) => r.status !== 'draft'))
-        }
-        if (jsonRows.length) {
-          active.push('official-sites')
-          liveRaw.push(...jsonRows.filter((r) => !r.status || r.status !== 'draft'))
-        }
-        if (!active.length) active.push('static')
-
-        const fromBackend = active.includes('supabase') || active.includes('api')
-        const rows = dedupeLiveRows(liveRaw, { strictFilter: !fromBackend }).map(adaptLiveJob)
 
         if (!cancelled) {
           setLiveRows(rows)
-          setSources(active)
-          if (loadError) setError(loadError)
+          setSources(payload.sources)
+          setHasBackend(payload.hasBackend)
+          if (payload.error) setError(payload.error)
         }
       } catch (e) {
         if (!cancelled) setError(e?.message || 'Failed to load live jobs')
@@ -161,7 +197,6 @@ export function useLiveJobs() {
     }
   }, [])
 
-  const hasBackend = sources.includes('api') || sources.includes('supabase')
   const displayJobs = useMemo(() => {
     const adapted = filterDisplayJobs(liveRows)
     if (hasBackend && adapted.length > 0) return adapted

@@ -79,6 +79,8 @@ export function normalizeIsoDate(value) {
   return d.toISOString().slice(0, 10);
 }
 
+import { resolveJobQualification } from '@/utils/jobQualification'
+
 /** Merge DB fields with title/detail fallbacks for display. */
 export function enrichJobMetadata(job) {
   const title = job?.title || '';
@@ -107,14 +109,20 @@ export function enrichJobMetadata(job) {
     normalizeIsoDate(job?.detail?.published) ||
     null;
 
+  const qualResolved = resolveJobQualification(job)
+
   return {
     ...job,
     vacancies,
     lastDate: lastDate || '—',
     publishedDate,
+    qual: qualResolved.label || job?.qual || 'See notification',
+    eduFilterKey: qualResolved.key || job?.eduFilterKey || null,
+    _enriched: true,
     _metaFromTitle: Boolean(
       (!Number(job?.vacancies) && vacancies > 0) ||
-        ((job?.lastDate === '—' || !job?.lastDate) && lastDate && lastDate !== '—')
+        ((job?.lastDate === '—' || !job?.lastDate) && lastDate && lastDate !== '—') ||
+        qualResolved.key
     ),
   };
 }

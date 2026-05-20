@@ -65,10 +65,11 @@ export async function fetchJobsFromApi(params?: {
 
 export async function fetchJobsFromJson(): Promise<ApiJob[]> {
   try {
-    const res = await fetch('/data/live-jobs.json', { cache: 'no-store' })
+    const res = await fetch('/data/live-jobs.json')
     if (!res.ok) return []
     const json = await res.json()
-    return Array.isArray(json.items) ? json.items : []
+    const items = Array.isArray(json.items) ? json.items : []
+    return items.slice(0, 800)
   } catch {
     return []
   }

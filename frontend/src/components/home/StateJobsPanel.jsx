@@ -9,6 +9,8 @@ export default function StateJobsPanel({
   sort,
   onSortChange,
   onJobClick,
+  onEducationClick,
+  onStateClick,
 }) {
   const { t } = useTranslation();
   const stateVac = stateJobs.reduce((s, j) => s + (Number(j.vacancies) || 0), 0);
@@ -59,7 +61,14 @@ export default function StateJobsPanel({
         ) : (
           <div className="state-jobs-panel__list">
             {stateJobs.map((job) => (
-              <JobCard key={job.id} job={job} compact onClick={() => onJobClick(job)} />
+              <JobCard
+                key={job.id}
+                job={job}
+                compact
+                onClick={() => onJobClick(job)}
+                onEducationClick={onEducationClick}
+                onStateClick={onStateClick}
+              />
             ))}
           </div>
         )}
@@ -76,7 +85,14 @@ export default function StateJobsPanel({
             </p>
             <div className="state-jobs-panel__list">
               {nationwideJobs.map((job) => (
-                <JobCard key={`nw-${job.id}`} job={job} compact onClick={() => onJobClick(job)} />
+                <JobCard
+                  key={`nw-${job.id}`}
+                  job={job}
+                  compact
+                  onClick={() => onJobClick(job)}
+                  onEducationClick={onEducationClick}
+                  onStateClick={onStateClick}
+                />
               ))}
             </div>
           </>

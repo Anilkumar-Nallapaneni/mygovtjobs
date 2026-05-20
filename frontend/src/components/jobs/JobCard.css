@@ -215,6 +215,17 @@
   max-width: 100%;
 }
 
+.job-card__chip--link {
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+}
+
+.job-card__chip--link:hover {
+  border-color: var(--ds-accentBorder);
+  color: var(--ds-saffron);
+  background: var(--ds-accentSoft);
+}
+
 .job-card__footer {
   display: flex;
   justify-content: space-between;

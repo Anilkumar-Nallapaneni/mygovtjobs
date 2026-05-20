@@ -18,10 +18,10 @@ function formatDate(value, locale) {
   });
 }
 
-export default function JobCard({ job, onClick, compact = false }) {
+export default function JobCard({ job, onClick, compact = false, onEducationClick, onStateClick }) {
   const { t, i18n } = useTranslation();
   const dateLocale = i18n.language === "en" ? "en-IN" : i18n.language;
-  const enriched = useMemo(() => enrichJobMetadata(job), [job]);
+  const enriched = useMemo(() => (job?._enriched ? job : enrichJobMetadata(job)), [job]);
 
   const title = String(enriched?.title || "").trim() || t("job.untitled", { defaultValue: "Government recruitment" });
   const dept = String(enriched?.dept || "").trim() || t("job.officialSource", { defaultValue: "Official notification" });
@@ -54,10 +54,20 @@ export default function JobCard({ job, onClick, compact = false }) {
   const catColor = (CATS.find((c) => c.id === catId) || { color: DS.saffron }).color;
 
   const meta = [
-    { icon: "📍", value: enriched?.state || "All India" },
-    { icon: "🎓", value: enriched?.qual || "As per notification" },
-    { icon: "💰", value: enriched?.salary && enriched.salary !== "—" ? enriched.salary : null },
-  ].filter((m) => m.value);
+    {
+      icon: "📍",
+      value: enriched?.state || "All India",
+      kind: "state",
+      stateId: enriched?.stateIds?.[0],
+    },
+    {
+      icon: "🎓",
+      value: enriched?.qual || t("job.qualSeeNotification", { defaultValue: "See notification" }),
+      kind: "education",
+      eduKey: enriched?.eduFilterKey,
+    },
+    { icon: "💰", value: enriched?.salary && enriched.salary !== "—" ? enriched.salary : null, kind: "salary" },
+  ].filter((m) => m.value && (m.kind === "education" || (m.value !== "—" && m.value !== "See notification")));
 
   return (
     <article
@@ -133,11 +143,28 @@ export default function JobCard({ job, onClick, compact = false }) {
       </div>
 
       <div className="job-card__meta">
-        {meta.map(({ icon, value }) => (
-          <span key={`${icon}-${value}`} className="job-card__chip" title={value}>
-            {icon} {value}
-          </span>
-        ))}
+        {meta.map(({ icon, value, kind, stateId, eduKey }) => {
+          const canState = kind === "state" && stateId && stateId !== "all" && onStateClick;
+          const canEdu = kind === "education" && eduKey && onEducationClick;
+          const Tag = canState || canEdu ? "button" : "span";
+          const handleChip = (e) => {
+            if (!canState && !canEdu) return;
+            e.stopPropagation();
+            if (canState) onStateClick(stateId);
+            else if (canEdu) onEducationClick(eduKey);
+          };
+          return (
+            <Tag
+              key={`${icon}-${value}`}
+              type={Tag === "button" ? "button" : undefined}
+              className={`job-card__chip${canState || canEdu ? " job-card__chip--link" : ""}`}
+              title={value}
+              onClick={handleChip}
+            >
+              {icon} {value}
+            </Tag>
+          );
+        })}
       </div>
 
       <div className="job-card__footer">

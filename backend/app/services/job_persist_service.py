@@ -28,6 +28,11 @@ def _resolve_state_codes(normalized: dict) -> list[str]:
         return codes
     state_raw = str(normalized.get("state") or "").strip().lower()
     if not state_raw or state_raw in ("all", "all india"):
+        source = str((normalized.get("detail") or {}).get("source") or normalized.get("source") or "")
+        if source.startswith("psc-"):
+            code = source[4:8]
+            if code and code not in ("all", "india"):
+                return [code]
         return []
     return [state_raw[:8]]
 

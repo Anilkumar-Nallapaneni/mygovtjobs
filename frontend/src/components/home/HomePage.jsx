@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
@@ -6,6 +6,8 @@ import { CATS } from "@/data/categories";
 import { ALL_JOBS } from "@/data/jobs";
 import { jobMatchesNationwideFilter, jobMatchesStateFilter } from "@/data/jobRegion";
 import { jobMatchesSearch } from "@/utils/jobSearch";
+import { scrollToSection } from "@/utils/scrollToSection";
+import { resolveJobQualification } from "@/utils/jobQualification";
 import { IndiaMap as IndiaSvgMap } from "@/components/Maps";
 import StateStrip from "@/components/jobs/StateStrip";
 import CategoryGrid from "@/components/jobs/CategoryGrid";
@@ -53,7 +55,11 @@ export default function HomePage({
   setSelectedState,
   activeCat,
   setActiveCat,
+  quickFilter,
+  setQuickFilter,
+  onBrowseJobs,
   stateCounts,
+  categoryCounts,
   onJobClick,
   search,
   setSearch,
@@ -65,10 +71,60 @@ export default function HomePage({
   const { t } = useTranslation();
   const [sort, setSort] = useState("lastDate");
   const [showAll, setShowAll] = useState(true);
-  /** Quick qualification / sector pills — filter job list (All India or state). */
-  const [quickFilter, setQuickFilter] = useState(null);
   /** Selected item in the left notifications sidebar (purely visual for now). */
   const [sidebarKey, setSidebarKey] = useState(null);
+
+  const browseToJobs = useCallback(() => {
+    setShowAll(true);
+    onBrowseJobs?.();
+    const target = selectedState && !search.trim() ? "state-jobs-panel" : "main-jobs";
+    scrollToSection(target);
+  }, [onBrowseJobs, selectedState, search]);
+
+  const handleQuickFilterClick = useCallback(
+    (key) => {
+      const next = quickFilter === key ? null : key;
+      setQuickFilter(next);
+      if (next) browseToJobs();
+    },
+    [quickFilter, setQuickFilter, browseToJobs]
+  );
+
+  const handleCategorySelect = useCallback(
+    (catId) => {
+      const next = activeCat === catId ? null : catId;
+      setActiveCat(next);
+      if (next) browseToJobs();
+    },
+    [activeCat, setActiveCat, browseToJobs]
+  );
+
+  const handleStateSelect = useCallback(
+    (stateId) => {
+      setSelectedState(stateId);
+      if (stateId) {
+        setShowAll(true);
+        onBrowseJobs?.();
+        scrollToSection("state-jobs-panel");
+      }
+    },
+    [setSelectedState, onBrowseJobs]
+  );
+
+  const handleEducationFromCard = useCallback(
+    (eduKey) => {
+      setQuickFilter(eduKey);
+      setShowAll(true);
+      onBrowseJobs?.();
+      scrollToSection(selectedState && !search.trim() ? "state-jobs-panel" : "main-jobs");
+    },
+    [setQuickFilter, onBrowseJobs, selectedState, search]
+  );
+
+  const jobCardFilterProps = {
+    onEducationClick: handleEducationFromCard,
+    onStateClick: handleStateSelect,
+  };
 
   const handleSidebarSelect = (key) => {
     setSidebarKey((prev) => (prev === key ? null : key));
@@ -78,7 +134,7 @@ export default function HomePage({
   const effectiveTopicKey = headlinesTopicKey ?? sidebarKey;
 
   useEffect(() => {
-    if (search.trim()) {
+    if (search.trim() || activeCat || quickFilter) {
       setShowAll(true);
     } else {
       setShowAll(false);
@@ -103,7 +159,12 @@ export default function HomePage({
     if (activeCat) j = j.filter((x) => x.category === activeCat);
 
     if (quickFilter) {
-      j = j.filter((x) => jobMatchesQuickFilter(x, quickFilter));
+      j = j.filter((x) => {
+        if (x.eduFilterKey === quickFilter) return true;
+        const q = resolveJobQualification(x);
+        if (q.key === quickFilter) return true;
+        return jobMatchesQuickFilter(x, quickFilter);
+      });
     }
 
     if (sort === "vacancies") j.sort((a, b) => b.vacancies - a.vacancies);
@@ -140,11 +201,9 @@ export default function HomePage({
   const hotNewCount = jobs.filter((j) => j.status === "hot" || j.status === "new").length;
   const stateName = selectedState ? STATES.find((s) => s.id === selectedState)?.n : "";
   const stateFilteredVac = selectedState ? filtered.reduce((s, j) => s + j.vacancies, 0) : 0;
+  const stateFilteredCount = selectedState ? filtered.length : 0;
 
-  const categoryCounts = useMemo(
-    () => Object.fromEntries(CATS.map((c) => [c.id, jobs.filter((j) => j.category === c.id).reduce((s, j) => s + j.vacancies, 0)])),
-    [jobs]
-  );
+  const categoryCountsResolved = categoryCounts ?? Object.fromEntries(CATS.map((c) => [c.id, 0]));
 
   return (
     <div>
@@ -168,7 +227,7 @@ export default function HomePage({
             overflowX: "auto",
           }}
         >
-          <StateStrip variant="subheader" selected={selectedState} onSelect={setSelectedState} stateCounts={stateCounts} />
+          <StateStrip variant="subheader" selected={selectedState} onSelect={handleStateSelect} stateCounts={stateCounts} />
         </div>
       </div>
 
@@ -213,7 +272,7 @@ export default function HomePage({
                   <button
                     key={f}
                     type="button"
-                    onClick={() => setQuickFilter((prev) => (prev === f ? null : f))}
+                    onClick={() => handleQuickFilterClick(f)}
                     style={{
                       background: on ? DS.accentSoft : DS.bg2,
                       border: `1px solid ${on ? DS.accentBorderHi : DS.border}`,
@@ -279,7 +338,7 @@ export default function HomePage({
                       {stateFilteredVac.toLocaleString("en-IN")}
                     </div>
                     <div style={{ fontSize: 9.5, color: DS.muted }}>{t("home.vacanciesFiltered")}</div>
-                    <div style={{ fontSize: 9, color: DS.muted, marginTop: 2 }}>{t("home.listing", { count: filtered.length })}</div>
+                    <div style={{ fontSize: 9, color: DS.muted, marginTop: 2 }}>{t("home.listing", { count: stateFilteredCount })}</div>
                   </div>
                 </div>
               )}
@@ -290,7 +349,7 @@ export default function HomePage({
                   selectionSyncKey={selectedState ?? ""}
                   onStateClick={(svgId) => {
                     const matched = STATES.find((state) => toSvgStateId(state.id) === svgId);
-                    setSelectedState(matched ? matched.id : null);
+                    handleStateSelect(matched ? matched.id : null);
                   }}
                 />
               </div>
@@ -383,7 +442,7 @@ export default function HomePage({
                           <button
                             key={f}
                             type="button"
-                            onClick={() => setQuickFilter((prev) => (prev === f ? null : f))}
+                            onClick={() => handleQuickFilterClick(f)}
                             style={{
                               background: on ? DS.accentSoft : DS.bg2,
                               border: `1px solid ${on ? DS.accentBorderHi : DS.border}`,
@@ -405,7 +464,7 @@ export default function HomePage({
                   </div>
 
                   <div style={{ marginTop: 10 }}>
-                    <CategoryGrid activeCat={activeCat} setActiveCat={setActiveCat} counts={categoryCounts} />
+                    <CategoryGrid activeCat={activeCat} onSelectCategory={handleCategorySelect} counts={categoryCountsResolved} />
                   </div>
                 </div>
               </>
@@ -417,6 +476,7 @@ export default function HomePage({
                 sort={sort}
                 onSortChange={setSort}
                 onJobClick={onJobClick}
+                {...jobCardFilterProps}
               />
             )}
           </div>
@@ -531,7 +591,7 @@ export default function HomePage({
             <>
               <div className="home-jobs-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 {displayed.map((job) => (
-                  <JobCard key={job.id} job={job} onClick={() => onJobClick(job)} />
+                  <JobCard key={job.id} job={job} onClick={() => onJobClick(job)} {...jobCardFilterProps} />
                 ))}
               </div>
               {!showAll && filtered.length > INITIAL_JOB_LIMIT && (
