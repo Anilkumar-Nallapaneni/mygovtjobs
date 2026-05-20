@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T10:37:19.613693+00:00",
+  "generatedAt": "2026-05-20T10:44:33.449904+00:00",
   "items": [
     {
       "id": "40adf356-73f2-4171-a73c-a798c6a50fb2",
@@ -51,81 +51,6 @@
       }
     },
     {
-      "id": "148f4cb7-f9eb-4752-b5ab-9343f7a01291",
-      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-4a44745a",
-      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
-      "dept": "www.esic.gov.in",
-      "category": "health",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
-      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
-      "status": "live",
-      "published_at": "2026-05-22T00:00:00Z",
-      "detail": {
-        "source": "esic",
-        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
-        "pdf_urls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf"
-        ],
-        "published": "2026-05-22T00:00:00+00:00"
-      }
-    },
-    {
-      "id": "3f0164c7-c8ac-402f-adca-d27253c9c8b3",
-      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-ac3cec9a",
-      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
-      "dept": "www.esic.gov.in",
-      "category": "health",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
-      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
-      "status": "live",
-      "published_at": "2026-05-22T00:00:00Z",
-      "detail": {
-        "source": "esic",
-        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
-        "pdf_urls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf"
-        ],
-        "published": "2026-05-22T00:00:00+00:00"
-      }
-    },
-    {
-      "id": "7c9ee21d-f482-4688-abe9-9e1c7d852fe5",
-      "slug": "application-form-pdfsize-393-23-kb-bff1ae98",
-      "title": "Application Form- PDFsize:(393.23 KB) .",
-      "dept": "www.esic.gov.in",
-      "category": "health",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf",
-      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf",
-      "status": "live",
-      "published_at": "2026-05-22T00:00:00Z",
-      "detail": {
-        "source": "esic",
-        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf",
-        "pdf_urls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf"
-        ],
-        "published": "2026-05-22T00:00:00+00:00"
-      }
-    },
-    {
       "id": "75e97445-a5da-443d-a05c-24280f94c7b4",
       "slug": "advertisement-for-senior-resident-interview-broad-specialty-dated-22-05-2026-pdf-812ed852",
       "title": "Advertisement for senior resident interview (broad specialty) dated 22.05 2026- PDFsize:(2.53 MB) .",
@@ -173,6 +98,81 @@
       }
     },
     {
+      "id": "148f4cb7-f9eb-4752-b5ab-9343f7a01291",
+      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-4a44745a",
+      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
+      "dept": "www.esic.gov.in",
+      "category": "health",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
+      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
+      "status": "live",
+      "published_at": "2026-05-22T00:00:00Z",
+      "detail": {
+        "source": "esic",
+        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
+        "pdf_urls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf"
+        ],
+        "published": "2026-05-22T00:00:00+00:00"
+      }
+    },
+    {
+      "id": "7c9ee21d-f482-4688-abe9-9e1c7d852fe5",
+      "slug": "application-form-pdfsize-393-23-kb-bff1ae98",
+      "title": "Application Form- PDFsize:(393.23 KB) .",
+      "dept": "www.esic.gov.in",
+      "category": "health",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf",
+      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf",
+      "status": "live",
+      "published_at": "2026-05-22T00:00:00Z",
+      "detail": {
+        "source": "esic",
+        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf",
+        "pdf_urls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf"
+        ],
+        "published": "2026-05-22T00:00:00+00:00"
+      }
+    },
+    {
+      "id": "3f0164c7-c8ac-402f-adca-d27253c9c8b3",
+      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-ac3cec9a",
+      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
+      "dept": "www.esic.gov.in",
+      "category": "health",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
+      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
+      "status": "live",
+      "published_at": "2026-05-22T00:00:00Z",
+      "detail": {
+        "source": "esic",
+        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
+        "pdf_urls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf"
+        ],
+        "published": "2026-05-22T00:00:00+00:00"
+      }
+    },
+    {
       "id": "50db7cdd-2a60-4549-b986-a3fc6c945ead",
       "slug": "walk-in-interview-on-21-05-2026-for-teaching-faculty-super-specialty-department--51a25932",
       "title": "Walk-in Interview on 21.05.2026 for Teaching Faculty (Super Specialty Department) on Contract Basis at ESIC Medical College & Hospital, Faridabad",
@@ -196,6 +196,650 @@
         ],
         "published": "2026-05-21T00:00:00+00:00",
         "notification_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf"
+      }
+    },
+    {
+      "id": "6e9e4bac-0f1a-438b-8fd5-0f18bd9a0aea",
+      "slug": "examination-calendar-active-examinations-forthcoming-examinations-previous-quest-14677395",
+      "title": "Examination Calendar Active Examinations Forthcoming Examinations Previous Question Papers Cut-off Marks Answer Keys Mar",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/Common_Mistake_OMR_SAL.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:44:04.427472Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/Common_Mistake_OMR_SAL.pdf",
+        "summary": "COMMON MISTAKES DONE WHILE FILLING OMR SHEET/SCANNABLE ATTENDANCE LIST OMR SHEET ERROR : Candidateencoded ‘C’ insteadof ‘A’MISTAKES IN OMR SHEET (1) ENCODING BOOKLET SERIES BY CANDIDATE (Series ‘A’ served to candidate) ERROR : Encoding notdone by candidateMISTAKES IN OMR SHEET (1) ENCODING BOOKLET SERIES BY CANDIDATE contd. (Series ‘A’ served to candidate) ERROR : Wrongencoding of SubjectCode and RollNumber.MISTAKES IN OMR SHEET (2) ENCODING SUBJECT CODE AND ROLL NUMBER Error: Markings/Writings on prohibited areaMISTAKES IN OMR SHEET (3) MARKING ON AREAS MISTAKES IN OMR SHEET (4) ENCODING OF R",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/Common_Mistake_OMR_SAL.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/"
+      }
+    },
+    {
+      "id": "379db3b3-69d4-4d14-b594-fbc16d65dfe7",
+      "slug": "addendum-notice-04-posts-of-homoeopathic-physician-in-ndmc-1a2c99cb",
+      "title": "Addendum Notice: 04 Posts of Homoeopathic Physician in NDMC",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 4,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/04 Posts of Homoeopathic Physician in NDMC/Addendum Notice",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RTAndmNotice-04-HomeoPhyscnNDMC-Engl-070426.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:43:12.403106Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RTAndmNotice-04-HomeoPhyscnNDMC-Engl-070426.pdf",
+        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Recruitment Test for Recruitment to Four vacancies for the post of Homoeopathic Physician in New Delhi Municipal Council. (UR -01, OBC-02, ST-01). [Advt. No. 07/2025, Vacancy No. 25060752114] ******** The Commission has decided to conduct an Offline Pen and Paper Based RECRUITMENT TEST for short -listing the candidates for the above mentioned posts on 06.06.2026 (Forenoon Session from 09.30 A.M. to 11.30 A.M.) Only those candidates shortlisted in the RT and who fulfill all the eligibility conditions of the post shall be c",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RTAndmNotice-04-HomeoPhyscnNDMC-Engl-070426.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/04 Posts of Homoeopathic Physician in NDMC/Addendum Notice"
+      }
+    },
+    {
+      "id": "d96fbcdd-76da-4767-8638-5d4a66befcd8",
+      "slug": "addendum-notice-08-posts-of-administrative-officer-grade-i-ministry-of-defence-869a03f4",
+      "title": "Addendum Notice: 08 Posts of Administrative Officer Grade - I, Ministry of Defence",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 8,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/08 Posts of Administrative Officer Grade - I, Ministry of Defence/Addendum Notice",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:43:09.600900Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426.pdf",
+        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Combined Recruitment Test for recruitment to: 1. Recruitment to Eight vacancies for the post of Administrative Officer Grade -I, Naval Headquarters, Directorate of Civilian Personnel, Ministry of Defence. (UR-04, EWS-01, OBC-02, SC-01) .[Advt. No. 08/2025, Vacancy No. 25060803428] 2. Recruitment to Nineteen vacancies for the post of Manager Grade –I / Section Officer in Canteen Stores Department, Ministry of Defence. (UR -07, EWS -03, OBC -04, SC -03, ST -02). [Advt. No. 08/2025, Vacancy No. 25060805428] 3. Recruitment to",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/08 Posts of Administrative Officer Grade - I, Ministry of Defence/Addendum Notice"
+      }
+    },
+    {
+      "id": "45fe2829-71b9-4a5d-a508-c48149215c6c",
+      "slug": "addendum-notice-19-posts-of-manager-grade-i-section-officer-ministry-of-defence-7d1e8bd5",
+      "title": "Addendum Notice: 19 Posts of Manager Grade - I - Section Officer, Ministry of Defence",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 19,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/19 Posts of Manager Grade - I - Section Officer, Ministry of Defence/Addendum Notice",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_0.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:43:06.698529Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_0.pdf",
+        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Combined Recruitment Test for recruitment to: 1. Recruitment to Eight vacancies for the post of Administrative Officer Grade -I, Naval Headquarters, Directorate of Civilian Personnel, Ministry of Defence. (UR-04, EWS-01, OBC-02, SC-01) .[Advt. No. 08/2025, Vacancy No. 25060803428] 2. Recruitment to Nineteen vacancies for the post of Manager Grade –I / Section Officer in Canteen Stores Department, Ministry of Defence. (UR -07, EWS -03, OBC -04, SC -03, ST -02). [Advt. No. 08/2025, Vacancy No. 25060805428] 3. Recruitment to",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_0.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/19 Posts of Manager Grade - I - Section Officer, Ministry of Defence/Addendum Notice"
+      }
+    },
+    {
+      "id": "3a15d795-627e-446e-8f83-462aeba7e1c4",
+      "slug": "addendum-notice-32-posts-of-accounts-officer-administration-of-union-territory-o-a9e9dd77",
+      "title": "Addendum Notice: 32 Posts of Accounts Officer, Administration of Union Territory of Ladakh",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 32,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/32 Posts of Accounts Officer, Administration of Union Territory of Ladakh/Addendum Notice",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_1.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:43:03.642244Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_1.pdf",
+        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Combined Recruitment Test for recruitment to: 1. Recruitment to Eight vacancies for the post of Administrative Officer Grade -I, Naval Headquarters, Directorate of Civilian Personnel, Ministry of Defence. (UR-04, EWS-01, OBC-02, SC-01) .[Advt. No. 08/2025, Vacancy No. 25060803428] 2. Recruitment to Nineteen vacancies for the post of Manager Grade –I / Section Officer in Canteen Stores Department, Ministry of Defence. (UR -07, EWS -03, OBC -04, SC -03, ST -02). [Advt. No. 08/2025, Vacancy No. 25060805428] 3. Recruitment to",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_1.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/32 Posts of Accounts Officer, Administration of Union Territory of Ladakh/Addendum Notice"
+      }
+    },
+    {
+      "id": "9c46377c-4933-4494-ada7-c801a24f17f0",
+      "slug": "notice-05-posts-of-assistant-legal-adviser-ministry-of-finance-85b30350",
+      "title": "Notice: 05 Posts of Assistant Legal Adviser, Ministry of Finance",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 2025,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/05 Posts of Assistant Legal Adviser, Ministry of Finance/Notice",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-05-AssttLegalAdvisor-Engl-070526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:43:00.377885Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-05-AssttLegalAdvisor-Engl-070526.pdf",
+        "summary": "F.1/126(34)/2025-R.II/SPC-II UNION PUBLIC SERVICE COMMISSION SPC-II SECTION IMPORTANT INSTRUCTIONS TO THE CANDIDATES The final status of the candidatures of c andidates shortlisted through RT, along with the modalities adopted in the scrutiny, after consideration of representations, if any, for recruitment to the below mentioned post is as under: Name of the Post Five vacancies for the post of Assistant Legal Advisor in Directorate of Enforcement, Department of Revenue, Ministry of Finance. Advertisement No. 06/2025 Vacancy No. 25050622224 Essential Qualifications and Desirable Qualifications ",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-05-AssttLegalAdvisor-Engl-070526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/05 Posts of Assistant Legal Adviser, Ministry of Finance/Notice"
+      }
+    },
+    {
+      "id": "e91709ad-1112-4dcc-9d3c-e48d5709edc3",
+      "slug": "notice-04-posts-of-assistant-veterinary-surgeon-ndmc-1009b963",
+      "title": "Notice: 04 Posts of Assistant Veterinary Surgeon, NDMC",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 2025,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/04 Posts of Assistant Veterinary Surgeon, NDMC/Notice",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-04-AVS-NDMC-Engl-110526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:42:56.391613Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-04-AVS-NDMC-Engl-110526.pdf",
+        "summary": "F.1/62(03)/2025-R.I/SPC-II UNION PUBLIC SERVICE COMMISSION SPC-II SECTION IMPORTANT INSTRUCTIONS TO THE CANDIDATES The final status of the candidatures of candidates shortlisted through RT, along with the modalities adopted in the scrutiny, after consideration of representations, if any, for recruitment to the below mentioned post is as under: Name of the Post Four vacancies for the post of Assistant Veterinary Surgeon in New Delhi Municipal Council. Advertisemen t No. 08/2025 Vacancy No. 25060841128 Essential Qualifications and Desirable Qualifications EDUCATIONAL: (i) Degree in Veterinary Sc",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-04-AVS-NDMC-Engl-110526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/04 Posts of Assistant Veterinary Surgeon, NDMC/Notice"
+      }
+    },
+    {
+      "id": "642d76ac-04b8-4b68-8557-f0e6704cb83f",
+      "slug": "examination-time-table-indian-economic-service-indian-statistical-service-examin-3924e999",
+      "title": "Examination Time Table: Indian Economic Service - Indian Statistical Service Examination, 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Indian%20Economic%20Service%20-%20Indian%20Statistical%20Service%20Examination%2C%202026/Examination%20Time%20Table",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/TT-IES-ISS-2026-Engl-020426.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:42:06.951389Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/TT-IES-ISS-2026-Engl-020426.pdf",
+        "summary": "Indian Economic Service/Indian Statistical Service Examination, 2026 TIME-TABLE (Indian Standard Time will be observed) Date & Day Subject Time 19.06.2026 (Friday) General English(Descriptive) 9.00 A.M to 12.00 Noon. General Studies(Descriptive) 2.30 P.M to 5.30 P.M. 20.06.2026 (Saturday) General Economics -I (Descriptive) 9.00 A.M to 12.00 Noon. Statistics – I (Objective) 9.00 A.M to 11.00 A.M. General Economics -II (Descriptive) 2.30 P.M to 5.30 P.M. Statistics – II (Objective) 2.30 P.M to 4.30 P.M. 21.06.2026 (Sunday) General Economics -III (Descriptive) 9.00 A.M to 12.00 Noon. Statistics –",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/TT-IES-ISS-2026-Engl-020426.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Indian%20Economic%20Service%20-%20Indian%20Statistical%20Service%20Examination%2C%202026/Examination%20Time%20Table"
+      }
+    },
+    {
+      "id": "6bc5aa5e-6403-4910-89a9-a06ac4a23808",
+      "slug": "examination-time-table-engineering-services-main-examination-2026-2f812575",
+      "title": "Examination Time Table: Engineering Services (Main) Examination, 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Engineering%20Services%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/TT-ESEM-26-Engl-070426.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:42:04.097469Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/TT-ESEM-26-Engl-070426.pdf",
+        "summary": "ENGINEERING SERVICES (MAIN) EXAMINATION, 2026 | TIME —- TABLE (STAGE-II) DATE & DAY TIME : 2 1st June, 2026 (SUNDAY). 02:30 P.M. to 05:30 P.M. ~ SUBJECT 09:00 A.M. CIVIL, MECHANICAL, ELECRTICAL and to ELECTRONICS & TELECOMMUNICATION 12:00 Noon ENGINEERING { DISCIPLINE SPECIFIC PAPER (PAPER-I)} (CONVENTIONAL, 3 hours duration) (300 Marks) CIVIL, MECHANICAL, ELECRTICAL and | ELECTRONICS & TELECOMMUNICATION ENGINEERING { DISCIPLINE SPECIFIC PAPER (PAPER- my (CONVENTIONAL, 3 hours duration) (300 Marks) BRANCH CODES | sumspcr \"CIVIL ENGINEERING CODE NO. | cviL ENGG. PAPER-I (CONV.) 13 | cviL ENGG. ",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/TT-ESEM-26-Engl-070426.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Engineering%20Services%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table"
+      }
+    },
+    {
+      "id": "c664ac4a-7113-494f-8102-6794982eb262",
+      "slug": "interview-schedule-central-armed-police-forces-acs-examination-2025-a937d4be",
+      "title": "Interview Schedule: Central Armed Police Forces (ACs) Examination, 2025",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Central%20Armed%20Police%20Forces%20%28ACs%29%20Examination%2C%202025/Interview%20Schedule",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/Intv-CAPF-2025-EnglRR-210426.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:42:01.026553Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/Intv-CAPF-2025-EnglRR-210426.pdf",
+        "summary": "UNION PUBLIC SERVICE COMMISSION IMPORTANT NOTICE CENTRAL ARMED POLICE FORCES (ASSISTANT COMMANDANTS) EXAMINATION-2025 PERSONALITY TEST **** Dated the 17th April, 2026 On the basis of the written results of the Central Armed Police Forces (Assistant Commandants) Examination, 2025 declared by Union Public Service Commission on 10th October, 2025, the Personality Tests (Interviews) of the Central Armed Police Forces (Assistant Commandants) Examination, 2025 will commence w.e.f. Monday, 04.05.2026. 2. The PT Schedule of 1019 candidates, indicating their Roll No., Date and Session of Interview from",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/Intv-CAPF-2025-EnglRR-210426.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Central%20Armed%20Police%20Forces%20%28ACs%29%20Examination%2C%202025/Interview%20Schedule"
+      }
+    },
+    {
+      "id": "067ca419-7ae6-4856-b90d-a980927b079f",
+      "slug": "written-result-with-name-cisf-ac-exe-ldce-2026-4f7716c0",
+      "title": "Written Result (with name): CISF AC(EXE) LDCE-2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/CISF%20AC%28EXE%29%20LDCE-2026/Written%20Result%20%28with%20name%29",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-CISF-2026-NameList-Engl-210426.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:54.886517Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-CISF-2026-NameList-Engl-210426.pdf",
+        "summary": "UNION PUBLIC SERVICE COMMISSION PRESS NOTE **** CENTRAL INDUSTRIAL SECURITY FORCE ASSISTANT COMMANDANTS (EXECUTIVE) LIMITED DEPARTMENTAL COMPETITIVE EXAMINATION, 2026 On the basis of the results of the written part of CISF AC (Exe.) Limited Departmental Competitive Examination, 2026 held by the UPSC on 08.03.2026, the candidates with the under mentioned Roll Numbers (List enclosed) have qualified provisionally for Physical Standards Tests (PST)/Physical Efficiency Tests (PET) and Medical Standards Tests (MST). 2. The Central Industrial Security Force (CISF) will intimate to the candidates abou",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/WR-CISF-2026-NameList-Engl-210426.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/CISF%20AC%28EXE%29%20LDCE-2026/Written%20Result%20%28with%20name%29"
+      }
+    },
+    {
+      "id": "fd66834c-7d5b-4394-9d96-6e67c95f4032",
+      "slug": "final-result-04-posts-of-ayurvedic-physician-in-ndmc-089ae7c7",
+      "title": "Final Result: 04 Posts of Ayurvedic Physician in NDMC",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 4,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/04 Posts of Ayurvedic Physician in NDMC/Final Result",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-04-AyurvdPhyscnNDMC-Engl-230426.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:49.758022Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-04-AyurvdPhyscnNDMC-Engl-230426.pdf",
+        "summary": "F.1/63(04)/2025-R.I/SPC-I UNION PUBLIC SERVICE COMMISSION DHOLPUR HOUSE, SHAHJAHAN ROAD NEW DELHI – 110069 N O T I C E UNION PUBLIC SERVICE COMMISSION ADVERTISED FOUR POSTS OF AYURVEDIC PHYSICIAN IN NEW DELHI MUNICIPAL C OUNCIL (NDMC) VIDE ADVERTISEMENT NO. 07/2025, VACANCY NO. 25060751114 DATED 14.06.2025. THE COMMISSION HAS RECOMMENDED 04 CANDIDATES AS PER THE LIST ‘ANNEXED’ FOR APPOINTMENT TO THE POST OF AYURVEDIC PHYSICIAN IN NEW DELHI MUNICIPAL CO UNCIL (NDMC), ON THE BASIS OF THE RECRUITMENT TEST HELD ON 02.11.2025 & INTERVIEWS HELD FROM 20.04.2026 TO 21.04.2026. NOTE: THE MARKS OF INTER",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RT-FR-04-AyurvdPhyscnNDMC-Engl-230426.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/04 Posts of Ayurvedic Physician in NDMC/Final Result"
+      }
+    },
+    {
+      "id": "caf55a1e-ac76-489a-95bd-1f7ff83591c1",
+      "slug": "final-result-12-posts-of-assistant-director-grade-i-ieds-hosiery-ministry-of-msm-0b9e18ee",
+      "title": "Final Result: 12 Posts of Assistant Director Grade-I (IEDS) (Hosiery), Ministry of MSME",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 12,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/12 Posts of Assistant Director Grade-I (IEDS) (Hosiery), Ministry of MSME/Final Result",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-12-AsttDirGr-I-IEDS-Hosiery-Engl-050526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:44.731540Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-12-AsttDirGr-I-IEDS-Hosiery-Engl-050526.pdf",
+        "summary": "F.1/217(36)/2025-R.VI/SPC-I UNION PUBLIC SERVICE COMMISSION DHOLPUR HOUSE, SHAHJAHAN ROAD NEW DELHI – 110069 N O T I C E UNION PUBLIC SERVICE COMMISSION ADVERTISED TWELVE POSTS OF ASSISTANT DIRECTOR GRADE-I (IEDS) (HOSIERY) IN OFFICE OF THE DEVELOPMENT COMMISSIONER (MSME), MINISTRY OF MICRO, SMALL AND MEDIUM ENTERPRISES VIDE ADVERTISEMENT NO. 07/2025, VACANCY NO. 25060731614 DATED 14.06.2025. THE COMMISSION HAS RECOMMENDED 11 CANDIDATES AS PER THE LIST ‘ANNEXED’ FOR APPOINTMENT TO THE POST OF ASSISTANT DIRECTOR GRADE -I (IEDS) ( HOSIERY) IN OFFICE OF THE DEVELOPMENT COMMISSIONER (MSME), MINIST",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/RT-FR-12-AsttDirGr-I-IEDS-Hosiery-Engl-050526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/12 Posts of Assistant Director Grade-I (IEDS) (Hosiery), Ministry of MSME/Final Result"
+      }
+    },
+    {
+      "id": "88c4ed83-06bb-473c-87b9-2f3c34d2ea89",
+      "slug": "written-result-national-defence-academy-and-naval-academy-examination-i-2026-142722bc",
+      "title": "Written Result: National Defence Academy and Naval Academy Examination (I), 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-NDA-NA-I-2026-Engl-080526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:39.247302Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-NDA-NA-I-2026-Engl-080526.pdf",
+        "summary": "PRESS NOTE WRITTEN RESULT OF THE NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026 Dated: 08.05.2026 SUBJECT: NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026–DECLARATION OF WRITTEN RESULT THEREOF. On the basis of the result of the written part of the National Defence Academy and Naval Academy Examination (I), 2026 held by the Union Public Service Commission on 12th April, 2026, candidates with the under mentioned Roll Nos. have qualified for interview by the Services Selection Board (SSB) of the Ministry of Defence for Admission to Army, Navy and Air Force Wings",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/WR-RollList-NDA-NA-I-2026-Engl-080526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result"
+      }
+    },
+    {
+      "id": "abf31a1b-ae6c-4f23-9e28-3233c1f64391",
+      "slug": "final-result-indian-forest-service-main-examination-2025-184b59d7",
+      "title": "Final Result: Indian Forest Service (Main) Examination, 2025",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 42,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Final%20Result",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/FR-IFSM-25-Engl-08052026.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:34.996153Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/FR-IFSM-25-Engl-08052026.pdf",
+        "summary": "GOVERNMENT OF INDIA PRESS INFORMATION BUREAU PRESS NOTE INDIAN FOREST SERVICE EXAMINATION, 2025 Based on the result of the written part of the Indian Forest Service Examination, 2025 held by the UNION PUBLIC SERVICE COMMISSION from 16th November to 23rd November, 2025, and the interviews for Personality Test held from 6th April to 15th April, 2026, following is the list, in order of merit, of candidates who have been recommended for appointment to the posts in Indian Forest Service. 2. A total of 148 candidates have been recommended for appointment under different categories as per the followi",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/FR-IFSM-25-Engl-08052026.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Final%20Result"
+      }
+    },
+    {
+      "id": "daa68ecb-4eaf-4743-bcf1-f23df854ed18",
+      "slug": "written-result-combined-defence-services-examination-i-2026-62b5c1b4",
+      "title": "Written Result: Combined Defence Services Examination (I), 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Combined%20Defence%20Services%20Examination%20%28I%29%2C%202026/Written%20Result",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-CDSE-I-2026-Engl-080526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:32.175127Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-CDSE-I-2026-Engl-080526.pdf",
+        "summary": "PRESS NOTE COMBINED DEFENCE SERVICES (I) EXAMINATION, 2026 DECLARATION OF WRITTEN RESULT THEREOF Dated: 8th May, 2026 On the basis of the results of the COMBINED DEFENCE SERVICES EXAMINATION (I), 2026 held by the Union Public Service Commission on 12th April, 2026, 8826 candidates with the following Roll Numbers have qualified for being interviewed by the Service Selection Board of the Ministry of Defence, for admission to (i) Indian Military Academy, Dehradun 162nd (DE) Course commencing in January, 2027 (ii) Indian Naval Academy, Ezhimala, Kerala, Course commencing in January, 2027 (iii) Air",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/WR-RollList-CDSE-I-2026-Engl-080526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Combined%20Defence%20Services%20Examination%20%28I%29%2C%202026/Written%20Result"
+      }
+    },
+    {
+      "id": "8ecb8224-fd57-4675-a738-20889bc695e1",
+      "slug": "examination-time-table-combined-geo-scientist-main-examination-2026-74565164",
+      "title": "Examination Time Table: Combined Geo-Scientist (Main) Examination, 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Combined%20Geo-Scientist%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/TimeTableCGSE-Main-2026-Engl-110526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:24.467307Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/TimeTableCGSE-Main-2026-Engl-110526.pdf",
+        "summary": "COMBINED GEO-SCIENTIST (MAIN) EXAMINATION-2026 Time – Table (Indian standard time will be observed) Date & Day Time Paper Subject Sub. Code No. 20th June,2026 9.00 AM to 12.00 NOON (1) GEOLOGY PAPER-I 12 (SATURDAY) (1) GEOPHYSICS PAPER-I 32 (1) CHEMISTRY PAPER-I 42 20th June,2026 2.30 PM to 5.30 PM (2) GEOLOGY PAPER-II 13 (SATURDAY) (2) GEOPHYSICS PAPER-II 33 (2) CHEMISTRY PAPER-II 43 21st June, 2026 9.00 AM to 12.00 NOON (3) GEOLOGY PAPER-III 14 (SUNDAY) (3) GEOPHYSICS PAPER-III 34 (3) CHEMISTRY PAPER-III 44 21st June,2026 2.30 PM to 5.30 PM (4) HYDROGEOLOGY PAPER 15 (SUNDAY) NOTE-I:- Candida",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/TimeTableCGSE-Main-2026-Engl-110526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Combined%20Geo-Scientist%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table"
+      }
+    },
+    {
+      "id": "1f3da7ef-2f7a-4ca6-be7a-2f8671e5ee56",
+      "slug": "written-result-with-name-national-defence-academy-and-naval-academy-examination--224e1fce",
+      "title": "Written Result (with name): National Defence Academy and Naval Academy Examination (I), 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result%20%28with%20name%29",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-NameList-NDA-NA-I-2026-Engl-130526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:21.261020Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-NameList-NDA-NA-I-2026-Engl-130526.pdf",
+        "summary": "PRESS NOTE WRITTEN RESULT OF THE NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026 Dated: 08.05.2026 SUBJECT: NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026–DECLARATION OF WRITTEN RESULT THEREOF. On the basis of the result of the written part of the National Defence Academy and Naval Academy Examination (I), 2026 held by the Union Public Service Commission on 12th April, 2026, candidates with the under mentioned Roll Nos. have qualified for interview by the Services Selection Board (SSB) of the Ministry of Defence for Admission to Army, Navy and Air Force Wings",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/WR-NameList-NDA-NA-I-2026-Engl-130526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result%20%28with%20name%29"
+      }
+    },
+    {
+      "id": "bec6128a-9634-4c4a-ad3e-dee51f4b5103",
+      "slug": "marks-of-recommended-candidates-indian-forest-service-main-examination-2025-c0539454",
+      "title": "Marks of Recommended Candidates: Indian Forest Service (Main) Examination, 2025",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Marks%20of%20Recommended%20Candidates",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/MksRcdCndts-IFSM-25-Engl-140526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:12.951079Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/MksRcdCndts-IFSM-25-Engl-140526.pdf",
+        "summary": "INDIAN FOREST SERVICE (MAIN) EXAMINATION,2025 RECOMMENDED CANDIDATES ________________________________________________________________________________________________________________________________________ WRT SR.NO. NAME ROLL NO PT FIN PwBD COMM TOT MKS TOT (1400) (300) (1700) ____________________________________________________________________________________________________________________________________ _________________________________________________________________________________________________________________________________ 1 BASAVARAJ KEMPAWAD 0332660 824 222 1046 OBC 2 ANSHUMAN K",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/MksRcdCndts-IFSM-25-Engl-140526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Marks%20of%20Recommended%20Candidates"
+      }
+    },
+    {
+      "id": "864d671b-2f7a-4e66-9e94-7969ea93e565",
+      "slug": "examination-time-table-combined-medical-services-examination-2026-6ed8266d",
+      "title": "Examination Time Table: Combined Medical Services Examination, 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Combined%20Medical%20Services%20Examination%2C%202026/Examination%20Time%20Table",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:10.435516Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf",
+        "summary": "Combined Medical Services Examination, 2026 – Time Table (Indian Standard Time will be observed) Date and Day Time Subject 02nd August, 2026 (Sunday) Paper – I (Code No. 1) 9:30 AM to 11:30 AM General Medicine and Paediatrics Paper – II (Code No. 2) 2:00 PM to 4:00 PM (a)Surgery (b)Gynaecology & Obstetrics (c)Preventive & Social Medicine",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Combined%20Medical%20Services%20Examination%2C%202026/Examination%20Time%20Table"
+      }
+    },
+    {
+      "id": "62a5e8fd-d719-4279-8029-06bdf7dd19a2",
+      "slug": "e-admit-card-civil-services-preliminary-examination-2026-2d44301d",
+      "title": "e - Admit Card: Civil Services (Preliminary) Examination, 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/e%20-%20Admit%20Card",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-20T10:41:06.759889Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/e%20-%20Admit%20Card"
+      }
+    },
+    {
+      "id": "b25d267e-1e9a-48d6-941a-06cb2e4fc7b9",
+      "slug": "press-note-civil-services-preliminary-examination-2026-61dea788",
+      "title": "Press Note: Civil Services (Preliminary) Examination, 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/Press%20Note",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/Press_Note_CSPE_2026_Eng_15052026.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:04.814808Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/Press_Note_CSPE_2026_Eng_15052026.pdf",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/Press_Note_CSPE_2026_Eng_15052026.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/Press%20Note"
+      }
+    },
+    {
+      "id": "fbd381d6-6a47-4206-a18f-04b2281d9e3f",
+      "slug": "written-result-with-name-combined-defence-services-examination-i-2026-dbdf6563",
+      "title": "Written Result (with name): Combined Defence Services Examination (I), 2026",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/whats-new/Combined%20Defence%20Services%20Examination%20%28I%29%2C%202026/Written%20Result%20%28with%20name%29",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-NameList-CDS-I-26-Engl-200526.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:41:01.811904Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-NameList-CDS-I-26-Engl-200526.pdf",
+        "summary": "PRESS NOTE COMBINED DEFENCE SERVICES (I) EXAMINATION, 2026 DECLARATION OF WRITTEN RESULT THEREOF Dated: 8th May, 2026 On the basis of the results of the COMBINED DEFENCE SERVICES EXAMINATION (I), 2026 held by the Union Public Service Commission on 12th April, 2026, 8826 candidates with the following Roll Numbers have qualified for being interviewed by the Service Selection Board of the Ministry of Defence, for admission to (i) Indian Military Academy, Dehradun 162nd (DE) Course commencing in January, 2027 (ii) Indian Naval Academy, Ezhimala, Kerala, Course commencing in January, 2027 (iii) Air",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/WR-NameList-CDS-I-26-Engl-200526.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/whats-new/Combined%20Defence%20Services%20Examination%20%28I%29%2C%202026/Written%20Result%20%28with%20name%29"
+      }
+    },
+    {
+      "id": "afc1bb8c-1381-4ec5-9196-531a0011b1d9",
+      "slug": "recruitment-cases-kept-on-hold-on-account-of-pending-litigations-6bd0f709",
+      "title": "Recruitment cases kept on hold on account of Pending Litigations",
+      "dept": "Union Public Service Commission (UPSC)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 7,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://upsc.gov.in/recruitment/recruitment-cases-kept-hold-account-pending-litigations",
+      "pdf_url": "https://upsc.gov.in/sites/default/files/Rectt_PendingLitigation_Eng_171225.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T10:40:48.434105Z",
+      "detail": {
+        "source": "upsc",
+        "pdf_url": "https://upsc.gov.in/sites/default/files/Rectt_PendingLitigation_Eng_171225.pdf",
+        "summary": "Union Public Service Commission Recruitment Branch *** Recruitment Cases kept on hold on account of pending litigation Sl. No. File No. Subject No. of Posts 1. F.1/70(12)/2021-R.1 Assistant Professor (Unani), IlmulAdvia, Government of NCT of Delhi 01 2. F.1/78(20)/2021-R.1 Assistant Professor (Unani), Qabalatwa Amraze Niswan, Government of NCT of Delhi 02 3. F.1/138(39)/2023-R.1 Professor (Pharmacology), Chandigarh Administration 01 4. F.1/109(30)/2024-R.1 Sr. lecturer (Urology) in Chandigarh administration 01 5. F.32/17/2023-R(C&P)/R.IV/T.II Lateral recruitment to 01 UR post of Joint Secretar",
+        "pdf_urls": [
+          "https://upsc.gov.in/sites/default/files/Rectt_PendingLitigation_Eng_171225.pdf"
+        ],
+        "published": null,
+        "notification_url": "https://upsc.gov.in/recruitment/recruitment-cases-kept-hold-account-pending-litigations"
       }
     },
     {
@@ -1087,623 +1731,6 @@
         "pdf_urls": [],
         "published": null,
         "notification_url": "https://www.ibps.in/index.php/services"
-      }
-    },
-    {
-      "id": "6e9e4bac-0f1a-438b-8fd5-0f18bd9a0aea",
-      "slug": "examination-calendar-active-examinations-forthcoming-examinations-previous-quest-14677395",
-      "title": "Examination Calendar Active Examinations Forthcoming Examinations Previous Question Papers Cut-off Marks Answer Keys Mar",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/Common_Mistake_OMR_SAL.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:55:51.961542Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/Common_Mistake_OMR_SAL.pdf",
-        "summary": "COMMON MISTAKES DONE WHILE FILLING OMR SHEET/SCANNABLE ATTENDANCE LIST OMR SHEET ERROR : Candidateencoded ‘C’ insteadof ‘A’MISTAKES IN OMR SHEET (1) ENCODING BOOKLET SERIES BY CANDIDATE (Series ‘A’ served to candidate) ERROR : Encoding notdone by candidateMISTAKES IN OMR SHEET (1) ENCODING BOOKLET SERIES BY CANDIDATE contd. (Series ‘A’ served to candidate) ERROR : Wrongencoding of SubjectCode and RollNumber.MISTAKES IN OMR SHEET (2) ENCODING SUBJECT CODE AND ROLL NUMBER Error: Markings/Writings on prohibited areaMISTAKES IN OMR SHEET (3) MARKING ON AREAS MISTAKES IN OMR SHEET (4) ENCODING OF R",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/Common_Mistake_OMR_SAL.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/"
-      }
-    },
-    {
-      "id": "379db3b3-69d4-4d14-b594-fbc16d65dfe7",
-      "slug": "addendum-notice-04-posts-of-homoeopathic-physician-in-ndmc-1a2c99cb",
-      "title": "Addendum Notice: 04 Posts of Homoeopathic Physician in NDMC",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 4,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/04 Posts of Homoeopathic Physician in NDMC/Addendum Notice",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RTAndmNotice-04-HomeoPhyscnNDMC-Engl-070426.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:54:37.183650Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RTAndmNotice-04-HomeoPhyscnNDMC-Engl-070426.pdf",
-        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Recruitment Test for Recruitment to Four vacancies for the post of Homoeopathic Physician in New Delhi Municipal Council. (UR -01, OBC-02, ST-01). [Advt. No. 07/2025, Vacancy No. 25060752114] ******** The Commission has decided to conduct an Offline Pen and Paper Based RECRUITMENT TEST for short -listing the candidates for the above mentioned posts on 06.06.2026 (Forenoon Session from 09.30 A.M. to 11.30 A.M.) Only those candidates shortlisted in the RT and who fulfill all the eligibility conditions of the post shall be c",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RTAndmNotice-04-HomeoPhyscnNDMC-Engl-070426.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/04 Posts of Homoeopathic Physician in NDMC/Addendum Notice"
-      }
-    },
-    {
-      "id": "d96fbcdd-76da-4767-8638-5d4a66befcd8",
-      "slug": "addendum-notice-08-posts-of-administrative-officer-grade-i-ministry-of-defence-869a03f4",
-      "title": "Addendum Notice: 08 Posts of Administrative Officer Grade - I, Ministry of Defence",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 8,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/08 Posts of Administrative Officer Grade - I, Ministry of Defence/Addendum Notice",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:54:32.692703Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426.pdf",
-        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Combined Recruitment Test for recruitment to: 1. Recruitment to Eight vacancies for the post of Administrative Officer Grade -I, Naval Headquarters, Directorate of Civilian Personnel, Ministry of Defence. (UR-04, EWS-01, OBC-02, SC-01) .[Advt. No. 08/2025, Vacancy No. 25060803428] 2. Recruitment to Nineteen vacancies for the post of Manager Grade –I / Section Officer in Canteen Stores Department, Ministry of Defence. (UR -07, EWS -03, OBC -04, SC -03, ST -02). [Advt. No. 08/2025, Vacancy No. 25060805428] 3. Recruitment to",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/08 Posts of Administrative Officer Grade - I, Ministry of Defence/Addendum Notice"
-      }
-    },
-    {
-      "id": "45fe2829-71b9-4a5d-a508-c48149215c6c",
-      "slug": "addendum-notice-19-posts-of-manager-grade-i-section-officer-ministry-of-defence-7d1e8bd5",
-      "title": "Addendum Notice: 19 Posts of Manager Grade - I - Section Officer, Ministry of Defence",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 19,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/19 Posts of Manager Grade - I - Section Officer, Ministry of Defence/Addendum Notice",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_0.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:54:29.098597Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_0.pdf",
-        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Combined Recruitment Test for recruitment to: 1. Recruitment to Eight vacancies for the post of Administrative Officer Grade -I, Naval Headquarters, Directorate of Civilian Personnel, Ministry of Defence. (UR-04, EWS-01, OBC-02, SC-01) .[Advt. No. 08/2025, Vacancy No. 25060803428] 2. Recruitment to Nineteen vacancies for the post of Manager Grade –I / Section Officer in Canteen Stores Department, Ministry of Defence. (UR -07, EWS -03, OBC -04, SC -03, ST -02). [Advt. No. 08/2025, Vacancy No. 25060805428] 3. Recruitment to",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_0.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/19 Posts of Manager Grade - I - Section Officer, Ministry of Defence/Addendum Notice"
-      }
-    },
-    {
-      "id": "3a15d795-627e-446e-8f83-462aeba7e1c4",
-      "slug": "addendum-notice-32-posts-of-accounts-officer-administration-of-union-territory-o-a9e9dd77",
-      "title": "Addendum Notice: 32 Posts of Accounts Officer, Administration of Union Territory of Ladakh",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 32,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/32 Posts of Accounts Officer, Administration of Union Territory of Ladakh/Addendum Notice",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_1.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:54:25.413364Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_1.pdf",
-        "summary": "UNION PUBLIC SERVICE COMMISSION ADDENDUM – NOTICE TO CANDIDATES Subject: Combined Recruitment Test for recruitment to: 1. Recruitment to Eight vacancies for the post of Administrative Officer Grade -I, Naval Headquarters, Directorate of Civilian Personnel, Ministry of Defence. (UR-04, EWS-01, OBC-02, SC-01) .[Advt. No. 08/2025, Vacancy No. 25060803428] 2. Recruitment to Nineteen vacancies for the post of Manager Grade –I / Section Officer in Canteen Stores Department, Ministry of Defence. (UR -07, EWS -03, OBC -04, SC -03, ST -02). [Advt. No. 08/2025, Vacancy No. 25060805428] 3. Recruitment to",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RT-AndmNotice270926-FN-Engl-300426_1.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/32 Posts of Accounts Officer, Administration of Union Territory of Ladakh/Addendum Notice"
-      }
-    },
-    {
-      "id": "9c46377c-4933-4494-ada7-c801a24f17f0",
-      "slug": "notice-05-posts-of-assistant-legal-adviser-ministry-of-finance-85b30350",
-      "title": "Notice: 05 Posts of Assistant Legal Adviser, Ministry of Finance",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 2025,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/05 Posts of Assistant Legal Adviser, Ministry of Finance/Notice",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-05-AssttLegalAdvisor-Engl-070526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:54:18.967771Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-05-AssttLegalAdvisor-Engl-070526.pdf",
-        "summary": "F.1/126(34)/2025-R.II/SPC-II UNION PUBLIC SERVICE COMMISSION SPC-II SECTION IMPORTANT INSTRUCTIONS TO THE CANDIDATES The final status of the candidatures of c andidates shortlisted through RT, along with the modalities adopted in the scrutiny, after consideration of representations, if any, for recruitment to the below mentioned post is as under: Name of the Post Five vacancies for the post of Assistant Legal Advisor in Directorate of Enforcement, Department of Revenue, Ministry of Finance. Advertisement No. 06/2025 Vacancy No. 25050622224 Essential Qualifications and Desirable Qualifications ",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-05-AssttLegalAdvisor-Engl-070526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/05 Posts of Assistant Legal Adviser, Ministry of Finance/Notice"
-      }
-    },
-    {
-      "id": "e91709ad-1112-4dcc-9d3c-e48d5709edc3",
-      "slug": "notice-04-posts-of-assistant-veterinary-surgeon-ndmc-1009b963",
-      "title": "Notice: 04 Posts of Assistant Veterinary Surgeon, NDMC",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 2025,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/04 Posts of Assistant Veterinary Surgeon, NDMC/Notice",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-04-AVS-NDMC-Engl-110526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:54:11.273787Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-04-AVS-NDMC-Engl-110526.pdf",
-        "summary": "F.1/62(03)/2025-R.I/SPC-II UNION PUBLIC SERVICE COMMISSION SPC-II SECTION IMPORTANT INSTRUCTIONS TO THE CANDIDATES The final status of the candidatures of candidates shortlisted through RT, along with the modalities adopted in the scrutiny, after consideration of representations, if any, for recruitment to the below mentioned post is as under: Name of the Post Four vacancies for the post of Assistant Veterinary Surgeon in New Delhi Municipal Council. Advertisemen t No. 08/2025 Vacancy No. 25060841128 Essential Qualifications and Desirable Qualifications EDUCATIONAL: (i) Degree in Veterinary Sc",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RT-FScrtyNotice-04-AVS-NDMC-Engl-110526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/04 Posts of Assistant Veterinary Surgeon, NDMC/Notice"
-      }
-    },
-    {
-      "id": "642d76ac-04b8-4b68-8557-f0e6704cb83f",
-      "slug": "examination-time-table-indian-economic-service-indian-statistical-service-examin-3924e999",
-      "title": "Examination Time Table: Indian Economic Service - Indian Statistical Service Examination, 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Indian%20Economic%20Service%20-%20Indian%20Statistical%20Service%20Examination%2C%202026/Examination%20Time%20Table",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/TT-IES-ISS-2026-Engl-020426.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:42.173405Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/TT-IES-ISS-2026-Engl-020426.pdf",
-        "summary": "Indian Economic Service/Indian Statistical Service Examination, 2026 TIME-TABLE (Indian Standard Time will be observed) Date & Day Subject Time 19.06.2026 (Friday) General English(Descriptive) 9.00 A.M to 12.00 Noon. General Studies(Descriptive) 2.30 P.M to 5.30 P.M. 20.06.2026 (Saturday) General Economics -I (Descriptive) 9.00 A.M to 12.00 Noon. Statistics – I (Objective) 9.00 A.M to 11.00 A.M. General Economics -II (Descriptive) 2.30 P.M to 5.30 P.M. Statistics – II (Objective) 2.30 P.M to 4.30 P.M. 21.06.2026 (Sunday) General Economics -III (Descriptive) 9.00 A.M to 12.00 Noon. Statistics –",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/TT-IES-ISS-2026-Engl-020426.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Indian%20Economic%20Service%20-%20Indian%20Statistical%20Service%20Examination%2C%202026/Examination%20Time%20Table"
-      }
-    },
-    {
-      "id": "6bc5aa5e-6403-4910-89a9-a06ac4a23808",
-      "slug": "examination-time-table-engineering-services-main-examination-2026-2f812575",
-      "title": "Examination Time Table: Engineering Services (Main) Examination, 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Engineering%20Services%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/TT-ESEM-26-Engl-070426.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:38.379650Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/TT-ESEM-26-Engl-070426.pdf",
-        "summary": "ENGINEERING SERVICES (MAIN) EXAMINATION, 2026 | TIME —- TABLE (STAGE-II) DATE & DAY TIME : 2 1st June, 2026 (SUNDAY). 02:30 P.M. to 05:30 P.M. ~ SUBJECT 09:00 A.M. CIVIL, MECHANICAL, ELECRTICAL and to ELECTRONICS & TELECOMMUNICATION 12:00 Noon ENGINEERING { DISCIPLINE SPECIFIC PAPER (PAPER-I)} (CONVENTIONAL, 3 hours duration) (300 Marks) CIVIL, MECHANICAL, ELECRTICAL and | ELECTRONICS & TELECOMMUNICATION ENGINEERING { DISCIPLINE SPECIFIC PAPER (PAPER- my (CONVENTIONAL, 3 hours duration) (300 Marks) BRANCH CODES | sumspcr \"CIVIL ENGINEERING CODE NO. | cviL ENGG. PAPER-I (CONV.) 13 | cviL ENGG. ",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/TT-ESEM-26-Engl-070426.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Engineering%20Services%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table"
-      }
-    },
-    {
-      "id": "c664ac4a-7113-494f-8102-6794982eb262",
-      "slug": "interview-schedule-central-armed-police-forces-acs-examination-2025-a937d4be",
-      "title": "Interview Schedule: Central Armed Police Forces (ACs) Examination, 2025",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Central%20Armed%20Police%20Forces%20%28ACs%29%20Examination%2C%202025/Interview%20Schedule",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/Intv-CAPF-2025-EnglRR-210426.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:34.945063Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/Intv-CAPF-2025-EnglRR-210426.pdf",
-        "summary": "UNION PUBLIC SERVICE COMMISSION IMPORTANT NOTICE CENTRAL ARMED POLICE FORCES (ASSISTANT COMMANDANTS) EXAMINATION-2025 PERSONALITY TEST **** Dated the 17th April, 2026 On the basis of the written results of the Central Armed Police Forces (Assistant Commandants) Examination, 2025 declared by Union Public Service Commission on 10th October, 2025, the Personality Tests (Interviews) of the Central Armed Police Forces (Assistant Commandants) Examination, 2025 will commence w.e.f. Monday, 04.05.2026. 2. The PT Schedule of 1019 candidates, indicating their Roll No., Date and Session of Interview from",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/Intv-CAPF-2025-EnglRR-210426.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Central%20Armed%20Police%20Forces%20%28ACs%29%20Examination%2C%202025/Interview%20Schedule"
-      }
-    },
-    {
-      "id": "067ca419-7ae6-4856-b90d-a980927b079f",
-      "slug": "written-result-with-name-cisf-ac-exe-ldce-2026-4f7716c0",
-      "title": "Written Result (with name): CISF AC(EXE) LDCE-2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/CISF%20AC%28EXE%29%20LDCE-2026/Written%20Result%20%28with%20name%29",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-CISF-2026-NameList-Engl-210426.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:27.282871Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-CISF-2026-NameList-Engl-210426.pdf",
-        "summary": "UNION PUBLIC SERVICE COMMISSION PRESS NOTE **** CENTRAL INDUSTRIAL SECURITY FORCE ASSISTANT COMMANDANTS (EXECUTIVE) LIMITED DEPARTMENTAL COMPETITIVE EXAMINATION, 2026 On the basis of the results of the written part of CISF AC (Exe.) Limited Departmental Competitive Examination, 2026 held by the UPSC on 08.03.2026, the candidates with the under mentioned Roll Numbers (List enclosed) have qualified provisionally for Physical Standards Tests (PST)/Physical Efficiency Tests (PET) and Medical Standards Tests (MST). 2. The Central Industrial Security Force (CISF) will intimate to the candidates abou",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/WR-CISF-2026-NameList-Engl-210426.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/CISF%20AC%28EXE%29%20LDCE-2026/Written%20Result%20%28with%20name%29"
-      }
-    },
-    {
-      "id": "fd66834c-7d5b-4394-9d96-6e67c95f4032",
-      "slug": "final-result-04-posts-of-ayurvedic-physician-in-ndmc-089ae7c7",
-      "title": "Final Result: 04 Posts of Ayurvedic Physician in NDMC",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 4,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/04 Posts of Ayurvedic Physician in NDMC/Final Result",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-04-AyurvdPhyscnNDMC-Engl-230426.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:22.515930Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-04-AyurvdPhyscnNDMC-Engl-230426.pdf",
-        "summary": "F.1/63(04)/2025-R.I/SPC-I UNION PUBLIC SERVICE COMMISSION DHOLPUR HOUSE, SHAHJAHAN ROAD NEW DELHI – 110069 N O T I C E UNION PUBLIC SERVICE COMMISSION ADVERTISED FOUR POSTS OF AYURVEDIC PHYSICIAN IN NEW DELHI MUNICIPAL C OUNCIL (NDMC) VIDE ADVERTISEMENT NO. 07/2025, VACANCY NO. 25060751114 DATED 14.06.2025. THE COMMISSION HAS RECOMMENDED 04 CANDIDATES AS PER THE LIST ‘ANNEXED’ FOR APPOINTMENT TO THE POST OF AYURVEDIC PHYSICIAN IN NEW DELHI MUNICIPAL CO UNCIL (NDMC), ON THE BASIS OF THE RECRUITMENT TEST HELD ON 02.11.2025 & INTERVIEWS HELD FROM 20.04.2026 TO 21.04.2026. NOTE: THE MARKS OF INTER",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RT-FR-04-AyurvdPhyscnNDMC-Engl-230426.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/04 Posts of Ayurvedic Physician in NDMC/Final Result"
-      }
-    },
-    {
-      "id": "caf55a1e-ac76-489a-95bd-1f7ff83591c1",
-      "slug": "final-result-12-posts-of-assistant-director-grade-i-ieds-hosiery-ministry-of-msm-0b9e18ee",
-      "title": "Final Result: 12 Posts of Assistant Director Grade-I (IEDS) (Hosiery), Ministry of MSME",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 12,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/12 Posts of Assistant Director Grade-I (IEDS) (Hosiery), Ministry of MSME/Final Result",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-12-AsttDirGr-I-IEDS-Hosiery-Engl-050526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:16.182852Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/RT-FR-12-AsttDirGr-I-IEDS-Hosiery-Engl-050526.pdf",
-        "summary": "F.1/217(36)/2025-R.VI/SPC-I UNION PUBLIC SERVICE COMMISSION DHOLPUR HOUSE, SHAHJAHAN ROAD NEW DELHI – 110069 N O T I C E UNION PUBLIC SERVICE COMMISSION ADVERTISED TWELVE POSTS OF ASSISTANT DIRECTOR GRADE-I (IEDS) (HOSIERY) IN OFFICE OF THE DEVELOPMENT COMMISSIONER (MSME), MINISTRY OF MICRO, SMALL AND MEDIUM ENTERPRISES VIDE ADVERTISEMENT NO. 07/2025, VACANCY NO. 25060731614 DATED 14.06.2025. THE COMMISSION HAS RECOMMENDED 11 CANDIDATES AS PER THE LIST ‘ANNEXED’ FOR APPOINTMENT TO THE POST OF ASSISTANT DIRECTOR GRADE -I (IEDS) ( HOSIERY) IN OFFICE OF THE DEVELOPMENT COMMISSIONER (MSME), MINIST",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/RT-FR-12-AsttDirGr-I-IEDS-Hosiery-Engl-050526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/12 Posts of Assistant Director Grade-I (IEDS) (Hosiery), Ministry of MSME/Final Result"
-      }
-    },
-    {
-      "id": "88c4ed83-06bb-473c-87b9-2f3c34d2ea89",
-      "slug": "written-result-national-defence-academy-and-naval-academy-examination-i-2026-142722bc",
-      "title": "Written Result: National Defence Academy and Naval Academy Examination (I), 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-NDA-NA-I-2026-Engl-080526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:09.565151Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-NDA-NA-I-2026-Engl-080526.pdf",
-        "summary": "PRESS NOTE WRITTEN RESULT OF THE NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026 Dated: 08.05.2026 SUBJECT: NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026–DECLARATION OF WRITTEN RESULT THEREOF. On the basis of the result of the written part of the National Defence Academy and Naval Academy Examination (I), 2026 held by the Union Public Service Commission on 12th April, 2026, candidates with the under mentioned Roll Nos. have qualified for interview by the Services Selection Board (SSB) of the Ministry of Defence for Admission to Army, Navy and Air Force Wings",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/WR-RollList-NDA-NA-I-2026-Engl-080526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result"
-      }
-    },
-    {
-      "id": "abf31a1b-ae6c-4f23-9e28-3233c1f64391",
-      "slug": "final-result-indian-forest-service-main-examination-2025-184b59d7",
-      "title": "Final Result: Indian Forest Service (Main) Examination, 2025",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 42,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Final%20Result",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/FR-IFSM-25-Engl-08052026.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:52:02.824004Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/FR-IFSM-25-Engl-08052026.pdf",
-        "summary": "GOVERNMENT OF INDIA PRESS INFORMATION BUREAU PRESS NOTE INDIAN FOREST SERVICE EXAMINATION, 2025 Based on the result of the written part of the Indian Forest Service Examination, 2025 held by the UNION PUBLIC SERVICE COMMISSION from 16th November to 23rd November, 2025, and the interviews for Personality Test held from 6th April to 15th April, 2026, following is the list, in order of merit, of candidates who have been recommended for appointment to the posts in Indian Forest Service. 2. A total of 148 candidates have been recommended for appointment under different categories as per the followi",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/FR-IFSM-25-Engl-08052026.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Final%20Result"
-      }
-    },
-    {
-      "id": "daa68ecb-4eaf-4743-bcf1-f23df854ed18",
-      "slug": "written-result-combined-defence-services-examination-i-2026-62b5c1b4",
-      "title": "Written Result: Combined Defence Services Examination (I), 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Combined%20Defence%20Services%20Examination%20%28I%29%2C%202026/Written%20Result",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-CDSE-I-2026-Engl-080526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:51:59.328620Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-RollList-CDSE-I-2026-Engl-080526.pdf",
-        "summary": "PRESS NOTE COMBINED DEFENCE SERVICES (I) EXAMINATION, 2026 DECLARATION OF WRITTEN RESULT THEREOF Dated: 8th May, 2026 On the basis of the results of the COMBINED DEFENCE SERVICES EXAMINATION (I), 2026 held by the Union Public Service Commission on 12th April, 2026, 8826 candidates with the following Roll Numbers have qualified for being interviewed by the Service Selection Board of the Ministry of Defence, for admission to (i) Indian Military Academy, Dehradun 162nd (DE) Course commencing in January, 2027 (ii) Indian Naval Academy, Ezhimala, Kerala, Course commencing in January, 2027 (iii) Air",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/WR-RollList-CDSE-I-2026-Engl-080526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Combined%20Defence%20Services%20Examination%20%28I%29%2C%202026/Written%20Result"
-      }
-    },
-    {
-      "id": "8ecb8224-fd57-4675-a738-20889bc695e1",
-      "slug": "examination-time-table-combined-geo-scientist-main-examination-2026-74565164",
-      "title": "Examination Time Table: Combined Geo-Scientist (Main) Examination, 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Combined%20Geo-Scientist%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/TimeTableCGSE-Main-2026-Engl-110526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:51:48.328740Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/TimeTableCGSE-Main-2026-Engl-110526.pdf",
-        "summary": "COMBINED GEO-SCIENTIST (MAIN) EXAMINATION-2026 Time – Table (Indian standard time will be observed) Date & Day Time Paper Subject Sub. Code No. 20th June,2026 9.00 AM to 12.00 NOON (1) GEOLOGY PAPER-I 12 (SATURDAY) (1) GEOPHYSICS PAPER-I 32 (1) CHEMISTRY PAPER-I 42 20th June,2026 2.30 PM to 5.30 PM (2) GEOLOGY PAPER-II 13 (SATURDAY) (2) GEOPHYSICS PAPER-II 33 (2) CHEMISTRY PAPER-II 43 21st June, 2026 9.00 AM to 12.00 NOON (3) GEOLOGY PAPER-III 14 (SUNDAY) (3) GEOPHYSICS PAPER-III 34 (3) CHEMISTRY PAPER-III 44 21st June,2026 2.30 PM to 5.30 PM (4) HYDROGEOLOGY PAPER 15 (SUNDAY) NOTE-I:- Candida",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/TimeTableCGSE-Main-2026-Engl-110526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Combined%20Geo-Scientist%20%28Main%29%20Examination%2C%202026/Examination%20Time%20Table"
-      }
-    },
-    {
-      "id": "1f3da7ef-2f7a-4ca6-be7a-2f8671e5ee56",
-      "slug": "written-result-with-name-national-defence-academy-and-naval-academy-examination--224e1fce",
-      "title": "Written Result (with name): National Defence Academy and Naval Academy Examination (I), 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result%20%28with%20name%29",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/WR-NameList-NDA-NA-I-2026-Engl-130526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:51:42.908513Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/WR-NameList-NDA-NA-I-2026-Engl-130526.pdf",
-        "summary": "PRESS NOTE WRITTEN RESULT OF THE NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026 Dated: 08.05.2026 SUBJECT: NATIONAL DEFENCE ACADEMY AND NAVAL ACADEMY EXAMINATION (I), 2026–DECLARATION OF WRITTEN RESULT THEREOF. On the basis of the result of the written part of the National Defence Academy and Naval Academy Examination (I), 2026 held by the Union Public Service Commission on 12th April, 2026, candidates with the under mentioned Roll Nos. have qualified for interview by the Services Selection Board (SSB) of the Ministry of Defence for Admission to Army, Navy and Air Force Wings",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/WR-NameList-NDA-NA-I-2026-Engl-130526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/National%20Defence%20Academy%20and%20Naval%20Academy%20Examination%20%28I%29%2C%202026/Written%20Result%20%28with%20name%29"
-      }
-    },
-    {
-      "id": "bec6128a-9634-4c4a-ad3e-dee51f4b5103",
-      "slug": "marks-of-recommended-candidates-indian-forest-service-main-examination-2025-c0539454",
-      "title": "Marks of Recommended Candidates: Indian Forest Service (Main) Examination, 2025",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Marks%20of%20Recommended%20Candidates",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/MksRcdCndts-IFSM-25-Engl-140526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:51:32.218640Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/MksRcdCndts-IFSM-25-Engl-140526.pdf",
-        "summary": "INDIAN FOREST SERVICE (MAIN) EXAMINATION,2025 RECOMMENDED CANDIDATES ________________________________________________________________________________________________________________________________________ WRT SR.NO. NAME ROLL NO PT FIN PwBD COMM TOT MKS TOT (1400) (300) (1700) ____________________________________________________________________________________________________________________________________ _________________________________________________________________________________________________________________________________ 1 BASAVARAJ KEMPAWAD 0332660 824 222 1046 OBC 2 ANSHUMAN K",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/MksRcdCndts-IFSM-25-Engl-140526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Indian%20Forest%20Service%20%28Main%29%20Examination%2C%202025/Marks%20of%20Recommended%20Candidates"
-      }
-    },
-    {
-      "id": "864d671b-2f7a-4e66-9e94-7969ea93e565",
-      "slug": "examination-time-table-combined-medical-services-examination-2026-6ed8266d",
-      "title": "Examination Time Table: Combined Medical Services Examination, 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Combined%20Medical%20Services%20Examination%2C%202026/Examination%20Time%20Table",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:51:27.619176Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf",
-        "summary": "Combined Medical Services Examination, 2026 – Time Table (Indian Standard Time will be observed) Date and Day Time Subject 02nd August, 2026 (Sunday) Paper – I (Code No. 1) 9:30 AM to 11:30 AM General Medicine and Paediatrics Paper – II (Code No. 2) 2:00 PM to 4:00 PM (a)Surgery (b)Gynaecology & Obstetrics (c)Preventive & Social Medicine",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Combined%20Medical%20Services%20Examination%2C%202026/Examination%20Time%20Table"
-      }
-    },
-    {
-      "id": "62a5e8fd-d719-4279-8029-06bdf7dd19a2",
-      "slug": "e-admit-card-civil-services-preliminary-examination-2026-2d44301d",
-      "title": "e - Admit Card: Civil Services (Preliminary) Examination, 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/e%20-%20Admit%20Card",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-20T08:51:24.036167Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/e%20-%20Admit%20Card"
-      }
-    },
-    {
-      "id": "b25d267e-1e9a-48d6-941a-06cb2e4fc7b9",
-      "slug": "press-note-civil-services-preliminary-examination-2026-61dea788",
-      "title": "Press Note: Civil Services (Preliminary) Examination, 2026",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/Press%20Note",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/Press_Note_CSPE_2026_Eng_15052026.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:51:21.570603Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/Press_Note_CSPE_2026_Eng_15052026.pdf",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/Press_Note_CSPE_2026_Eng_15052026.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/whats-new/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026/Press%20Note"
-      }
-    },
-    {
-      "id": "afc1bb8c-1381-4ec5-9196-531a0011b1d9",
-      "slug": "recruitment-cases-kept-on-hold-on-account-of-pending-litigations-6bd0f709",
-      "title": "Recruitment cases kept on hold on account of Pending Litigations",
-      "dept": "Union Public Service Commission (UPSC)",
-      "category": "upsc",
-      "state_codes": [],
-      "vacancies": 7,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://upsc.gov.in/recruitment/recruitment-cases-kept-hold-account-pending-litigations",
-      "pdf_url": "https://upsc.gov.in/sites/default/files/Rectt_PendingLitigation_Eng_171225.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T08:51:16.192286Z",
-      "detail": {
-        "source": "upsc",
-        "pdf_url": "https://upsc.gov.in/sites/default/files/Rectt_PendingLitigation_Eng_171225.pdf",
-        "summary": "Union Public Service Commission Recruitment Branch *** Recruitment Cases kept on hold on account of pending litigation Sl. No. File No. Subject No. of Posts 1. F.1/70(12)/2021-R.1 Assistant Professor (Unani), IlmulAdvia, Government of NCT of Delhi 01 2. F.1/78(20)/2021-R.1 Assistant Professor (Unani), Qabalatwa Amraze Niswan, Government of NCT of Delhi 02 3. F.1/138(39)/2023-R.1 Professor (Pharmacology), Chandigarh Administration 01 4. F.1/109(30)/2024-R.1 Sr. lecturer (Urology) in Chandigarh administration 01 5. F.32/17/2023-R(C&P)/R.IV/T.II Lateral recruitment to 01 UR post of Joint Secretar",
-        "pdf_urls": [
-          "https://upsc.gov.in/sites/default/files/Rectt_PendingLitigation_Eng_171225.pdf"
-        ],
-        "published": null,
-        "notification_url": "https://upsc.gov.in/recruitment/recruitment-cases-kept-hold-account-pending-litigations"
       }
     },
     {
@@ -19118,28 +19145,6 @@
       "pdf_url": null,
       "status": "live",
       "published_at": "2026-05-19T13:53:46.094624Z",
-      "detail": {
-        "source": "coast-guard",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "9f0936ac-4d45-4250-9fc9-1644c924b7f6",
-      "slug": "charter-of-duties-692632db",
-      "title": "Charter of Duties",
-      "dept": "joinindiancoastguard.cdac.in",
-      "category": "defence",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://joinindiancoastguard.cdac.in/charter_of_duties",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T13:53:45.718941Z",
       "detail": {
         "source": "coast-guard",
         "pdf_urls": [],
