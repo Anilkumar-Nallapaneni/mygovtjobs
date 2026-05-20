@@ -11,11 +11,12 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import Parser from "rss-parser";
+import { DEFAULT_LOOKBACK_DAYS, filterByLookback, isWithinLookback, parseDaysArg } from "./lib/lookback.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const CONFIG_PATH = join(__dirname, "official-sources.json");
-const OUT_DIR = join(ROOT, "public", "data");
+const OUT_DIR = join(ROOT, "frontend", "public", "data");
 const OUT_FILE = join(OUT_DIR, "official-feed-items.json");
 
 function stableId(link) {
@@ -37,8 +38,10 @@ function parseDate(iso) {
 
 async function main() {
   const raw = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
+  const lookbackDays = parseDaysArg(process.argv, Number(raw.lookbackDays) || DEFAULT_LOOKBACK_DAYS);
   const userAgent = raw.userAgent || "GovJobAlertFetcher/1.0";
   const feeds = Array.isArray(raw.feeds) ? raw.feeds : [];
+  console.log(`Lookback window: ${lookbackDays} days`);
 
   const parser = new Parser({
     timeout: 25000,
@@ -75,14 +78,15 @@ async function main() {
       continue;
     }
     const titleRe = f.titleMustMatch ? new RegExp(f.titleMustMatch, "i") : null;
-    const maxItems = Math.min(200, Math.max(1, Number(f.maxItems) || 30));
+    const maxItems = Math.min(300, Math.max(1, Number(f.maxItems) || 80));
+    const scanLimit = Math.min(500, maxItems * 4);
 
     try {
       const xml = await loadFeedXml(f.feedUrl);
       const feed = await parser.parseString(xml);
       const items = feed.items || [];
       let taken = 0;
-      for (const it of items) {
+      for (const it of items.slice(0, scanLimit)) {
         if (taken >= maxItems) break;
         const title = (it.title || "").trim();
         const link = (it.link || it.guid || "").toString().trim();
@@ -92,6 +96,7 @@ async function main() {
         const html = [it.content, it["content:encoded"], it.contentSnippet, it.summary].filter(Boolean).join("\n");
         const pdfUrls = extractPdfUrls(html);
         const publishedAt = parseDate(it.pubDate || it.isoDate);
+        if (!isWithinLookback(publishedAt, lookbackDays, { includeUnknown: true })) continue;
 
         const row = {
           id: stableId(link),
@@ -116,7 +121,7 @@ async function main() {
     }
   }
 
-  const items = [...byLink.values()].sort((a, b) => {
+  const items = filterByLookback([...byLink.values()], lookbackDays).sort((a, b) => {
     const ta = a.publishedAt ? Date.parse(a.publishedAt) : 0;
     const tb = b.publishedAt ? Date.parse(b.publishedAt) : 0;
     return tb - ta;

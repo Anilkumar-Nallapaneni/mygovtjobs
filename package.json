@@ -1,37 +1,37 @@
 {
-  "name": "gov-job-alert",
-  "version": "0.0.0",
+  "name": "bharatnaukri-live",
   "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "description": "BharatNaukri — frontend (Vite) and official-site fetch scripts",
+  "devDependencies": {
+    "cheerio": "^1.1.2",
+    "rss-parser": "^3.13.0"
+  },
   "scripts": {
-    "dev": "vite",
-    "fetch:official": "node scripts/fetch-official-feeds.mjs",
-    "i18n:generate": "node scripts/generate-locale-overrides.mjs",
-    "i18n:fill": "node scripts/fill-locale-flats.mjs",
-    "clean": "node -e \"const fs=require('fs');try{fs.rmSync('dist',{recursive:true,force:true})}catch(e){if(e.code!=='ENOENT')throw e}\"",
-    "build": "npm run clean && tsc && vite build",
-    "serve": "vite preview",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "type-check": "npm run type-check --prefix frontend",
+    "fetch:official": "node scripts/fetch-all-official.mjs",
+    "fetch:historical": "node scripts/fetch-historical-notifications.mjs",
+    "registry:generate": "node scripts/generate-scraper-registry.mjs",
+    "ingest:all": "node scripts/run-ingest-all.mjs",
+    "ingest:direct": "backend/.venv/Scripts/python scripts/run-ingest-direct.py",
+    "ingest:direct:quick": "backend/.venv/Scripts/python scripts/run-ingest-direct.py --limit 20",
+    "backfill:pdfs": "backend/.venv/Scripts/python scripts/backfill-job-pdfs.py",
+    "enrich:jobs": "backend/.venv/Scripts/python scripts/enrich-jobs-metadata.py",
+    "fetch:official:sites": "node scripts/fetch-official-sites.mjs",
+    "audit:official-sites": "node scripts/audit-official-sites.mjs",
+    "i18n:generate": "npm run i18n:generate --prefix frontend",
+    "i18n:fill": "npm run i18n:fill --prefix frontend",
+    "verify": "node scripts/verify-stack.mjs",
+    "supabase:test": "node scripts/test-supabase-connection.mjs",
+    "db:test": "backend/.venv/Scripts/python scripts/test-backend-db.py"
   },
   "dependencies": {
-    "i18next": "^26.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-i18next": "^17.0.8"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/eslint": "^9.6.1",
-    "@types/node": "^24.10.0",
-    "@types/react": "^18.3.26",
-    "@types/react-dom": "^18.3.7",
-    "@typescript-eslint/eslint-plugin": "^8.46.4",
-    "@typescript-eslint/parser": "^8.46.4",
-    "@vitejs/plugin-react": "^4.7.0",
-    "baseline-browser-mapping": "^2.10.27",
-    "eslint": "^9.39.1",
-    "rss-parser": "^3.13.0",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.2"
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.106.0"
   }
 }

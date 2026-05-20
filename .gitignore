@@ -1,37 +1,38 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules/
+frontend/node_modules/
 
-# testing
-/coverage
+# build
+dist/
+frontend/dist/
+build/
 
-# production / build artifacts
-/build
-/dist
-src/dist
-
-# generated data snapshots (produced by `npm run fetch:official`)
-/public/data/official-feed-items.json
-
-# misc
-.DS_Store
+# env
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
+frontend/.env.local
+backend/.env
+backend/.venv/
 
+# generated snapshots
+frontend/public/data/official-feed-items.json
+
+# editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp
+
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# editor
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-.idea
-*.swp
+# vite
+.vite/
 
+# Local junctions (Windows) so old IDE paths like src/ still open — optional
+/src
+/public

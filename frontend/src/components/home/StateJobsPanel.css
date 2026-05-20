@@ -1,0 +1,130 @@
+.state-jobs-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  max-height: min(calc(100vh - 150px), 760px);
+  background: var(--ds-bg2);
+  border: 1px solid var(--ds-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.state-jobs-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--ds-border);
+  background: var(--ds-bg1);
+  flex-shrink: 0;
+}
+
+.state-jobs-panel__title {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: var(--ds-text-body, var(--ds-white));
+}
+
+html[data-color-mode="bw"] .state-jobs-panel__title {
+  color: #111827;
+}
+
+.state-jobs-panel__meta {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ds-text-muted, var(--ds-muted));
+  font-family: var(--font-sans);
+}
+
+.state-jobs-panel__sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--ds-text-muted, var(--ds-muted));
+  font-family: var(--font-sans);
+}
+
+.state-jobs-panel__sort-btn {
+  background: transparent;
+  border: 1px solid var(--ds-border);
+  border-radius: 8px;
+  padding: 5px 11px;
+  font-size: 11px;
+  color: var(--ds-text-muted, var(--ds-muted));
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+.state-jobs-panel__sort-btn.is-active {
+  background: var(--ds-accentSoft);
+  border-color: var(--ds-accentBorder);
+  color: var(--ds-saffron);
+  font-weight: 600;
+}
+
+.state-jobs-panel__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 14px 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.state-jobs-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.state-jobs-panel__section-label {
+  margin: 18px 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--ds-text-muted, var(--ds-muted));
+  font-family: var(--font-sans);
+}
+
+.state-jobs-panel__section-meta {
+  margin: 0 0 10px;
+  font-size: 11px;
+  color: var(--ds-text-subtle, var(--ds-mutedHi));
+  font-family: var(--font-sans);
+}
+
+.state-jobs-panel__empty {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--ds-text-muted, var(--ds-muted));
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.state-jobs-panel__empty-icon {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+.state-jobs-panel__empty-hint {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.state-jobs-panel__scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.state-jobs-panel__scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ds-saffron) 35%, transparent);
+  border-radius: 4px;
+}

@@ -1,0 +1,43 @@
+{
+  "name": "bharatnaukri-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "fetch:official": "node ../scripts/fetch-all-official.mjs",
+    "fetch:official:rss": "node ../scripts/fetch-official-feeds.mjs",
+    "fetch:official:sites": "node ../scripts/fetch-official-sites.mjs",
+    "i18n:generate": "node scripts/generate-locale-overrides.mjs",
+    "i18n:fill": "node scripts/fill-locale-flats.mjs",
+    "clean": "node -e \"const fs=require('fs');try{fs.rmSync('dist',{recursive:true,force:true})}catch(e){if(e.code!=='ENOENT')throw e}\"",
+    "build": "npm run clean && tsc && vite build",
+    "serve": "vite preview",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.8",
+    "i18next": "^26.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^17.0.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/eslint": "^9.6.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^18.3.26",
+    "@types/react-dom": "^18.3.7",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "@vitejs/plugin-react": "^4.7.0",
+    "baseline-browser-mapping": "^2.10.27",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "rss-parser": "^3.13.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2"
+  }
+}

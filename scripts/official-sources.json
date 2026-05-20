@@ -1,14 +1,80 @@
 {
-  "_info": "Add only official RSS/Atom URLs you are permitted to poll. titleMustMatch is a case-insensitive regex; omit it to take the latest maxItems from the feed.",
+  "_info": "Official RSS/Atom URLs. lookbackDays=60 keeps ~2 months of notifications.",
+  "lookbackDays": 60,
   "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
   "feeds": [
     {
       "id": "pib-press-reg3",
-      "name": "PIB — recent press releases (RSS region 3)",
+      "name": "PIB — recent press releases",
       "feedUrl": "https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
       "dept": "Press Information Bureau",
       "state": "All India",
-      "maxItems": 25
+      "category": "state",
+      "maxItems": 100,
+      "titleMustMatch": "recruit|vacanc|appoint|selection|exam|notification"
+    },
+    {
+      "id": "employment-news",
+      "name": "Employment News — Government vacancies",
+      "feedUrl": "https://employmentnews.gov.in/rss.xml",
+      "dept": "Ministry of Information & Broadcasting",
+      "state": "All India",
+      "category": "state",
+      "maxItems": 120
+    },
+    {
+      "id": "upsc-notifications",
+      "name": "UPSC — What's New",
+      "feedUrl": "https://upsc.gov.in/rss-feed",
+      "dept": "Union Public Service Commission",
+      "state": "All India",
+      "category": "upsc",
+      "maxItems": 80
+    },
+    {
+      "id": "ssc-notifications",
+      "name": "SSC — Latest notifications",
+      "feedUrl": "https://ssc.nic.in/feed",
+      "dept": "Staff Selection Commission",
+      "state": "All India",
+      "category": "ssc",
+      "maxItems": 80
+    },
+    {
+      "id": "ibps-careers",
+      "name": "IBPS — Career notifications",
+      "feedUrl": "https://www.ibps.in/rss/",
+      "dept": "Institute of Banking Personnel Selection",
+      "state": "All India",
+      "category": "banking",
+      "maxItems": 80
+    },
+    {
+      "id": "rrb-notifications",
+      "name": "Railway Recruitment Board",
+      "feedUrl": "https://indianrailways.gov.in/railwayboard/rss.xml",
+      "dept": "Ministry of Railways",
+      "state": "All India",
+      "category": "railways",
+      "maxItems": 80
+    },
+    {
+      "id": "drdo-careers",
+      "name": "DRDO — Recruitment",
+      "feedUrl": "https://www.drdo.gov.in/rss.xml",
+      "dept": "DRDO",
+      "state": "All India",
+      "category": "defence",
+      "maxItems": 60
+    },
+    {
+      "id": "isro-careers",
+      "name": "ISRO — Careers",
+      "feedUrl": "https://www.isro.gov.in/rss/careers.xml",
+      "dept": "Indian Space Research Organisation",
+      "state": "All India",
+      "category": "psu",
+      "maxItems": 60
     }
   ]
 }

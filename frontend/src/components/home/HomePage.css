@@ -1,0 +1,56 @@
+@media (max-width: 1180px) {
+  .home-hero-grid {
+    grid-template-columns: 200px minmax(0, 1fr) !important;
+  }
+  .home-hero-grid > :nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .home-hero-grid--state {
+    grid-template-columns: 1fr !important;
+  }
+  .home-hero-grid--state .home-state-jobs-panel {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .home-notifications-sidebar {
+    position: static !important;
+    max-height: none !important;
+  }
+}
+
+@media (min-width: 1181px) {
+  .home-state-jobs-panel {
+    min-width: 340px;
+  }
+}
+
+.home-notifications-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.home-notifications-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.home-notifications-sidebar::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ds-saffron) 30%, transparent);
+  border-radius: 4px;
+}
+
+.home-state-jobs-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.home-state-jobs-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.home-state-jobs-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ds-saffron) 35%, transparent);
+  border-radius: 4px;
+}

@@ -1,0 +1,30 @@
+name: Scheduled API ingest
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 02:30 UTC daily — adjust after deploying API
+    - cron: "30 2 * * *"
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger backend ingest
+        env:
+          API_URL: ${{ secrets.BHARATNAUKRI_API_URL }}
+          ADMIN_KEY: ${{ secrets.ADMIN_API_KEY }}
+        run: |
+          if [ -z "$API_URL" ] || [ -z "$ADMIN_KEY" ]; then
+            echo "Skip: set BHARATNAUKRI_API_URL and ADMIN_API_KEY repository secrets."
+            exit 0
+          fi
+          URL="${API_URL%/}/api/admin/ingest/run-all"
+          echo "POST $URL"
+          HTTP=$(curl -sS -o /tmp/ingest.json -w "%{http_code}" \
+            -X POST "$URL" \
+            -H "X-Admin-Key: $ADMIN_KEY" \
+            -H "Content-Type: application/json")
+          echo "HTTP $HTTP"
+          cat /tmp/ingest.json
+          test "$HTTP" -ge 200 -a "$HTTP" -lt 300
