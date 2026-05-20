@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS job_dates (
 CREATE TABLE IF NOT EXISTS alert_subscriptions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID,
-  channel TEXT NOT NULL CHECK (channel IN ('email', 'telegram', 'push')),
+  channel TEXT NOT NULL CHECK (channel IN ('email', 'whatsapp', 'telegram', 'push')),
   channel_address TEXT NOT NULL,
   state_codes TEXT[] DEFAULT '{}',
   categories TEXT[] DEFAULT '{}',

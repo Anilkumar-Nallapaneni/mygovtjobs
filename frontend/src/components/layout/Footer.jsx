@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
+import BrandLogo from "@/components/layout/BrandLogo";
+import "./Footer.css";
 
 const FOOTER_LINK_KEYS = {
   quickLinks: ["latestJobs", "results", "admitCards", "syllabus", "examCalendar", "answerKeys"],
@@ -17,9 +19,38 @@ const TOP_STATE_LABELS = {
   jharkhand: "Jharkhand",
 };
 
+/** Map footer link keys to in-page section anchors or nav views. */
+const FOOTER_LINK_TARGETS = {
+  latestJobs: { section: "main-jobs" },
+  results: { section: "official-headlines" },
+  admitCards: { section: "official-headlines", view: "admit-card", topicKey: "admit-card" },
+  syllabus: { section: "official-headlines", topicKey: "syllabus" },
+  examCalendar: { section: "main-jobs" },
+  answerKeys: { section: "official-headlines", topicKey: "answer-key" },
+  upsc: { section: "main-jobs", category: "upsc" },
+  ssc: { section: "main-jobs", category: "ssc" },
+  railways: { section: "main-jobs", category: "railways" },
+  banking: { section: "main-jobs", category: "banking" },
+  defence: { section: "main-jobs", category: "defence" },
+  police: { section: "main-jobs", category: "police" },
+  teaching: { section: "main-jobs", category: "teaching" },
+  up: { section: "state-jobs-panel", state: "up" },
+  bihar: { section: "state-jobs-panel", state: "bihar" },
+  rajasthan: { section: "state-jobs-panel", state: "rajasthan" },
+  maharashtra: { section: "state-jobs-panel", state: "maharashtra" },
+  mp: { section: "state-jobs-panel", state: "mp" },
+  jharkhand: { section: "state-jobs-panel", state: "jharkhand" },
+  about: { section: "footer-about" },
+  advertise: { section: "alert-section" },
+  privacy: { section: "footer-disclaimer" },
+  terms: { section: "footer-disclaimer" },
+  contact: { section: "alert-section" },
+  disclaimerLink: { section: "footer-disclaimer" },
+};
+
 const SOCIAL = ["Telegram", "YouTube", "X", "Instagram"];
 
-export default function Footer() {
+export default function Footer({ onFooterLink }) {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
 
@@ -30,59 +61,55 @@ export default function Footer() {
     { heading: t("footer.company"), keys: FOOTER_LINK_KEYS.company, ns: "footer" },
   ];
 
+  const handleLink = (key) => {
+    const target = FOOTER_LINK_TARGETS[key] || { section: "main-jobs" };
+    if (typeof onFooterLink === "function") {
+      onFooterLink(target);
+    } else {
+      document.getElementById(target.section)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <footer style={{ background: DS.bg0, borderTop: `1px solid ${DS.border}`, padding: "36px 20px 18px" }}>
-      <div style={{ maxWidth: 1240, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr", gap: 28, marginBottom: 28 }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-              <div style={{ width: 34, height: 34, background: DS.gradientBrand, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17 }}>🇮🇳</div>
+    <footer className="footer">
+      <div className="footer__inner">
+        <div className="footer__grid">
+          <div id="footer-about">
+            <div className="footer__brand-row">
+              <BrandLogo size={34} className="brand-logo--footer footer__logo" />
               <div>
-                <div style={{ fontSize: 14, fontWeight: 900, color: DS.white, letterSpacing: 1.5, lineHeight: 1, fontFamily: "'Sora',sans-serif" }}>
+                <div className="footer__brand-name">
                   {t("brand.primary")}
                   <span style={{ color: DS.saffron }}>{t("brand.accent")}</span>
                 </div>
-                <div style={{ fontSize: 8, color: DS.muted, letterSpacing: 2, fontFamily: "monospace" }}>{t("brand.tagline")}</div>
+                <div className="footer__brand-tagline">{t("brand.tagline")}</div>
               </div>
             </div>
-            <p style={{ fontSize: 12.5, color: DS.muted, fontFamily: "'Outfit',sans-serif", lineHeight: 1.7, marginBottom: 12 }}>{t("footer.blurb")}</p>
-            <div style={{ fontSize: 11, color: DS.mutedHi, fontFamily: "'Outfit',sans-serif", background: DS.bg2, border: `1px solid ${DS.border}`, borderRadius: 8, padding: "10px 12px", lineHeight: 1.6 }}>
-              ⚠️ {t("footer.disclaimer")}
-            </div>
+            <p className="footer__blurb">{t("footer.blurb")}</p>
+            <div id="footer-disclaimer" className="footer__disclaimer">⚠️ {t("footer.disclaimer")}</div>
           </div>
           {columns.map(({ heading, keys, ns }) => (
             <div key={heading}>
-              <h4 style={{ fontSize: 11, fontWeight: 700, color: DS.white, letterSpacing: 1.5, marginBottom: 12, fontFamily: "'Outfit',sans-serif", textTransform: "uppercase" }}>{heading}</h4>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 7 }}>
+              <h4 className="footer__col-heading">{heading}</h4>
+              <ul className="footer__links">
                 {keys.map((key) => (
                   <li key={key}>
-                    <a
-                      href="#"
-                      style={{ fontSize: 12.5, color: DS.muted, fontFamily: "'Outfit',sans-serif", textDecoration: "none", transition: "color 0.12s" }}
-                      onMouseEnter={(e) => (e.target.style.color = DS.saffron)}
-                      onMouseLeave={(e) => (e.target.style.color = DS.muted)}
-                    >
+                    <button type="button" className="footer__link" onClick={() => handleLink(key)}>
                       {ns === "state" ? TOP_STATE_LABELS[key] : t(`${ns}.${key}`)}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <div style={{ borderTop: `1px solid ${DS.border}`, paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 10 }}>
-          <span style={{ fontSize: 11.5, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>{t("footer.copyright", { year })}</span>
-          <div style={{ display: "flex", gap: 14 }}>
+        <div className="footer__bottom">
+          <span className="footer__copyright">{t("footer.copyright", { year })}</span>
+          <div className="footer__social">
             {SOCIAL.map((s) => (
-              <a
-                key={s}
-                href="#"
-                style={{ fontSize: 11.5, color: DS.muted, fontFamily: "'Outfit',sans-serif", textDecoration: "none", transition: "color 0.12s" }}
-                onMouseEnter={(e) => (e.target.style.color = DS.saffron)}
-                onMouseLeave={(e) => (e.target.style.color = DS.muted)}
-              >
+              <span key={s} className="footer__link" style={{ cursor: "default", opacity: 0.7 }}>
                 {s}
-              </a>
+              </span>
             ))}
           </div>
         </div>

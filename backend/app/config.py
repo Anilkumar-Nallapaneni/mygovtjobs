@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     live_jobs_json_path: str = str(REPO_ROOT / "frontend" / "public" / "data" / "live-jobs.json")
     cors_origins: str = "http://localhost:5174,http://localhost:5175,http://127.0.0.1:5174,http://localhost:2222"
     admin_api_key: str | None = None
+    app_env: str = "development"
+    allow_fallback_json_export: bool = False
     rate_limit_per_minute: int = 120
     ingest_lookback_days: int = 60
     ingest_max_items_per_source: int = 120

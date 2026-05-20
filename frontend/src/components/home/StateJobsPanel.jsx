@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
 import JobCard from "@/components/jobs/JobCard";
 import "./StateJobsPanel.css";
 

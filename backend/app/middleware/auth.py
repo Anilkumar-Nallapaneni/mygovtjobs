@@ -9,6 +9,11 @@ async def require_admin_key(x_admin_key: str | None = Header(default=None, alias
     settings = get_settings()
     expected = settings.admin_api_key
     if not expected:
+        if settings.app_env == "production":
+            raise HTTPException(
+                status_code=503,
+                detail="Admin API is disabled: set ADMIN_API_KEY in production.",
+            )
         return
     if not x_admin_key or x_admin_key != expected:
         raise HTTPException(status_code=401, detail="Invalid or missing admin API key")

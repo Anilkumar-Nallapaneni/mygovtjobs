@@ -40,12 +40,6 @@ const SECTIONS = [
       { key: "exam-pattern", labelKey: "sidebar.examPattern" },
       { key: "selection", labelKey: "sidebar.selection" },
       { key: "previous-papers", labelKey: "sidebar.previousPapers" },
-      { key: "games", labelKey: "sidebar.games" },
-      { key: "image-resizer", labelKey: "sidebar.imageResizer" },
-      { key: "pdf-to-word", labelKey: "sidebar.pdfToWord" },
-      { key: "image-to-pdf", labelKey: "sidebar.imageToPdf" },
-      { key: "word-to-pdf", labelKey: "sidebar.wordToPdf" },
-      { key: "ai-interview", labelKey: "sidebar.aiInterview" },
     ],
   },
 ];

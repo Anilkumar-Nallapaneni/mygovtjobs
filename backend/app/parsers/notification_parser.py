@@ -5,10 +5,22 @@ from typing import Any
 from urllib.parse import unquote, urlparse
 
 from app.scrapers.date_utils import row_published_at
+from app.services.noise_filter import clean_job_title, friendly_dept, is_junk_job_title
 
-_VAC_IN_TITLE = re.compile(r"[–—\-]\s*([\d,]+)\s*posts?\b", re.I)
+_VAC_IN_TITLE = re.compile(
+    r"(?:[–—\-]\s*([\d,]+)\s*posts?\b|"
+    r"(?:notice|addendum|advertisement|recruitment)[:\s]+([\d,]+)\s+posts?\b|"
+    r":\s*([\d,]+)\s+posts?\s+of\b|"
+    r"\b([\d,]+)\s+posts?\s+of\b)",
+    re.I,
+)
 _ADVT_IN_TITLE = re.compile(r"\b([A-Z]{2,6}/[A-Z0-9/_-]{4,40})\b")
-_DATE_DMY = re.compile(r"\b(\d{1,2})[./-](\d{1,2})[./-](\d{4})\b")
+_DATE_DMY = re.compile(r"\b(\d{1,2})[./\s-](\d{1,2})[./\s-](\d{4})\b")
+_DATE_UPTO = re.compile(
+    r"(?:extended\s+)?(?:upto|until|up\s+to|by)\s+(\d{1,2})[./-](\d{1,2})[./-](\d{4})",
+    re.I,
+)
+_DATE_DATED = re.compile(r"dated\s+(\d{1,2})[.\s/-](\d{1,2})[.\s/-](\d{4})", re.I)
 _DATE_RANGE_TITLE = re.compile(
     r"(\d{1,2}[./-]\d{1,2}[./-]\d{4})\s*(?:TO|–|—|-)\s*(\d{1,2}[./-]\d{1,2}[./-]\d{4})",
     re.I,
@@ -20,7 +32,7 @@ _QUAL_IN_TITLE = re.compile(
 
 _WEAK_TITLE = re.compile(
     r"^(english|hindi|tamil|telugu|bengali|marathi|gujarati|kannada|malayalam|punjabi|odia|assamese|urdu)"
-    r"(\s*[\(\[]?\s*\d|\s*$)|^download\b|^click\s+here|^pdf\b|^notification$",
+    r"(\s*[\(\[]?\s*\d|\s*$)|^download\b|^click\s+here|^pdf\b|^notification$|^application\s+form\b",
     re.I,
 )
 
@@ -77,7 +89,8 @@ class NotificationParser:
             return out
         vm = _VAC_IN_TITLE.search(title)
         if vm:
-            out["vacancies"] = int(vm.group(1).replace(",", ""))
+            raw_v = next(g for g in vm.groups() if g)
+            out["vacancies"] = int(raw_v.replace(",", ""))
         adv = _ADVT_IN_TITLE.search(title)
         if adv and "/" in adv.group(1):
             out["advt_no"] = adv.group(1)
@@ -87,6 +100,12 @@ class NotificationParser:
         dr = _DATE_RANGE_TITLE.search(title)
         if dr:
             out["last_date"] = dr.group(2).replace(".", "-")
+        elif (upto := _DATE_UPTO.search(title)):
+            d, m, y = upto.groups()
+            out["last_date"] = f"{y}-{int(m):02d}-{int(d):02d}"
+        elif (dated := _DATE_DATED.search(title)):
+            d, m, y = dated.groups()
+            out["last_date"] = f"{y}-{int(m):02d}-{int(d):02d}"
         else:
             dates = list(_DATE_DMY.finditer(title))
             if dates:
@@ -104,19 +123,22 @@ class NotificationParser:
                     break
         return out
 
-    def parse(self, raw: dict[str, Any], *, pdf_fields: dict[str, Any] | None = None) -> dict[str, Any]:
+    def parse(self, raw: dict[str, Any], *, pdf_fields: dict[str, Any] | None = None, source_code: str | None = None) -> dict[str, Any]:
         """Map raw_ingest JSON → normalized job fields."""
-        title = raw.get("title") or "Government recruitment"
+        title = clean_job_title(raw.get("title") or "")
+        if not title:
+            title = "Government recruitment"
         apply_url = raw.get("link") or raw.get("applyUrl")
         pdf_urls = raw.get("pdfUrls") or raw.get("pdf_urls") or []
 
-        if _is_weak_title(title):
+        if _is_weak_title(title) or is_junk_job_title(title):
             for candidate_url in [*pdf_urls, apply_url]:
                 inferred = _title_from_document_url(candidate_url)
-                if inferred:
-                    title = inferred
+                if inferred and not is_junk_job_title(inferred):
+                    title = clean_job_title(inferred)
                     break
-        dept = raw.get("dept") or raw.get("sourceName")
+
+        dept = friendly_dept(raw, source_code or raw.get("source"))
         state = raw.get("state") or "All India"
 
         title_fields = self._extract_from_title(title)
@@ -182,7 +204,7 @@ class NotificationParser:
         )
 
         return {
-            "title": title,
+            "title": clean_job_title(title),
             "apply_url": apply_url if apply_url and not re.search(r"\.pdf(\?|/|$)", apply_url, re.I) else (apply_url or primary_pdf),
             "pdf_urls": merged_pdfs,
             "dept": dept,

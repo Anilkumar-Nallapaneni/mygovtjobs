@@ -99,8 +99,6 @@ export function filterOfficialItems(items, { stateId, categoryId, topicKey, sear
     return true;
   });
 
-  const hasFilters = Boolean(stateId || categoryId || topicKey || search?.trim());
-  if (narrowed.length === 0 && hasFilters && items.length > 0) return items;
   return narrowed;
 }
 

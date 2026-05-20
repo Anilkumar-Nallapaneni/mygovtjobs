@@ -1,10 +1,14 @@
-"""Email / Telegram / push subscriptions."""
+"""Email / Telegram / push / WhatsApp subscriptions."""
 
 from sqlalchemy import select
 
 from app.database.session import SessionLocal
 from app.models.alert import AlertSubscription
 from app.schemas.alert import AlertSubscribeRequest
+
+
+class AlertSubscriptionError(Exception):
+    """Raised when a subscription cannot be persisted."""
 
 
 class AlertService:
@@ -20,6 +24,12 @@ class AlertService:
                     )
                 ).scalar_one_or_none()
                 if existing:
+                    existing.state_codes = body.state_codes or []
+                    existing.categories = body.categories or []
+                    existing.qualification_tags = body.qualification_tags or []
+                    existing.is_active = True
+                    await session.commit()
+                    await session.refresh(existing)
                     return str(existing.id)
 
                 sub = AlertSubscription(
@@ -34,6 +44,6 @@ class AlertService:
                 await session.commit()
                 await session.refresh(sub)
                 return str(sub.id)
-            except Exception:
+            except Exception as exc:
                 await session.rollback()
-                return "pending"
+                raise AlertSubscriptionError("subscription_failed") from exc

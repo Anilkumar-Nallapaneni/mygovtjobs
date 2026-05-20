@@ -28,3 +28,4 @@ class JobListResponse(BaseModel):
     total: int
     limit: int
     offset: int
+    degraded: bool = False

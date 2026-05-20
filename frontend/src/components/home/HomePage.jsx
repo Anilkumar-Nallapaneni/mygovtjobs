@@ -58,6 +58,9 @@ export default function HomePage({
   search,
   setSearch,
   mapStateData,
+  onFooterLink,
+  headlinesTopicKey = null,
+  setHeadlinesTopicKey,
 }) {
   const { t } = useTranslation();
   const [sort, setSort] = useState("lastDate");
@@ -69,7 +72,10 @@ export default function HomePage({
 
   const handleSidebarSelect = (key) => {
     setSidebarKey((prev) => (prev === key ? null : key));
+    if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey((prev) => (prev === key ? null : key));
   };
+
+  const effectiveTopicKey = headlinesTopicKey ?? sidebarKey;
 
   useEffect(() => {
     if (search.trim()) {
@@ -101,7 +107,14 @@ export default function HomePage({
     }
 
     if (sort === "vacancies") j.sort((a, b) => b.vacancies - a.vacancies);
-    else if (sort === "lastDate") j.sort((a, b) => new Date(a.lastDate) - new Date(b.lastDate));
+    else if (sort === "lastDate") {
+      j.sort((a, b) => {
+        const aExpired = a.status === "expired" ? 1 : 0;
+        const bExpired = b.status === "expired" ? 1 : 0;
+        if (aExpired !== bExpired) return aExpired - bExpired;
+        return new Date(a.lastDate) - new Date(b.lastDate);
+      });
+    }
 
     return j;
   }, [jobs, selectedState, activeCat, sort, search, quickFilter]);
@@ -110,7 +123,14 @@ export default function HomePage({
     if (!selectedState || search.trim() || activeCat || quickFilter) return [];
     let j = jobs.filter((x) => jobMatchesNationwideFilter(x));
     if (sort === "vacancies") j.sort((a, b) => b.vacancies - a.vacancies);
-    else if (sort === "lastDate") j.sort((a, b) => new Date(a.lastDate) - new Date(b.lastDate));
+    else if (sort === "lastDate") {
+      j.sort((a, b) => {
+        const aExpired = a.status === "expired" ? 1 : 0;
+        const bExpired = b.status === "expired" ? 1 : 0;
+        if (aExpired !== bExpired) return aExpired - bExpired;
+        return new Date(a.lastDate) - new Date(b.lastDate);
+      });
+    }
     return j.slice(0, 16);
   }, [jobs, selectedState, sort, search, activeCat, quickFilter]);
 
@@ -278,7 +298,7 @@ export default function HomePage({
           </div>
 
           {/* Right — marketing hero OR state job panel */}
-          <div className={selectedState ? "home-state-jobs-panel" : undefined} style={selectedState ? { minWidth: 0 } : undefined}>
+          <div id="state-jobs-panel" className={selectedState ? "home-state-jobs-panel" : undefined} style={selectedState ? { minWidth: 0, scrollMarginTop: 80 } : undefined}>
             {!selectedState ? (
               <>
                 <header style={{ marginBottom: 16, width: "100%" }}>
@@ -311,7 +331,7 @@ export default function HomePage({
                 </header>
 
                 <div style={{ marginBottom: 20 }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 10 }}>
+                  <div className="home-hero-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 10 }}>
                     {[
                       { v: totalVac.toLocaleString("en-IN"), l: t("home.activeVacancies"), i: "📋" },
                       { v: hotNewCount.toLocaleString("en-IN"), l: t("home.hotNewTags"), i: "🔥" },
@@ -406,9 +426,12 @@ export default function HomePage({
       <OfficialHeadlinesSection
         stateId={selectedState}
         categoryId={activeCat}
-        topicKey={sidebarKey}
+        topicKey={effectiveTopicKey}
         search={search}
-        onClearTopic={() => setSidebarKey(null)}
+        onClearTopic={() => {
+          setSidebarKey(null);
+          if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
+        }}
       />
 
       <section
@@ -418,6 +441,7 @@ export default function HomePage({
           maxWidth: 1240,
           margin: "0 auto",
           display: selectedState && !search.trim() ? "none" : "block",
+          scrollMarginTop: 80,
         }}
       >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
@@ -505,7 +529,7 @@ export default function HomePage({
             </div>
           ) : (
             <>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div className="home-jobs-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 {displayed.map((job) => (
                   <JobCard key={job.id} job={job} onClick={() => onJobClick(job)} />
                 ))}
@@ -526,7 +550,7 @@ export default function HomePage({
         </section>
 
       <AlertSection />
-      <Footer />
+      <Footer onFooterLink={onFooterLink} />
     </div>
   );
 }

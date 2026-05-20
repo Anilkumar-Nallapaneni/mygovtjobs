@@ -70,6 +70,26 @@
   border: 1px solid var(--ds-redSoftBorder);
 }
 
+.job-card--expired {
+  opacity: 0.88;
+  border-color: var(--ds-border);
+}
+
+.job-card--expired:hover {
+  opacity: 1;
+}
+
+.job-card__badge--expired {
+  background: var(--ds-mutedSoftBg, rgba(148, 163, 184, 0.12));
+  color: var(--ds-muted, #94a3b8);
+  border: 1px solid var(--ds-border);
+}
+
+.job-card__days--expired {
+  color: var(--ds-muted, #94a3b8);
+  font-weight: 600;
+}
+
 /* Avoid -webkit-box + line-clamp — Vite/CSS minifiers can strip box-orient and hide ALL text */
 .job-card__title {
   font-size: 14.5px;
@@ -116,6 +136,62 @@
   letter-spacing: 0.5px;
   margin-top: 3px;
   text-transform: uppercase;
+}
+
+.job-card__vacancy-num--muted {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ds-text-muted, var(--ds-muted));
+}
+
+.job-card__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.job-card__stat {
+  background: var(--ds-bg3);
+  border: 1px solid var(--ds-borderHi);
+  border-radius: 10px;
+  padding: 8px 10px;
+  min-width: 0;
+}
+
+.job-card__stat--highlight {
+  border-color: var(--ds-accentBorder);
+  background: var(--ds-accentSoft);
+}
+
+.job-card__stat-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--ds-text-muted, var(--ds-muted));
+  margin-bottom: 3px;
+  font-family: var(--font-mono);
+}
+
+.job-card__stat-value {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ds-saffron);
+  font-family: var(--font-mono);
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.job-card__stat--highlight .job-card__stat-value {
+  color: var(--ds-saffronHi, var(--ds-saffron));
+}
+
+.job-card__deadline strong {
+  color: var(--ds-text-body, var(--ds-white));
+  font-weight: 700;
 }
 
 .job-card__meta {
@@ -208,24 +284,24 @@
   font-size: 17px;
 }
 
-/* Guaranteed readable text in light theme */
+/* Theme-aware text colors via design tokens */
 html[data-color-mode="bw"] .job-card__title {
-  color: #111827;
+  color: var(--ds-text-body);
 }
 
 html[data-color-mode="bw"] .job-card__dept {
-  color: #4b5563;
+  color: var(--ds-text-muted);
 }
 
 html[data-color-mode="bw"] .job-card__chip,
 html[data-color-mode="bw"] .job-card__deadline {
-  color: #374151;
+  color: var(--ds-text-subtle);
 }
 
 html[data-color-mode="dark"] .job-card__title {
-  color: #edf2ff;
+  color: var(--ds-text-body);
 }
 
 html[data-color-mode="dark"] .job-card__dept {
-  color: #6b829a;
+  color: var(--ds-text-muted);
 }

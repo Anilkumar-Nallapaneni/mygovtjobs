@@ -18,10 +18,3 @@ def content_hash(*, title: str, apply_url: str | None, last_date: str | None) ->
     else:
         canonical = "|".join([_normalize_title(title), url, last])
     return hashlib.sha256(canonical.encode()).hexdigest()
-
-
-def title_fingerprint(title: str) -> str:
-    """Short fingerprint for fuzzy near-duplicate detection."""
-    words = _normalize_title(title).split()
-    core = " ".join(words[:8])
-    return hashlib.md5(core.encode()).hexdigest()[:12]

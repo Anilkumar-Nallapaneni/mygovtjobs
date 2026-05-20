@@ -10,6 +10,12 @@ from bs4 import BeautifulSoup
 from app.config import get_settings
 from app.scrapers.base import BaseScraper
 from app.scrapers.date_utils import extract_date_from_title, parse_published, within_lookback
+from app.services.noise_filter import (
+    clean_job_title,
+    friendly_dept_from_host,
+    is_junk_job_title,
+    is_portal_section_link,
+)
 
 _STRICT = re.compile(
     r"recruit|vacanc|notif|advert|career|employment|bharti|naukri|exam|admit|result|apply|"
@@ -132,6 +138,7 @@ def _extract_links(html: str, page_url: str, *, relaxed: bool = False, max_items
                 "score": score,
                 "published": published_iso,
                 "publishedAt": published_iso,
+                "parentText": parent_text,
             }
         )
 
@@ -195,6 +202,14 @@ class StatePortalHtmlScraper(BaseScraper):
                     if link in seen_links:
                         continue
 
+                    title = clean_job_title(item.get("title"))
+                    if is_junk_job_title(title):
+                        parent = clean_job_title(item.get("parentText"))
+                        if parent and not is_junk_job_title(parent) and len(parent) >= len(title or ""):
+                            title = parent
+                    if is_portal_section_link(title, link):
+                        continue
+
                     published_dt = parse_published(item.get("published"))
                     if published_dt and not within_lookback(
                         published_dt, days=self.lookback_days, unknown_includes=False
@@ -202,14 +217,16 @@ class StatePortalHtmlScraper(BaseScraper):
                         continue
 
                     seen_links.add(link)
+                    dept_label = friendly_dept_from_host(parsed.netloc)
                     all_rows.append(
                         {
                             "id": link,
-                            "title": item["title"],
+                            "title": title or clean_job_title(item.get("title")) or "Official notification",
                             "link": link,
                             "pdfUrls": item.get("pdfUrls") or [],
                             "state": self.state_code,
-                            "dept": parsed.netloc,
+                            "dept": dept_label,
+                            "sourceName": dept_label,
                             "published": item.get("published"),
                             "publishedAt": item.get("publishedAt"),
                         }

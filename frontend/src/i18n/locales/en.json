@@ -1,8 +1,8 @@
 {
   "brand": {
-    "primary": "BHARAT",
-    "accent": "NAUKRI",
-    "tagline": "GOV JOBS PORTAL"
+    "primary": "SARKARI",
+    "accent": "ALERT",
+    "tagline": "LIVE GOVT JOB ALERTS"
   },
   "nav": {
     "home": "Home",
@@ -13,7 +13,8 @@
     "login": "Login",
     "searchPlaceholder": "Search jobs, state, dept…",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "search": "Search"
   },
   "lang": {
     "label": "Language",
@@ -30,7 +31,7 @@
     "allIndia": "All India"
   },
   "home": {
-    "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+    "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
     "filterListings": "FILTER LISTINGS",
     "jobMap": "{{state}} — Job Map",
     "allIndiaJobMap": "All India — Job Map",
@@ -95,6 +96,9 @@
   },
   "job": {
     "posts": "POSTS",
+    "postsTba": "TBA",
+    "postsTbaHint": "See official notification for post count",
+    "postedOn": "Posted",
     "new": "NEW",
     "hot": "HOT",
     "urgent": "URGENT",
@@ -107,24 +111,46 @@
     "officialSource": "Official notification"
   },
   "alert": {
-    "title": "Never Miss a Sarkari Naukri",
+    "title": "Never Miss a Sarkari Notification",
     "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
     "email": "Email",
     "whatsapp": "WhatsApp",
     "telegram": "Telegram",
     "push": "Push",
     "placeholder": "Enter your email address",
+    "placeholderWhatsApp": "Enter WhatsApp number with country code",
+    "placeholderTelegram": "Enter Telegram username or chat ID",
+    "placeholderPush": "Enter device push token",
+    "invalidAddress": "Please enter a valid contact address.",
+    "offlineError": "Could not reach the server. Check your connection and try again.",
+    "error": "Subscription failed. Please try again.",
+    "subscribing": "Subscribing…",
     "subscribe": "Subscribe for Free Alerts",
     "success": "You're subscribed! Alerts will arrive via {{channel}}."
   },
+  "jobsStatus": {
+    "loading": "Loading job listings…",
+    "liveMode": "Live database connected",
+    "demoMode": "Demo catalog — connect Supabase + backend for real-time jobs",
+    "listings": "listings",
+    "curated": "curated",
+    "liveFromDb": "live from official sources",
+    "live": "live",
+    "setupHint": "Next: set up Supabase → run backend ingest → add VITE_SUPABASE_URL",
+    "degraded": "Backend database temporarily unavailable — showing cached or demo listings"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "message": "Please refresh the page. If the problem continues, try again later."
+  },
   "footer": {
-    "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
-    "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
+    "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
+    "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
     "quickLinks": "Quick Links",
     "categories": "Categories",
     "topStates": "Top States",
     "company": "Company",
-    "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+    "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India",
     "latestJobs": "Latest Jobs",
     "results": "Results",
     "admitCards": "Admit Cards",
@@ -227,7 +253,7 @@
     "syllabus": "Syllabus:",
     "helpdesk": "Helpdesk:",
     "email": "Email:",
-    "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+    "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
     "dates": {
       "Notification": "Notification",
       "ApplyStart": "Apply Start",

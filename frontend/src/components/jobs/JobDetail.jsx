@@ -1,8 +1,9 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import { CATS } from "@/data/categories";
 import { translateDateKey, translateFeeKey } from "@/utils/jobDetailLabels";
+import "./JobDetail.css";
 
 const DAY_MS = 1000 * 60 * 60 * 24;
 
@@ -24,21 +25,42 @@ function Section({ title, children }) {
 
 export default function JobDetail({ job, onClose }) {
   const { t, i18n } = useTranslation();
+  const panelRef = useRef(null);
   const catColor = (CATS.find((c) => c.id === job.category) || { color: DS.saffron }).color;
-  const daysLeft = Math.ceil((new Date(job.lastDate) - new Date()) / DAY_MS);
-  const isUrgent = daysLeft >= 0 && daysLeft <= 7;
+  const lastDateMs = job.lastDate ? new Date(job.lastDate).getTime() : NaN;
+  const nowMs = new Date().getTime();
+  const daysLeft = Number.isFinite(lastDateMs) ? Math.ceil((lastDateMs - nowMs) / DAY_MS) : null;
+  const isUrgent = daysLeft != null && daysLeft >= 0 && daysLeft <= 7;
   const postsVacSum = (job.posts || []).reduce((s, p) => s + (Number(p.vacancies) || 0), 0);
   const postsSumMismatch = job.posts?.length > 0 && postsVacSum !== (Number(job.vacancies) || 0);
   const dateLocale = i18n.language === "en" ? "en-IN" : i18n.language;
 
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+    panelRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
   return (
     <div
-      style={{ position: "fixed", inset: 0, background: DS.overlayScrim, zIndex: 500, overflow: "auto", backdropFilter: "blur(4px)" }}
+      className="job-detail-overlay"
+      style={{ background: DS.overlayScrim }}
+      role="dialog"
+      aria-modal="true"
+      aria-label={job.title}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div style={{ maxWidth: 780, margin: "30px auto", padding: "0 16px 40px" }}>
+      <div ref={panelRef} className="job-detail-panel" tabIndex={-1}>
         <button
           type="button"
           onClick={onClose}
@@ -67,7 +89,7 @@ export default function JobDetail({ job, onClose }) {
           <h1 style={{ fontSize: 21, fontWeight: 900, color: DS.white, fontFamily: "'Sora',sans-serif", lineHeight: 1.25, marginBottom: 6 }}>{job.title}</h1>
           <p style={{ fontSize: 13, color: DS.muted, fontFamily: "'Outfit',sans-serif", marginBottom: 16 }}>{job.dept}</p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 18 }}>
+          <div className="job-detail-stats">
             {[
               { l: t("jobDetail.totalPosts"), v: job.vacancies.toLocaleString(dateLocale), i: "📋" },
               { l: t("jobDetail.lastDateLabel"), v: job.lastDate, i: "📅" },
@@ -102,7 +124,7 @@ export default function JobDetail({ job, onClose }) {
         </Section>
 
         <Section title={t("jobDetail.importantDates")}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+          <div className="job-detail-dates">
             {Object.entries(job.dates || {}).map(([k, v]) => (
               <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: `1px solid ${DS.border}` }}>
                 <span style={{ fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>{translateDateKey(t, k)}</span>
@@ -204,7 +226,7 @@ export default function JobDetail({ job, onClose }) {
           </ol>
         </Section>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <div className="job-detail-fee-grid">
           <Section title={t("jobDetail.applicationFee")}>
             {Object.entries(job.fee || {}).map(([k, v]) => (
               <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: `1px solid ${DS.border}` }}>

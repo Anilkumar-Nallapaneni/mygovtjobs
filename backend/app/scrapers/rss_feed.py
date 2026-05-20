@@ -10,7 +10,7 @@ import httpx
 
 from app.config import get_settings
 from app.scrapers.base import BaseScraper
-from app.scrapers.date_utils import parse_published, row_published_at, within_lookback
+from app.scrapers.date_utils import parse_published, within_lookback
 
 ROOT = Path(__file__).resolve().parents[3]
 SOURCES_PATH = ROOT / "scripts" / "official-sources.json"

@@ -10,6 +10,7 @@ import Navbar from "@/components/layout/Navbar";
 import HomePage from "@/components/home/HomePage";
 import JobsStatusBar from "@/components/home/JobsStatusBar";
 import JobDetail from "@/components/jobs/JobDetail";
+import { scrollToSection } from "@/utils/scrollToSection";
 
 const FEED_TICK_MS = 18_000;
 const INITIAL_FEED_SIZE = 6;
@@ -25,6 +26,7 @@ export default function App() {
   const [activeCat, setActiveCat] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
   const [search, setSearch] = useState("");
+  const [headlinesTopicKey, setHeadlinesTopicKey] = useState(null);
   const [colorMode, setColorMode] = useState(() => {
     try {
       const v = localStorage.getItem(COLOR_MODE_KEY);
@@ -126,16 +128,84 @@ export default function App() {
     window.scrollTo(0, 0);
   };
   const handleSearch = useCallback(() => {
-    setView("home");
+    setView("jobs");
     setSelectedJob(null);
-    if (search.trim()) {
+    setSelectedState(null);
+    setActiveCat(null);
+    setHeadlinesTopicKey(null);
+    scrollToSection("main-jobs");
+  }, []);
+
+  const handleNavigate = useCallback(
+    (nextView) => {
+      setView(nextView);
+      setSelectedJob(null);
+
+      if (nextView === "admit-card") {
+        setHeadlinesTopicKey("admit-card");
+      } else if (nextView === "results") {
+        setHeadlinesTopicKey(null);
+      } else if (nextView !== "alert") {
+        setHeadlinesTopicKey(null);
+      }
+
+      if (nextView === "jobs") {
+        setSelectedState(null);
+        setActiveCat(null);
+      }
+
+      const sectionByView = {
+        home: null,
+        jobs: "main-jobs",
+        results: "official-headlines",
+        "admit-card": "official-headlines",
+        alert: "alert-section",
+      };
+
+      const sectionId = sectionByView[nextView];
+      if (sectionId) {
+        scrollToSection(sectionId);
+      } else if (nextView === "home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    },
+    []
+  );
+
+  const handleFooterLink = useCallback((target) => {
+    setSelectedJob(null);
+    if (target.view) setView(target.view);
+    else if (target.section === "main-jobs" || target.section === "state-jobs-panel") setView("jobs");
+    else if (target.section === "official-headlines") setView("results");
+    else if (target.section === "alert-section") setView("alert");
+
+    if (target.topicKey !== undefined) setHeadlinesTopicKey(target.topicKey);
+    if (target.view === "admit-card") setHeadlinesTopicKey("admit-card");
+
+    if (target.section === "main-jobs") {
       setSelectedState(null);
       setActiveCat(null);
+      scrollToSection("main-jobs");
+      return;
     }
-    requestAnimationFrame(() => {
-      document.getElementById("main-jobs")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  }, [search]);
+
+    if (target.state) {
+      setSelectedState(target.state);
+      if (target.category) setActiveCat(target.category);
+      else setActiveCat(null);
+      scrollToSection("state-jobs-panel");
+      return;
+    }
+
+    if (target.category) {
+      setSelectedState(null);
+      setActiveCat(target.category);
+      scrollToSection("main-jobs");
+      return;
+    }
+
+    if (target.section) scrollToSection(target.section);
+  }, []);
 
   return (
     <>
@@ -143,10 +213,7 @@ export default function App() {
         <Ticker feedItems={feedItems} />
         <Navbar
           view={view}
-          setView={(v) => {
-            setView(v);
-            setSelectedJob(null);
-          }}
+          onNavigate={handleNavigate}
           search={search}
           setSearch={setSearch}
           onSearch={handleSearch}
@@ -183,6 +250,9 @@ export default function App() {
               search={search}
               setSearch={setSearch}
               mapStateData={mapStateData}
+              onFooterLink={handleFooterLink}
+              headlinesTopicKey={headlinesTopicKey}
+              setHeadlinesTopicKey={setHeadlinesTopicKey}
             />
           )}
         </div>

@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
 import "./JobsStatusBar.css";
 
-export default function JobsStatusBar({ loading, staticCount, liveCount, sources, hasBackend, error }) {
+export default function JobsStatusBar({ loading, staticCount, liveCount, sources: _sources, hasBackend, error }) {
   const { t } = useTranslation();
 
   if (loading) {
@@ -43,8 +42,12 @@ export default function JobsStatusBar({ loading, staticCount, liveCount, sources
         {" · "}
         <span className="jobs-status__mode">{mode}</span>
       </span>
-      {error && <span className="jobs-status__err">{error}</span>}
-      {!hasBackend && (
+      {error && (
+        <span className="jobs-status__err">
+          {/unavailable/i.test(error) ? t("jobsStatus.degraded") : error}
+        </span>
+      )}
+      {!hasBackend && import.meta.env.DEV && (
         <span className="jobs-status__hint">
           {t("jobsStatus.setupHint", {
             defaultValue: "Next: set up Supabase → run backend ingest → add VITE_SUPABASE_URL",

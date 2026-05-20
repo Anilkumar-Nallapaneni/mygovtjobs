@@ -5,6 +5,14 @@ from datetime import date, datetime
 from typing import Any
 from urllib.parse import urlparse
 
+from app.services.noise_filter import (
+    clean_job_title,
+    friendly_dept,
+    is_junk_job_title,
+    is_portal_section_link,
+    looks_like_job_notification,
+)
+
 _SCAM = re.compile(
     r"whatsapp|telegram\s*group|pay\s*fee\s*to\s*apply|registration\s*fee\s*only|"
     r"guaranteed\s*job|agent\s*required|call\s*\d{10}",
@@ -31,14 +39,21 @@ class ValidationService:
     def validate(self, normalized: dict[str, Any]) -> tuple[bool, list[str]]:
         """Return (is_valid, reasons)."""
         reasons: list[str] = []
-        title = (normalized.get("title") or "").strip()
+        title = clean_job_title(normalized.get("title"))
         if len(title) < 8:
             reasons.append("title_too_short")
+        if is_junk_job_title(title):
+            reasons.append("junk_title")
+        if not looks_like_job_notification(title):
+            reasons.append("not_job_notification")
+
+        apply_url = normalized.get("apply_url") or ""
+        if is_portal_section_link(title, apply_url):
+            reasons.append("portal_nav_link")
 
         if _SCAM.search(title) or _SCAM.search(normalized.get("detail", {}).get("summary") or ""):
             reasons.append("scam_pattern")
 
-        apply_url = normalized.get("apply_url") or ""
         if apply_url:
             try:
                 host = urlparse(apply_url).hostname or ""
@@ -50,8 +65,7 @@ class ValidationService:
                 reasons.append("invalid_url")
 
         last = _parse_date(normalized.get("last_date"))
-        if last and last < date.today():
-            reasons.append("expired")
+        # Expired listings are kept for archive — status set at persist time
 
         if not normalized.get("apply_url") and not normalized.get("pdf_urls"):
             reasons.append("missing_link")

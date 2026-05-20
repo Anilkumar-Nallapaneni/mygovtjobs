@@ -2,9 +2,9 @@
 export const localeOverrides = {
   "en": {
     "brand": {
-      "primary": "BHARAT",
-      "accent": "NAUKRI",
-      "tagline": "GOV JOBS PORTAL"
+      "primary": "SARKARI",
+      "accent": "ALERT",
+      "tagline": "LIVE GOVT JOB ALERTS"
     },
     "nav": {
       "home": "Home",
@@ -32,7 +32,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -98,7 +98,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -109,13 +109,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -217,7 +217,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -250,9 +250,9 @@ export const localeOverrides = {
   },
   "hi": {
     "brand": {
-      "primary": "BHARAT",
-      "accent": "NAUKRI",
-      "tagline": "सरकारी नौकरी पोर्टल"
+      "primary": "सरकारी",
+      "accent": "अलर्ट",
+      "tagline": "लाइव सरकारी नौकरी सूचना"
     },
     "nav": {
       "home": "होम",
@@ -280,7 +280,7 @@ export const localeOverrides = {
       "allIndia": "पूरा भारत"
     },
     "home": {
-      "tagline": "भारत का #1 सरकारी नौकरी पोर्टल",
+      "tagline": "कोई सरकारी नोटिफिकेशन मिस न करें",
       "filterListings": "सूची फ़िल्टर करें",
       "jobMap": "{{state}} — नौकरी मानचित्र",
       "allIndiaJobMap": "पूरा भारत — नौकरी मानचित्र",
@@ -594,7 +594,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -611,7 +611,7 @@ export const localeOverrides = {
       "categories": "বিভাগ",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -859,7 +859,7 @@ export const localeOverrides = {
       "categories": "వర్గాలు",
       "topStates": "అగ్ర రాష్ట్రాలు",
       "company": "కంపెనీ",
-      "copyright": "© {{year}} BharatNaukri · భారతదేశంలో ❤️తో తయారు చేయబడింది · GST నమోదు చేయబడింది",
+      "copyright": "© {{year}} SarkariAlert · భారతదేశంలో ❤️తో తయారు చేయబడింది · GST నమోదు చేయబడింది",
       "latestJobs": "తాజా ఉద్యోగాలు",
       "results": "ఫలితాలు",
       "admitCards": "అడ్మిట్ కార్డులు",
@@ -961,7 +961,7 @@ export const localeOverrides = {
       "syllabus": "సిలబస్:",
       "helpdesk": "హెల్ప్‌డెస్క్:",
       "email": "ఇమెయిల్:",
-      "disclaimer": "నిరాకరణ: BharatNaukri ఒక స్వతంత్ర అగ్రిగేటర్. దరఖాస్తు చేయడానికి ముందు అధికారిక వెబ్‌సైట్‌లో ఎల్లప్పుడూ వివరాలను ధృవీకరించండి.",
+      "disclaimer": "నిరాకరణ: SarkariAlert ఒక స్వతంత్ర అగ్రిగేటర్. దరఖాస్తు చేయడానికి ముందు అధికారిక వెబ్‌సైట్‌లో ఎల్లప్పుడూ వివరాలను ధృవీకరించండి.",
       "dates": {
         "Notification": "నోటిఫికేషన్",
         "ApplyStart": "ప్రారంభం దరఖాస్తు",
@@ -1024,7 +1024,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -1090,7 +1090,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -1101,13 +1101,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -1209,7 +1209,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -1355,7 +1355,7 @@ export const localeOverrides = {
       "categories": "வகைகள்",
       "topStates": "சிறந்த மாநிலங்கள்",
       "company": "நிறுவனம்",
-      "copyright": "© {{year}} BharatNaukri · இந்தியாவில் ❤️ கொண்டு தயாரிக்கப்பட்டது · GST பதிவு செய்யப்பட்டது",
+      "copyright": "© {{year}} SarkariAlert · இந்தியாவில் ❤️ கொண்டு தயாரிக்கப்பட்டது · GST பதிவு செய்யப்பட்டது",
       "latestJobs": "சமீபத்திய வேலைகள்",
       "results": "முடிவுகள்",
       "admitCards": "அனுமதி அட்டைகள்",
@@ -1520,7 +1520,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -1586,7 +1586,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -1597,13 +1597,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -1705,7 +1705,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -1851,7 +1851,7 @@ export const localeOverrides = {
       "categories": "ವರ್ಗಗಳು",
       "topStates": "ಉನ್ನತ ರಾಜ್ಯಗಳು",
       "company": "ಕಂಪನಿ",
-      "copyright": "© {{year}} BharatNaukri · ಭಾರತದಲ್ಲಿ ❤️ ನಿಂದ ತಯಾರಿಸಲ್ಪಟ್ಟಿದೆ · GST ನೋಂದಾಯಿಸಲಾಗಿದೆ",
+      "copyright": "© {{year}} SarkariAlert · ಭಾರತದಲ್ಲಿ ❤️ ನಿಂದ ತಯಾರಿಸಲ್ಪಟ್ಟಿದೆ · GST ನೋಂದಾಯಿಸಲಾಗಿದೆ",
       "latestJobs": "ಇತ್ತೀಚಿನ ಉದ್ಯೋಗಗಳು",
       "results": "ಫಲಿತಾಂಶಗಳು",
       "admitCards": "ಪ್ರವೇಶ ಕಾರ್ಡ್‌ಗಳು",
@@ -2016,7 +2016,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -2082,7 +2082,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -2093,13 +2093,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -2201,7 +2201,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -2264,7 +2264,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -2330,7 +2330,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -2341,13 +2341,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -2449,7 +2449,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -2512,7 +2512,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -2578,7 +2578,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -2589,13 +2589,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -2697,7 +2697,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -2760,7 +2760,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -2826,7 +2826,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -2837,13 +2837,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -2945,7 +2945,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -3008,7 +3008,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -3074,7 +3074,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -3091,7 +3091,7 @@ export const localeOverrides = {
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -3193,7 +3193,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -3256,7 +3256,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -3322,7 +3322,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -3333,13 +3333,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -3441,7 +3441,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -3504,7 +3504,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -3570,7 +3570,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -3581,13 +3581,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -3689,7 +3689,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -3752,7 +3752,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -3818,7 +3818,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -3829,13 +3829,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -3937,7 +3937,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -4000,7 +4000,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -4066,7 +4066,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -4077,13 +4077,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -4185,7 +4185,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -4248,7 +4248,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -4314,7 +4314,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -4325,13 +4325,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -4433,7 +4433,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -4496,7 +4496,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -4562,7 +4562,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -4573,13 +4573,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -4681,7 +4681,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -4744,7 +4744,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -4810,7 +4810,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -4821,13 +4821,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -4929,7 +4929,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -4992,7 +4992,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -5058,7 +5058,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -5069,13 +5069,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -5177,7 +5177,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -5240,7 +5240,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -5306,7 +5306,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -5317,13 +5317,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -5425,7 +5425,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",
@@ -5488,7 +5488,7 @@ export const localeOverrides = {
       "allIndia": "All India"
     },
     "home": {
-      "tagline": "INDIA'S #1 GOVT JOBS PORTAL",
+      "tagline": "NEVER MISS A GOVERNMENT NOTIFICATION",
       "filterListings": "FILTER LISTINGS",
       "jobMap": "{{state}} — Job Map",
       "allIndiaJobMap": "All India — Job Map",
@@ -5554,7 +5554,7 @@ export const localeOverrides = {
       "location": "Location"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Naukri",
+      "title": "Never Miss a Sarkari Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",
@@ -5565,13 +5565,13 @@ export const localeOverrides = {
       "success": "You're subscribed! Alerts will arrive via {{channel}}."
     },
     "footer": {
-      "blurb": "India's most comprehensive government job portal. Real-time alerts, verified listings, all 28 states.",
+      "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
       "disclaimer": "Disclaimer: Independent aggregator. Not affiliated with any government body. Verify at official sites.",
       "quickLinks": "Quick Links",
       "categories": "Categories",
       "topStates": "Top States",
       "company": "Company",
-      "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India · GST Registered",
+      "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India · GST Registered",
       "latestJobs": "Latest Jobs",
       "results": "Results",
       "admitCards": "Admit Cards",
@@ -5673,7 +5673,7 @@ export const localeOverrides = {
       "syllabus": "Syllabus:",
       "helpdesk": "Helpdesk:",
       "email": "Email:",
-      "disclaimer": "Disclaimer: BharatNaukri is an independent aggregator. Always verify details at the official website before applying.",
+      "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
       "dates": {
         "Notification": "Notification",
         "ApplyStart": "Apply Start",

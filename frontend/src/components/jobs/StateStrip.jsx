@@ -70,6 +70,7 @@ export default function StateStrip({ selected, onSelect, stateCounts, variant = 
           </span>
         )}
         <button
+          type="button"
           onClick={() => onSelect(null)}
           style={{
             background: !selected ? DS.accentSoft : "transparent",
@@ -92,6 +93,7 @@ export default function StateStrip({ selected, onSelect, stateCounts, variant = 
           return (
             <button
               key={s.id}
+              type="button"
               onClick={() => onSelect(active ? null : s.id)}
               style={{
                 background: active ? DS.accentSoft : "transparent",

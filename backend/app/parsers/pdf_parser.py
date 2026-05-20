@@ -50,7 +50,9 @@ def extract_fields(text: str) -> dict[str, Any]:
     out: dict[str, Any] = {}
     vac = _VACANCY.search(text)
     if vac:
-        out["vacancies"] = int(vac.group(1))
+        num = vac.group(1) or vac.group(2)
+        if num:
+            out["vacancies"] = int(num)
 
     ld = _LAST_DATE.search(text)
     if ld:

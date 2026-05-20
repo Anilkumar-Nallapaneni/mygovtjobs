@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import i18n from '@/i18n';
 import './ErrorBoundary.css';
 
 interface Props {
@@ -32,8 +33,8 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="error-container">
-          <h1>Oops! Something went wrong.</h1>
-          <p>Please try refreshing the page or contact support if the problem persists.</p>
+          <h1>{i18n.t('errorBoundary.title')}</h1>
+          <p>{i18n.t('errorBoundary.message')}</p>
           {this.state.errorMessage && (
             <pre style={{ marginTop: 16, whiteSpace: 'pre-wrap', textAlign: 'left' }}>
               {this.state.errorMessage}

@@ -39,19 +39,18 @@ export default function OfficialHeadlinesSection({
 
   if (error && items.length === 0) {
     return (
-      <section style={{ padding: "0 20px 28px", maxWidth: 1240, margin: "0 auto" }} aria-label="Official headlines">
-        <div style={{ fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>
-          Official feed snapshot unavailable ({error}). Run <code style={{ fontSize: 11 }}>npm run fetch:official</code> locally to generate{" "}
-          <code style={{ fontSize: 11 }}>public/data/official-feed-items.json</code>. Showing curated portals instead.
+      <section id="official-headlines" style={{ padding: "0 20px 28px", maxWidth: 1240, margin: "0 auto", scrollMarginTop: 80 }} aria-label="Official headlines">
+        <div style={{ fontSize: 12, color: DS.muted, fontFamily: "var(--font-sans)" }}>
+          {t("headlines.feedError", { error })}
         </div>
-        <OfficialPortalGrid sites={fallbackSites} />
+        <OfficialPortalGrid sites={fallbackSites} t={t} />
       </section>
     );
   }
 
   if (items.length === 0 && !generatedAt && !error) {
     return (
-      <section style={{ padding: "0 20px 28px", maxWidth: 1240, margin: "0 auto" }} aria-label="Official headlines">
+      <section id="official-headlines" style={{ padding: "0 20px 28px", maxWidth: 1240, margin: "0 auto", scrollMarginTop: 80 }} aria-label="Official headlines">
         <div style={{ fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>
           {t("headlines.loading")}
         </div>
@@ -62,7 +61,7 @@ export default function OfficialHeadlinesSection({
   const showFallback = filtered.length === 0;
 
   return (
-    <section id="official-headlines" style={{ padding: "0 20px 32px", maxWidth: 1240, margin: "0 auto" }} aria-label="Official headlines">
+    <section id="official-headlines" style={{ padding: "0 20px 32px", maxWidth: 1240, margin: "0 auto", scrollMarginTop: 80 }} aria-label="Official headlines">
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, marginBottom: 12, flexWrap: "wrap" }}>
         <div>
           <h2 style={{ fontSize: 16, fontWeight: 800, color: DS.white, fontFamily: "'Sora',sans-serif", margin: "0 0 4px" }}>

@@ -30,12 +30,17 @@ function apiUrl(path: string, params?: Record<string, string | number | undefine
   return `${base}${path}${qs}`
 }
 
+export type FetchJobsResult = {
+  items: ApiJob[]
+  degraded: boolean
+}
+
 export async function fetchJobsFromApi(params?: {
   state?: string
   category?: string
   q?: string
   limit?: number
-}): Promise<ApiJob[]> {
+}): Promise<FetchJobsResult> {
   try {
     const res = await fetch(
       apiUrl('/api/jobs', {
@@ -46,11 +51,15 @@ export async function fetchJobsFromApi(params?: {
       }),
       { cache: 'no-store' }
     )
-    if (!res.ok) return []
+    if (res.status === 503) return { items: [], degraded: true }
+    if (!res.ok) return { items: [], degraded: false }
     const json = await res.json()
-    return Array.isArray(json.items) ? json.items : []
+    return {
+      items: Array.isArray(json.items) ? json.items : [],
+      degraded: Boolean(json.degraded),
+    }
   } catch {
-    return []
+    return { items: [], degraded: false }
   }
 }
 
@@ -72,5 +81,33 @@ export async function fetchJobBySlug(slug: string): Promise<ApiJob | null> {
     return await res.json()
   } catch {
     return null
+  }
+}
+
+export type AlertSubscribePayload = {
+  channel: 'email' | 'whatsapp' | 'telegram' | 'push'
+  channel_address: string
+  state_codes?: string[]
+  categories?: string[]
+  qualification_tags?: string[]
+}
+
+export async function subscribeToAlerts(
+  payload: AlertSubscribePayload
+): Promise<{ ok: true; id: string } | { ok: false; error: string }> {
+  try {
+    const res = await fetch(apiUrl('/api/alerts/subscribe'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    if (!res.ok) {
+      const text = await res.text().catch(() => '')
+      return { ok: false, error: text || `HTTP ${res.status}` }
+    }
+    const json = await res.json()
+    return { ok: true, id: String(json.id ?? 'subscribed') }
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : 'Network error' }
   }
 }

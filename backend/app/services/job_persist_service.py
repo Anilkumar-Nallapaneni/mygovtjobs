@@ -60,6 +60,12 @@ class JobPersistService:
         slug = normalized.get("slug") or slugify(title, digest)
         state_codes = _resolve_state_codes(normalized)
 
+        today = date.today()
+        if last_date and last_date < today:
+            job_status = "expired"
+        else:
+            job_status = normalized.get("status") or "live"
+
         pub = normalized.get("published_at")
         if isinstance(pub, datetime):
             published_at = pub if pub.tzinfo else pub.replace(tzinfo=timezone.utc)
@@ -84,7 +90,7 @@ class JobPersistService:
             "age_limit": normalized.get("age_limit"),
             "last_date": last_date,
             "apply_url": apply_url,
-            "status": normalized.get("status") or "live",
+            "status": job_status,
             "published_at": published_at,
             "normalized_at": datetime.now(timezone.utc),
             "content_hash": digest,

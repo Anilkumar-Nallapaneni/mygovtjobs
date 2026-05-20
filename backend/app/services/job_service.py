@@ -1,5 +1,6 @@
 """Job queries — Postgres via SQLAlchemy."""
 
+import logging
 from datetime import date
 
 from sqlalchemy import func, or_, select
@@ -8,6 +9,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.session import SessionLocal
 from app.models.job import Job
 from app.schemas.job import JobOut
+
+logger = logging.getLogger(__name__)
+
+
+class DatabaseUnavailableError(Exception):
+    """Postgres unreachable or query failed unexpectedly."""
 
 
 def _to_job_out(row: Job) -> JobOut:
@@ -54,11 +61,7 @@ class JobService:
             session = SessionLocal()
 
         try:
-            today = date.today()
-            stmt = select(Job).where(
-                Job.status == "live",
-                or_(Job.last_date.is_(None), Job.last_date >= today),
-            )
+            stmt = select(Job).where(Job.status.in_(("live", "expired")))
             if category:
                 stmt = stmt.where(Job.category == category)
             if state:
@@ -76,8 +79,9 @@ class JobService:
                 )
             ).scalars().all()
             return [_to_job_out(r) for r in rows], int(total)
-        except Exception:
-            return [], 0
+        except Exception as exc:
+            logger.exception("list_jobs failed")
+            raise DatabaseUnavailableError from exc
         finally:
             if owns:
                 await session.close()
@@ -89,8 +93,9 @@ class JobService:
         try:
             row = (await session.execute(select(Job).where(Job.slug == slug))).scalar_one_or_none()
             return _to_job_out(row) if row else None
-        except Exception:
-            return None
+        except Exception as exc:
+            logger.exception("get_by_slug failed slug=%s", slug)
+            raise DatabaseUnavailableError from exc
         finally:
             if owns:
                 await session.close()

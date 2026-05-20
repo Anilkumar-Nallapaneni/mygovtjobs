@@ -47,9 +47,9 @@ export default function Ticker({ feedItems }) {
       </div>
       <div style={{ overflow: "hidden", flex: 1 }}>
         <div ref={ref} style={{ display: "flex", whiteSpace: "nowrap", willChange: "transform" }}>
-          {all.map((t, i) => (
+          {all.map((line, i) => (
             <span key={i} style={{ fontSize: 11.5, color: DS.mutedHi, padding: "0 24px", borderRight: `1px solid ${DS.border}`, flexShrink: 0, fontFamily: "'Outfit',sans-serif" }}>
-              {t}
+              {line}
             </span>
           ))}
         </div>

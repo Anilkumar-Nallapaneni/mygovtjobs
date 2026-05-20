@@ -1,5 +1,8 @@
 import { STATES } from '@/data/states'
 import { resolvePdfUrl } from '@/utils/resolvePdfUrl'
+import { cleanJobTitle, cleanDept } from '@/utils/jobNoiseFilter'
+import { enrichJobMetadata } from '@/utils/jobMetadataUtils'
+import { isJobExpired } from '@/utils/jobFilters'
 
 /** Map API / Supabase job row → shape used by JobCard / HomePage. */
 export function adaptLiveJob(row, index = 0) {
@@ -15,22 +18,30 @@ export function adaptLiveJob(row, index = 0) {
 
   const category = row.category && String(row.category).trim() ? String(row.category).trim() : 'state'
   const rawStatus = String(row.status || 'live').toLowerCase()
+  const lastDate = row.last_date || '—'
+  const displayStatus =
+    rawStatus === 'expired' || isJobExpired({ status: rawStatus, lastDate })
+      ? 'expired'
+      : rawStatus === 'hot'
+        ? 'hot'
+        : 'new'
 
-  return {
+  return enrichJobMetadata({
     id: row.id || `live-${index}`,
     slug: row.slug || `live-job-${index}`,
-    title: row.title || 'Government recruitment',
-    dept: row.dept || 'Official',
+    title: cleanJobTitle(row.title) || 'Government recruitment',
+    dept: cleanDept(row.dept, row.detail?.source),
     state: stateName,
     stateIds,
     category,
     vacancies: Number(row.vacancies) || 0,
     qual: row.qualification || 'As per notification',
-    lastDate: row.last_date || '—',
+    lastDate,
+    published_at: row.published_at || row.detail?.published || null,
     salary: row.salary || '—',
     age: row.age_limit || '—',
     type: 'Notification',
-    status: rawStatus === 'live' ? 'new' : rawStatus === 'hot' ? 'hot' : 'new',
+    status: displayStatus,
     officialUrl: row.detail?.notification_url || row.apply_url || row.detail?.link || '#',
     applyUrl: row.apply_url || row.detail?.notification_url || '#',
     pdfUrl: row.pdf_url || resolvePdfUrl(row),
@@ -42,7 +53,7 @@ export function adaptLiveJob(row, index = 0) {
     howApply: row.detail?.howApply || [],
     isLive: true,
     _fromLive: true,
-  }
+  })
 }
 
 /** Curated demo jobs + live rows (unique slug). */

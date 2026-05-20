@@ -18,17 +18,18 @@
     "fetch:historical": "node scripts/fetch-historical-notifications.mjs",
     "registry:generate": "node scripts/generate-scraper-registry.mjs",
     "ingest:all": "node scripts/run-ingest-all.mjs",
-    "ingest:direct": "backend/.venv/Scripts/python scripts/run-ingest-direct.py",
-    "ingest:direct:quick": "backend/.venv/Scripts/python scripts/run-ingest-direct.py --limit 20",
-    "backfill:pdfs": "backend/.venv/Scripts/python scripts/backfill-job-pdfs.py",
-    "enrich:jobs": "backend/.venv/Scripts/python scripts/enrich-jobs-metadata.py",
+    "ingest:direct": "node scripts/run-python.mjs scripts/run-ingest-direct.py",
+    "ingest:direct:quick": "node scripts/run-python.mjs scripts/run-ingest-direct.py --limit 20",
+    "clean:live-jobs": "node scripts/run-python.mjs scripts/clean-live-jobs-json.py",
+    "backfill:pdfs": "node scripts/run-python.mjs scripts/backfill-job-pdfs.py",
+    "enrich:jobs": "node scripts/run-python.mjs scripts/enrich-jobs-metadata.py",
     "fetch:official:sites": "node scripts/fetch-official-sites.mjs",
     "audit:official-sites": "node scripts/audit-official-sites.mjs",
     "i18n:generate": "npm run i18n:generate --prefix frontend",
     "i18n:fill": "npm run i18n:fill --prefix frontend",
     "verify": "node scripts/verify-stack.mjs",
     "supabase:test": "node scripts/test-supabase-connection.mjs",
-    "db:test": "backend/.venv/Scripts/python scripts/test-backend-db.py"
+    "db:test": "node scripts/run-python.mjs scripts/test-backend-db.py"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",

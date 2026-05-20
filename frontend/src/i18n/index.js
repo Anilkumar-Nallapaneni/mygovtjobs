@@ -10,14 +10,18 @@ const LEGACY_LOCALE_KEYS = [
   "naukrisetu-ui-language",
 ];
 
-/** Reset persisted locale so each visit starts in English (user can switch in-session). */
-function ensureDefaultLocaleOnLoad() {
+function readStoredLocale() {
   try {
-    localStorage.setItem(LOCALE_STORAGE_KEY, DEFAULT_LOCALE);
-    for (const legacy of LEGACY_LOCALE_KEYS) localStorage.removeItem(legacy);
+    const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
+    if (stored && INDIAN_LANGUAGES.some((l) => l.code === stored)) return stored;
+    for (const legacy of LEGACY_LOCALE_KEYS) {
+      const legacyVal = localStorage.getItem(legacy);
+      if (legacyVal && INDIAN_LANGUAGES.some((l) => l.code === legacyVal)) return legacyVal;
+    }
   } catch {
     /* ignore */
   }
+  return DEFAULT_LOCALE;
 }
 
 function applyDocumentLocale(code) {
@@ -33,12 +37,12 @@ for (const { code } of INDIAN_LANGUAGES) {
   resources[code] = { translation: pack };
 }
 
-ensureDefaultLocaleOnLoad();
-applyDocumentLocale(DEFAULT_LOCALE);
+const initialLocale = readStoredLocale();
+applyDocumentLocale(initialLocale);
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: DEFAULT_LOCALE,
+  lng: initialLocale,
   fallbackLng: DEFAULT_LOCALE,
   supportedLngs: INDIAN_LANGUAGES.map((l) => l.code),
   nonExplicitSupportedLngs: false,
