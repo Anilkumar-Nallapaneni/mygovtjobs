@@ -528,20 +528,45 @@ Run from repo root. Scripts use `backend/.venv/Scripts/python` — create the ve
 
 ---
 
-## Deployment
+## Deployment (Vercel + Supabase)
 
-| Component | Config |
+Full guide: **[docs/DEPLOY_VERCEL_SUPABASE.md](docs/DEPLOY_VERCEL_SUPABASE.md)**
+
+| Component | Where |
 |-----------|--------|
-| **Frontend** | Vercel — `deployment/vercel.json` |
-| **API** | Docker — `backend/Dockerfile` |
-| **Scheduled RSS** | `.github/workflows/fetch-official-feeds.yml` |
-| **Scheduled ingest** | `.github/workflows/ingest-api.yml` |
+| **Frontend** | Vercel (`vercel.json` at repo root) |
+| **Database** | Supabase Postgres (`jobs` table, RLS) |
+| **Ingest** | Local machine or GitHub Actions → Supabase |
+| **API (optional)** | Docker / Railway / Render — `backend/Dockerfile` |
+
+### Quick connect (CLI)
+
+```bash
+vercel login
+npm run vercel:link
+npm run vercel:env:push    # reads frontend/.env.local → Vercel env
+npm run vercel:deploy
+```
+
+### Vercel environment variables (Production)
+
+| Variable | Value |
+|----------|--------|
+| `VITE_SUPABASE_URL` | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase **anon** key (not service_role) |
+| `VITE_JOBS_SOURCE` | `supabase` |
+| `VITE_API_URL` | empty unless FastAPI is deployed separately |
+
+Or use **Vercel → Integrations → Supabase** and map keys to `VITE_*` names.
 
 ### GitHub Actions secrets (ingest workflow)
 
 | Secret | Purpose |
 |--------|---------|
-| `BHARATNAUKRI_API_URL` | Deployed API base URL |
+| `DATABASE_URL` | Supabase pooler for Python ingest |
+| `VITE_SUPABASE_URL` | Supabase audit in CI |
+| `VITE_SUPABASE_ANON_KEY` | Supabase audit in CI |
+| `BHARATNAUKRI_API_URL` | Deployed API base URL (if using API ingest) |
 | `ADMIN_API_KEY` | Same as backend `ADMIN_API_KEY` |
 
 ---

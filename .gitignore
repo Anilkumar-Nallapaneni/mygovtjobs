@@ -42,3 +42,5 @@ __pycache__/
 # Local junctions (Windows) so old IDE paths like src/ still open — optional
 /src
 /public
+
+.vercel
