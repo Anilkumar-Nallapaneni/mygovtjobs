@@ -3,7 +3,7 @@ import logging
 from datetime import datetime, timezone
 from pathlib import Path
 
-from sqlalchemy import select
+from sqlalchemy import select, text
 
 from app.config import get_settings
 from app.database.session import SessionLocal
@@ -14,6 +14,8 @@ from app.scrapers.pdf_discover import ensure_pdf_urls
 from app.scrapers.rss_feed import RssFeedScraper
 from app.services.dedupe_service import content_hash
 from app.services.job_persist_service import JobPersistService, _resolve_state_codes
+from app.services.raw_ingest_service import RawIngestService
+from app.services.source_sync_service import SourceSyncService
 from app.services.validation_service import ValidationService
 
 logger = logging.getLogger(__name__)
@@ -30,6 +32,8 @@ class IngestAgent:
         self.validator = ValidationService()
         self.registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
         self.persist = JobPersistService()
+        self.source_sync = SourceSyncService()
+        self.raw_ingest = RawIngestService()
 
     async def run_source(self, source_code: str) -> dict:
         entry = next((s for s in self.registry.get("scrapers", []) if s.get("code") == source_code), None)
@@ -45,9 +49,13 @@ class IngestAgent:
 
         try:
             async with SessionLocal() as session:
-                await session.execute(__import__("sqlalchemy").text("SELECT 1"))
+                await session.execute(text("SELECT 1"))
+                source_id = await self.source_sync.ensure_source(session, entry)
+
                 for raw in rows:
                     try:
+                        if source_id:
+                            await self.raw_ingest.upsert_raw(session, source_id=source_id, raw=raw)
                         normalized = await self._normalize_raw(raw, entry, source_code)
                         if normalized is None:
                             rejected += 1
@@ -64,12 +72,21 @@ class IngestAgent:
                             saved += 1
                     except Exception as exc:
                         errors += 1
+                        await session.rollback()
                         logger.warning("ingest row failed source=%s: %s", source_code, exc)
 
+                if errors:
+                    await session.rollback()
                 try:
                     await self.persist.export_live_jobs_json(session)
                 except Exception as exc:
+                    await session.rollback()
                     logger.warning("live jobs json export failed: %s", exc)
+                    try:
+                        async with SessionLocal() as export_session:
+                            await self.persist.export_live_jobs_json(export_session)
+                    except Exception as exc2:
+                        logger.warning("live jobs json export retry failed: %s", exc2)
 
                 await self._record_source_run(session, source_code, error=None if saved else "no rows saved")
         except Exception as exc:
@@ -127,6 +144,13 @@ class IngestAgent:
         return normalized
 
     async def run_all_enabled(self) -> list[dict]:
+        async with SessionLocal() as session:
+            try:
+                n = await self.source_sync.sync_registry(session)
+                logger.info("synced %s sources to Supabase", n)
+            except Exception as exc:
+                logger.warning("source registry sync failed: %s", exc)
+
         results = []
         for entry in self.registry.get("scrapers", []):
             if entry.get("enabled"):
@@ -183,6 +207,16 @@ class IngestAgent:
                 entry.get("state", ""),
                 max_items=max_items,
                 lookback_days=lookback,
+            )
+
+        if module == "discovery_listings":
+            from app.scrapers.discovery_listings import DiscoveryListingsScraper
+
+            return DiscoveryListingsScraper(
+                list_url=entry.get("listUrl"),
+                lookback_days=lookback,
+                max_items=int(entry.get("maxItems") or 600),
+                max_detail_fetches=int(entry.get("maxDetailFetches") or 350),
             )
 
         return RssFeedScraper(lookback_days=lookback, max_items=max_items)

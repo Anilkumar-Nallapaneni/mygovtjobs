@@ -24,11 +24,19 @@ async function fetchOk(url) {
   }
 }
 
-ok('frontend/src/App.jsx', existsSync(join(root, 'frontend/src/App.jsx')))
+ok('frontend/src/App.tsx', existsSync(join(root, 'frontend/src/App.tsx')))
 ok('frontend/public/india.svg', existsSync(join(root, 'frontend/public/india.svg')))
-ok('frontend/src/hooks/useLiveJobs.js', existsSync(join(root, 'frontend/src/hooks/useLiveJobs.js')))
+ok('frontend/src/hooks/useLiveJobs.ts', existsSync(join(root, 'frontend/src/hooks/useLiveJobs.ts')))
 ok('frontend/src/lib/supabase.ts', existsSync(join(root, 'frontend/src/lib/supabase.ts')))
 ok('frontend/public/data/live-jobs.json', existsSync(join(root, 'frontend/public/data/live-jobs.json')))
+
+try {
+  const { execSync } = await import('node:child_process')
+  execSync('node scripts/check-frontend-hygiene.mjs', { cwd: root, stdio: 'pipe' })
+  ok('frontend/src TS-only', true)
+} catch {
+  ok('frontend/src TS-only', false)
+}
 
 const envLocal = join(root, 'frontend/.env.local')
 if (existsSync(envLocal)) {

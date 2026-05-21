@@ -6,6 +6,8 @@ from urllib.parse import urljoin, urlparse
 import httpx
 from bs4 import BeautifulSoup
 
+from app.utils.url_safety import assert_safe_url
+
 _PDF = re.compile(r"\.pdf(\?|/|$)", re.I)
 _SKIP = re.compile(
     r"facebook|twitter|instagram|youtube|linkedin|mailto:|javascript:",
@@ -53,11 +55,11 @@ async def discover_pdf_on_page(page_url: str, *, timeout: float = 20) -> str | N
     if not page_url or not page_url.startswith("http") or _is_pdf_url(page_url):
         return page_url if _is_pdf_url(page_url) else None
     try:
+        assert_safe_url(page_url)
         async with httpx.AsyncClient(
             timeout=timeout,
             follow_redirects=True,
             headers={"User-Agent": USER_AGENT},
-            verify=False,
         ) as client:
             res = await client.get(page_url)
             if res.status_code >= 400:

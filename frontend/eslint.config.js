@@ -26,6 +26,7 @@ const browserGlobals = {
   clearInterval: 'readonly',
   requestAnimationFrame: 'readonly',
   cancelAnimationFrame: 'readonly',
+  RequestCache: 'readonly',
 };
 
 const reactRules = {
@@ -40,7 +41,7 @@ export default [
   { ignores: ['dist/**', 'node_modules/**', 'scripts/**'] },
   js.configs.recommended,
   {
-    files: ['src/**/*.{js,jsx}'],
+    files: ['src/**/*.jsx'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',

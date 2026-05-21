@@ -5,6 +5,7 @@ from datetime import date, datetime
 from typing import Any
 from urllib.parse import urlparse
 
+from app.utils.official_hosts import is_official_recruitment_host
 from app.services.noise_filter import (
     clean_job_title,
     friendly_dept,
@@ -18,7 +19,11 @@ _SCAM = re.compile(
     r"guaranteed\s*job|agent\s*required|call\s*\d{10}",
     re.I,
 )
-_GOV_HOST = re.compile(r"\.(gov\.in|nic\.in|ac\.in|org\.in)$", re.I)
+_GOV_HOST = re.compile(r"\.(gov|nic|ac|org|res)\.in$", re.I)
+_BLOCKED_AGGREGATOR = re.compile(
+    r"(?:^|\.)(?:freejobalert|sarkariresult|sarkarijob|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive)\.",
+    re.I,
+)
 
 
 def _parse_date(value) -> date | None:
@@ -57,10 +62,13 @@ class ValidationService:
         if apply_url:
             try:
                 host = urlparse(apply_url).hostname or ""
-                if host and not _GOV_HOST.search(host) and "pib.gov.in" not in host:
-                    # Allow known boards; flag only obvious non-official domains
+                if host and _BLOCKED_AGGREGATOR.search(host):
+                    reasons.append("aggregator_link")
+                elif not is_official_recruitment_host(apply_url):
                     if any(x in host for x in ("bit.ly", "t.me", "wa.me", "goo.gl")):
                         reasons.append("suspicious_link")
+                    else:
+                        reasons.append("non_official_link")
             except Exception:
                 reasons.append("invalid_url")
 

@@ -11,6 +11,7 @@
   },
   "scripts": {
     "dev": "npm run dev --prefix frontend",
+    "api:dev": "node scripts/run-api-dev.mjs",
     "build": "npm run build --prefix frontend",
     "lint": "npm run lint --prefix frontend",
     "type-check": "npm run type-check --prefix frontend",
@@ -20,6 +21,9 @@
     "ingest:all": "node scripts/run-ingest-all.mjs",
     "ingest:direct": "node scripts/run-python.mjs scripts/run-ingest-direct.py",
     "ingest:direct:quick": "node scripts/run-python.mjs scripts/run-ingest-direct.py --limit 20",
+    "ingest:discovery": "node scripts/run-python.mjs scripts/run-ingest-discovery.py",
+    "data:refresh": "node scripts/run-python.mjs scripts/run-full-data-refresh.py",
+    "data:scrub": "node scripts/run-python.mjs scripts/scrub-aggregator-from-db.py",
     "clean:live-jobs": "node scripts/run-python.mjs scripts/clean-live-jobs-json.py",
     "backfill:pdfs": "node scripts/run-python.mjs scripts/backfill-job-pdfs.py",
     "enrich:jobs": "node scripts/run-python.mjs scripts/enrich-jobs-metadata.py",
@@ -28,7 +32,12 @@
     "i18n:generate": "npm run i18n:generate --prefix frontend",
     "i18n:fill": "npm run i18n:fill --prefix frontend",
     "verify": "node scripts/verify-stack.mjs",
+    "check:frontend": "node scripts/check-frontend-hygiene.mjs",
     "supabase:test": "node scripts/test-supabase-connection.mjs",
+    "supabase:audit": "node scripts/audit-supabase-tables.mjs",
+    "supabase:sync-sources": "node scripts/run-python.mjs scripts/run-supabase-sync-sources.py",
+    "supabase:full-sync": "node scripts/run-python.mjs scripts/run-supabase-full-sync.py",
+    "supabase:import-official": "node scripts/run-python.mjs scripts/import-official-json-to-db.py",
     "db:test": "node scripts/run-python.mjs scripts/test-backend-db.py"
   },
   "dependencies": {

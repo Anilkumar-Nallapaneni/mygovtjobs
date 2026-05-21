@@ -1,0 +1,45 @@
+name: Supabase auto ingest
+
+on:
+  schedule:
+    # Daily 02:30 UTC (~8:00 IST)
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          pip install -r backend/requirements.txt
+
+      - name: Sync sources + ingest to Supabase
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+          ALLOW_FALLBACK_JSON_EXPORT: "0"
+        run: node scripts/run-python.mjs scripts/run-supabase-full-sync.py
+
+      - name: Audit tables
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          mkdir -p frontend
+          printf 'VITE_SUPABASE_URL=%s\nVITE_SUPABASE_ANON_KEY=%s\n' \
+            "$VITE_SUPABASE_URL" "$VITE_SUPABASE_ANON_KEY" > frontend/.env.local
+          npm run supabase:audit

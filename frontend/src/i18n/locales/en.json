@@ -1,8 +1,8 @@
 {
   "brand": {
-    "primary": "SARKARI",
-    "accent": "ALERT",
-    "tagline": "LIVE GOVT JOB ALERTS"
+    "primary": "BHARAT",
+    "accent": "NAUKRI",
+    "tagline": "OFFICIAL GOVT JOB ALERTS"
   },
   "nav": {
     "home": "Home",
@@ -145,12 +145,12 @@
   },
   "footer": {
     "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
-    "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
+    "disclaimer": "BharatNaukri lists jobs from official government portals (.gov.in / .gov) only. Always verify on the recruiting organisation's website before applying.",
     "quickLinks": "Quick Links",
     "categories": "Categories",
     "topStates": "Top States",
     "company": "Company",
-    "copyright": "© {{year}} SarkariAlert · Made with ❤️ in India",
+    "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India",
     "latestJobs": "Latest Jobs",
     "results": "Results",
     "admitCards": "Admit Cards",
@@ -253,7 +253,7 @@
     "syllabus": "Syllabus:",
     "helpdesk": "Helpdesk:",
     "email": "Email:",
-    "disclaimer": "Disclaimer: SarkariAlert is an independent aggregator. Always verify details at the official website before applying.",
+    "disclaimer": "BharatNaukri lists jobs from official government portals (.gov.in / .gov) only. Always verify on the recruiting organisation's website before applying.",
     "dates": {
       "Notification": "Notification",
       "ApplyStart": "Apply Start",
@@ -282,5 +282,24 @@
   "common": {
     "age": "Age {{age}}",
     "allIndia": "All India"
+  },
+  "latestNotif": {
+    "subtitle": "Post Date · Board · Post · Qualification · Advt No · Last Date",
+    "intro": "Latest recruitment from official government portals (.gov.in / .gov). Click a row for full details.",
+    "allCategories": "All",
+    "categories": "Categories",
+    "loading": "Loading latest notifications…",
+    "empty": "No official listings yet. Run ingest to pull jobs from .gov.in portals.",
+    "view": "View",
+    "emptyCategory": "No jobs in this category right now.",
+    "colPostDate": "Post Date",
+    "colBoard": "Recruitment Board",
+    "colPost": "Exam / Post Name",
+    "colQual": "Qualification",
+    "colAdvt": "Advt No",
+    "colLastDate": "Last Date",
+    "colMore": "More Information",
+    "getDetails": "Get Details",
+    "meta": "{{count}} of {{total}} official listings"
   }
 }

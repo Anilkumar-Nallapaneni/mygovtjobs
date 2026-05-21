@@ -4,6 +4,17 @@
   "maxItems": 80,
   "scrapers": [
     {
+      "code": "discovery-listings",
+      "module": "discovery_listings",
+      "category": "state",
+      "enabled": true,
+      "maxItems": 800,
+      "maxDetailFetches": 400,
+      "lookbackDays": 120,
+      "sourceName": "Latest notifications (official links)",
+      "notes": "Resolves listing pages to official apply URLs only."
+    },
+    {
       "code": "pib-rss",
       "module": "rss_feed",
       "feed_id": "pib-press-reg3",

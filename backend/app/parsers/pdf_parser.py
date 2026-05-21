@@ -7,6 +7,11 @@ from typing import Any
 import httpx
 from pypdf import PdfReader
 
+from app.utils.url_safety import assert_safe_url
+from app.utils.vacancy_extract import extract_vacancies, sanitize_vacancies
+
+_MAX_BYTES = 20 * 1024 * 1024
+
 _VACANCY = re.compile(
     r"(\d{1,6})\s*(?:posts?|vacancies|vacancy|पद|positions?|training\s+seats?)|"
     r"(?:total\s*\*+\s*|total\s+)(\d{1,6})",
@@ -26,21 +31,30 @@ _URL = re.compile(r"https?://[^\s<>\"']+", re.I)
 
 
 async def fetch_pdf_text(url: str, *, timeout: float = 25) -> str:
-    async with httpx.AsyncClient(timeout=timeout, follow_redirects=True, verify=False) as client:
-        res = await client.get(
+    assert_safe_url(url)
+    async with httpx.AsyncClient(timeout=timeout, follow_redirects=True) as client:
+        async with client.stream(
+            "GET",
             url,
             headers={
                 "User-Agent": (
                     "Mozilla/5.0 (compatible; BharatNaukri/1.0; +https://github.com/gov-job-alert)"
                 )
             },
-        )
-        res.raise_for_status()
-        reader = PdfReader(io.BytesIO(res.content))
-        parts: list[str] = []
-        for page in reader.pages[:12]:
-            parts.append(page.extract_text() or "")
-        return "\n".join(parts)
+        ) as res:
+            res.raise_for_status()
+            buf = io.BytesIO()
+            size = 0
+            async for chunk in res.aiter_bytes():
+                size += len(chunk)
+                if size > _MAX_BYTES:
+                    raise ValueError("PDF too large")
+                buf.write(chunk)
+            reader = PdfReader(buf)
+            parts: list[str] = []
+            for page in reader.pages[:12]:
+                parts.append(page.extract_text() or "")
+            return "\n".join(parts)
 
 
 def extract_fields(text: str) -> dict[str, Any]:
@@ -48,11 +62,14 @@ def extract_fields(text: str) -> dict[str, Any]:
         return {}
 
     out: dict[str, Any] = {}
-    vac = _VACANCY.search(text)
+    vac = extract_vacancies(text)
     if vac:
-        num = vac.group(1) or vac.group(2)
+        out["vacancies"] = vac
+    elif _VACANCY.search(text):
+        m = _VACANCY.search(text)
+        num = m.group(1) or m.group(2)
         if num:
-            out["vacancies"] = int(num)
+            out["vacancies"] = sanitize_vacancies(int(num))
 
     ld = _LAST_DATE.search(text)
     if ld:

@@ -17,8 +17,10 @@ def lookback_cutoff(days: int) -> datetime:
     return datetime.now(timezone.utc) - timedelta(days=max(1, days))
 
 
-def parse_published(value: Any) -> datetime | None:
+def parse_published(value: Any, _depth: int = 0) -> datetime | None:
     """Best-effort parse of RSS/HTML published strings."""
+    if _depth > 6:
+        return None
     if value is None:
         return None
     if isinstance(value, datetime):
@@ -54,7 +56,9 @@ def parse_published(value: Any) -> datetime | None:
 
     m = _DATE_IN_TEXT.search(text)
     if m:
-        return parse_published(m.group(1))
+        fragment = m.group(1).strip()
+        if fragment and fragment != text:
+            return parse_published(fragment, _depth + 1)
 
     return None
 

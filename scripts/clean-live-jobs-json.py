@@ -28,16 +28,18 @@ def main() -> None:
     dropped = 0
     for row in items:
         source = (row.get("detail") or {}).get("source") or ""
+        detail = row.get("detail") or {}
         raw = {
             "title": row.get("title"),
-            "link": row.get("apply_url") or (row.get("detail") or {}).get("notification_url"),
+            "link": row.get("apply_url") or detail.get("notification_url"),
             "applyUrl": row.get("apply_url"),
-            "pdfUrls": [row["pdf_url"]] if row.get("pdf_url") else [],
+            "pdfUrls": [row["pdf_url"]] if row.get("pdf_url") else detail.get("pdf_urls") or [],
             "dept": row.get("dept"),
             "state": row.get("state_codes"),
             "source": source,
             "sourceName": row.get("dept"),
-            "published": (row.get("detail") or {}).get("published"),
+            "published": detail.get("published"),
+            "summary": detail.get("summary"),
             "vacancies": row.get("vacancies"),
             "last_date": row.get("last_date"),
             "category": row.get("category"),
@@ -52,11 +54,13 @@ def main() -> None:
             row_status = "expired"
         else:
             row_status = row.get("status") or "live"
+        new_vac = int(normalized.get("vacancies") or 0)
         kept.append(
             {
                 **row,
                 "title": normalized["title"],
                 "dept": normalized["dept"],
+                "vacancies": new_vac,
                 "last_date": last or row.get("last_date"),
                 "status": row_status,
             }

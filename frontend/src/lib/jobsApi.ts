@@ -32,6 +32,7 @@ function apiUrl(path: string, params?: Record<string, string | number | undefine
 
 export type FetchJobsResult = {
   items: ApiJob[]
+  total: number
   degraded: boolean
 }
 
@@ -40,6 +41,7 @@ export async function fetchJobsFromApi(params?: {
   category?: string
   q?: string
   limit?: number
+  offset?: number
 }): Promise<FetchJobsResult> {
   try {
     const res = await fetch(
@@ -47,29 +49,31 @@ export async function fetchJobsFromApi(params?: {
         state: params?.state,
         category: params?.category,
         q: params?.q,
-        limit: params?.limit ?? 1000,
+        limit: params?.limit ?? 200,
+        offset: params?.offset ?? 0,
       }),
-      { cache: 'no-store' }
+      { cache: 'default' }
     )
-    if (res.status === 503) return { items: [], degraded: true }
-    if (!res.ok) return { items: [], degraded: false }
+    if (res.status === 503) return { items: [], total: 0, degraded: true }
+    if (!res.ok) return { items: [], total: 0, degraded: false }
     const json = await res.json()
     return {
       items: Array.isArray(json.items) ? json.items : [],
+      total: typeof json.total === 'number' ? json.total : json.items?.length ?? 0,
       degraded: Boolean(json.degraded),
     }
   } catch {
-    return { items: [], degraded: false }
+    return { items: [], total: 0, degraded: false }
   }
 }
 
 export async function fetchJobsFromJson(): Promise<ApiJob[]> {
   try {
-    const res = await fetch('/data/live-jobs.json')
+    const res = await fetch('/data/live-jobs.json', { cache: 'default' })
     if (!res.ok) return []
     const json = await res.json()
     const items = Array.isArray(json.items) ? json.items : []
-    return items.slice(0, 800)
+    return items.slice(0, 8000)
   } catch {
     return []
   }
@@ -77,7 +81,7 @@ export async function fetchJobsFromJson(): Promise<ApiJob[]> {
 
 export async function fetchJobBySlug(slug: string): Promise<ApiJob | null> {
   try {
-    const res = await fetch(apiUrl(`/api/jobs/${encodeURIComponent(slug)}`), { cache: 'no-store' })
+    const res = await fetch(apiUrl(`/api/jobs/${encodeURIComponent(slug)}`), { cache: 'default' })
     if (!res.ok) return null
     return await res.json()
   } catch {

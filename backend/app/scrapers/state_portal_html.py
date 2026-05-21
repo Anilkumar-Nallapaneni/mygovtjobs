@@ -8,6 +8,7 @@ import httpx
 from bs4 import BeautifulSoup
 
 from app.config import get_settings
+from app.utils.url_safety import assert_safe_url
 from app.scrapers.base import BaseScraper
 from app.scrapers.date_utils import extract_date_from_title, parse_published, within_lookback
 from app.services.noise_filter import (
@@ -179,13 +180,14 @@ class StatePortalHtmlScraper(BaseScraper):
         seen_links: set[str] = set()
 
         async with httpx.AsyncClient(
-            timeout=30, follow_redirects=True, headers={"User-Agent": USER_AGENT}, verify=False
+            timeout=30, follow_redirects=True, headers={"User-Agent": USER_AGENT}
         ) as client:
             for page_url in urls_to_try:
                 if page_url in seen_pages or len(all_rows) >= self.max_items:
                     break
                 seen_pages.add(page_url)
                 try:
+                    assert_safe_url(page_url)
                     res = await client.get(page_url)
                     if res.status_code >= 400:
                         continue

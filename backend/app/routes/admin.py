@@ -8,6 +8,7 @@ from app.database.session import SessionLocal
 from app.middleware.auth import require_admin_key
 from app.models.job import Job, Source
 from app.services.ingest_service import IngestService
+from app.services.supabase_audit_service import SupabaseAuditService
 
 router = APIRouter(dependencies=[Depends(require_admin_key)])
 
@@ -95,7 +96,24 @@ async def source_health():
     }
 
 
+@router.post("/sources/sync")
+async def admin_sync_sources():
+    n = await IngestService().sync_sources_registry()
+    return {"synced": n}
+
+
+@router.get("/supabase/audit")
+async def admin_supabase_audit():
+    async with SessionLocal() as session:
+        audit = SupabaseAuditService()
+        return {
+            "tables": await audit.table_counts(session),
+            "live_jobs_by_state": await audit.jobs_by_state(session),
+        }
+
+
 @router.post("/ingest/run-all")
 async def admin_run_ingest():
+    synced = await IngestService().sync_sources_registry()
     results = await IngestService().run_all_enabled()
-    return {"results": results}
+    return {"sources_synced": synced, "results": results}

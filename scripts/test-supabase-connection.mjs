@@ -53,18 +53,31 @@ async function rest(path) {
 const health = await fetch(`${url}/rest/v1/`, { headers })
 console.log(health.ok ? '✓ REST API reachable' : `✗ REST ${health.status}`)
 
-const jobs = await rest('jobs?select=id,title,status&status=eq.live&limit=3')
-if (jobs.status === 404 || (typeof jobs.body === 'object' && jobs.body?.code === 'PGRST205')) {
-  console.log('✗ Table `jobs` not found — run database/supabase_setup.sql in SQL Editor')
-} else if (jobs.status === 401 || jobs.status === 403) {
-  console.log(`✗ jobs query ${jobs.status} — check RLS policies and anon grants`)
-  console.log('  ', JSON.stringify(jobs.body))
-} else if (jobs.ok) {
-  const n = Array.isArray(jobs.body) ? jobs.body.length : 0
-  console.log(`✓ jobs table OK (${n} sample row(s) returned)`)
-  if (n > 0) console.log('  ', jobs.body.map((r) => r.title).join(' | '))
-} else {
-  console.log(`✗ jobs query ${jobs.status}:`, jobs.body)
+const TABLES = ['sources', 'raw_ingest', 'jobs', 'job_posts', 'job_dates', 'alert_subscriptions', 'alert_deliveries']
+let ok = health.ok
+
+for (const table of TABLES) {
+  const r = await rest(`${table}?select=id&limit=1`)
+  if (r.status === 404 || (typeof r.body === 'object' && r.body?.code === 'PGRST205')) {
+    console.log(`✗ Table \`${table}\` missing — run database/supabase_setup.sql`)
+    ok = false
+  } else if (r.status === 401 || r.status === 403) {
+    console.log(`✗ ${table}: ${r.status} (RLS/grants) — run database/migrations/002_supabase_rls_and_grants.sql`)
+    ok = false
+  } else if (r.ok) {
+    console.log(`✓ ${table}`)
+  } else {
+    console.log(`✗ ${table}: ${r.status}`)
+    ok = false
+  }
 }
 
-process.exit(jobs.ok || jobs.status === 200 ? 0 : 1)
+const jobs = await rest('jobs?select=id,title,status&status=eq.live&limit=3')
+if (jobs.ok && Array.isArray(jobs.body) && jobs.body.length) {
+  console.log('  sample:', jobs.body.map((r) => r.title).join(' | '))
+}
+
+console.log('\nRow counts: npm run supabase:audit')
+console.log('Full ingest:  npm run supabase:full-sync')
+
+process.exit(ok ? 0 : 1)

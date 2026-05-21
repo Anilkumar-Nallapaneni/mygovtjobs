@@ -73,6 +73,7 @@ SOURCE_LABELS: dict[str, str] = {
     "employment-news-rss": "Employment News",
     "railway-rss": "Railway Recruitment Boards",
     "niti": "NITI Aayog",
+    "discovery-listings": "Latest notifications (official apply link)",
 }
 
 

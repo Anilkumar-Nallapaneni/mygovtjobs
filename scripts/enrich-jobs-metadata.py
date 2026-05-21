@@ -14,6 +14,7 @@ from sqlalchemy import select
 from app.database.session import SessionLocal
 from app.models.job import Job
 from app.parsers.notification_parser import NotificationParser
+from app.utils.vacancy_extract import sanitize_vacancies
 from app.parsers.pdf_parser import parse_pdf_url
 from app.scrapers.pdf_discover import ensure_pdf_urls
 
@@ -42,8 +43,13 @@ async def main() -> None:
                 pdf_fields=pdf_fields,
             )
             changed = False
-            if norm.get("vacancies") and not job.vacancies:
-                job.vacancies = norm["vacancies"]
+            new_vac = int(norm.get("vacancies") or 0)
+            old_vac = int(job.vacancies or 0)
+            if new_vac and (
+                not old_vac
+                or sanitize_vacancies(old_vac, job.title or "") == 0
+            ):
+                job.vacancies = new_vac
                 changed = True
             if norm.get("last_date") and not job.last_date:
                 from app.services.job_persist_service import _parse_date

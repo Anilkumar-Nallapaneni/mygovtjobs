@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 
+from sqlalchemy import text
+
 from app.config import get_settings
 
 router = APIRouter()
@@ -18,15 +20,13 @@ async def health_detailed():
         from app.database.session import SessionLocal
 
         async with SessionLocal() as session:
-            await session.execute(__import__("sqlalchemy").text("SELECT 1"))
+            await session.execute(text("SELECT 1"))
             db_ok = True
-    except Exception as exc:
-        db_error = str(exc)
-    else:
-        db_error = None
+    except Exception:
+        pass
 
     return {
         "status": "ok" if db_ok else "degraded",
-        "database": {"connected": db_ok, "error": db_error},
+        "database": {"connected": db_ok},
         "supabase_configured": bool(settings.supabase_url and settings.supabase_service_role_key),
     }

@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from uuid import uuid4
 
-from sqlalchemy import Date, DateTime, Integer, String, Text, func
+from sqlalchemy import Date, DateTime, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -27,6 +27,7 @@ class Source(Base):
 
 class RawIngest(Base):
     __tablename__ = "raw_ingest"
+    __table_args__ = (UniqueConstraint("source_id", "external_id", name="raw_ingest_source_external_key"),)
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=lambda: str(uuid4()))
     source_id: Mapped[str] = mapped_column(UUID(as_uuid=False), nullable=False)

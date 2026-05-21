@@ -6,8 +6,21 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react()],
   build: {
-    /** Avoid stale hashed chunks (e.g. old CSS with broken minified `@import"…"`). */
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('@supabase')) return 'supabase'
+            if (id.includes('i18next') || id.includes('react-i18next')) return 'i18n-vendor'
+            // Single app vendor chunk (react + misc) — avoids vendor ↔ react-vendor cycle
+            return 'react-vendor'
+          }
+          if (id.includes('localeOverrides')) return 'locales'
+          if (id.includes('IndiaMap')) return 'map'
+        },
+      },
+    },
   },
   resolve: {
     alias: [
@@ -16,8 +29,8 @@ export default defineConfig({
       { find: '@styles', replacement: resolve(__dirname, 'src/styles') },
       { find: '@utils', replacement: resolve(__dirname, 'src/utils') },
       { find: '@hooks', replacement: resolve(__dirname, 'src/hooks') },
-      { find: '@types', replacement: resolve(__dirname, 'src/types') }
-    ]
+      { find: '@types', replacement: resolve(__dirname, 'src/types') },
+    ],
   },
   server: {
     port: 2222,

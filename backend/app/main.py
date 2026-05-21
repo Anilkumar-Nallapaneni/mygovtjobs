@@ -16,7 +16,15 @@ app = FastAPI(
     version="0.2.0",
 )
 
-_origins = [o.strip() for o in _settings.cors_origins.split(",") if o.strip()] or ["*"]
+_origins = [o.strip() for o in _settings.cors_origins.split(",") if o.strip()]
+if not _origins:
+    _origins = (
+        ["http://localhost:2222", "http://127.0.0.1:2222"]
+        if _settings.app_env != "production"
+        else []
+    )
+if not _origins and _settings.app_env == "production":
+    raise RuntimeError("CORS_ORIGINS must be set in production")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_origins,

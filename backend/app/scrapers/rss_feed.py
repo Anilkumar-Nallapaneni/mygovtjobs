@@ -5,10 +5,13 @@ import re
 from pathlib import Path
 from typing import Any
 
+from datetime import datetime, timezone
+
 import feedparser
 import httpx
 
 from app.config import get_settings
+from app.utils.url_safety import assert_safe_url
 from app.scrapers.base import BaseScraper
 from app.scrapers.date_utils import parse_published, within_lookback
 
@@ -45,7 +48,8 @@ class RssFeedScraper(BaseScraper):
         cap = int(target.get("maxItems") or self.max_items)
         scan_limit = min(500, max(cap * 4, 80))
 
-        async with httpx.AsyncClient(timeout=30, follow_redirects=True, verify=False) as client:
+        assert_safe_url(url)
+        async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
             res = await client.get(url, headers={"User-Agent": user_agent})
             res.raise_for_status()
             parsed = feedparser.parse(res.text)
@@ -61,7 +65,7 @@ class RssFeedScraper(BaseScraper):
             if hasattr(entry, "published_parsed") and entry.published_parsed:
                 try:
                     published_dt = parse_published(
-                        __import__("datetime").datetime(*entry.published_parsed[:6], tzinfo=__import__("datetime").timezone.utc)
+                        datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
                     )
                 except Exception:
                     published_dt = parse_published(published_raw)

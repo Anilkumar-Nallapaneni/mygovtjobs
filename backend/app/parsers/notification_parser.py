@@ -7,13 +7,7 @@ from urllib.parse import unquote, urlparse
 from app.scrapers.date_utils import row_published_at
 from app.services.noise_filter import clean_job_title, friendly_dept, is_junk_job_title
 
-_VAC_IN_TITLE = re.compile(
-    r"(?:[–—\-]\s*([\d,]+)\s*posts?\b|"
-    r"(?:notice|addendum|advertisement|recruitment)[:\s]+([\d,]+)\s+posts?\b|"
-    r":\s*([\d,]+)\s+posts?\s+of\b|"
-    r"\b([\d,]+)\s+posts?\s+of\b)",
-    re.I,
-)
+from app.utils.vacancy_extract import extract_vacancies, sanitize_vacancies
 _ADVT_IN_TITLE = re.compile(r"\b([A-Z]{2,6}/[A-Z0-9/_-]{4,40})\b")
 _DATE_DMY = re.compile(r"\b(\d{1,2})[./\s-](\d{1,2})[./\s-](\d{4})\b")
 _DATE_UPTO = re.compile(
@@ -83,14 +77,13 @@ class NotificationParser:
         return None
 
     def _extract_from_title(self, title: str) -> dict[str, Any]:
-        """Parse FreeJobAlert-style titles: 'Apprentice – 7150 Posts', date ranges in APPLY ONLINE rows."""
+        """Parse common notification titles: 'Apprentice – 7150 Posts', date ranges in APPLY ONLINE rows."""
         out: dict[str, Any] = {}
         if not title:
             return out
-        vm = _VAC_IN_TITLE.search(title)
-        if vm:
-            raw_v = next(g for g in vm.groups() if g)
-            out["vacancies"] = int(raw_v.replace(",", ""))
+        vac = extract_vacancies(title, title=title)
+        if vac:
+            out["vacancies"] = vac
         adv = _ADVT_IN_TITLE.search(title)
         if adv and "/" in adv.group(1):
             out["advt_no"] = adv.group(1)
@@ -118,7 +111,7 @@ class NotificationParser:
         for key, cfg in (self.template.get("fields") or {}).items():
             for pat in cfg.get("patterns") or []:
                 m = re.search(pat, text, re.I)
-                if m:
+                if m and m.lastindex and m.lastindex >= 1:
                     out[key] = m.group(1).strip()
                     break
         return out
@@ -183,13 +176,25 @@ class NotificationParser:
         if title_fields.get("advt_no"):
             detail["advt_no"] = title_fields["advt_no"]
 
-        vacancies = (
+        merged_text = " ".join(
+            filter(
+                None,
+                [title, raw.get("summary"), pdf.get("summary")],
+            )
+        )
+        stored = (
             pdf.get("vacancies")
-            or raw.get("vacancies")
             or title_fields.get("vacancies")
             or text_fields.get("vacancies")
+            or raw.get("vacancies")
             or 0
         )
+        stored = sanitize_vacancies(int(stored) if stored else 0, title, merged_text)
+        title_vac = extract_vacancies(title, title=title)
+        body_vac = extract_vacancies(merged_text, title=title) if merged_text != title else 0
+        extracted = title_vac or body_vac
+        vacancies = max(stored, extracted) if stored and extracted else (extracted or stored)
+        vacancies = sanitize_vacancies(vacancies, title, merged_text)
         last_date = (
             pdf.get("last_date")
             or raw.get("last_date")
@@ -210,7 +215,7 @@ class NotificationParser:
             "dept": dept,
             "state": state,
             "category": category,
-            "vacancies": int(vacancies) if vacancies else 0,
+            "vacancies": vacancies,
             "qualification": qualification,
             "salary": pdf.get("salary") or raw.get("salary"),
             "age_limit": pdf.get("age_limit") or raw.get("age_limit"),
