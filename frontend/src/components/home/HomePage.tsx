@@ -374,8 +374,8 @@ export default function HomePage({
                 </div>
               )}
 
-              <div style={{ background: DS.bg1, border: `1px solid ${DS.border}`, borderRadius: 14, padding: 10, overflow: "visible" }}>
-                <Suspense fallback={<div style={{ minHeight: 280, color: DS.muted, fontSize: 12 }}>Loading map…</div>}>
+              <div style={{ background: DS.bg1, border: `1px solid ${DS.border}`, borderRadius: 14, padding: 10, overflow: "visible", minHeight: 320 }}>
+                <Suspense fallback={<div style={{ minHeight: 320, color: DS.muted, fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>Loading map…</div>}>
                   <IndiaSvgMap
                     stateData={mapStateData}
                     selectionSyncKey={selectedState ?? ""}

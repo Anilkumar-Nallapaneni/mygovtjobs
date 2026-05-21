@@ -18,6 +18,7 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
   selectionSyncKey = null,
 }) => {
   const [svgContent, setSvgContent] = useState<string>("");
+  const [loadError, setLoadError] = useState(false);
   const [hoverInfo, setHoverInfo] = useState<HoverInfo | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [showTooltip, setShowTooltip] = useState(false);
@@ -28,8 +29,14 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
 
   useEffect(() => {
     const loadSVG = async () => {
+      setLoadError(false);
       const content = await fetchSVGContent();
-      if (content) setSvgContent(content);
+      if (content?.includes("<path")) {
+        setSvgContent(content);
+      } else {
+        setSvgContent("");
+        setLoadError(true);
+      }
     };
     loadSVG();
   }, []);
@@ -158,6 +165,12 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
             </div>
           )}
         </div>
+      )}
+
+      {loadError && !svgContent && (
+        <p style={{ padding: 24, textAlign: "center", color: "#94a3b8", fontSize: 13 }}>
+          Map could not load. Ensure <code>frontend/public/india.svg</code> exists and refresh the page.
+        </p>
       )}
 
       <div
