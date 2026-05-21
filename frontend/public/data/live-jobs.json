@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T12:36:22.018194+00:00",
+  "generatedAt": "2026-05-21T14:07:55.698765+00:00",
   "items": [
     {
       "id": "60215316-c89e-4c77-90c5-dcc20cc3d453",
@@ -45,6 +45,62 @@
         "source": "isro",
         "pdf_urls": [],
         "published": "2026-08-12T00:00:00+00:00"
+      }
+    },
+    {
+      "id": "3f0164c7-c8ac-402f-adca-d27253c9c8b3",
+      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-ac3cec9a",
+      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
+      "dept": "www.esic.gov.in",
+      "category": "health",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
+      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
+      "status": "live",
+      "published_at": "2026-05-22T00:00:00Z",
+      "detail": {
+        "source": "esic",
+        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
+        "pdf_urls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf"
+        ],
+        "published": "2026-05-22T00:00:00+00:00",
+        "pdfUrls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf"
+        ]
+      }
+    },
+    {
+      "id": "148f4cb7-f9eb-4752-b5ab-9343f7a01291",
+      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-4a44745a",
+      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
+      "dept": "www.esic.gov.in",
+      "category": "health",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": null,
+      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
+      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
+      "status": "live",
+      "published_at": "2026-05-22T00:00:00Z",
+      "detail": {
+        "source": "esic",
+        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
+        "pdf_urls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf"
+        ],
+        "published": "2026-05-22T00:00:00+00:00",
+        "pdfUrls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf"
+        ]
       }
     },
     {
@@ -100,62 +156,6 @@
         "published": "2026-05-22T00:00:00+00:00",
         "pdfUrls": [
           "https://www.esic.gov.in/attachments/recruitmentfile/Application_Form_1779105806.pdf"
-        ]
-      }
-    },
-    {
-      "id": "148f4cb7-f9eb-4752-b5ab-9343f7a01291",
-      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-4a44745a",
-      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
-      "dept": "www.esic.gov.in",
-      "category": "health",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
-      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
-      "status": "live",
-      "published_at": "2026-05-22T00:00:00Z",
-      "detail": {
-        "source": "esic",
-        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf",
-        "pdf_urls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf"
-        ],
-        "published": "2026-05-22T00:00:00+00:00",
-        "pdfUrls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105758.pdf"
-        ]
-      }
-    },
-    {
-      "id": "3f0164c7-c8ac-402f-adca-d27253c9c8b3",
-      "slug": "advertisement-for-senior-resident-interview-dated-22-05-2026-pdfsize-2-31-mb-ac3cec9a",
-      "title": "Advertisement for senior resident interview dated 22.05.2026- PDFsize:(2.31 MB) .",
-      "dept": "www.esic.gov.in",
-      "category": "health",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
-      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
-      "status": "live",
-      "published_at": "2026-05-22T00:00:00Z",
-      "detail": {
-        "source": "esic",
-        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf",
-        "pdf_urls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf"
-        ],
-        "published": "2026-05-22T00:00:00+00:00",
-        "pdfUrls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_dated_22_05_2026_1779105806.pdf"
         ]
       }
     },
@@ -2884,36 +2884,6 @@
       }
     },
     {
-      "id": "0e983591-20c1-4721-a369-9a52fa591d0e",
-      "slug": "curaj-assistant-professor-3-posts-1824caf2",
-      "title": "CURAJ — Assistant Professor – 3 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 3,
-      "qualification": "Schedule and Venue of",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-05",
-      "apply_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
-      "pdf_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
-        "summary": "1 Advt: CURAJ/R/F.175/Rectt./2026/5174 Date: 11.05.2026 वाक इन इ ं टरव्यू / Walk-in-Interview राजस्थान क ें द्रीय वलश्ववलद्याऱय में द ूर स्थ और ऑनऱाइन शळक्षा क ें द्र (CDOE) में सहायक आचायय - प्रबंधन, अंग्रेज़ी, और लाशिज्य क े ऩदों क े लऱए यॉग्य उम्मीदलारों कॉ लॉक -इन- इ ं टरव्यू क े लऱए बुऱाया जाता है। इन ऩदों ऩर लनयुक्तियााँ ऩूरी तरह से अनुबंध के आधार ऩर एक साऱ की अलक्तध क े लऱए या अगऱे आदेळ तक, जॉ भी ऩहऱे हॉ, की जाए ं गी। इच्छु क यॉग्य उम्मीदलार लनधायररत तारीख और समय ऩर वलश्ववलद्याऱय में लॉक -इन-इ ं टरव्यू के लऱए लनधायररत प्रारूऩ में भरा हुआ आलेदन ऩत्र और सभी ज़रूरी मूऱ दस्तालेज क े साथ आए ं ",
-        "pdf_urls": [
-          "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
-        "pdfUrls": [
-          "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf"
-        ]
-      }
-    },
-    {
       "id": "382eb3ca-23db-484e-adcb-24b03083f996",
       "slug": "oidc-chief-financial-officer-1-posts-d7af0f39",
       "title": "OIDC — Chief Financial Officer – 1 Posts",
@@ -2943,6 +2913,54 @@
       }
     },
     {
+      "id": "60a500cf-53a3-4055-9405-87d51e694670",
+      "slug": "upsc-nda-2-exam-394-posts-d7c88d1b",
+      "title": "UPSC — NDA (2) Exam – 394 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "upsc",
+      "state_codes": [],
+      "vacancies": 394,
+      "qualification": "12TH",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-09",
+      "apply_url": "https://upsconline.nic.in",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://upsconline.nic.in"
+      }
+    },
+    {
+      "id": "aa0aa051-d50e-437c-8ca4-857b6920524f",
+      "slug": "iit-gandhinagar-post-doctoral-fellow-1-posts-964762e7",
+      "title": "IIT Gandhinagar — Post Doctoral Fellow – 1 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1,
+      "qualification": "M.Phil/Ph.D, 10TH, 12TH, Any Graduate",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-02",
+      "apply_url": "https://recruitment.iitgn.ac.in/projectstaff/login",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://recruitment.iitgn.ac.in/projectstaff/login"
+      }
+    },
+    {
       "id": "7b2bf68f-f7a4-4cb8-a7b8-ef7b221af944",
       "slug": "wcd-odisha-anganwadi-worker-04-posts-078e7f11",
       "title": "WCD Odisha — Anganwadi Worker – 04 Posts",
@@ -2967,91 +2985,110 @@
       }
     },
     {
-      "id": "50db7cdd-2a60-4549-b986-a3fc6c945ead",
-      "slug": "walk-in-interview-on-21-05-2026-for-teaching-faculty-super-specialty-department--51a25932",
-      "title": "Walk-in Interview on 21.05.2026 for Teaching Faculty (Super Specialty Department) on Contract Basis at ESIC Medical College & Hospital, Faridabad",
-      "dept": "ESIC — Employees' State Insurance Corporation",
-      "category": "health",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-05-21",
-      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
-      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "esic",
-        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
-        "pdf_urls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
-        "pdfUrls": [
-          "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf"
-        ]
-      }
-    },
-    {
-      "id": "a399bb54-cb47-462a-83d9-cb4b40cfcc20",
-      "slug": "grih-kalyan-kendra-delhi-peon-office-assistant-and-more-25521509",
-      "title": "Grih Kalyan Kendra Delhi — Peon, Office Assistant and More",
+      "id": "1fe723a4-9531-40d1-a3e9-762c3e6efba4",
+      "slug": "mpesb-hospital-assistant-1200-posts-739256dc",
+      "title": "MPESB — Hospital Assistant – 1200 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 0,
-      "qualification": "8TH, 10TH, 12TH, Diploma, Any Graduate",
+      "vacancies": 1200,
+      "qualification": "10TH",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-06-17",
-      "apply_url": "https://grihkalyankendra.gov.in/",
-      "pdf_url": "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf",
+      "last_date": "2026-05-23",
+      "apply_url": "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsList.aspx",
+      "pdf_url": "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf",
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf",
+        "pdf_url": "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf",
         "pdf_urls": [
-          "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf"
+          "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf"
         ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://grihkalyankendra.gov.in/",
+        "notification_url": "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsList.aspx",
         "pdfUrls": [
-          "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf"
+          "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf"
         ]
       }
     },
     {
-      "id": "4461e89c-3aa2-4799-8b8c-729da2f6376b",
-      "slug": "csir-ceeri-technical-officer-and-technician-22-posts-7e4086cf",
-      "title": "CSIR CEERI — Technical Officer and Technician – 22 Posts",
+      "id": "3ff62dce-efad-401c-9f6d-a21bb8ca7423",
+      "slug": "periyar-university-project-assistant-1-posts-b6603729",
+      "title": "Periyar University — Project Assistant – 1 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 40,
-      "qualification": "criteria, in case, the candidate(s) under the EWS category being found unavailable.",
-      "salary": "**Upper Age",
-      "age_limit": "(as on the",
-      "last_date": "2026-06-20",
-      "apply_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
-      "pdf_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
+      "vacancies": 1,
+      "qualification": "details with Percent of",
+      "salary": null,
+      "age_limit": "28 years maximum.",
+      "last_date": "2026-05-25",
+      "apply_url": "https://www.periyaruniversity.ac.in/Documents/2026/Advt/ad17.pdf",
+      "pdf_url": "https://www.periyaruniversity.ac.in/Documents/2026/Advt/ad17.pdf",
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
-        "summary": "Advt. No. 01/2026 Page 1 of 10 सीएसआईआर-क े न्‍द् रीय इलेक्‍ट् रॉनिकी अनिय ांनिकी अिुसांध ि सांस््थ ि CSIR-CENTRAL ELECTRONICS ENGINEERING RESEARCH INSTITUTE (निज्ञ ि तथ प्रौद्योनिकी मांि लय / MINISTRY OF SCIENCE & TECHNOLOGY, ि रत सरक र / GOVT. OF INDIA) निल िी, र जस्् थ ि (ि रत)/Pilani, Rajasthan - 333031 _______________________________________________________________________________________________ Advertisement No. 01/2026 dated: 21.05.2026 Start Date for Registration for Online Application : 21.05.2026 (10:00AM) (THURSDAY) Last date for Registration & Submission of Online application : 20",
+        "pdf_url": "https://www.periyaruniversity.ac.in/Documents/2026/Advt/ad17.pdf",
+        "summary": "Phone: 0427- 2345766, 2346268, 2346269 Fax: 0427- 2345124 Mob: +91-94434-96299 E-Mail: kadhir1971@gmail.com Website: www.periyaruniversity.ac.in PERIYAR UNIVERSITY DEPARTMENT OF PSYCHOLOGY Salem – 636011, Tamil Nadu, India NAAC A++ Grade - State University - NIRF Rank94 – State Public University Rank 40 Ref. No. CMRG/eOffice E-671131/199, dt. 13.02.26 Advertisement for the post of Project Assistant under CMRG at the Department of Psychology, Periyar University Applications are invited from eligible candidates for the following position in the research project entitled “Culturally Responsive Me",
         "pdf_urls": [
-          "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf"
+          "https://www.periyaruniversity.ac.in/Documents/2026/Advt/ad17.pdf"
         ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
+        "notification_url": "https://www.periyaruniversity.ac.in/Documents/2026/Advt/ad17.pdf",
         "pdfUrls": [
-          "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf"
+          "https://www.periyaruniversity.ac.in/Documents/2026/Advt/ad17.pdf"
         ]
+      }
+    },
+    {
+      "id": "2eba9cdc-4a73-4268-a6d5-e227fe04c87e",
+      "slug": "iit-guwahati-junior-research-fellow-1-posts-2fb3f462",
+      "title": "IIT Guwahati — Junior Research Fellow – 1 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1,
+      "qualification": "B.Tech/B.E, M.Sc",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-28",
+      "apply_url": "https://iitg.ac.in/rndproj/recruitment",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://iitg.ac.in/rndproj/recruitment"
+      }
+    },
+    {
+      "id": "e260f2c0-612e-4e82-bb24-478f235b67f4",
+      "slug": "dphcl-technical-and-non-technical-23-posts-9c1fa442",
+      "title": "DPHCL — Technical and Non-Technical – 23 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 23,
+      "qualification": "B.Tech/B.E, Diploma",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-22",
+      "apply_url": "http://www.dphc.gov.in",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "http://www.dphc.gov.in"
       }
     },
     {
@@ -3085,32 +3122,90 @@
       }
     },
     {
-      "id": "e63c15da-da59-4fb6-9b14-31329761d6f4",
-      "slug": "nit-warangal-junior-research-fellow-1-posts-5ad37939",
-      "title": "NIT Warangal — Junior Research Fellow – 1 Posts",
+      "id": "a3b57879-a176-48e1-aee2-c0bd68cec8eb",
+      "slug": "hpsc-assistant-district-attorney-255-posts-ffa65ad5",
+      "title": "HPSC — Assistant District Attorney – 255 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 5,
-      "qualification": "Essential:",
-      "salary": "Rs. 37,000/",
-      "age_limit": "32 years",
-      "last_date": "2026-05-25",
-      "apply_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
-      "pdf_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
+      "vacancies": 255,
+      "qualification": "LLB",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-29",
+      "apply_url": "https://hpsc.gov.in/Portals/0/Advt_18_2025_ADA_08_08_2025.pdf",
+      "pdf_url": "https://hpsc.gov.in/Portals/0/Advt_18_2025_ADA_08_08_2025.pdf",
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
-        "summary": "NATIONAL INSTITUTE OF TECHNOLOGY WARANGAL (िशƗा (An Institute of National Importance under Ministry of Education, Govt. of India) Advertisement Project title Synergizing AR/VR and Hand Gestures to Enhance Industrial Assembly and Disassembly Sponsoring agency ASEAN- Position title Junior Research Duration (in years) 1Years Number of position(s) One Essential qualification Essential: & Communication/ Electrical Engineering/ Computer science/ AI & data science Master’s/ M.S (by Research) in Electrical Engineering/Mechatronics/ Computer science/ AI & data sci class with 60% aggregate or 6.5 CGPA a",
+        "pdf_url": "https://hpsc.gov.in/Portals/0/Advt_18_2025_ADA_08_08_2025.pdf",
         "pdf_urls": [
-          "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf"
+          "https://hpsc.gov.in/Portals/0/Advt_18_2025_ADA_08_08_2025.pdf"
         ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
+        "notification_url": "https://hpsc.gov.in/Portals/0/Advt_18_2025_ADA_08_08_2025.pdf",
         "pdfUrls": [
-          "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf"
+          "https://hpsc.gov.in/Portals/0/Advt_18_2025_ADA_08_08_2025.pdf"
+        ]
+      }
+    },
+    {
+      "id": "50db7cdd-2a60-4549-b986-a3fc6c945ead",
+      "slug": "walk-in-interview-on-21-05-2026-for-teaching-faculty-super-specialty-department--51a25932",
+      "title": "Walk-in Interview on 21.05.2026 for Teaching Faculty (Super Specialty Department) on Contract Basis at ESIC Medical College & Hospital, Faridabad",
+      "dept": "ESIC — Employees' State Insurance Corporation",
+      "category": "health",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-21",
+      "apply_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
+      "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "esic",
+        "pdf_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
+        "pdf_urls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf",
+        "pdfUrls": [
+          "https://www.esic.gov.in/attachments/recruitmentfile/Walk_in_Interview_on_21_05_2026_for_Teaching_Faculty_Super_Specialty_Department_on_Contract_Basis_at_ESIC_Medical_College_amp_Hospital_Faridabad_1779253968.pdf"
+        ]
+      }
+    },
+    {
+      "id": "f751a606-3a85-45b4-b266-025ec787a92c",
+      "slug": "cmd-kerala-community-mobilizer-1-posts-4d1e2ef1",
+      "title": "CMD Kerala — Community Mobilizer – 1 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1,
+      "qualification": "12TH",
+      "salary": "Range#  (in  Rs.)",
+      "age_limit": "(as  on  01-05-2026)",
+      "last_date": "2026-05-27",
+      "apply_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
+      "pdf_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
+        "summary": "Centre for Management Development An Autonomous Institution under the Government of Kerala CV Raman Pillai Road, Thycaud, Thiruvananthapuram – 695 014 No.CMD/PGA/003/2025 May 21, 2026 Recruitment Notiﬁcation The Centre for Management Development (CMD), an autonomous institution under the Department of Industries and Commerce, Government of Kerala invites application from qualiﬁed and competent candidates for the posts of Community Mobilizer for a project implemented by CMD on contract basis. Interested candidates may apply through this link https://forms.gle/a2pozJ2otMos6p2R9 . The details are",
+        "pdf_urls": [
+          "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
+        "pdfUrls": [
+          "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf"
         ]
       }
     },
@@ -3145,47 +3240,76 @@
       }
     },
     {
-      "id": "ba082236-349a-4879-9921-b715e9604cf7",
-      "slug": "iit-delhi-project-consultant-4-posts-fc191e80",
-      "title": "IIT Delhi — Project Consultant – 4 Posts",
+      "id": "d30d921d-65cc-4e42-b040-a1ff58f08e54",
+      "slug": "bpssc-assistant-sub-inspector-22-posts-d8929481",
+      "title": "BPSSC — Assistant Sub-Inspector – 22 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 4,
-      "qualification": "MBBS, MS/MD",
+      "vacancies": 22,
+      "qualification": "Diploma",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-05-24",
-      "apply_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
-      "pdf_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
+      "last_date": "2026-06-21",
+      "apply_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
+      "pdf_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
+        "pdf_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
         "pdf_urls": [
-          "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf"
+          "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf"
         ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
+        "notification_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
         "pdfUrls": [
-          "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf"
+          "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf"
         ]
       }
     },
     {
-      "id": "2eba9cdc-4a73-4268-a6d5-e227fe04c87e",
-      "slug": "iit-guwahati-junior-research-fellow-1-posts-2fb3f462",
-      "title": "IIT Guwahati — Junior Research Fellow – 1 Posts",
+      "id": "7bc2e15b-e462-46b6-83cc-7246ba5ba8cf",
+      "slug": "nit-warangal-research-associate-i-1-posts-ca91b102",
+      "title": "NIT Warangal — Research Associate-I – 1 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
       "vacancies": 1,
-      "qualification": "B.Tech/B.E, M.Sc",
+      "qualification": "B.Tech/B.E, M.E/M.Tech, M.Phil/Ph.D",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-05-28",
-      "apply_url": "https://iitg.ac.in/rndproj/recruitment",
+      "last_date": "2026-05-26",
+      "apply_url": "https://nitw.ac.in/api/static/files/NITW_RA_I_MECH_RG_2026_2026-5-12-15-36-53.pdf",
+      "pdf_url": "https://nitw.ac.in/api/static/files/NITW_RA_I_MECH_RG_2026_2026-5-12-15-36-53.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://nitw.ac.in/api/static/files/NITW_RA_I_MECH_RG_2026_2026-5-12-15-36-53.pdf",
+        "pdf_urls": [
+          "https://nitw.ac.in/api/static/files/NITW_RA_I_MECH_RG_2026_2026-5-12-15-36-53.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://nitw.ac.in/api/static/files/NITW_RA_I_MECH_RG_2026_2026-5-12-15-36-53.pdf",
+        "pdfUrls": [
+          "https://nitw.ac.in/api/static/files/NITW_RA_I_MECH_RG_2026_2026-5-12-15-36-53.pdf"
+        ]
+      }
+    },
+    {
+      "id": "f7b53dcb-d86a-4e18-b585-7cb45b30bf8a",
+      "slug": "hartron-trainer-12-posts-f70f335c",
+      "title": "HARTRON — Trainer – 12 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 12,
+      "qualification": null,
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-29",
+      "apply_url": "https://www.hartron.org.in/opportunities/",
       "pdf_url": null,
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
@@ -3194,112 +3318,110 @@
         "pdf_url": null,
         "pdf_urls": [],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://iitg.ac.in/rndproj/recruitment"
+        "notification_url": "https://www.hartron.org.in/opportunities/"
       }
     },
     {
-      "id": "a3a5030f-3b4a-4208-95db-b68b9de8235a",
-      "slug": "nagaland-university-research-assistant-field-investigator-3-posts-01cd0a85",
-      "title": "Nagaland University — Research Assistant, Field Investigator – 3 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 11,
-      "qualification": "criteria does not entitle a candidate to be called for an interview or",
-      "salary": "Tenure of",
-      "age_limit": null,
-      "last_date": "2026-05-24",
-      "apply_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
-      "pdf_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
-        "summary": "No.: NU/SOC/ ACA-56/RP/2018-5318 Date: 11-05-2026 ADVERTISEMENT FOR PROJECT STAFF IN ICSSR-FUNDED PROJECT (TEMPORARY) Applications are invited from eligible and highly motivated candidates for the following positions in an ICSSR-sponsored research project titled, “Indigenous Market Systems and Women's Empowerment: A Micro-Level Inquiry into the Market Participation, Entrepreneurial Practices, and Household Well-Being of Janjatiya Women in Nagaland” (File No. 242/2025- 26/ICSSR/RP/MN dated 20.03.2026), under Principal Director, Dr. Narendra, Department of Sociology, Nagaland University, Hqrs., ",
-        "pdf_urls": [
-          "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
-        "pdfUrls": [
-          "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf"
-        ]
-      }
-    },
-    {
-      "id": "51d1de3c-e271-441f-b7f8-155ad45d5f6e",
-      "slug": "iit-hyderabad-junior-research-fellow-1-posts-357360ac",
-      "title": "IIT Hyderabad — Junior Research Fellow – 1 Posts",
+      "id": "55933bf7-512f-4dc3-852d-dd9eb31faa0a",
+      "slug": "bits-pilani-research-fellow-1-posts-1bb20917",
+      "title": "BITS Pilani — Research Fellow – 1 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
       "vacancies": 1,
-      "qualification": "B.Tech/B.E",
-      "salary": null,
-      "age_limit": "Below 30 years as on 04.06.2026",
-      "last_date": "2026-06-04",
-      "apply_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
-      "pdf_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
-        "summary": "INDIAN INSTITUTE OF TECHNOLOGY HYDERABAD Kandi, Sangareddy – 502284, Telangana, India ADVERTISEMENT Dated: 14.05.2026 Applications are invited for the following assignment under a collaborative R&D project between L S Electricals (LSE) and IIT Hyderabad , undertaken in the Department of Electrical Engineering . 1. Name of the Post Junior Research Fellow (JRF) 2. No. of Positions 01 (one) 3. Project Details Project No. LS/EE/F126/2025-26/C1853 Project Title: Setting up and Operation of RnD Center on Smartgrids PI: Dr Pradeep Kumar Yemula 4. Sponsoring Agency M/s L S Electricals 5. Appointment P",
-        "pdf_urls": [
-          "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
-        "pdfUrls": [
-          "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf"
-        ]
-      }
-    },
-    {
-      "id": "ede682d9-1d27-4a2c-9a9e-9db6aa7b5f7f",
-      "slug": "iit-indore-junior-research-fellow-1-posts-5a22931a",
-      "title": "IIT Indore — Junior Research Fellow – 1 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 1,
-      "qualification": "Minimum first class * in Masters degree in Physics, Biophysics , Bioinformatics,",
-      "salary": "₹ 37,000 per month + HRA (HRA will be provided if institute accommodation",
-      "age_limit": "Preferably below 28 years",
-      "last_date": "2026-05-25",
-      "apply_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
-      "pdf_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
-        "summary": "Department of Biosciences and Biomedical Engineering Indian Institute of Technology Indore Advertisement for Junior Research Fellow (JRF) Applications are invited from motivated and eligible candidates for JRF position in the research project supported by IBITF IIT Bhilai. The details of the project are given below: Name of Post Junior research fellow (JRF) No. of post One (01) Title of The Project Design and Development of an IoT-Enabled Artificial Intelligence-based Smart Financial Framework for Automatic Medical Insurance Risk Assessment Principal Investigator Dr. Sourav Chandra, Assistant ",
-        "pdf_urls": [
-          "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
-        "pdfUrls": [
-          "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf"
-        ]
-      }
-    },
-    {
-      "id": "77c0d830-4eae-4a31-8b39-8335eb7dccf4",
-      "slug": "nit-calicut-placement-officer-1-posts-3d5c4684",
-      "title": "NIT Calicut — Placement Officer – 1 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 1,
-      "qualification": "MBA/PGDM",
+      "qualification": "ME/M.Tech in Civil (Structural) or Mechanical or Materials Science and Engineering with First Class or",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-06-02",
-      "apply_url": "https://recruit.nitc.ac.in/login",
+      "last_date": "2026-06-15",
+      "apply_url": "https://www.bits-pilani.ac.in/wp-content/uploads/CDRF_III-JRF-Adviertisement-Mohan-S-C.pdf",
+      "pdf_url": "https://www.bits-pilani.ac.in/wp-content/uploads/CDRF_III-JRF-Adviertisement-Mohan-S-C.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://www.bits-pilani.ac.in/wp-content/uploads/CDRF_III-JRF-Adviertisement-Mohan-S-C.pdf",
+        "summary": "Ph.D. position under BITS-CDRF (Cross-Disciplinary Research) funded project Applications are invited for ONE position of research fellow for the following project sponsored by BITS Pilani CDRF Research Grant (F. No. C3/26/535): Title of the project: Durability Assessment of Glued-Fiber Elastomeric Layered Isolators (GFELIs) for Seismic Protection of Buildings Supervisor: Prof. Mohan S C, Department of Civil Engineering, BITS-Pilani, Hyderabad Campus Webpage: https://www.bits-pilani.ac.in/hyderabad/mohan-sc/ Co- Supervisor: Prof. Ramesh Adusumalli, Department of Chemical Engineering, BITS-Pilan",
+        "pdf_urls": [
+          "https://www.bits-pilani.ac.in/wp-content/uploads/CDRF_III-JRF-Adviertisement-Mohan-S-C.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://www.bits-pilani.ac.in/wp-content/uploads/CDRF_III-JRF-Adviertisement-Mohan-S-C.pdf",
+        "pdfUrls": [
+          "https://www.bits-pilani.ac.in/wp-content/uploads/CDRF_III-JRF-Adviertisement-Mohan-S-C.pdf"
+        ]
+      }
+    },
+    {
+      "id": "a399bb54-cb47-462a-83d9-cb4b40cfcc20",
+      "slug": "grih-kalyan-kendra-delhi-peon-office-assistant-and-more-25521509",
+      "title": "Grih Kalyan Kendra Delhi — Peon, Office Assistant and More",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": "8TH, 10TH, 12TH, Diploma, Any Graduate",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-17",
+      "apply_url": "https://grihkalyankendra.gov.in/",
+      "pdf_url": "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf",
+        "pdf_urls": [
+          "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://grihkalyankendra.gov.in/",
+        "pdfUrls": [
+          "https://grihkalyankendra.gov.in/sites/default/files/news_update/vacacy%20circular_0001_0001.pdf"
+        ]
+      }
+    },
+    {
+      "id": "2bfdb405-9dfc-4ffb-ab12-bad816aeec40",
+      "slug": "esic-senior-resident-92-posts-43f70669",
+      "title": "ESIC — Senior Resident – 92 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 92,
+      "qualification": "MS/MD, MBBS, DNB",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-22",
+      "apply_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_broad_specialty_dated_22_05_2026_1779105806.pdf",
+      "pdf_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_broad_specialty_dated_22_05_2026_1779105806.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_broad_specialty_dated_22_05_2026_1779105806.pdf",
+        "pdf_urls": [
+          "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_broad_specialty_dated_22_05_2026_1779105806.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_broad_specialty_dated_22_05_2026_1779105806.pdf",
+        "pdfUrls": [
+          "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_senior_resident_interview_broad_specialty_dated_22_05_2026_1779105806.pdf"
+        ]
+      }
+    },
+    {
+      "id": "81606341-11cf-4062-83f1-56a287471818",
+      "slug": "awhct-amc-various-posts-19-posts-e895cb1e",
+      "title": "AWHCT AMC — Various Posts – 19 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 19,
+      "qualification": "Any Bachelors Degree, Diploma, ITI, M.Arch, M.Sc",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-11",
+      "apply_url": "https://amcmodules.ahmedabadcity.gov.in/AMCWEBREC/HRMS/FrmVacancyDetail.aspx?_HIDE&ID=1",
       "pdf_url": null,
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
@@ -3308,7 +3430,7 @@
         "pdf_url": null,
         "pdf_urls": [],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://recruit.nitc.ac.in/login"
+        "notification_url": "https://amcmodules.ahmedabadcity.gov.in/AMCWEBREC/HRMS/FrmVacancyDetail.aspx?_HIDE&ID=1"
       }
     },
     {
@@ -3333,30 +3455,6 @@
         "pdf_urls": [],
         "published": "2026-05-21T00:00:00+00:00",
         "notification_url": "https://ibpsreg.ibps.in/psbeoaapr26/"
-      }
-    },
-    {
-      "id": "535f561f-364a-4bf0-bfd1-7384839188e1",
-      "slug": "mpez-iti-trade-apprentice-150-posts-5e95b469",
-      "title": "MPEZ — ITI Trade Apprentice – 150 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 150,
-      "qualification": "ITI",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-25",
-      "apply_url": "https://www.apprenticeshipindia.gov.in/",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.apprenticeshipindia.gov.in/"
       }
     },
     {
@@ -3390,27 +3488,33 @@
       }
     },
     {
-      "id": "aa0aa051-d50e-437c-8ca4-857b6920524f",
-      "slug": "iit-gandhinagar-post-doctoral-fellow-1-posts-964762e7",
-      "title": "IIT Gandhinagar — Post Doctoral Fellow – 1 Posts",
+      "id": "4461e89c-3aa2-4799-8b8c-729da2f6376b",
+      "slug": "csir-ceeri-technical-officer-and-technician-22-posts-7e4086cf",
+      "title": "CSIR CEERI — Technical Officer and Technician – 22 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 1,
-      "qualification": "M.Phil/Ph.D, 10TH, 12TH, Any Graduate",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-02",
-      "apply_url": "https://recruitment.iitgn.ac.in/projectstaff/login",
-      "pdf_url": null,
+      "vacancies": 40,
+      "qualification": "criteria, in case, the candidate(s) under the EWS category being found unavailable.",
+      "salary": "**Upper Age",
+      "age_limit": "(as on the",
+      "last_date": "2026-06-20",
+      "apply_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
+      "pdf_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
+        "pdf_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
+        "summary": "Advt. No. 01/2026 Page 1 of 10 सीएसआईआर-क े न्‍द् रीय इलेक्‍ट् रॉनिकी अनिय ांनिकी अिुसांध ि सांस््थ ि CSIR-CENTRAL ELECTRONICS ENGINEERING RESEARCH INSTITUTE (निज्ञ ि तथ प्रौद्योनिकी मांि लय / MINISTRY OF SCIENCE & TECHNOLOGY, ि रत सरक र / GOVT. OF INDIA) निल िी, र जस्् थ ि (ि रत)/Pilani, Rajasthan - 333031 _______________________________________________________________________________________________ Advertisement No. 01/2026 dated: 21.05.2026 Start Date for Registration for Online Application : 21.05.2026 (10:00AM) (THURSDAY) Last date for Registration & Submission of Online application : 20",
+        "pdf_urls": [
+          "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf"
+        ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://recruitment.iitgn.ac.in/projectstaff/login"
+        "notification_url": "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf",
+        "pdfUrls": [
+          "https://www.ceeri.res.in/wp-content/uploads/2026/05/Advt_English_01_2026_20052026.pdf"
+        ]
       }
     },
     {
@@ -3438,42 +3542,77 @@
       }
     },
     {
-      "id": "0ddb5593-c28a-4f11-bc67-b3a27585e796",
-      "slug": "csir-csmcri-project-assistant-project-associate-and-more-62-posts-3f6bf880",
-      "title": "CSIR CSMCRI — Project Assistant, Project Associate and More – 62 Posts",
+      "id": "197c4876-07fc-4e8e-977a-35a7532848ba",
+      "slug": "dpcc-legal-assistant-environmental-engineer-and-more-52-posts-bc7f0708",
+      "title": "DPCC — Legal Assistant, Environmental Engineer and More – 52 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 62,
-      "qualification": "B.Sc, B.Tech/B.E, M.Phil/Ph.D, M.Sc",
+      "vacancies": 52,
+      "qualification": "Any Graduate, Any Post Graduate, B.Tech/B.E, LLB, M.E/M.Tech, M.Phil/Ph.D",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-06-10",
-      "apply_url": "https://www.csmcri.res.in/node/10985",
-      "pdf_url": null,
+      "last_date": "2026-05-30",
+      "apply_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
+      "pdf_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
+        "pdf_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
+        "pdf_urls": [
+          "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf"
+        ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.csmcri.res.in/node/10985"
+        "notification_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
+        "pdfUrls": [
+          "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf"
+        ]
       }
     },
     {
-      "id": "60a500cf-53a3-4055-9405-87d51e694670",
-      "slug": "upsc-nda-2-exam-394-posts-d7c88d1b",
-      "title": "UPSC — NDA (2) Exam – 394 Posts",
+      "id": "f469499d-79ba-47a7-90f0-e11b552de46e",
+      "slug": "mpez-apprentices-72-posts-ad42922e",
+      "title": "MPEZ — Apprentices – 72 Posts",
       "dept": "Latest notifications (official links)",
-      "category": "upsc",
+      "category": "state",
       "state_codes": [],
-      "vacancies": 394,
-      "qualification": "12TH",
+      "vacancies": 72,
+      "qualification": "Any Graduate, B.Tech/B.E, Diploma",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-06-09",
-      "apply_url": "https://upsconline.nic.in",
+      "last_date": "2026-06-25",
+      "apply_url": "https://nats.education.gov.in/assets/manual/student_manual.pdf",
+      "pdf_url": "https://nats.education.gov.in/assets/manual/student_manual.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://nats.education.gov.in/assets/manual/student_manual.pdf",
+        "summary": "NATIONAL APPRENTICESHIP TRAINING SCHEME (NATS) 2.0 PORTAL Portal Functionalities Walkthrough - Students Manual Contents Overview ....................................................................................................................................................... 2 Modules & Functionality .............................................................................................................................. 2 1. Student Registration .............................................................................................................................. 6 2. Student ",
+        "pdf_urls": [
+          "https://nats.education.gov.in/assets/manual/student_manual.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://nats.education.gov.in/assets/manual/student_manual.pdf",
+        "pdfUrls": [
+          "https://nats.education.gov.in/assets/manual/student_manual.pdf"
+        ]
+      }
+    },
+    {
+      "id": "3df48177-b150-42b2-b83f-300fe845ee84",
+      "slug": "mpsc-group-c-1884-posts-b24f19f4",
+      "title": "MPSC — Group C – 1884 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1884,
+      "qualification": "Any Graduate, B.Arch, B.Tech/B.E",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-04",
+      "apply_url": "https://mpsc.gov.in/adv_notification/8",
       "pdf_url": null,
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
@@ -3482,7 +3621,65 @@
         "pdf_url": null,
         "pdf_urls": [],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://upsconline.nic.in"
+        "notification_url": "https://mpsc.gov.in/adv_notification/8"
+      }
+    },
+    {
+      "id": "e63c15da-da59-4fb6-9b14-31329761d6f4",
+      "slug": "nit-warangal-junior-research-fellow-1-posts-5ad37939",
+      "title": "NIT Warangal — Junior Research Fellow – 1 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1,
+      "qualification": "Essential:",
+      "salary": "Rs. 37,000/",
+      "age_limit": "32 years",
+      "last_date": "2026-05-25",
+      "apply_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
+      "pdf_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
+        "pdf_urls": [
+          "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf",
+        "pdfUrls": [
+          "https://nitw.ac.in/api/static/files/Modified_2026-5-12-9-43-33.pdf"
+        ]
+      }
+    },
+    {
+      "id": "79348e5f-8581-4397-b9e5-3b403a9b635d",
+      "slug": "iit-delhi-project-attendant-1-posts-f0a9c7c1",
+      "title": "IIT Delhi — Project Attendant – 1 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1,
+      "qualification": "12TH, ITI, Diploma",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-25",
+      "apply_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778498839482_7c8amdr.pdf",
+      "pdf_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778498839482_7c8amdr.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778498839482_7c8amdr.pdf",
+        "pdf_urls": [
+          "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778498839482_7c8amdr.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778498839482_7c8amdr.pdf",
+        "pdfUrls": [
+          "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778498839482_7c8amdr.pdf"
+        ]
       }
     },
     {
@@ -3515,109 +3712,110 @@
       }
     },
     {
-      "id": "e260f2c0-612e-4e82-bb24-478f235b67f4",
-      "slug": "dphcl-technical-and-non-technical-23-posts-9c1fa442",
-      "title": "DPHCL — Technical and Non-Technical – 23 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 23,
-      "qualification": "B.Tech/B.E, Diploma",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-22",
-      "apply_url": "http://www.dphc.gov.in",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "http://www.dphc.gov.in"
-      }
-    },
-    {
-      "id": "1fe723a4-9531-40d1-a3e9-762c3e6efba4",
-      "slug": "mpesb-hospital-assistant-1200-posts-739256dc",
-      "title": "MPESB — Hospital Assistant – 1200 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 1200,
-      "qualification": "10TH",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-05-23",
-      "apply_url": "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsList.aspx",
-      "pdf_url": "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf",
-        "pdf_urls": [
-          "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsList.aspx",
-        "pdfUrls": [
-          "https://esb.mp.gov.in/Rulebooks/RB_2026/Hospital_Assistant_rulebook_2026_30042026.pdf"
-        ]
-      }
-    },
-    {
-      "id": "81606341-11cf-4062-83f1-56a287471818",
-      "slug": "awhct-amc-various-posts-19-posts-e895cb1e",
-      "title": "AWHCT AMC — Various Posts – 19 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 19,
-      "qualification": "Any Bachelors Degree, Diploma, ITI, M.Arch, M.Sc",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-11",
-      "apply_url": "https://amcmodules.ahmedabadcity.gov.in/AMCWEBREC/HRMS/FrmVacancyDetail.aspx?_HIDE&ID=1",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://amcmodules.ahmedabadcity.gov.in/AMCWEBREC/HRMS/FrmVacancyDetail.aspx?_HIDE&ID=1"
-      }
-    },
-    {
-      "id": "f751a606-3a85-45b4-b266-025ec787a92c",
-      "slug": "cmd-kerala-community-mobilizer-1-posts-4d1e2ef1",
-      "title": "CMD Kerala — Community Mobilizer – 1 Posts",
+      "id": "77c0d830-4eae-4a31-8b39-8335eb7dccf4",
+      "slug": "nit-calicut-placement-officer-1-posts-3d5c4684",
+      "title": "NIT Calicut — Placement Officer – 1 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
       "vacancies": 1,
-      "qualification": "12TH",
-      "salary": "Range#  (in  Rs.)",
-      "age_limit": "(as  on  01-05-2026)",
-      "last_date": "2026-05-27",
-      "apply_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
-      "pdf_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
+      "qualification": "MBA/PGDM",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-02",
+      "apply_url": "https://recruit.nitc.ac.in/login",
+      "pdf_url": null,
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
-        "summary": "Centre for Management Development An Autonomous Institution under the Government of Kerala CV Raman Pillai Road, Thycaud, Thiruvananthapuram – 695 014 No.CMD/PGA/003/2025 May 21, 2026 Recruitment Notiﬁcation The Centre for Management Development (CMD), an autonomous institution under the Department of Industries and Commerce, Government of Kerala invites application from qualiﬁed and competent candidates for the posts of Community Mobilizer for a project implemented by CMD on contract basis. Interested candidates may apply through this link https://forms.gle/a2pozJ2otMos6p2R9 . The details are",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://recruit.nitc.ac.in/login"
+      }
+    },
+    {
+      "id": "51d1de3c-e271-441f-b7f8-155ad45d5f6e",
+      "slug": "iit-hyderabad-junior-research-fellow-1-posts-357360ac",
+      "title": "IIT Hyderabad — Junior Research Fellow – 1 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1,
+      "qualification": "B.Tech/B.E",
+      "salary": null,
+      "age_limit": "Below 30 years as on 04.06.2026",
+      "last_date": "2026-06-04",
+      "apply_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
+      "pdf_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
+        "summary": "INDIAN INSTITUTE OF TECHNOLOGY HYDERABAD Kandi, Sangareddy – 502284, Telangana, India ADVERTISEMENT Dated: 14.05.2026 Applications are invited for the following assignment under a collaborative R&D project between L S Electricals (LSE) and IIT Hyderabad , undertaken in the Department of Electrical Engineering . 1. Name of the Post Junior Research Fellow (JRF) 2. No. of Positions 01 (one) 3. Project Details Project No. LS/EE/F126/2025-26/C1853 Project Title: Setting up and Operation of RnD Center on Smartgrids PI: Dr Pradeep Kumar Yemula 4. Sponsoring Agency M/s L S Electricals 5. Appointment P",
         "pdf_urls": [
-          "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf"
+          "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf"
         ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf",
+        "notification_url": "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf",
         "pdfUrls": [
-          "https://cmd.kerala.gov.in/wp-content/uploads/2026/05/Notification-Recruitment-Community-Mobilizer-1.pdf"
+          "https://www.iith.ac.in/assets/files/careers/staff/JRF-SmartGrid-Adv-IITH-2.pdf"
+        ]
+      }
+    },
+    {
+      "id": "0ddb5593-c28a-4f11-bc67-b3a27585e796",
+      "slug": "csir-csmcri-project-assistant-project-associate-and-more-62-posts-3f6bf880",
+      "title": "CSIR CSMCRI — Project Assistant, Project Associate and More – 62 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 62,
+      "qualification": "B.Sc, B.Tech/B.E, M.Phil/Ph.D, M.Sc",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-10",
+      "apply_url": "https://www.csmcri.res.in/node/10985",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://www.csmcri.res.in/node/10985"
+      }
+    },
+    {
+      "id": "a3a5030f-3b4a-4208-95db-b68b9de8235a",
+      "slug": "nagaland-university-research-assistant-field-investigator-3-posts-01cd0a85",
+      "title": "Nagaland University — Research Assistant, Field Investigator – 3 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 11,
+      "qualification": "criteria does not entitle a candidate to be called for an interview or",
+      "salary": "Tenure of",
+      "age_limit": null,
+      "last_date": "2026-05-24",
+      "apply_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
+      "pdf_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
+        "summary": "No.: NU/SOC/ ACA-56/RP/2018-5318 Date: 11-05-2026 ADVERTISEMENT FOR PROJECT STAFF IN ICSSR-FUNDED PROJECT (TEMPORARY) Applications are invited from eligible and highly motivated candidates for the following positions in an ICSSR-sponsored research project titled, “Indigenous Market Systems and Women's Empowerment: A Micro-Level Inquiry into the Market Participation, Entrepreneurial Practices, and Household Well-Being of Janjatiya Women in Nagaland” (File No. 242/2025- 26/ICSSR/RP/MN dated 20.03.2026), under Principal Director, Dr. Narendra, Department of Sociology, Nagaland University, Hqrs., ",
+        "pdf_urls": [
+          "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf",
+        "pdfUrls": [
+          "https://nagalanduniversity.ac.in/file/information/documents/20260511-adverticssrprj.pdf"
         ]
       }
     },
@@ -3652,42 +3850,77 @@
       }
     },
     {
-      "id": "f7b53dcb-d86a-4e18-b585-7cb45b30bf8a",
-      "slug": "hartron-trainer-12-posts-f70f335c",
-      "title": "HARTRON — Trainer – 12 Posts",
+      "id": "ba082236-349a-4879-9921-b715e9604cf7",
+      "slug": "iit-delhi-project-consultant-4-posts-fc191e80",
+      "title": "IIT Delhi — Project Consultant – 4 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 12,
-      "qualification": null,
+      "vacancies": 4,
+      "qualification": "MBBS, MS/MD",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-05-29",
-      "apply_url": "https://www.hartron.org.in/opportunities/",
-      "pdf_url": null,
+      "last_date": "2026-05-24",
+      "apply_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
+      "pdf_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
+        "pdf_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
+        "pdf_urls": [
+          "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf"
+        ],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://www.hartron.org.in/opportunities/"
+        "notification_url": "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf",
+        "pdfUrls": [
+          "https://ird.iitd.ac.in/api/uploadsProjectPositions/project_position_1778497997399_777i4va.pdf"
+        ]
       }
     },
     {
-      "id": "3df48177-b150-42b2-b83f-300fe845ee84",
-      "slug": "mpsc-group-c-1884-posts-b24f19f4",
-      "title": "MPSC — Group C – 1884 Posts",
+      "id": "ede682d9-1d27-4a2c-9a9e-9db6aa7b5f7f",
+      "slug": "iit-indore-junior-research-fellow-1-posts-5a22931a",
+      "title": "IIT Indore — Junior Research Fellow – 1 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 1884,
-      "qualification": "Any Graduate, B.Arch, B.Tech/B.E",
+      "vacancies": 1,
+      "qualification": "Minimum first class * in Masters degree in Physics, Biophysics , Bioinformatics,",
+      "salary": "₹ 37,000 per month + HRA (HRA will be provided if institute accommodation",
+      "age_limit": "Preferably below 28 years",
+      "last_date": "2026-05-25",
+      "apply_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
+      "pdf_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
+        "summary": "Department of Biosciences and Biomedical Engineering Indian Institute of Technology Indore Advertisement for Junior Research Fellow (JRF) Applications are invited from motivated and eligible candidates for JRF position in the research project supported by IBITF IIT Bhilai. The details of the project are given below: Name of Post Junior research fellow (JRF) No. of post One (01) Title of The Project Design and Development of an IoT-Enabled Artificial Intelligence-based Smart Financial Framework for Automatic Medical Insurance Risk Assessment Principal Investigator Dr. Sourav Chandra, Assistant ",
+        "pdf_urls": [
+          "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf",
+        "pdfUrls": [
+          "https://www.iiti.ac.in/public/storage/recruitments/May2026/oIigGrlASi7mt15Cp78e.pdf"
+        ]
+      }
+    },
+    {
+      "id": "535f561f-364a-4bf0-bfd1-7384839188e1",
+      "slug": "mpez-iti-trade-apprentice-150-posts-5e95b469",
+      "title": "MPEZ — ITI Trade Apprentice – 150 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 150,
+      "qualification": "ITI",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-06-04",
-      "apply_url": "https://mpsc.gov.in/adv_notification/8",
+      "last_date": "2026-06-25",
+      "apply_url": "https://www.apprenticeshipindia.gov.in/",
       "pdf_url": null,
       "status": "live",
       "published_at": "2026-05-21T00:00:00Z",
@@ -3696,7 +3929,37 @@
         "pdf_url": null,
         "pdf_urls": [],
         "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://mpsc.gov.in/adv_notification/8"
+        "notification_url": "https://www.apprenticeshipindia.gov.in/"
+      }
+    },
+    {
+      "id": "0e983591-20c1-4721-a369-9a52fa591d0e",
+      "slug": "curaj-assistant-professor-3-posts-1824caf2",
+      "title": "CURAJ — Assistant Professor – 3 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 3,
+      "qualification": "Schedule and Venue of",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-05",
+      "apply_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
+      "pdf_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
+      "status": "live",
+      "published_at": "2026-05-21T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
+        "summary": "1 Advt: CURAJ/R/F.175/Rectt./2026/5174 Date: 11.05.2026 वाक इन इ ं टरव्यू / Walk-in-Interview राजस्थान क ें द्रीय वलश्ववलद्याऱय में द ूर स्थ और ऑनऱाइन शळक्षा क ें द्र (CDOE) में सहायक आचायय - प्रबंधन, अंग्रेज़ी, और लाशिज्य क े ऩदों क े लऱए यॉग्य उम्मीदलारों कॉ लॉक -इन- इ ं टरव्यू क े लऱए बुऱाया जाता है। इन ऩदों ऩर लनयुक्तियााँ ऩूरी तरह से अनुबंध के आधार ऩर एक साऱ की अलक्तध क े लऱए या अगऱे आदेळ तक, जॉ भी ऩहऱे हॉ, की जाए ं गी। इच्छु क यॉग्य उम्मीदलार लनधायररत तारीख और समय ऩर वलश्ववलद्याऱय में लॉक -इन-इ ं टरव्यू के लऱए लनधायररत प्रारूऩ में भरा हुआ आलेदन ऩत्र और सभी ज़रूरी मूऱ दस्तालेज क े साथ आए ं ",
+        "pdf_urls": [
+          "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf"
+        ],
+        "published": "2026-05-21T00:00:00+00:00",
+        "notification_url": "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf",
+        "pdfUrls": [
+          "https://www.curaj.ac.in/sites/default/files/Advt.%205174%20dated%2011.05.2026%20Assistant%20Professor%20%28ENG%2C%20MGMT%2C%20COMMERCE%29%20CDOE.pdf"
+        ]
       }
     },
     {
@@ -3726,64 +3989,6 @@
         "notification_url": "https://cdn.iiitkota.ac.in/recruitment/2026-05-19_Advt_Medical%20Officer.pdf",
         "pdfUrls": [
           "https://cdn.iiitkota.ac.in/recruitment/2026-05-19_Advt_Medical%20Officer.pdf"
-        ]
-      }
-    },
-    {
-      "id": "d30d921d-65cc-4e42-b040-a1ff58f08e54",
-      "slug": "bpssc-assistant-sub-inspector-22-posts-d8929481",
-      "title": "BPSSC — Assistant Sub-Inspector – 22 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 22,
-      "qualification": "Diploma",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-21",
-      "apply_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
-      "pdf_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
-        "pdf_urls": [
-          "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf",
-        "pdfUrls": [
-          "https://bpssc.bihar.gov.in/Notices/Final%20Advt.-%2007-2026.pdf"
-        ]
-      }
-    },
-    {
-      "id": "197c4876-07fc-4e8e-977a-35a7532848ba",
-      "slug": "dpcc-legal-assistant-environmental-engineer-and-more-52-posts-bc7f0708",
-      "title": "DPCC — Legal Assistant, Environmental Engineer and More – 52 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 52,
-      "qualification": "Any Graduate, Any Post Graduate, B.Tech/B.E, LLB, M.E/M.Tech, M.Phil/Ph.D",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-05-30",
-      "apply_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
-      "pdf_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
-      "status": "live",
-      "published_at": "2026-05-21T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
-        "pdf_urls": [
-          "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf"
-        ],
-        "published": "2026-05-21T00:00:00+00:00",
-        "notification_url": "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf",
-        "pdfUrls": [
-          "https://dpcc.delhi.gov.in/sites/default/files/DPCC/important-news/1084_0001_merged.pdf"
         ]
       }
     },
@@ -14608,6 +14813,30 @@
       }
     },
     {
+      "id": "be91cd24-7bfb-4197-ba12-10cfa8fbc825",
+      "slug": "central-bank-of-india-assistant-general-manager-15-posts-0b0acfce",
+      "title": "Central Bank of India — Assistant General Manager – 15 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "banking",
+      "state_codes": [],
+      "vacancies": 15,
+      "qualification": "B.Tech/B.E, Any Post Graduate, CA",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-25",
+      "apply_url": "https://ibpsreg.ibps.in/cbiagmapr26/",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://ibpsreg.ibps.in/cbiagmapr26/"
+      }
+    },
+    {
       "id": "18817449-8e9a-4390-a5c7-568c04c84e91",
       "slug": "bro-electrician-draughtsman-and-more-899-posts-592f0335",
       "title": "BRO — Electrician, Draughtsman and More – 899 Posts",
@@ -14637,57 +14866,122 @@
       }
     },
     {
-      "id": "a4a42ca2-8d12-41ce-9900-f142776b296f",
-      "slug": "tnpsc-cts-exam-non-interview-posts-461-posts-d9e70a92",
-      "title": "TNPSC — CTS Exam (Non - Interview Posts) – 461 Posts",
+      "id": "9b8d8884-c36a-43b2-bf10-8138af24e554",
+      "slug": "gujarat-university-assistant-professor-research-associate-4-posts-abd0c9be",
+      "title": "Gujarat University — Assistant Professor, Research Associate – 4 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 461,
-      "qualification": "for the examination:",
-      "salary": "2.  Assistant Geologist 1677 Agricultural Engineering",
-      "age_limit": "(as on 01.07.2026)",
-      "last_date": "2026-06-25",
-      "apply_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
-      "pdf_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
+      "vacancies": 4,
+      "qualification": "M.Phil/Ph.D",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-26",
+      "apply_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
+      "pdf_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
       "status": "live",
       "published_at": "2026-05-20T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
-        "summary": "Page 1 of 145 Applications are invited only through online mode for direct recruitment to the posts in Combined Technical Services Examination (Non - Interview Posts). 1. Important Instructions: 1.1. Candidates to ensure their eligibility for the examination: All candidates are requested to carefully read the “Instructions to Applicants” available in the Commission’s website www.tnpsc.gov.in and this Notification. The candidates applying for the examination should ensure that they fulfill all eligibility conditions for admission to the examination. Their admission to all stages of the examinat",
+        "pdf_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
+        "summary": "Indian Institute Of Sustainability Recruitment - 2026 Page 1 of 5 GUJARAT UNIVERSITY INDIAN INSTITUTE OF SUSTAINABILITY AHMEDABAD 380009 Teaching Positions Applications are invited for the Integrated M.B.A & MBA programmes of IIS, Gujarat University. For details click here: https://www.gujaratuniversity.ac.in/career I/C Registrar Indian Institute Of Sustainability Recruitment - 2026 Page 2 of 5 GUJARAT UNIVERSITY INDIAN INSTITUTE OF SUSTAINABILITY AHMEDABAD 380009 INTERVIEW For the Five-year M.B.A. (Integrated) & MBA (HPP) programme of the School, in General Management subjects to be held on 1",
         "pdf_urls": [
-          "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf"
+          "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf"
         ],
         "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
+        "notification_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
         "pdfUrls": [
-          "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf"
+          "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf"
         ]
       }
     },
     {
-      "id": "6531db97-217e-42ba-b832-febff3c6a50c",
-      "slug": "dgft-chennai-young-professional-1-posts-f185a3d3",
-      "title": "DGFT Chennai — Young Professional – 1 Posts",
+      "id": "bdc28472-ba8d-4e12-9424-26e9b5955806",
+      "slug": "dr-b-b-a-govt-polytechnic-silvassa-lecturer-4-posts-4a20a669",
+      "title": "Dr. B.B.A. Govt. Polytechnic Silvassa — Lecturer – 4 Posts",
       "dept": "Latest notifications (official links)",
-      "category": "state",
+      "category": "teaching",
       "state_codes": [],
-      "vacancies": 1,
-      "qualification": "B.Tech/B.E, M.A, M.Com, MBA/PGDM, MCA",
+      "vacancies": 4,
+      "qualification": "Any Post Graduate, B.Tech/B.E",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-05-23",
-      "apply_url": "https://www.dgft.gov.in/",
-      "pdf_url": null,
+      "last_date": "2026-06-15",
+      "apply_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
+      "pdf_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
       "status": "live",
       "published_at": "2026-05-20T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
+        "pdf_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
+        "pdf_urls": [
+          "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf"
+        ],
         "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://www.dgft.gov.in/"
+        "notification_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
+        "pdfUrls": [
+          "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf"
+        ]
+      }
+    },
+    {
+      "id": "827ed971-2b19-4243-9d7f-c27a7a983be7",
+      "slug": "samagra-shiksha-hisar-education-volunteer-38-posts-659f5069",
+      "title": "Samagra Shiksha Hisar — Education Volunteer – 38 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 38,
+      "qualification": "B.Ed",
+      "salary": "of Hindi and Urdu teachers.",
+      "age_limit": null,
+      "last_date": "2026-05-26",
+      "apply_url": "https://samagra.education.gov.in/",
+      "pdf_url": "https://samagra.education.gov.in/docs/samagra_shiksha.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://samagra.education.gov.in/docs/samagra_shiksha.pdf",
+        "summary": "1 Samagra Shiksha Scheme Background: Union Budget, 2018 -19 has announced that school education would be treated holistically and without segmentation from pre-primary to class XII. It is, in this context, that the Department launched the Integrated Scheme for School Education, Samagra Shiksha in 2018 by subsuming the erstwhile Centrally Sponsored Schemes of Sarva Shiksha Abhiyan (SSA), Rashtriya Madhyamik Shiksha Abhiyan (RMSA) and T eacher Education (TE). The scheme treats school education as a continuum and is in accordance with Sustainable Development Goal for Education (SDG -4). The schem",
+        "pdf_urls": [
+          "https://samagra.education.gov.in/docs/samagra_shiksha.pdf"
+        ],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://samagra.education.gov.in/",
+        "pdfUrls": [
+          "https://samagra.education.gov.in/docs/samagra_shiksha.pdf"
+        ]
+      }
+    },
+    {
+      "id": "9903df35-adf9-4e03-9f5f-03ecd6e5914e",
+      "slug": "kribhco-apprentices-7fd84f2d",
+      "title": "KRIBHCO — Apprentices",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 0,
+      "qualification": "Diploma, Diploma, Diploma, Diploma, Diploma, Diploma",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-02",
+      "apply_url": "https://nats.education.gov.in/student_type.php",
+      "pdf_url": "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf",
+        "summary": "NATIONAL APPRENTICESHIP TRAINING SCHEME (NATS) 2.0 PORTAL Portal Functionalities Walkthrough - Establishments Manual Contents Overview ....................................................................................................................................................... 2 Modules & Functionality .............................................................................................................................. 2 1.Establishment Registration .................................................................................................................... 5 2.1 Establ",
+        "pdf_urls": [
+          "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf"
+        ],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://nats.education.gov.in/student_type.php",
+        "pdfUrls": [
+          "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf"
+        ]
       }
     },
     {
@@ -14716,6 +15010,35 @@
         "notification_url": "https://btsc.bihar.gov.in/sites/default/files/Advertisement/24_2026.pdf",
         "pdfUrls": [
           "https://btsc.bihar.gov.in/sites/default/files/Advertisement/24_2026.pdf"
+        ]
+      }
+    },
+    {
+      "id": "105db3a6-712e-414a-8d04-2eeecb4f56f4",
+      "slug": "east-coast-railway-junior-engineer-4-posts-081c8f3b",
+      "title": "East Coast Railway — Junior Engineer – 4 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "railways",
+      "state_codes": [],
+      "vacancies": 4,
+      "qualification": "B.Tech/B.E, Diploma",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-05",
+      "apply_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
+      "pdf_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
+        "pdf_urls": [
+          "https://www.rrcbbs.org.in/JE-C&W.pdf"
+        ],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
+        "pdfUrls": [
+          "https://www.rrcbbs.org.in/JE-C&W.pdf"
         ]
       }
     },
@@ -14768,145 +15091,33 @@
       }
     },
     {
-      "id": "105db3a6-712e-414a-8d04-2eeecb4f56f4",
-      "slug": "east-coast-railway-junior-engineer-4-posts-081c8f3b",
-      "title": "East Coast Railway — Junior Engineer – 4 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "railways",
-      "state_codes": [],
-      "vacancies": 4,
-      "qualification": "B.Tech/B.E, Diploma",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-05",
-      "apply_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
-      "pdf_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
-        "pdf_urls": [
-          "https://www.rrcbbs.org.in/JE-C&W.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://www.rrcbbs.org.in/JE-C&W.pdf",
-        "pdfUrls": [
-          "https://www.rrcbbs.org.in/JE-C&W.pdf"
-        ]
-      }
-    },
-    {
-      "id": "99699976-eb33-4437-afad-a2f4efaf67dc",
-      "slug": "esic-teaching-faculty-118-posts-4bd77435",
-      "title": "ESIC — Teaching Faculty – 118 Posts",
+      "id": "a4a42ca2-8d12-41ce-9900-f142776b296f",
+      "slug": "tnpsc-cts-exam-non-interview-posts-461-posts-d9e70a92",
+      "title": "TNPSC — CTS Exam (Non - Interview Posts) – 461 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 118,
-      "qualification": "MS/MD",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-07-02",
-      "apply_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
-      "pdf_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
+      "vacancies": 461,
+      "qualification": "for the examination:",
+      "salary": "2.  Assistant Geologist 1677 Agricultural Engineering",
+      "age_limit": "(as on 01.07.2026)",
+      "last_date": "2026-06-25",
+      "apply_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
+      "pdf_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
       "status": "live",
       "published_at": "2026-05-20T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
+        "pdf_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
+        "summary": "Page 1 of 145 Applications are invited only through online mode for direct recruitment to the posts in Combined Technical Services Examination (Non - Interview Posts). 1. Important Instructions: 1.1. Candidates to ensure their eligibility for the examination: All candidates are requested to carefully read the “Instructions to Applicants” available in the Commission’s website www.tnpsc.gov.in and this Notification. The candidates applying for the examination should ensure that they fulfill all eligibility conditions for admission to the examination. Their admission to all stages of the examinat",
         "pdf_urls": [
-          "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf"
+          "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf"
         ],
         "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
+        "notification_url": "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf",
         "pdfUrls": [
-          "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf"
+          "https://tnpsc.gov.in/document/english/CTS(Non%20Interview)%20English%20Final_.pdf"
         ]
-      }
-    },
-    {
-      "id": "83c72d56-66ee-4251-a75a-178792b49802",
-      "slug": "iaf-commissioned-officer-379-posts-7ee7bc1f",
-      "title": "IAF — Commissioned Officer – 379 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 379,
-      "qualification": "B.Sc, B.Tech/B.E",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-19",
-      "apply_url": "https://indianairforce.nic.in/",
-      "pdf_url": "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf",
-        "summary": "I DOCTRINE OF THE INDIAN AIR FORCE IAP 2000-22 DOCTRINE OF THE INDIAN AIR FORCE II DOCTRINE OF THE INDIAN AIR FORCE DOCTRINE TEAM • Directorate of Operations, Air Headquarters • Team from College of Air Warfare • Air Marshal Diptendu Choudhury (Retd) PVSM AVSM VM VSM and officers of No 1 Warfare and Aerospace Strategy Programme PHOTO CREDITS • Directorate of Operations (Media and Public Relations) Published in India by Indian Air Force Air Headquarters Vayu Bhawan Rafi Marg New Delhi 110106 IAP 2000-22 © 2022, Directorate of Operations (IEW) All rights reserved. No part of this book may be rep",
-        "pdf_urls": [
-          "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://indianairforce.nic.in/",
-        "pdfUrls": [
-          "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf"
-        ]
-      }
-    },
-    {
-      "id": "f5cd04da-a0f6-4180-a0c4-ef3e90b9060a",
-      "slug": "central-bank-of-india-faculty-office-assistant-and-more-2-posts-0d1aa51a",
-      "title": "Central Bank of India — Faculty, Office Assistant and More – 2 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "banking",
-      "state_codes": [],
-      "vacancies": 30,
-      "qualification": "B.Sc, B.Com, B.A, B.Ed, BSW, MSW, 7th",
-      "salary": "(Basic+DA)",
-      "age_limit": null,
-      "last_date": "2026-06-02",
-      "apply_url": "https://www.centralbankofindia.co.in",
-      "pdf_url": "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf",
-        "summary": "1 FACILITIES FOR PROBATIONARY OFFICERS & DIRECTLY RECRUITED OFFICERS Version 1.0 (Updated till 26.06.2024) 2 INDEX SR. NO SUBJECT PAGE NO. PREFACE 3 1 Annual Medical Aid 4 2 Medical Insurance Scheme 4 3 Reimbursement of Cost of Newspaper 5 4 Residential Accommodation / Rent Reimbursement Facility 5 5 Reimbursement of Cost of Petrol & Local Conveyance 7 6 Reimbursement of Cost of Briefcase 8 7 Reimbursement of monthly Mobile Bill expenses 8 8 Performance Linked Incentive (PLI) Scheme 9 9 Staff Loans 9 10 National Pension System (NPS) 11 11 Leave Travel Concession 11 12 Furniture Facility 13 13 ",
-        "pdf_urls": [
-          "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://www.centralbankofindia.co.in",
-        "pdfUrls": [
-          "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf"
-        ]
-      }
-    },
-    {
-      "id": "eda9b93c-d974-44dd-a28f-c14f57fae294",
-      "slug": "ossc-junior-engineer-tracer-and-more-646-posts-4281a63f",
-      "title": "OSSC — Junior Engineer, Tracer and More – 646 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 646,
-      "qualification": "Diploma, ITI, 12TH",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-29",
-      "apply_url": "https://www.ossc.gov.in/Public/OSSC/Default.aspx",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://www.ossc.gov.in/Public/OSSC/Default.aspx"
       }
     },
     {
@@ -14940,6 +15151,119 @@
       }
     },
     {
+      "id": "99699976-eb33-4437-afad-a2f4efaf67dc",
+      "slug": "esic-teaching-faculty-118-posts-4bd77435",
+      "title": "ESIC — Teaching Faculty – 118 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 118,
+      "qualification": "MS/MD",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-07-02",
+      "apply_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
+      "pdf_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
+        "pdf_urls": [
+          "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf"
+        ],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf",
+        "pdfUrls": [
+          "https://esic.gov.in/attachments/recruitmentfile/Advertisement_for_recruitment_of_teaching_faculty_professors_in_ESIC_PGIMSRS_and_ESIC_medical_colleges_on_direct_recruitment_basis_2026_English_1779267434.pdf"
+        ]
+      }
+    },
+    {
+      "id": "2cd388c0-6125-4564-8e4f-171fd84c16b2",
+      "slug": "bel-field-operation-engineer-project-engineer-i-56-posts-9e295d6f",
+      "title": "BEL — Field Operation Engineer, Project Engineer-I – 56 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 56,
+      "qualification": "B.Sc, B.Tech/B.E, M.E/M.Tech",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-08",
+      "apply_url": "https://www.bel-india.in/careers/",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://www.bel-india.in/careers/"
+      }
+    },
+    {
+      "id": "f5cd04da-a0f6-4180-a0c4-ef3e90b9060a",
+      "slug": "central-bank-of-india-faculty-office-assistant-and-more-2-posts-0d1aa51a",
+      "title": "Central Bank of India — Faculty, Office Assistant and More – 2 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "banking",
+      "state_codes": [],
+      "vacancies": 30,
+      "qualification": "B.Sc, B.Com, B.A, B.Ed, BSW, MSW, 7th",
+      "salary": "(Basic+DA)",
+      "age_limit": null,
+      "last_date": "2026-06-02",
+      "apply_url": "https://www.centralbankofindia.co.in",
+      "pdf_url": "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf",
+        "summary": "1 FACILITIES FOR PROBATIONARY OFFICERS & DIRECTLY RECRUITED OFFICERS Version 1.0 (Updated till 26.06.2024) 2 INDEX SR. NO SUBJECT PAGE NO. PREFACE 3 1 Annual Medical Aid 4 2 Medical Insurance Scheme 4 3 Reimbursement of Cost of Newspaper 5 4 Residential Accommodation / Rent Reimbursement Facility 5 5 Reimbursement of Cost of Petrol & Local Conveyance 7 6 Reimbursement of Cost of Briefcase 8 7 Reimbursement of monthly Mobile Bill expenses 8 8 Performance Linked Incentive (PLI) Scheme 9 9 Staff Loans 9 10 National Pension System (NPS) 11 11 Leave Travel Concession 11 12 Furniture Facility 13 13 ",
+        "pdf_urls": [
+          "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf"
+        ],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://www.centralbankofindia.co.in",
+        "pdfUrls": [
+          "https://centralbankofindia.co.in/sites/default/files/2024-08/HR-Facilities-to-POs-and-Directly-Recruited-Officers_26062024.pdf"
+        ]
+      }
+    },
+    {
+      "id": "373dbc32-bb43-498a-99a1-635337b9db98",
+      "slug": "drdo-dg-aero-paid-intern-200-posts-0c2cf834",
+      "title": "DRDO DG(Aero) — Paid Intern – 200 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 200,
+      "qualification": "(a) Final year Undergraduate/post graduate students",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-05",
+      "apply_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
+      "pdf_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
+        "summary": "DEFENCE RESEARCH AND DEVELOPMENT ORGANISATION (DRDO) DIRECTOR GENERAL (AERONAUTICAL SYSTEMS) Advertisement for the Paid Internship Scheme 2026-27 for Labs under Director General (Aeronautical Systems) in respect of students pursuing Engineering/Science Under Graduate/Post Graduate courses OPENING DATE OF ADVERTISEMENT : 26 May 2026 CLOSING DATE OF ADVERTISEMENT : 05 June 2026 Advt. No: DRDO/DG(Aero)/PI/001/2026 Aeronautical Systems cluster is engaged in the development of state- of-the-art unmanned Air Vehicles, Aero Gas Turbine Engine Technology, Airborne Surveillance Systems, Parachutes, Dec",
+        "pdf_urls": [
+          "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf"
+        ],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
+        "pdfUrls": [
+          "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf"
+        ]
+      }
+    },
+    {
       "id": "20b9f4a5-b909-4056-b4f3-de842b976e43",
       "slug": "district-sessions-judge-angul-junior-clerk-cum-copyist-stenographer-and-more-18--fcfe67b6",
       "title": "District & Sessions Judge Angul — Junior Clerk cum Copyist, Stenographer and More – 18 Posts",
@@ -14966,6 +15290,107 @@
         "pdfUrls": [
           "https://angul.odisha.gov.in/sites/default/files/2026-05/Memo%20No.%203604%20%2838%29%2C%20Date%2018.05.2026.pdf"
         ]
+      }
+    },
+    {
+      "id": "eda9b93c-d974-44dd-a28f-c14f57fae294",
+      "slug": "ossc-junior-engineer-tracer-and-more-646-posts-4281a63f",
+      "title": "OSSC — Junior Engineer, Tracer and More – 646 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 646,
+      "qualification": "Diploma, ITI, 12TH",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-29",
+      "apply_url": "https://www.ossc.gov.in/Public/OSSC/Default.aspx",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://www.ossc.gov.in/Public/OSSC/Default.aspx"
+      }
+    },
+    {
+      "id": "6531db97-217e-42ba-b832-febff3c6a50c",
+      "slug": "dgft-chennai-young-professional-1-posts-f185a3d3",
+      "title": "DGFT Chennai — Young Professional – 1 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 1,
+      "qualification": "B.Tech/B.E, M.A, M.Com, MBA/PGDM, MCA",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-05-23",
+      "apply_url": "https://www.dgft.gov.in/",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://www.dgft.gov.in/"
+      }
+    },
+    {
+      "id": "2f314cf1-9386-4506-9f1c-daf945af7a26",
+      "slug": "utkal-university-faculty-141-posts-eef89fda",
+      "title": "Utkal University — Faculty – 141 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 141,
+      "qualification": "Any Masters Degree, M.Phil/Ph.D",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-06-20",
+      "apply_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
+      "pdf_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
+        "pdf_urls": [
+          "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf"
+        ],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
+        "pdfUrls": [
+          "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf"
+        ]
+      }
+    },
+    {
+      "id": "fc481aaf-7110-47de-b2ee-0ab970d168b8",
+      "slug": "ossc-food-safety-officer-84-posts-234c3032",
+      "title": "OSSC — Food Safety Officer – 84 Posts",
+      "dept": "Latest notifications (official links)",
+      "category": "state",
+      "state_codes": [],
+      "vacancies": 84,
+      "qualification": "B.Sc, B.Tech/B.E, M.Sc, M.Phil/Ph.D",
+      "salary": null,
+      "age_limit": null,
+      "last_date": "2026-07-08",
+      "apply_url": "https://www.ossc.gov.in",
+      "pdf_url": null,
+      "status": "live",
+      "published_at": "2026-05-20T00:00:00Z",
+      "detail": {
+        "source": "discovery-listings",
+        "pdf_url": null,
+        "pdf_urls": [],
+        "published": "2026-05-20T00:00:00+00:00",
+        "notification_url": "https://www.ossc.gov.in"
       }
     },
     {
@@ -15105,35 +15530,6 @@
       }
     },
     {
-      "id": "2f314cf1-9386-4506-9f1c-daf945af7a26",
-      "slug": "utkal-university-faculty-141-posts-eef89fda",
-      "title": "Utkal University — Faculty – 141 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 141,
-      "qualification": "Any Masters Degree, M.Phil/Ph.D",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-20",
-      "apply_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
-      "pdf_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
-        "pdf_urls": [
-          "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf",
-        "pdfUrls": [
-          "https://utkaluniversity.ac.in/wp-content/uploads/2026/05/Professor-1.pdf"
-        ]
-      }
-    },
-    {
       "id": "a3574753-768c-4d61-8c93-0e78d70da81c",
       "slug": "svnit-junior-research-fellow-1-posts-c92eaed4",
       "title": "SVNIT — Junior Research Fellow – 1 Posts",
@@ -15164,61 +15560,62 @@
       }
     },
     {
-      "id": "9b8d8884-c36a-43b2-bf10-8138af24e554",
-      "slug": "gujarat-university-assistant-professor-research-associate-4-posts-abd0c9be",
-      "title": "Gujarat University — Assistant Professor, Research Associate – 4 Posts",
+      "id": "83c72d56-66ee-4251-a75a-178792b49802",
+      "slug": "iaf-commissioned-officer-379-posts-7ee7bc1f",
+      "title": "IAF — Commissioned Officer – 379 Posts",
       "dept": "Latest notifications (official links)",
       "category": "state",
       "state_codes": [],
-      "vacancies": 4,
-      "qualification": "M.Phil/Ph.D",
+      "vacancies": 379,
+      "qualification": "B.Sc, B.Tech/B.E",
       "salary": null,
       "age_limit": null,
-      "last_date": "2026-05-26",
-      "apply_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
-      "pdf_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
+      "last_date": "2026-06-19",
+      "apply_url": "https://indianairforce.nic.in/",
+      "pdf_url": "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf",
       "status": "live",
       "published_at": "2026-05-20T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
+        "pdf_url": "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf",
+        "summary": "I DOCTRINE OF THE INDIAN AIR FORCE IAP 2000-22 DOCTRINE OF THE INDIAN AIR FORCE II DOCTRINE OF THE INDIAN AIR FORCE DOCTRINE TEAM • Directorate of Operations, Air Headquarters • Team from College of Air Warfare • Air Marshal Diptendu Choudhury (Retd) PVSM AVSM VM VSM and officers of No 1 Warfare and Aerospace Strategy Programme PHOTO CREDITS • Directorate of Operations (Media and Public Relations) Published in India by Indian Air Force Air Headquarters Vayu Bhawan Rafi Marg New Delhi 110106 IAP 2000-22 © 2022, Directorate of Operations (IEW) All rights reserved. No part of this book may be rep",
         "pdf_urls": [
-          "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf"
+          "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf"
         ],
         "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf",
+        "notification_url": "https://indianairforce.nic.in/",
         "pdfUrls": [
-          "https://beta.gujaratuniversity.ac.in/data/pdfs/Recruitment/Contractual%20Recruitment%20at%20IIS_for%20Teaching_Staff_2026_1.pdf"
+          "https://indianairforce.nic.in/Resources/pdf/header/latest-Doctrine-22-Feb.pdf"
         ]
       }
     },
     {
-      "id": "9903df35-adf9-4e03-9f5f-03ecd6e5914e",
-      "slug": "kribhco-apprentices-7fd84f2d",
-      "title": "KRIBHCO — Apprentices",
+      "id": "2e1af1d0-e465-49c1-ba44-f1fa68b74233",
+      "slug": "karnataka-police-department-cyber-security-analyst-digital-forensic-analyst-post-f0d53154",
+      "title": "Karnataka Police Department — Cyber Security Analyst, Digital Forensic Analyst Posts – 11 Posts",
       "dept": "Latest notifications (official links)",
-      "category": "state",
+      "category": "defence",
       "state_codes": [],
-      "vacancies": 0,
-      "qualification": "Diploma, Diploma, Diploma, Diploma, Diploma, Diploma",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-02",
-      "apply_url": "https://nats.education.gov.in/student_type.php",
-      "pdf_url": "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf",
+      "vacancies": 35,
+      "qualification": "B E/B.Tech/8. C .A/M.Sc/M.C.A tn",
+      "salary": "and no other allowances are paid'",
+      "age_limit": "Minimum 25 to maximum 35",
+      "last_date": "2026-05-24",
+      "apply_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
+      "pdf_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
       "status": "live",
       "published_at": "2026-05-20T00:00:00Z",
       "detail": {
         "source": "discovery-listings",
-        "pdf_url": "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf",
-        "summary": "NATIONAL APPRENTICESHIP TRAINING SCHEME (NATS) 2.0 PORTAL Portal Functionalities Walkthrough - Establishments Manual Contents Overview ....................................................................................................................................................... 2 Modules & Functionality .............................................................................................................................. 2 1.Establishment Registration .................................................................................................................... 5 2.1 Establ",
+        "pdf_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
+        "summary": "N o:CO p BCp/EST/E ST3(M:SC)/70/2023 Su I-r Goverment of Ka rnata kaPolace Department Recru itmen t Notification Office of the Commlsssioner of police Benagluru City Date:14.05.2026 Bangalore Fi]linS up technical posts in Cyber Crime potice stations incity Policc Commissjurerate on [he contract b.r;;-r;;. It will bc n ecessa cyber crime polrce statio to havo the expert technical statf to strengthen to the erght a s per rhe Ka rn a ra ka ::::'.{X\".i,X::\",,.t:;,J,.'i,,\"* ;8,; T;;;f :l ; l\":: *;committee has been constituted chaireo bf ii\" ,o,n, porice Commissioner crime ofBengaruru city' The App",
         "pdf_urls": [
-          "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf"
+          "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf"
         ],
         "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://nats.education.gov.in/student_type.php",
+        "notification_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
         "pdfUrls": [
-          "https://nats.education.gov.in/assets/manual/establishment_user_manual.pdf"
+          "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf"
         ]
       }
     },
@@ -15253,36 +15650,6 @@
       }
     },
     {
-      "id": "373dbc32-bb43-498a-99a1-635337b9db98",
-      "slug": "drdo-dg-aero-paid-intern-200-posts-0c2cf834",
-      "title": "DRDO DG(Aero) — Paid Intern – 200 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 200,
-      "qualification": "(a) Final year Undergraduate/post graduate students",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-05",
-      "apply_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
-      "pdf_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
-        "summary": "DEFENCE RESEARCH AND DEVELOPMENT ORGANISATION (DRDO) DIRECTOR GENERAL (AERONAUTICAL SYSTEMS) Advertisement for the Paid Internship Scheme 2026-27 for Labs under Director General (Aeronautical Systems) in respect of students pursuing Engineering/Science Under Graduate/Post Graduate courses OPENING DATE OF ADVERTISEMENT : 26 May 2026 CLOSING DATE OF ADVERTISEMENT : 05 June 2026 Advt. No: DRDO/DG(Aero)/PI/001/2026 Aeronautical Systems cluster is engaged in the development of state- of-the-art unmanned Air Vehicles, Aero Gas Turbine Engine Technology, Airborne Surveillance Systems, Parachutes, Dec",
-        "pdf_urls": [
-          "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf",
-        "pdfUrls": [
-          "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtDGAS20052026.pdf"
-        ]
-      }
-    },
-    {
       "id": "c0c4e855-cbdc-490b-ad40-390591e3354b",
       "slug": "jnv-banaskantha-teacher-expert-and-more-7-posts-7056b0e6",
       "title": "JNV Banaskantha — Teacher, Expert and More – 7 Posts",
@@ -15309,167 +15676,6 @@
         "notification_url": "https://navodaya.gov.in/",
         "pdfUrls": [
           "https://navodaya.gov.in/nvs/pdf-download-gallery/30543_Notice_FSN.pdf"
-        ]
-      }
-    },
-    {
-      "id": "fc481aaf-7110-47de-b2ee-0ab970d168b8",
-      "slug": "ossc-food-safety-officer-84-posts-234c3032",
-      "title": "OSSC — Food Safety Officer – 84 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 84,
-      "qualification": "B.Sc, B.Tech/B.E, M.Sc, M.Phil/Ph.D",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-07-08",
-      "apply_url": "https://www.ossc.gov.in",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://www.ossc.gov.in"
-      }
-    },
-    {
-      "id": "bdc28472-ba8d-4e12-9424-26e9b5955806",
-      "slug": "dr-b-b-a-govt-polytechnic-silvassa-lecturer-4-posts-4a20a669",
-      "title": "Dr. B.B.A. Govt. Polytechnic Silvassa — Lecturer – 4 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 4,
-      "qualification": "Any Post Graduate, B.Tech/B.E",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-15",
-      "apply_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
-      "pdf_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
-        "pdf_urls": [
-          "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf",
-        "pdfUrls": [
-          "https://cdnbbsr.s3waas.gov.in/s371e09b16e21f7b6919bbfc43f6a5b2f0/uploads/2026/05/202605191801523026.pdf"
-        ]
-      }
-    },
-    {
-      "id": "2cd388c0-6125-4564-8e4f-171fd84c16b2",
-      "slug": "bel-field-operation-engineer-project-engineer-i-56-posts-9e295d6f",
-      "title": "BEL — Field Operation Engineer, Project Engineer-I – 56 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 56,
-      "qualification": "B.Sc, B.Tech/B.E, M.E/M.Tech",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-06-08",
-      "apply_url": "https://www.bel-india.in/careers/",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://www.bel-india.in/careers/"
-      }
-    },
-    {
-      "id": "2e1af1d0-e465-49c1-ba44-f1fa68b74233",
-      "slug": "karnataka-police-department-cyber-security-analyst-digital-forensic-analyst-post-f0d53154",
-      "title": "Karnataka Police Department — Cyber Security Analyst, Digital Forensic Analyst Posts – 11 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "defence",
-      "state_codes": [],
-      "vacancies": 35,
-      "qualification": "B E/B.Tech/8. C .A/M.Sc/M.C.A tn",
-      "salary": "and no other allowances are paid'",
-      "age_limit": "Minimum 25 to maximum 35",
-      "last_date": "2026-05-24",
-      "apply_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
-      "pdf_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
-        "summary": "N o:CO p BCp/EST/E ST3(M:SC)/70/2023 Su I-r Goverment of Ka rnata kaPolace Department Recru itmen t Notification Office of the Commlsssioner of police Benagluru City Date:14.05.2026 Bangalore Fi]linS up technical posts in Cyber Crime potice stations incity Policc Commissjurerate on [he contract b.r;;-r;;. It will bc n ecessa cyber crime polrce statio to havo the expert technical statf to strengthen to the erght a s per rhe Ka rn a ra ka ::::'.{X\".i,X::\",,.t:;,J,.'i,,\"* ;8,; T;;;f :l ; l\":: *;committee has been constituted chaireo bf ii\" ,o,n, porice Commissioner crime ofBengaruru city' The App",
-        "pdf_urls": [
-          "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf",
-        "pdfUrls": [
-          "https://ksp.karnataka.gov.in/storage/pdf-files/Notification.pdf"
-        ]
-      }
-    },
-    {
-      "id": "be91cd24-7bfb-4197-ba12-10cfa8fbc825",
-      "slug": "central-bank-of-india-assistant-general-manager-15-posts-0b0acfce",
-      "title": "Central Bank of India — Assistant General Manager – 15 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "banking",
-      "state_codes": [],
-      "vacancies": 15,
-      "qualification": "B.Tech/B.E, Any Post Graduate, CA",
-      "salary": null,
-      "age_limit": null,
-      "last_date": "2026-05-25",
-      "apply_url": "https://ibpsreg.ibps.in/cbiagmapr26/",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": null,
-        "pdf_urls": [],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://ibpsreg.ibps.in/cbiagmapr26/"
-      }
-    },
-    {
-      "id": "827ed971-2b19-4243-9d7f-c27a7a983be7",
-      "slug": "samagra-shiksha-hisar-education-volunteer-38-posts-659f5069",
-      "title": "Samagra Shiksha Hisar — Education Volunteer – 38 Posts",
-      "dept": "Latest notifications (official links)",
-      "category": "state",
-      "state_codes": [],
-      "vacancies": 38,
-      "qualification": "B.Ed",
-      "salary": "of Hindi and Urdu teachers.",
-      "age_limit": null,
-      "last_date": "2026-05-26",
-      "apply_url": "https://samagra.education.gov.in/",
-      "pdf_url": "https://samagra.education.gov.in/docs/samagra_shiksha.pdf",
-      "status": "live",
-      "published_at": "2026-05-20T00:00:00Z",
-      "detail": {
-        "source": "discovery-listings",
-        "pdf_url": "https://samagra.education.gov.in/docs/samagra_shiksha.pdf",
-        "summary": "1 Samagra Shiksha Scheme Background: Union Budget, 2018 -19 has announced that school education would be treated holistically and without segmentation from pre-primary to class XII. It is, in this context, that the Department launched the Integrated Scheme for School Education, Samagra Shiksha in 2018 by subsuming the erstwhile Centrally Sponsored Schemes of Sarva Shiksha Abhiyan (SSA), Rashtriya Madhyamik Shiksha Abhiyan (RMSA) and T eacher Education (TE). The scheme treats school education as a continuum and is in accordance with Sustainable Development Goal for Education (SDG -4). The schem",
-        "pdf_urls": [
-          "https://samagra.education.gov.in/docs/samagra_shiksha.pdf"
-        ],
-        "published": "2026-05-20T00:00:00+00:00",
-        "notification_url": "https://samagra.education.gov.in/",
-        "pdfUrls": [
-          "https://samagra.education.gov.in/docs/samagra_shiksha.pdf"
         ]
       }
     },
@@ -19933,160 +20139,6 @@
       "pdf_url": null,
       "status": "live",
       "published_at": "2026-05-19T14:01:44.903522Z",
-      "detail": {
-        "source": "ugc",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "24f40b61-3b87-4d79-aded-cd353d2299cc",
-      "slug": "inter-university-centres-deef999a",
-      "title": "Inter University Centres",
-      "dept": "www.ugc.gov.in",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.ugc.gov.in/Aboutus/Inter_University_Centres",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T14:01:44.557285Z",
-      "detail": {
-        "source": "ugc",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "08b25dcc-25a9-41a0-b244-39efe656c7b1",
-      "slug": "state-higher-education-councils-194bc8f1",
-      "title": "State Higher Education Councils",
-      "dept": "www.ugc.gov.in",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.ugc.gov.in/UGCofficials/State_Higher_Education_Councils",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T14:01:44.063275Z",
-      "detail": {
-        "source": "ugc",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "286532a7-543d-4527-bc2e-4be703a1cdf4",
-      "slug": "annual-reports-annual-accounts-529dc1e7",
-      "title": "Annual Reports/ Annual Accounts",
-      "dept": "www.ugc.gov.in",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.ugc.gov.in/publication/Annual_Reports",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T14:01:43.681835Z",
-      "detail": {
-        "source": "ugc",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "b89962ac-9f09-45a2-abe6-763c614a08e0",
-      "slug": "list-of-defaulter-state-private-universities-cfc1249c",
-      "title": "List of Defaulter State (Private) Universities",
-      "dept": "www.ugc.gov.in",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.ugc.gov.in/universitydetails/HEIs_Violating_Regulations?tab=Defaulter",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T14:01:43.340888Z",
-      "detail": {
-        "source": "ugc",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "c246c645-c377-4b39-bfa2-0b05c9c8be8a",
-      "slug": "list-of-heis-not-appointed-ombudsperson-73374d36",
-      "title": "List of HEIs not appointed Ombudsperson",
-      "dept": "www.ugc.gov.in",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.ugc.gov.in/universitydetails/HEIs_Violating_Regulations?tab=ombudsperson",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T14:01:43.000772Z",
-      "detail": {
-        "source": "ugc",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "74cf9429-923f-4172-9cf3-50eeb8a30bfd",
-      "slug": "list-of-heis-not-following-ph-d-regulations-a29cb762",
-      "title": "List of HEIs not Following Ph.D Regulations",
-      "dept": "www.ugc.gov.in",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.ugc.gov.in/universitydetails/HEIs_Violating_Regulations?tab=phd-regulations",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T14:01:42.624524Z",
-      "detail": {
-        "source": "ugc",
-        "pdf_urls": [],
-        "published": null
-      }
-    },
-    {
-      "id": "7d74b1f5-8f05-44a7-b7ba-8600371e3f68",
-      "slug": "former-chairpersons-759865f9",
-      "title": "Former Chairpersons",
-      "dept": "www.ugc.gov.in",
-      "category": "teaching",
-      "state_codes": [],
-      "vacancies": 0,
-      "qualification": null,
-      "salary": null,
-      "age_limit": null,
-      "last_date": null,
-      "apply_url": "https://www.ugc.gov.in/Administration/Former_Commission_Members",
-      "pdf_url": null,
-      "status": "live",
-      "published_at": "2026-05-19T14:01:42.241417Z",
       "detail": {
         "source": "ugc",
         "pdf_urls": [],
