@@ -1,5 +1,13 @@
-/** Indian languages supported for full-site UI (ISO 639-1 + script labels). */
-export const INDIAN_LANGUAGES = [
+/** All Indian languages supported on the site (shared by i18n + IndianLanguageSelector). */
+
+export type IndianLanguage = {
+  code: string;
+  label: string;
+  native: string;
+  dir: "ltr" | "rtl";
+};
+
+export const INDIAN_LANGUAGES: IndianLanguage[] = [
   { code: "en", label: "English", native: "English", dir: "ltr" },
   { code: "hi", label: "Hindi", native: "हिन्दी", dir: "ltr" },
   { code: "bn", label: "Bengali", native: "বাংলা", dir: "ltr" },
@@ -27,7 +35,12 @@ export const INDIAN_LANGUAGES = [
 
 export const DEFAULT_LOCALE = "en";
 export const LOCALE_STORAGE_KEY = "bharatnaukri-ui-locale";
+export const LANGUAGE_COUNT = INDIAN_LANGUAGES.length;
 
-export function languageMeta(code) {
+export function languageMeta(code: string): IndianLanguage {
   return INDIAN_LANGUAGES.find((l) => l.code === code) ?? INDIAN_LANGUAGES[0];
+}
+
+export function isSupportedLanguage(code: string): boolean {
+  return INDIAN_LANGUAGES.some((l) => l.code === code);
 }

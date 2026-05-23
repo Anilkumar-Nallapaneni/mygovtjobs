@@ -18,7 +18,9 @@
   },
   "lang": {
     "label": "Language",
-    "choose": "Choose language"
+    "choose": "Choose language",
+    "error": "Could not load language",
+    "count": "{{count}} languages"
   },
   "ticker": {
     "live": "LIVE",
@@ -43,11 +45,18 @@
     "listing_other": "{{count}} listings",
     "dreamJobPrefix": "Find your",
     "dreamJobHighlight": "dream job",
-    "heroDesc": "Real-time government job alerts from UPSC, SSC, Railways, Banking, Police & more. {{vacancies}} vacancies across {{listings}} active recruitments in our catalog.",
+    "heroDesc": "Real-time government job alerts from UPSC, SSC, Railways, Banking, Police & more. {{vacancies}} notified posts across {{listings}} recruitments ({{withCounts}} listings include a post count).",
     "activeVacancies": "Active Vacancies",
+    "totalNotifiedPosts": "Total posts notified · {{count}} listings",
+    "totalNotifiedPosts_one": "Total posts notified · {{count}} listing",
+    "totalNotifiedPosts_other": "Total posts notified · {{count}} listings",
     "hotNewTags": "Hot / New tags",
-    "statesMap": "States & UTs (map)",
-    "liveListings": "Live listings",
+    "statesMap": "State & UT listings",
+    "liveListings": "Open listings",
+    "heroStatJobsVacancies": "Jobs with post counts",
+    "heroStatJobsHotNew": "Hot & new recruitments",
+    "heroStatJobsStates": "State & UT recruitments",
+    "heroStatJobsLive": "Live listings",
     "browseEducation": "Browse by Education",
     "clearFilter": "Clear filter",
     "jobsInState": "Jobs in {{state}}",
@@ -130,6 +139,7 @@
   },
   "jobsStatus": {
     "loading": "Loading job listings…",
+    "refreshing": "Updating live listings…",
     "liveMode": "Live database connected",
     "demoMode": "Demo catalog — connect Supabase + backend for real-time jobs",
     "listings": "listings",

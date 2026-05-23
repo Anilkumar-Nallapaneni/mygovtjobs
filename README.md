@@ -63,7 +63,7 @@ bharatnaukri-live/
 │   ├── app/
 │   │   ├── main.py
 │   │   ├── routes/                # jobs, ingest, alerts, health, admin
-│   │   ├── scrapers/              # RSS, state portals, discovery listings
+│   │   ├── scrapers/              # RSS + state portal HTML (official sites only)
 │   │   ├── parsers/               # notification + PDF parsing
 │   │   ├── services/              # jobs, ingest, persist, validation
 │   │   └── agents/ingest_agent.py # scrape → raw_ingest → jobs

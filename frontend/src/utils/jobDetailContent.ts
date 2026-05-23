@@ -1,6 +1,6 @@
 import { pickOfficialDetailUrl } from "@/utils/officialDomains";
 import { collectPdfUrls } from "@/utils/resolvePdfUrl";
-import { normalizeIsoDate, sanitizeVacancyCount } from "@/utils/jobMetadataUtils";
+import { normalizeIsoDate, resolveVacancyCount } from "@/utils/jobMetadataUtils";
 
 function trimSummary(text, max = 1200) {
   const s = String(text || "")
@@ -82,7 +82,8 @@ export function buildJobDetailView(job) {
   if (!job) return job;
 
   const title = job.title || "Government recruitment";
-  const vacancies = sanitizeVacancyCount(job.vacancies, title);
+  const summary = job?.detail?.summary || job?.about || "";
+  const vacancies = resolveVacancyCount(job.vacancies, title, summary, job?.about);
   const applyHref =
     pickOfficialDetailUrl(job) ||
     (job.applyUrl && job.applyUrl !== "#" ? job.applyUrl : null) ||

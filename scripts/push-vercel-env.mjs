@@ -47,11 +47,11 @@ const pairs = [
 ]
 
 function addOne(key, value, target) {
-  const r = spawnSync(
-    process.platform === 'win32' ? 'vercel.cmd' : 'vercel',
-    ['env', 'add', key, target, '--value', value, '--yes', '--force', '--no-sensitive'],
-    { cwd: root, encoding: 'utf8', stdio: 'inherit', shell: true }
-  )
+  const vercel = process.platform === 'win32' ? 'vercel.cmd' : 'vercel'
+  const args = ['env', 'add', key, target, '--value', value, '--yes', '--force', '--no-sensitive', '--non-interactive']
+  const r = spawnSync(vercel, args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })
+  if (r.stdout) process.stdout.write(r.stdout)
+  if (r.stderr) process.stderr.write(r.stderr)
   if (r.status !== 0) {
     console.error(`Failed: vercel env add ${key} ${target} (exit ${r.status})`)
     if (r.stderr) console.error(String(r.stderr))
@@ -60,11 +60,13 @@ function addOne(key, value, target) {
   console.log(`  ✓ ${key} (${target})`)
 }
 
-console.log('Pushing env to linked Vercel project (production + preview)…')
+console.log('Pushing env to linked Vercel project (production)…')
 console.log('  VITE_JOBS_SOURCE =', jobsSource)
-for (const target of ['production', 'preview']) {
+// Preview requires a git-branch in newer Vercel CLI; production is enough for --prod deploys.
+for (const target of ['production']) {
   for (const [key, value] of pairs) {
     addOne(key, value, target)
   }
 }
+console.log('Tip: add Preview env in Vercel Dashboard → Settings → Environment Variables if needed.')
 console.log('Done. Redeploy: vercel --prod')

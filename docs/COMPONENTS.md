@@ -17,7 +17,7 @@ All UI code lives under `frontend/src/` (TypeScript only — `.ts` / `.tsx`).
 | `layout/Navbar.tsx` | Top nav, search, color mode, language |
 | `layout/Ticker.tsx` | Scrolling headlines from official feed |
 | `layout/Footer.tsx` | Links to sections / states / categories |
-| `layout/LanguagePicker.tsx` | Indian language switcher |
+| `layout/IndianLanguageSelector.tsx` | All 23 Indian languages (single switcher) |
 | `layout/BrandLogo.tsx` | Logo mark |
 
 ## Home page

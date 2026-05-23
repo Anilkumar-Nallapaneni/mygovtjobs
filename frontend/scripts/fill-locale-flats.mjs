@@ -13,20 +13,30 @@ const FLATS_DIR = path.join(__dirname, "trees/flats");
 const en = JSON.parse(fs.readFileSync(path.join(root, "src/i18n/locales/en.json"), "utf8"));
 const enFlat = toFlat(en);
 
+/** All scheduled Indian UI locales (ISO 639) → Google Translate `tl` code. */
 const TARGETS = {
+  hi: "hi",
   bn: "bn",
   te: "te",
+  mr: "mr",
   ta: "ta",
   gu: "gu",
   kn: "kn",
   ml: "ml",
   pa: "pa",
   or: "or",
-  ur: "ur",
-  sat: "sat",
-  mni: "mni",
-  mr: "mr",
   as: "as",
+  ur: "ur",
+  kok: "gom",
+  mni: "mni",
+  ne: "ne",
+  sd: "sd",
+  sa: "sa",
+  sat: "sat",
+  mai: "mai",
+  doi: "doi",
+  brx: "brx",
+  ks: "ks",
 };
 
 const MIN_FILLED = 150;

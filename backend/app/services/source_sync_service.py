@@ -18,7 +18,7 @@ REGISTRY_PATH = ROOT / "scripts" / "scraper_registry.json"
 def _module_type(module: str | None) -> str:
     if module in ("rss_feed",):
         return "rss"
-    if module in ("state_portal_html", "discovery_listings"):
+    if module in ("state_portal_html",):
         return "html"
     return "html"
 

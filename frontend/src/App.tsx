@@ -22,18 +22,25 @@ const FEED_MAX = 30;
 const COLOR_MODE_KEY = "bharatnaukri-color-mode";
 
 function PageFallback() {
-  return (
-    <div style={{ padding: 48, textAlign: "center", color: "#888", fontFamily: "Outfit, sans-serif" }}>
-      Loading…
-    </div>
-  );
+  return <div className="page-fallback">Loading…</div>;
 }
 
 export default function App() {
   const { i18n } = useTranslation();
   const stateLabel = useStateLabel();
-  const { jobs, loading: jobsLoading, staticCount, liveCount, sources, hasBackend, error: jobsError } = useLiveJobs();
+  const {
+    jobs,
+    loading: jobsLoading,
+    refreshing: jobsRefreshing,
+    staticCount,
+    liveCount,
+    sources,
+    hasBackend,
+    error: jobsError,
+    refresh: refreshJobs,
+  } = useLiveJobs();
   const [view, setView] = useState("home");
+  const [homeResetKey, setHomeResetKey] = useState(0);
   const [selectedState, setSelectedState] = useState(null);
   const [activeCat, setActiveCat] = useState(null);
   const [quickFilter, setQuickFilter] = useState(null);
@@ -136,39 +143,56 @@ export default function App() {
     setSelectedJob(null);
   }, []);
 
-  const handleNavigate = useCallback((nextView) => {
-    setView(nextView);
+  const resetToHome = useCallback(() => {
+    setView("home");
     setSelectedJob(null);
+    setSelectedState(null);
+    setActiveCat(null);
+    setQuickFilter(null);
+    setSearch("");
+    setHeadlinesTopicKey(null);
+    setHomeResetKey((k) => k + 1);
+    refreshJobs();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [refreshJobs]);
 
-    if (nextView === "admit-card") {
-      setHeadlinesTopicKey("admit-card");
-    } else if (nextView === "results") {
-      setHeadlinesTopicKey(null);
-    } else if (nextView !== "alert") {
-      setHeadlinesTopicKey(null);
-    }
+  const handleNavigate = useCallback(
+    (nextView) => {
+      if (nextView === "home") {
+        resetToHome();
+        return;
+      }
 
-    if (nextView === "jobs") {
-      setSelectedState(null);
-      setActiveCat(null);
-      setQuickFilter(null);
-    }
+      setView(nextView);
+      setSelectedJob(null);
 
-    const sectionByView = {
-      home: null,
-      jobs: "main-jobs",
-      results: "official-headlines",
-      "admit-card": "official-headlines",
-      alert: "alert-section",
-    };
+      if (nextView === "admit-card") {
+        setHeadlinesTopicKey("admit-card");
+      } else if (nextView === "results") {
+        setHeadlinesTopicKey(null);
+      } else if (nextView !== "alert") {
+        setHeadlinesTopicKey(null);
+      }
 
-    const sectionId = sectionByView[nextView];
-    if (sectionId) {
-      scrollToSection(sectionId);
-    } else if (nextView === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, []);
+      if (nextView === "jobs") {
+        setSelectedState(null);
+        setActiveCat(null);
+        setQuickFilter(null);
+      }
+
+      const sectionByView = {
+        home: null,
+        jobs: "main-jobs",
+        results: "official-headlines",
+        "admit-card": "official-headlines",
+        alert: "alert-section",
+      };
+
+      const sectionId = sectionByView[nextView];
+      if (sectionId) scrollToSection(sectionId);
+    },
+    [resetToHome]
+  );
 
   const handleFooterLink = useCallback((target) => {
     setSelectedJob(null);
@@ -226,6 +250,7 @@ export default function App() {
             <div style={{ padding: "10px 20px 0", maxWidth: 1240, margin: "0 auto" }}>
               <JobsStatusBar
                 loading={jobsLoading}
+                refreshing={jobsRefreshing}
                 staticCount={staticCount}
                 liveCount={liveCount}
                 sources={sources}
@@ -239,6 +264,7 @@ export default function App() {
               <JobDetail key={`${selectedJob.id}-${i18n.language}`} job={selectedJob} onClose={handleCloseJob} />
             ) : (
               <HomePage
+                key={`home-${homeResetKey}-${i18n.resolvedLanguage || i18n.language}`}
                 jobs={jobs}
                 jobsLoading={jobsLoading}
                 staticCount={staticCount}

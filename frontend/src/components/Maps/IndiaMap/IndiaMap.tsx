@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { IndiaMapProps, defaultMapStyle } from "@/types/MapTypes";
 import { fetchSVGContent } from "@/utils/mapUtils";
 import stateColors from '@/data/stateColors';
-import './IndiaMap.css';
-
 interface HoverInfo {
   name: string;
   id: string;

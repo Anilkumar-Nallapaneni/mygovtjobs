@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-"""Import frontend/public/data/official-feed-items.json into Supabase `jobs`."""
+"""Import official-feed-items.json into Supabase with PDF enrichment (same as ingest agent)."""
 import asyncio
 import json
 import sys
-from datetime import date, datetime, timezone
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
 from app.database.session import SessionLocal  # noqa: E402
-from app.parsers.notification_parser import NotificationParser  # noqa: E402
+from app.parsers.pdf_enrich import merge_pdf_fields  # noqa: E402
+from app.scrapers.pdf_discover import ensure_pdf_urls  # noqa: E402
 from app.services.dedupe_service import content_hash  # noqa: E402
-from app.services.job_persist_service import JobPersistService  # noqa: E402
+from app.parsers.notification_parser import NotificationParser  # noqa: E402
+from app.services.job_persist_service import JobPersistService, _resolve_state_codes  # noqa: E402
 from app.services.source_sync_service import SourceSyncService  # noqa: E402
 from app.services.validation_service import ValidationService  # noqa: E402
 
@@ -35,6 +37,28 @@ def _item_to_raw(item: dict) -> dict:
     }
 
 
+async def normalize_feed_item(item: dict, parser, entry: dict) -> dict | None:
+    raw = _item_to_raw(item)
+    apply_link = raw.get("link") or raw.get("applyUrl")
+    pdf_urls = await ensure_pdf_urls(raw.get("pdfUrls") or [], apply_link)
+    raw["pdfUrls"] = pdf_urls
+    pdf_fields = await merge_pdf_fields(pdf_urls) if pdf_urls else {}
+
+    normalized = parser.parse(raw, pdf_fields=pdf_fields, source_code=SOURCE_CODE)
+    normalized["category"] = normalized.get("category") or item.get("category")
+    state_ids = item.get("stateIds") or []
+    if state_ids and "all" not in state_ids:
+        normalized["state_codes"] = [str(s).lower()[:8] for s in state_ids]
+    else:
+        normalized["state_codes"] = _resolve_state_codes(normalized)
+
+    validator = ValidationService()
+    valid, _ = validator.validate(normalized)
+    if not valid:
+        return None
+    return normalized
+
+
 async def main() -> None:
     if not FEED_JSON.exists():
         print(f"No feed file at {FEED_JSON} — run: npm run fetch:official")
@@ -47,7 +71,6 @@ async def main() -> None:
         return
 
     parser = NotificationParser()
-    validator = ValidationService()
     persist = JobPersistService()
     sync = SourceSyncService()
     entry = {
@@ -65,22 +88,13 @@ async def main() -> None:
         await session.commit()
 
     for item in items:
-        raw = _item_to_raw(item)
         try:
-            normalized = parser.parse(raw, source_code=SOURCE_CODE)
+            normalized = await normalize_feed_item(item, parser, entry)
         except Exception as exc:
             print(f"skip parse error: {item.get('title', '')[:60]!r} — {exc}")
             rejected += 1
             continue
-        normalized["category"] = normalized.get("category") or item.get("category")
-        state_ids = item.get("stateIds") or []
-        if state_ids and "all" not in state_ids:
-            normalized["state_codes"] = [str(s).lower()[:8] for s in state_ids]
-        else:
-            normalized["state_codes"] = []
-
-        valid, _ = validator.validate(normalized)
-        if not valid:
+        if not normalized:
             rejected += 1
             continue
 

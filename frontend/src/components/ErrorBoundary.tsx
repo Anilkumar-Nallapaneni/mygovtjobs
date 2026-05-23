@@ -1,7 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import i18n from '@/i18n';
-import './ErrorBoundary.css';
-
 interface Props {
   children: ReactNode;
 }

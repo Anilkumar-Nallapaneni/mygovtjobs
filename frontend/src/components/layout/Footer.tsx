@@ -1,8 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import BrandLogo from "@/components/layout/BrandLogo";
-import "./Footer.css";
-
 const FOOTER_LINK_KEYS = {
   quickLinks: ["latestJobs", "results", "admitCards", "syllabus", "examCalendar", "answerKeys"],
   categories: ["upsc", "ssc", "railways", "banking", "defence", "police", "teaching"],

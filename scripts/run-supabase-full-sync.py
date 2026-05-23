@@ -2,7 +2,7 @@
 """
 Full Supabase sync:
   1) Sync all scrapers → `sources`
-  2) Discovery + all enabled scrapers → `raw_ingest` + `jobs`
+  2) All enabled official scrapers → `raw_ingest` + `jobs`
   3) Official RSS/portals JSON → `jobs`
   4) Scrub + export + audit
 """
@@ -27,16 +27,8 @@ async def sync_sources() -> int:
 
 async def run_ingest() -> None:
     agent = IngestAgent()
-    print("=== Discovery listings ===", flush=True)
-    d = await agent.run_source("discovery-listings")
-    print(f"discovery: fetched={d.get('fetched')} saved={d.get('saved')}", flush=True)
-
-    enabled = [
-        s
-        for s in agent.registry.get("scrapers", [])
-        if s.get("enabled") and s.get("code") != "discovery-listings"
-    ]
-    print(f"\n=== Scrapers ({len(enabled)}) ===", flush=True)
+    enabled = [s for s in agent.registry.get("scrapers", []) if s.get("enabled")]
+    print(f"=== Official scrapers ({len(enabled)}) ===", flush=True)
     for i, entry in enumerate(enabled, 1):
         code = entry.get("code", "?")
         try:

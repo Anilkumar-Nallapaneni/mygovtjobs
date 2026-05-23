@@ -18,6 +18,24 @@ export type ApiJob = {
 
 const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 
+/** Fail fast when backend/proxy is down — avoids multi-minute hangs on Windows */
+export const JOBS_FETCH_TIMEOUT_MS = 12_000
+
+async function fetchWithTimeout(
+  input: RequestInfo | URL,
+  init?: RequestInit & { timeoutMs?: number }
+): Promise<Response> {
+  const timeoutMs = init?.timeoutMs ?? JOBS_FETCH_TIMEOUT_MS
+  const { timeoutMs: _t, ...rest } = init ?? {}
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(input, { ...rest, signal: controller.signal })
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 function apiUrl(path: string, params?: Record<string, string | number | undefined>) {
   const base = API_BASE || ''
   const qs = params
@@ -44,7 +62,7 @@ export async function fetchJobsFromApi(params?: {
   offset?: number
 }): Promise<FetchJobsResult> {
   try {
-    const res = await fetch(
+    const res = await fetchWithTimeout(
       apiUrl('/api/jobs', {
         state: params?.state,
         category: params?.category,
@@ -69,7 +87,7 @@ export async function fetchJobsFromApi(params?: {
 
 export async function fetchJobsFromJson(): Promise<ApiJob[]> {
   try {
-    const res = await fetch('/data/live-jobs.json', { cache: 'default' })
+    const res = await fetchWithTimeout('/data/live-jobs.json', { cache: 'default', timeoutMs: 8_000 })
     if (!res.ok) return []
     const json = await res.json()
     const items = Array.isArray(json.items) ? json.items : []

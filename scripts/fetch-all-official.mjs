@@ -100,6 +100,7 @@ async function main() {
   const limitArg = process.argv.find((a) => a.startsWith("--limit="));
   const cliLimit = limitArg ? Number(limitArg.split("=")[1]) : undefined;
   const lookbackDays = parseDaysArg(process.argv, DEFAULT_LOOKBACK_DAYS);
+  const feedOnly = process.argv.includes("--feed-only");
 
   console.log(`=== Notifications from last ${lookbackDays} days ===`);
   console.log("\n=== RSS feeds (official-sources.json) ===");
@@ -115,11 +116,13 @@ async function main() {
     items: merged,
     sourceReports: rss.sourceReports,
     siteReports: sites.siteReports,
+    feedOnly,
   });
 
   console.log(`\nWrote ${merged.length} items →`);
   console.log(`  ${FEED_FILE}`);
-  console.log(`  ${LIVE_JOBS_FILE}`);
+  if (!feedOnly) console.log(`  ${LIVE_JOBS_FILE}`);
+  else console.log("  (skipped live-jobs.json — Python ingest owns the catalog)");
 }
 
 const isDirectRun = process.argv[1]?.includes("fetch-all-official.mjs");

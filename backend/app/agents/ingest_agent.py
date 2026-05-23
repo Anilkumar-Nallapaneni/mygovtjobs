@@ -9,7 +9,7 @@ from app.config import get_settings
 from app.database.session import SessionLocal
 from app.models.job import Source
 from app.parsers.notification_parser import NotificationParser
-from app.parsers.pdf_parser import parse_pdf_url
+from app.parsers.pdf_enrich import merge_pdf_fields
 from app.scrapers.pdf_discover import ensure_pdf_urls
 from app.scrapers.rss_feed import RssFeedScraper
 from app.services.dedupe_service import content_hash
@@ -118,9 +118,7 @@ class IngestAgent:
         pdf_urls = await ensure_pdf_urls(raw.get("pdfUrls") or raw.get("pdf_urls") or [], apply_link)
         raw["pdfUrls"] = pdf_urls
 
-        pdf_fields = {}
-        if pdf_urls:
-            pdf_fields = await parse_pdf_url(pdf_urls[0])
+        pdf_fields = await merge_pdf_fields(pdf_urls) if pdf_urls else {}
 
         normalized = self.parser.parse(raw, pdf_fields=pdf_fields, source_code=source_code)
         normalized["category"] = normalized.get("category") or entry.get("category")
@@ -207,16 +205,6 @@ class IngestAgent:
                 entry.get("state", ""),
                 max_items=max_items,
                 lookback_days=lookback,
-            )
-
-        if module == "discovery_listings":
-            from app.scrapers.discovery_listings import DiscoveryListingsScraper
-
-            return DiscoveryListingsScraper(
-                list_url=entry.get("listUrl"),
-                lookback_days=lookback,
-                max_items=int(entry.get("maxItems") or 600),
-                max_detail_fetches=int(entry.get("maxDetailFetches") or 350),
             )
 
         return RssFeedScraper(lookback_days=lookback, max_items=max_items)

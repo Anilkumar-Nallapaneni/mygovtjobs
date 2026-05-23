@@ -2,8 +2,6 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DS } from '@/theme/designSystem'
 import { buildLatestNotificationsData } from '@/utils/latestNotificationsTable'
-import './LatestNotificationsTable.css'
-
 function formatDisplayDate(value, locale) {
   if (!value) return '—'
   const d = new Date(value)
@@ -42,7 +40,7 @@ export default function LatestNotificationsTable({ jobs = [], loading = false, o
     if (row._job) onJobClick?.(row._job)
   }
 
-  if (loading) {
+  if (loading && !jobs.length) {
     return (
       <div className="latest-notif" role="status">
         <p style={{ color: DS.muted, fontSize: 13 }}>

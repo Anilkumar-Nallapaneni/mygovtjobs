@@ -3,10 +3,10 @@
 import re
 from urllib.parse import urljoin, urlparse
 
-import httpx
 from bs4 import BeautifulSoup
 
 from app.utils.url_safety import assert_safe_url
+from app.scrapers.http_client import create_async_client
 
 _PDF = re.compile(r"\.pdf(\?|/|$)", re.I)
 _SKIP = re.compile(
@@ -33,22 +33,49 @@ def _same_site(a: str, b: str) -> bool:
         return False
 
 
+def _score_pdf_anchor(text: str, href: str, page_url: str) -> int:
+    if not _is_pdf_url(href) or _SKIP.search(href):
+        return -1
+    score = 4
+    probe = f"{text} {href}".lower()
+    if re.search(r"notif|advert|recruit|vacanc|engagement|apprentice|exam|bharti", probe):
+        score += 3
+    if re.search(r"result|roll\s*no|answer\s*key|marksheet|dv\s+schedule|shortlist", probe):
+        score -= 4
+    if _same_site(href, page_url):
+        score += 2
+    return score
+
+
 def _pick_best_pdf(anchors: list[tuple[str, str]], page_url: str) -> str | None:
     scored: list[tuple[int, str]] = []
     for text, href in anchors:
-        if not _is_pdf_url(href) or _SKIP.search(href):
-            continue
-        score = 4
-        probe = f"{text} {href}".lower()
-        if re.search(r"notif|advert|recruit|vacanc|engagement|apprentice|exam|bharti", probe):
-            score += 3
-        if _same_site(href, page_url):
-            score += 2
-        scored.append((score, href))
+        score = _score_pdf_anchor(text, href, page_url)
+        if score >= 0:
+            scored.append((score, href))
     if not scored:
         return None
     scored.sort(key=lambda x: x[0], reverse=True)
     return scored[0][1]
+
+
+def _pick_all_pdfs(anchors: list[tuple[str, str]], page_url: str, *, limit: int = 8) -> list[str]:
+    scored: list[tuple[int, str]] = []
+    for text, href in anchors:
+        score = _score_pdf_anchor(text, href, page_url)
+        if score >= 3:
+            scored.append((score, href))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    out: list[str] = []
+    seen: set[str] = set()
+    for _, href in scored:
+        if href in seen:
+            continue
+        seen.add(href)
+        out.append(href)
+        if len(out) >= limit:
+            break
+    return out
 
 
 async def discover_pdf_on_page(page_url: str, *, timeout: float = 20) -> str | None:
@@ -56,11 +83,7 @@ async def discover_pdf_on_page(page_url: str, *, timeout: float = 20) -> str | N
         return page_url if _is_pdf_url(page_url) else None
     try:
         assert_safe_url(page_url)
-        async with httpx.AsyncClient(
-            timeout=timeout,
-            follow_redirects=True,
-            headers={"User-Agent": USER_AGENT},
-        ) as client:
+        async with create_async_client(timeout=timeout, user_agent=USER_AGENT) as client:
             res = await client.get(page_url)
             if res.status_code >= 400:
                 return None
@@ -75,6 +98,28 @@ async def discover_pdf_on_page(page_url: str, *, timeout: float = 20) -> str | N
             return _pick_best_pdf(anchors, str(res.url))
     except Exception:
         return None
+
+
+async def discover_all_pdfs_on_page(page_url: str, *, timeout: float = 20, limit: int = 8) -> list[str]:
+    if not page_url or not page_url.startswith("http") or _is_pdf_url(page_url):
+        return [page_url] if _is_pdf_url(page_url) else []
+    try:
+        assert_safe_url(page_url)
+        async with create_async_client(timeout=timeout, user_agent=USER_AGENT) as client:
+            res = await client.get(page_url)
+            if res.status_code >= 400:
+                return []
+            if _PDF.search(res.headers.get("content-type", "")):
+                return [str(res.url)]
+            soup = BeautifulSoup(res.text, "html.parser")
+            anchors: list[tuple[str, str]] = []
+            for a in soup.find_all("a", href=True):
+                href = urljoin(str(res.url), a["href"].strip())
+                text = " ".join(a.get_text(strip=True).split())
+                anchors.append((text, href))
+            return _pick_all_pdfs(anchors, str(res.url), limit=limit)
+    except Exception:
+        return []
 
 
 async def ensure_pdf_urls(pdf_urls: list[str] | None, apply_url: str | None) -> list[str]:
@@ -95,10 +140,18 @@ async def ensure_pdf_urls(pdf_urls: list[str] | None, apply_url: str | None) -> 
         add(apply_url)
         return out
 
+    if out and apply_url and not _is_pdf_url(apply_url):
+        for extra in await discover_all_pdfs_on_page(apply_url):
+            add(extra)
+        return out
+
     if out:
         return out
 
-    discovered = await discover_pdf_on_page(apply_url or "")
-    if discovered:
+    for discovered in await discover_all_pdfs_on_page(apply_url or ""):
         add(discovered)
+    if not out:
+        one = await discover_pdf_on_page(apply_url or "")
+        if one:
+            add(one)
     return out

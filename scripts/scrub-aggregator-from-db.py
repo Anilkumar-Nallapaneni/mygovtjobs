@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Remove aggregator URLs and internal discovery fields from jobs + live-jobs.json."""
+"""Remove third-party aggregator jobs/URLs and export official-only live-jobs.json."""
 import asyncio
 import json
 import sys
@@ -17,31 +17,63 @@ from app.utils.official_hosts import is_blocked_aggregator_host, is_official_rec
 from app.utils.sanitize_detail import sanitize_job_detail
 
 LIVE_JSON = ROOT / "frontend" / "public" / "data" / "live-jobs.json"
-_BLOCKED = ("freejobalert", "sarkariresult", "sarkarijob", "sarkarinaukri", "indgovtjobs", "rojgarresult")
+_BLOCKED_SUBSTR = (
+    "freejobalert",
+    "sarkariresult",
+    "sarkarijob",
+    "sarkarinaukri",
+    "indgovtjobs",
+    "rojgarresult",
+)
+_LEGACY_DISCOVERY_SOURCES = frozenset({"discovery-listings", "discovery-freejobalert"})
 
 
-def _is_agg(url: str | None) -> bool:
+def _url_blocked(url: str | None) -> bool:
     if not url:
         return False
     low = url.lower()
-    return any(b in low for b in _BLOCKED) or is_blocked_aggregator_host(url)
+    return any(b in low for b in _BLOCKED_SUBSTR) or is_blocked_aggregator_host(url)
 
 
-async def scrub_db() -> tuple[int, int]:
-    fixed = expired = 0
+def _detail_blocked(detail: dict) -> bool:
+    for key in ("discovery_ref", "discovered_via", "notification_url", "source_url"):
+        if _url_blocked(detail.get(key) if isinstance(detail.get(key), str) else None):
+            return True
+    for key in ("pdf_urls", "pdfUrls"):
+        vals = detail.get(key) or []
+        if isinstance(vals, list) and any(_url_blocked(v) for v in vals if isinstance(v, str)):
+            return True
+    src = str(detail.get("source") or "")
+    if src in _LEGACY_DISCOVERY_SOURCES:
+        return True
+    return False
+
+
+def _should_delete_job(job: Job) -> bool:
+    detail = dict(job.detail or {})
+    if _detail_blocked(detail):
+        return True
+    return _url_blocked(job.apply_url)
+
+
+async def scrub_db() -> tuple[int, int, int]:
+    deleted = fixed = expired = 0
     async with SessionLocal() as session:
         rows = (await session.execute(select(Job))).scalars().all()
+        to_delete: list[Job] = []
         for job in rows:
+            if _should_delete_job(job):
+                to_delete.append(job)
+                continue
+
             detail = sanitize_job_detail(dict(job.detail or {}))
             detail.pop("discovery_ref", None)
             detail.pop("discovered_via", None)
-            if detail.get("source") == "discovery-freejobalert":
-                detail["source"] = "discovery-listings"
 
             apply = job.apply_url
             changed = detail != (job.detail or {})
 
-            if _is_agg(apply) or (apply and not is_official_recruitment_host(apply)):
+            if _url_blocked(apply) or (apply and not is_official_recruitment_host(apply)):
                 pdfs = detail.get("pdf_urls") or detail.get("pdfUrls") or []
                 official = pick_best_official_url([p for p in pdfs if isinstance(p, str)])
                 if official:
@@ -49,15 +81,18 @@ async def scrub_db() -> tuple[int, int]:
                     fixed += 1
                     changed = True
                 else:
-                    job.status = "expired"
-                    job.apply_url = None
-                    expired += 1
-                    changed = True
+                    to_delete.append(job)
+                    continue
 
             if changed:
                 job.detail = detail
+
+        for job in to_delete:
+            await session.delete(job)
+            deleted += 1
+
         await session.commit()
-    return fixed, expired
+    return deleted, fixed, expired
 
 
 def scrub_live_json() -> int:
@@ -70,11 +105,12 @@ def scrub_live_json() -> int:
     for row in items:
         apply = row.get("apply_url")
         detail = sanitize_job_detail(row.get("detail") or {})
-        if detail.get("source") == "discovery-freejobalert":
-            detail["source"] = "discovery-listings"
-        if _is_agg(apply):
-            pdfs = detail.get("pdf_urls") or []
-            official = pick_best_official_url(pdfs)
+        if _detail_blocked(detail):
+            dropped += 1
+            continue
+        if _url_blocked(apply):
+            pdfs = detail.get("pdf_urls") or detail.get("pdfUrls") or []
+            official = pick_best_official_url([p for p in pdfs if isinstance(p, str)])
             if official:
                 row["apply_url"] = official
             else:
@@ -95,10 +131,10 @@ async def export_json() -> int:
 
 
 async def main() -> None:
-    fixed, expired = await scrub_db()
+    deleted, fixed, _expired = await scrub_db()
     dropped = scrub_live_json()
     exported = await export_json()
-    print(f"DB: fixed_apply={fixed} expired_no_official={expired}")
+    print(f"DB: deleted_aggregator={deleted} fixed_apply={fixed}")
     print(f"live-jobs.json: dropped={dropped}")
     print(f"Re-exported {exported} jobs -> {get_settings().live_jobs_json_path}")
 

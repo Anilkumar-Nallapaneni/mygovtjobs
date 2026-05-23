@@ -130,7 +130,7 @@ export const OFFICIAL_SITES = [
   { id: "psc-up",        name: "Uttar Pradesh PSC (UPPSC)",                    ...u("https://uppsc.up.nic.in/", "https://uppsc.up.nic.in/Notifications.aspx"),              scope: "state",   category: "state",    stateIds: ["up"] },
   { id: "psc-uk",        name: "Uttarakhand PSC (UKPSC)",                      ...u("https://psc.uk.gov.in/", "https://psc.uk.gov.in/"),                                    scope: "state",   category: "state",    stateIds: ["uk"] },
   { id: "psc-wb",        name: "West Bengal PSC (WBPSC)",                      ...u("https://wbpsc.gov.in/", "https://wbpsc.gov.in/"),                                      scope: "state",   category: "state",    stateIds: ["wb"] },
-  { id: "psc-ar",        name: "Arunachal Pradesh PSC",                        ...u("https://appsc.gov.in/", "https://appsc.gov.in/"),                                      scope: "state",   category: "state",    stateIds: ["ne"] },
+  { id: "psc-ar",        name: "Arunachal Pradesh PSC (APPSC)",                ...u("https://appsc.gov.in/Index/institute_index/ins/RECINS001", "https://appsc.gov.in/Index/institute_index/ins/RECINS001"), scope: "state", category: "state", stateIds: ["ne"] },
   { id: "psc-mn",        name: "Manipur PSC",                                  ...u("https://mpscmanipur.gov.in/", "https://mpscmanipur.gov.in/"),                          scope: "state",   category: "state",    stateIds: ["ne"] },
   { id: "psc-ml",        name: "Meghalaya PSC",                                ...u("https://megpsc.gov.in/", "https://megpsc.gov.in/"),                                    scope: "state",   category: "state",    stateIds: ["ne"] },
 

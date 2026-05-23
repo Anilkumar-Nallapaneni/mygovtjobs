@@ -27,6 +27,12 @@ const browserGlobals = {
   requestAnimationFrame: 'readonly',
   cancelAnimationFrame: 'readonly',
   RequestCache: 'readonly',
+  MouseEvent: 'readonly',
+  Node: 'readonly',
+  RequestInfo: 'readonly',
+  RequestInit: 'readonly',
+  Response: 'readonly',
+  AbortController: 'readonly',
 };
 
 const reactRules = {

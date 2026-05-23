@@ -1,6 +1,4 @@
 import { useId } from "react";
-import "./BrandLogo.css";
-
 /**
  * BharatNaukri brand mark — bell + live dot on saffron-gold gradient.
  */

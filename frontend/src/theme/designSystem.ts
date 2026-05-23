@@ -39,7 +39,10 @@ const DARK = {
   textMuted: "#6B829A",
   textSubtle: "#6B829A",
   overlayScrim: "rgba(0,0,0,0.88)",
+  shadowCard: "0 1px 2px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.38)",
   shadowCardHover: "0 10px 30px rgba(0,0,0,0.5)",
+  mutedSoftBg: "rgba(107,130,154,0.14)",
+  jobsGridBg: "color-mix(in srgb, var(--ds-bg0) 92%, transparent)",
   greenSoftBg: "rgba(34,197,94,0.12)",
   greenSoftBorder: "rgba(34,197,94,0.3)",
   redSoftBg: "rgba(239,68,68,0.12)",
@@ -86,7 +89,11 @@ const BW = {
   textMuted: "#4B5563",
   textSubtle: "#374151",
   overlayScrim: "rgba(12,12,16,0.78)",
+  shadowCard: "0 2px 8px rgba(0,0,0,0.06)",
   shadowCardHover: "0 12px 28px rgba(0,0,0,0.12)",
+  mutedSoftBg: "rgba(94,96,104,0.12)",
+  jobsGridBg:
+    "linear-gradient(180deg, var(--ds-bg2) 0%, color-mix(in srgb, var(--ds-bg0) 55%, transparent) 42%, transparent 100%)",
   greenSoftBg: "rgba(21,128,61,0.12)",
   greenSoftBorder: "rgba(21,128,61,0.35)",
   redSoftBg: "rgba(185,28,28,0.12)",
@@ -94,7 +101,7 @@ const BW = {
   tableRowBorder: "rgba(184,186,196,0.65)",
 };
 
-/** Push current palette to `html` as `--ds-*` for CSS (see `src/styles/variables.css`). */
+/** Push current palette to `html` as `--ds-*` for CSS (see `src/styles/app.css`). */
 export function syncDesignTokensToDom() {
   if (typeof document === "undefined") return;
   const root = document.documentElement;

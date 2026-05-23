@@ -1,1 +1,0 @@
-export { IndiaMap } from "./IndiaMap";

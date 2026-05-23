@@ -4,8 +4,6 @@ import { DS } from "@/theme/designSystem";
 import { CATS } from "@/data/categories";
 import { enrichJobMetadata } from "@/utils/jobMetadataUtils";
 import { isOfficialRecruitmentUrl } from "@/utils/officialDomains";
-import "./JobCard.css";
-
 const DAY_MS = 1000 * 60 * 60 * 24;
 
 function formatDate(value, locale) {
@@ -102,8 +100,9 @@ function JobCard({
         }
       }}
     >
-      <div className="job-card__accent" style={{ background: `linear-gradient(to bottom, ${catColor}, transparent)` }} aria-hidden />
+      <div className="job-card__accent" style={{ background: `linear-gradient(180deg, ${catColor}, color-mix(in srgb, ${catColor} 30%, transparent))` }} aria-hidden />
 
+      <div className="job-card__inner">
       <div className="job-card__top">
         <div className="job-card__main">
           <div className="job-card__badges">
@@ -151,12 +150,14 @@ function JobCard({
         </div>
       </div>
 
-      <div className="job-card__stats">
-        <div className={`job-card__stat${vacancies > 0 ? " job-card__stat--highlight" : ""}`}>
-          <span className="job-card__stat-label">{t("job.posts")}</span>
-          <span className="job-card__stat-value">{postsDisplay}</span>
-        </div>
-        <div className={`job-card__stat${hasLastDate ? " job-card__stat--highlight" : ""}`}>
+      <div className={`job-card__stats${vacancies > 0 ? " job-card__stats--vacancy-shown" : ""}`}>
+        {vacancies <= 0 ? (
+          <div className="job-card__stat">
+            <span className="job-card__stat-label">{t("job.posts")}</span>
+            <span className="job-card__stat-value job-card__stat-value--muted">{postsDisplay}</span>
+          </div>
+        ) : null}
+        <div className="job-card__stat job-card__stat--highlight">
           <span className="job-card__stat-label">{dateCaption}</span>
           <span className="job-card__stat-value">{dateLabel}</span>
         </div>
@@ -216,6 +217,7 @@ function JobCard({
           ) : null}
           <span className="job-card__cta">{t("jobDetail.viewDetails")} →</span>
         </div>
+      </div>
       </div>
     </article>
   );

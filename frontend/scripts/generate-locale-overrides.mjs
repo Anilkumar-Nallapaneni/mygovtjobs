@@ -480,5 +480,5 @@ for (const code of LANG_CODES) {
 }
 
 const out = `/** Auto-generated — run: npm run i18n:generate */\nexport const localeOverrides = ${JSON.stringify(built, null, 2)};\n`;
-fs.writeFileSync(path.join(root, "src/i18n/localeOverrides.js"), out, "utf8");
+fs.writeFileSync(path.join(root, "src/i18n/localeOverrides.ts"), out, "utf8");
 console.log("Wrote full locale bundles for", Object.keys(built).length, "languages");

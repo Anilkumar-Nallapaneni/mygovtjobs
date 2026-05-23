@@ -4,18 +4,19 @@ import re
 from typing import Any
 from urllib.parse import urljoin, urlparse
 
-import httpx
 from bs4 import BeautifulSoup
 
 from app.config import get_settings
 from app.utils.url_safety import assert_safe_url
 from app.scrapers.base import BaseScraper
+from app.scrapers.http_client import create_async_client
 from app.scrapers.date_utils import extract_date_from_title, parse_published, within_lookback
 from app.services.noise_filter import (
     clean_job_title,
     friendly_dept_from_host,
     is_junk_job_title,
     is_portal_section_link,
+    is_result_archive_listing,
 )
 
 _STRICT = re.compile(
@@ -179,9 +180,7 @@ class StatePortalHtmlScraper(BaseScraper):
         all_rows: list[dict[str, Any]] = []
         seen_links: set[str] = set()
 
-        async with httpx.AsyncClient(
-            timeout=30, follow_redirects=True, headers={"User-Agent": USER_AGENT}
-        ) as client:
+        async with create_async_client(timeout=30, user_agent=USER_AGENT) as client:
             for page_url in urls_to_try:
                 if page_url in seen_pages or len(all_rows) >= self.max_items:
                     break
@@ -210,6 +209,8 @@ class StatePortalHtmlScraper(BaseScraper):
                         if parent and not is_junk_job_title(parent) and len(parent) >= len(title or ""):
                             title = parent
                     if is_portal_section_link(title, link):
+                        continue
+                    if is_result_archive_listing(title, link):
                         continue
 
                     published_dt = parse_published(item.get("published"))

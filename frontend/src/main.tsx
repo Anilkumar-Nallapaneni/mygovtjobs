@@ -5,7 +5,7 @@ import i18n from '@/i18n'
 import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
 import { applyColorMode } from './theme/designSystem'
-import './styles/global.css'
+import './styles/app.css'
 
 try {
   const key = 'bharatnaukri-color-mode'

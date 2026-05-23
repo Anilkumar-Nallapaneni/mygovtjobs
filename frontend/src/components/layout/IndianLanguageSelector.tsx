@@ -2,29 +2,29 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import { ensureLocale } from "@/i18n/ensureLocale";
-import { INDIAN_LANGUAGES } from "@/i18n/languages";
+import { INDIAN_LANGUAGES, LANGUAGE_COUNT, languageMeta } from "@/i18n/languages";
 
-export default function LanguagePicker() {
+/** Only language switcher on the site — lists all 23 Indian languages. */
+export default function IndianLanguageSelector() {
   const { i18n, t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [switching, setSwitching] = useState(false);
-  const [error, setError] = useState(null);
-  const rootRef = useRef(null);
+  const [error, setError] = useState<string | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   const activeLang = i18n.resolvedLanguage || i18n.language;
+  const current = languageMeta(activeLang);
 
   useEffect(() => {
     if (!open) return;
-    const onDoc = (e) => {
-      if (rootRef.current && !rootRef.current.contains(e.target)) setOpen(false);
+    const onDoc = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
   }, [open]);
 
-  const current = INDIAN_LANGUAGES.find((l) => l.code === activeLang) ?? INDIAN_LANGUAGES[0];
-
-  const pickLanguage = async (code) => {
+  const pickLanguage = async (code: string) => {
     if (code === activeLang) {
       setOpen(false);
       return;
@@ -36,15 +36,15 @@ export default function LanguagePicker() {
       await i18n.changeLanguage(code);
       setOpen(false);
     } catch (e) {
-      console.error("[LanguagePicker]", e);
-      setError(t("lang.error", { defaultValue: "Could not load language" }));
+      console.error("[IndianLanguageSelector]", e);
+      setError(t("lang.error"));
     } finally {
       setSwitching(false);
     }
   };
 
   return (
-    <div ref={rootRef} style={{ position: "relative", flexShrink: 0 }}>
+    <div ref={rootRef} className="indian-language-selector" style={{ position: "relative", flexShrink: 0 }}>
       <button
         type="button"
         aria-expanded={open}
@@ -77,7 +77,10 @@ export default function LanguagePicker() {
       </button>
 
       {error && (
-        <div style={{ position: "absolute", top: "100%", right: 0, fontSize: 10, color: "#f88", marginTop: 4 }}>
+        <div
+          style={{ position: "absolute", top: "100%", right: 0, fontSize: 10, color: "#f88", marginTop: 4 }}
+          role="alert"
+        >
           {error}
         </div>
       )}
@@ -97,12 +100,31 @@ export default function LanguagePicker() {
             border: `1px solid ${DS.borderHi}`,
             borderRadius: 12,
             boxShadow: "0 12px 40px rgba(0,0,0,0.45)",
-            maxHeight: 320,
+            maxHeight: "min(70vh, 420px)",
             overflowY: "auto",
             zIndex: 500,
-            minWidth: 220,
+            minWidth: 240,
           }}
         >
+          <li
+            aria-hidden
+            style={{
+              padding: "6px 10px 4px",
+              fontSize: 10,
+              color: DS.muted,
+              fontFamily: "'Outfit',sans-serif",
+              borderBottom: `1px solid ${DS.border}`,
+              marginBottom: 4,
+              position: "sticky",
+              top: 0,
+              background: DS.bg1,
+            }}
+          >
+            {t("lang.count", {
+              count: LANGUAGE_COUNT,
+              defaultValue: `${LANGUAGE_COUNT} languages`,
+            })}
+          </li>
           {INDIAN_LANGUAGES.map((lang) => {
             const active = activeLang === lang.code;
             return (
@@ -125,6 +147,7 @@ export default function LanguagePicker() {
                     display: "flex",
                     justifyContent: "space-between",
                     gap: 8,
+                    direction: lang.dir,
                   }}
                 >
                   <span>{lang.native}</span>

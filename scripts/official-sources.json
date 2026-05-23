@@ -25,11 +25,12 @@
     {
       "id": "upsc-notifications",
       "name": "UPSC — What's New",
-      "feedUrl": "https://upsc.gov.in/rss-feed",
+      "feedUrl": null,
       "dept": "Union Public Service Commission",
       "state": "All India",
       "category": "upsc",
-      "maxItems": 80
+      "maxItems": 80,
+      "notes": "No public RSS — use scraper_registry upsc (state_portal_html whats-new)"
     },
     {
       "id": "ssc-notifications",

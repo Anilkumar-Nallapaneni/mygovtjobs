@@ -8,15 +8,48 @@ from typing import Any
 from datetime import datetime, timezone
 
 import feedparser
-import httpx
 
 from app.config import get_settings
 from app.utils.url_safety import assert_safe_url
 from app.scrapers.base import BaseScraper
 from app.scrapers.date_utils import parse_published, within_lookback
+from app.scrapers.http_client import get_text
 
 ROOT = Path(__file__).resolve().parents[3]
 SOURCES_PATH = ROOT / "scripts" / "official-sources.json"
+
+_PDF_IN_HTML = re.compile(r"https?://[^\s\"'<>]+\.pdf", re.I)
+
+
+def _entry_summary(entry: Any) -> str:
+    parts: list[str] = []
+    for key in ("summary", "description", "content"):
+        val = entry.get(key) if isinstance(entry, dict) else getattr(entry, key, None)
+        if not val:
+            continue
+        if isinstance(val, list):
+            for block in val:
+                if isinstance(block, dict):
+                    parts.append(str(block.get("value") or ""))
+                else:
+                    parts.append(str(block))
+        else:
+            parts.append(str(val))
+    return " ".join(parts).strip()
+
+
+def _pdfs_from_entry(entry: Any, link: str) -> list[str]:
+    blob = _entry_summary(entry)
+    found = [u.replace("&amp;", "&") for u in _PDF_IN_HTML.findall(blob)]
+    if link and _PDF_IN_HTML.search(link):
+        found.insert(0, link)
+    out: list[str] = []
+    seen: set[str] = set()
+    for u in found:
+        if u not in seen:
+            seen.add(u)
+            out.append(u)
+    return out[:8]
 
 
 class RssFeedScraper(BaseScraper):
@@ -49,10 +82,8 @@ class RssFeedScraper(BaseScraper):
         scan_limit = min(500, max(cap * 4, 80))
 
         assert_safe_url(url)
-        async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
-            res = await client.get(url, headers={"User-Agent": user_agent})
-            res.raise_for_status()
-            parsed = feedparser.parse(res.text)
+        res = await get_text(url, user_agent=user_agent)
+        parsed = feedparser.parse(res.text)
 
         rows: list[dict[str, Any]] = []
         for entry in parsed.entries[:scan_limit]:
@@ -76,6 +107,9 @@ class RssFeedScraper(BaseScraper):
                 continue
 
             published_iso = published_dt.isoformat() if published_dt else None
+            summary = _entry_summary(entry)[:2000] or None
+            pdf_urls = _pdfs_from_entry(entry, link)
+
             rows.append(
                 {
                     "id": entry.get("id") or link or title,
@@ -87,6 +121,8 @@ class RssFeedScraper(BaseScraper):
                     "category": target.get("category"),
                     "published": published_iso,
                     "publishedAt": published_iso,
+                    "summary": summary,
+                    "pdfUrls": pdf_urls,
                 }
             )
             if len(rows) >= cap:

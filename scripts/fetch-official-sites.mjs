@@ -7,8 +7,8 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import Parser from "rss-parser";
-import { OFFICIAL_SITES } from "../frontend/src/data/officialSites.js";
-import { STATES } from "../frontend/src/data/states.js";
+import { OFFICIAL_SITES } from "../frontend/src/data/officialSites.ts";
+import { STATES } from "../frontend/src/data/states.ts";
 import { discoverRssUrl, extractJobLinks } from "./lib/html-job-links.mjs";
 import { enrichSite, urlsToTry } from "./lib/site-overrides.mjs";
 import {

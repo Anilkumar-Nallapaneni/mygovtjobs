@@ -4,7 +4,7 @@ import { DS } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
 import { CATS } from "@/data/categories";
 import { ALL_JOBS } from "@/data/jobs";
-import { jobMatchesNationwideFilter, jobMatchesStateFilter } from "@/data/jobRegion";
+import { isNationwideAllStatesJob, jobMatchesNationwideFilter, jobMatchesStateFilter } from "@/data/jobRegion";
 import { jobMatchesSearch } from "@/utils/jobSearch";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { useStateLabel } from "@/utils/stateLabels";
@@ -18,15 +18,40 @@ import StateJobsPanel from "@/components/home/StateJobsPanel";
 import NotificationsSidebar from "@/components/home/NotificationsSidebar";
 import LatestNotificationsTable from "@/components/home/LatestNotificationsTable";
 import Footer from "@/components/layout/Footer";
-import "./HomePage.css";
 
-const IndiaSvgMap = lazy(() => import("@/components/Maps").then((m) => ({ default: m.IndiaMap })));
+const IndiaSvgMap = lazy(() =>
+  import("@/components/Maps/IndiaMap/IndiaMap").then((m) => ({ default: m.IndiaMap }))
+);
 const OfficialHeadlinesSection = lazy(() => import("@/components/home/OfficialHeadlinesSection"));
 
 /** Default: show full filtered list (virtualized when large). Set false + limit for low-end devices. */
 const INITIAL_JOB_LIMIT = 5000;
 const VIRTUAL_GRID_MIN = 49;
 const QUICK_FILTER_KEYS = ["tenth", "twelfth", "graduate", "engineering", "defence", "banking", "police"];
+
+/** Hero summary cards → job list filter (null = show all on home). */
+const HERO_STAT_FILTERS = [
+  { key: "vacancies", labelKey: "home.heroStatJobsVacancies" },
+  { key: "hotNew", labelKey: "home.heroStatJobsHotNew" },
+  { key: "states", labelKey: "home.heroStatJobsStates" },
+  { key: "live", labelKey: "home.heroStatJobsLive" },
+];
+
+function jobMatchesHeroStatFilter(job, statKey) {
+  switch (statKey) {
+    case "vacancies":
+      return Number(job?.vacancies) > 0;
+    case "hotNew":
+      return job?.status === "hot" || job?.status === "new";
+    case "states":
+      if (isNationwideAllStatesJob(job)) return false;
+      return STATES.some((s) => jobMatchesStateFilter(job, s.id));
+    case "live":
+      return String(job?.status || "live").toLowerCase() !== "expired";
+    default:
+      return true;
+  }
+}
 
 /** Narrow state-mode job list by the quick pill (qualification / sector). */
 const jobMatchesQuickFilter = (job, filterKey) => {
@@ -77,9 +102,12 @@ export default function HomePage({
   const { t } = useTranslation();
   const stateLabel = useStateLabel();
   const [sort, setSort] = useState("lastDate");
+  /** Home default: show full job list (not collapsed behind “load more”). */
   const [showAll, setShowAll] = useState(true);
   /** Selected item in the left notifications sidebar (purely visual for now). */
   const [sidebarKey, setSidebarKey] = useState(null);
+  /** Hero stat card filter: vacancies | hotNew | states | live | null = all jobs */
+  const [heroStatFilter, setHeroStatFilter] = useState(null);
 
   const browseToJobs = useCallback(() => {
     setShowAll(true);
@@ -91,6 +119,7 @@ export default function HomePage({
   const handleQuickFilterClick = useCallback(
     (key) => {
       const next = quickFilter === key ? null : key;
+      setHeroStatFilter(null);
       setQuickFilter(next);
       if (next) browseToJobs();
     },
@@ -100,6 +129,7 @@ export default function HomePage({
   const handleCategorySelect = useCallback(
     (catId) => {
       const next = activeCat === catId ? null : catId;
+      setHeroStatFilter(null);
       setActiveCat(next);
       if (next) browseToJobs();
     },
@@ -108,6 +138,7 @@ export default function HomePage({
 
   const handleStateSelect = useCallback(
     (stateId) => {
+      setHeroStatFilter(null);
       setSelectedState(stateId);
       if (stateId) {
         setShowAll(true);
@@ -117,6 +148,38 @@ export default function HomePage({
     },
     [setSelectedState, onBrowseJobs]
   );
+
+  const handleHeroStatClick = useCallback(
+    (statKey) => {
+      const next = heroStatFilter === statKey ? null : statKey;
+      setHeroStatFilter(next);
+      if (!next) return;
+      setSelectedState(null);
+      setActiveCat(null);
+      setQuickFilter(null);
+      if (typeof setSearch === "function") setSearch("");
+      setSidebarKey(null);
+      if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
+      setShowAll(true);
+      onBrowseJobs?.();
+      if (statKey === "states") {
+        scrollToSection("india-map-panel");
+      } else {
+        scrollToSection("main-jobs");
+      }
+    },
+    [heroStatFilter, setSelectedState, setActiveCat, setQuickFilter, setSearch, setHeadlinesTopicKey, onBrowseJobs]
+  );
+
+  const clearListFilters = useCallback(() => {
+    setHeroStatFilter(null);
+    setSelectedState(null);
+    setActiveCat(null);
+    setQuickFilter(null);
+    if (typeof setSearch === "function") setSearch("");
+    setSidebarKey(null);
+    if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
+  }, [setSelectedState, setActiveCat, setQuickFilter, setSearch, setHeadlinesTopicKey]);
 
   const handleEducationFromCard = useCallback(
     (eduKey) => {
@@ -144,6 +207,7 @@ export default function HomePage({
     if (key === "latest") {
       setSelectedState(null);
       setActiveCat(null);
+      setHeroStatFilter(null);
       setQuickFilter(null);
       if (typeof setSearch === "function") setSearch("");
       setShowAll(true);
@@ -161,16 +225,15 @@ export default function HomePage({
     !selectedState &&
     !activeCat &&
     !search.trim() &&
-    !quickFilter;
+    !quickFilter &&
+    !heroStatFilter;
   const sidebarActiveKey = sidebarKey || (headlinesTopicKey === "latest" ? "latest" : null);
 
   useEffect(() => {
-    if (search.trim() || activeCat || quickFilter) {
+    if (search.trim() || activeCat || quickFilter || heroStatFilter || selectedState) {
       setShowAll(true);
-    } else {
-      setShowAll(false);
     }
-  }, [selectedState, activeCat, search, quickFilter]);
+  }, [selectedState, activeCat, search, quickFilter, heroStatFilter]);
 
   useEffect(() => {
     setQuickFilter(null);
@@ -198,6 +261,10 @@ export default function HomePage({
       });
     }
 
+    if (heroStatFilter) {
+      j = j.filter((x) => jobMatchesHeroStatFilter(x, heroStatFilter));
+    }
+
     if (sort === "vacancies") j.sort((a, b) => b.vacancies - a.vacancies);
     else if (sort === "lastDate") {
       j.sort((a, b) => {
@@ -209,7 +276,11 @@ export default function HomePage({
     }
 
     return j;
-  }, [jobs, selectedState, activeCat, sort, search, quickFilter]);
+  }, [jobs, selectedState, activeCat, sort, search, quickFilter, heroStatFilter]);
+
+  /** Plain official wire list — hidden on default home; jobs live in the panel below */
+  const showOfficialHeadlines = Boolean(effectiveTopicKey);
+  const showJobCardGrid = !showLatestTable && filtered.length > 0;
 
   const nationwideForState = useMemo(() => {
     if (!selectedState || search.trim() || activeCat || quickFilter) return [];
@@ -227,11 +298,16 @@ export default function HomePage({
   }, [jobs, selectedState, sort, search, activeCat, quickFilter]);
 
   const displayed = showAll ? filtered : filtered.slice(0, INITIAL_JOB_LIMIT);
-  const totalVac = jobs.reduce((s, j) => s + j.vacancies, 0);
   const totalListings = jobs.length;
   const hotNewCount = jobs.filter((j) => j.status === "hot" || j.status === "new").length;
+  const jobsWithVacancies = jobs.filter((j) => Number(j.vacancies) > 0).length;
+  const stateTaggedCount = jobs.filter((j) => jobMatchesHeroStatFilter(j, "states")).length;
+  const liveListingsCount = jobs.filter((j) => jobMatchesHeroStatFilter(j, "live")).length;
+  const totalVac = jobs
+    .filter((j) => String(j?.status || "live").toLowerCase() !== "expired")
+    .reduce((s, j) => s + (Number(j.vacancies) || 0), 0);
   const stateName = selectedState ? stateLabel(selectedState) : "";
-  const stateFilteredVac = selectedState ? filtered.reduce((s, j) => s + j.vacancies, 0) : 0;
+  const stateFilteredVac = selectedState ? filtered.reduce((s, j) => s + (Number(j.vacancies) || 0), 0) : 0;
   const stateFilteredCount = selectedState ? filtered.length : 0;
 
   const categoryCountsResolved = categoryCounts ?? Object.fromEntries(CATS.map((c) => [c.id, 0]));
@@ -338,7 +414,7 @@ export default function HomePage({
           {!selectedState && <NotificationsSidebar activeKey={sidebarActiveKey} onSelect={handleSidebarSelect} />}
 
           {/* Middle – Map */}
-          <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto" }}>
+          <div id="india-map-panel" style={{ width: "100%", maxWidth: "100%", margin: "0 auto", scrollMarginTop: 80 }}>
             <div style={{ width: "100%" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
@@ -350,7 +426,10 @@ export default function HomePage({
                 {selectedState && (
                   <button
                     type="button"
-                    onClick={() => setSelectedState(null)}
+                    onClick={() => {
+                      setHeroStatFilter(null);
+                      setSelectedState(null);
+                    }}
                     style={{ background: "transparent", border: `1px solid ${DS.border}`, borderRadius: 7, padding: "3px 10px", fontSize: 11, color: DS.muted, cursor: "pointer", fontFamily: "'Outfit',sans-serif" }}
                   >
                     {t("home.clear")}
@@ -418,24 +497,43 @@ export default function HomePage({
                       margin: 0,
                     }}
                   >
-                    {t("home.heroDesc", { vacancies: totalVac.toLocaleString("en-IN"), listings: totalListings })}
+                    {t("home.heroDesc", {
+                      vacancies: totalVac.toLocaleString("en-IN"),
+                      listings: totalListings,
+                      withCounts: jobsWithVacancies,
+                    })}
                   </p>
                 </header>
 
                 <div style={{ marginBottom: 20 }}>
                   <div className="home-hero-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 10 }}>
                     {[
-                      { v: totalVac.toLocaleString("en-IN"), l: t("home.activeVacancies"), i: "📋" },
-                      { v: hotNewCount.toLocaleString("en-IN"), l: t("home.hotNewTags"), i: "🔥" },
-                      { v: STATES.length.toLocaleString("en-IN"), l: t("home.statesMap"), i: "🗺️" },
-                      { v: totalListings.toLocaleString("en-IN"), l: t("home.liveListings"), i: "📰" },
-                    ].map(({ v, l, i }) => (
-                      <div key={l} style={{ background: DS.bg1, border: `1px solid ${DS.border}`, borderRadius: 12, padding: "12px 10px", textAlign: "center" }}>
-                        <div style={{ fontSize: 16, marginBottom: 4 }}>{i}</div>
-                        <div style={{ fontSize: 17, fontWeight: 800, color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{v}</div>
-                        <div style={{ fontSize: 9.5, color: DS.muted, marginTop: 4, fontFamily: "'Outfit',sans-serif" }}>{l}</div>
-                      </div>
-                    ))}
+                      {
+                        key: "vacancies",
+                        v: totalVac.toLocaleString("en-IN"),
+                        l: t("home.totalNotifiedPosts", { count: jobsWithVacancies }),
+                        i: "📋",
+                      },
+                      { key: "hotNew", v: hotNewCount.toLocaleString("en-IN"), l: t("home.hotNewTags"), i: "🔥" },
+                      { key: "states", v: stateTaggedCount.toLocaleString("en-IN"), l: t("home.statesMap"), i: "🗺️" },
+                      { key: "live", v: liveListingsCount.toLocaleString("en-IN"), l: t("home.liveListings"), i: "📰" },
+                    ].map(({ key, v, l, i }) => {
+                      const on = heroStatFilter === key;
+                      return (
+                        <button
+                          key={key}
+                          type="button"
+                          className={`home-hero-stat${on ? " home-hero-stat--active" : ""}`}
+                          aria-pressed={on}
+                          onClick={() => handleHeroStatClick(key)}
+                          title={on ? t("home.clearFilter") : l}
+                        >
+                          <div style={{ fontSize: 16, marginBottom: 4 }}>{i}</div>
+                          <div style={{ fontSize: 17, fontWeight: 800, color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{v}</div>
+                          <div style={{ fontSize: 9.5, color: DS.muted, marginTop: 4, fontFamily: "'Outfit',sans-serif" }}>{l}</div>
+                        </button>
+                      );
+                    })}
                   </div>
 
                   <div
@@ -516,30 +614,27 @@ export default function HomePage({
         </div>
       </section>
 
-      <Suspense fallback={null}>
-        <OfficialHeadlinesSection
-          stateId={selectedState}
-          categoryId={activeCat}
-          topicKey={effectiveTopicKey}
-          search={search}
-          onClearTopic={() => {
-            setSidebarKey(null);
-            if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
-          }}
-        />
-      </Suspense>
+      {showOfficialHeadlines && (
+        <Suspense fallback={null}>
+          <OfficialHeadlinesSection
+            stateId={selectedState}
+            categoryId={activeCat}
+            topicKey={effectiveTopicKey}
+            search={search}
+            onClearTopic={() => {
+              setSidebarKey(null);
+              if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
+            }}
+          />
+        </Suspense>
+      )}
 
       <section
         id="main-jobs"
-        style={{
-          padding: "12px 20px 40px",
-          maxWidth: 1240,
-          margin: "0 auto",
-          display: selectedState && !search.trim() ? "none" : "block",
-          scrollMarginTop: 80,
-        }}
+        className="home-jobs-section"
+        style={{ display: selectedState && !search.trim() ? "none" : "block" }}
       >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+          <div className="home-jobs-section__header">
             <div>
               <h2 style={{ fontSize: 16, fontWeight: 800, color: DS.white, fontFamily: "'Sora',sans-serif", margin: "0 0 3px" }}>
                 {showLatestTable
@@ -550,7 +645,9 @@ export default function HomePage({
                       ? t("home.categoryJobs", { category: t(`category.${activeCat}`) })
                       : search
                         ? t("home.searchResults")
-                        : t("home.latestJobs")}
+                        : heroStatFilter
+                          ? t(HERO_STAT_FILTERS.find((h) => h.key === heroStatFilter)?.labelKey ?? "home.latestJobs")
+                          : t("home.latestJobs")}
               </h2>
               <p style={{ fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif", margin: 0 }}>
                 {showLatestTable
@@ -559,7 +656,7 @@ export default function HomePage({
                     })
                   : t("home.jobsMeta", {
                       count: filtered.length,
-                      vacancies: filtered.reduce((s, j) => s + j.vacancies, 0).toLocaleString("en-IN"),
+                      vacancies: filtered.reduce((s, j) => s + (Number(j.vacancies) || 0), 0).toLocaleString("en-IN"),
                     })}
                 {!showLatestTable && jobsLoading
                   ? ` · ${t("ticker.live")}…`
@@ -567,8 +664,11 @@ export default function HomePage({
                     ? ` · ${t("home.catalogMix", { demo: staticCount, live: liveCount })}`
                     : ""}
                 {!showLatestTable && quickFilter ? ` · ${t(`quickFilter.${quickFilter}`)}` : ""}
+                {!showLatestTable && heroStatFilter
+                  ? ` · ${t(HERO_STAT_FILTERS.find((h) => h.key === heroStatFilter)?.labelKey ?? "")}`
+                  : ""}
               </p>
-              {!showLatestTable && !selectedState && !activeCat && !search.trim() && !quickFilter ? (
+              {!showLatestTable && !selectedState && !activeCat && !search.trim() && !quickFilter && !heroStatFilter ? (
                 <p style={{ fontSize: 11, color: DS.muted, fontFamily: "'Outfit',sans-serif", margin: "6px 0 0" }}>
                   {t("home.showEverything")}
                 </p>
@@ -597,15 +697,10 @@ export default function HomePage({
                   {t("home.clearAllFilters")}
                 </button>
               )}
-              {!showLatestTable && (selectedState || activeCat || search.trim() || quickFilter) && (
+              {!showLatestTable && (selectedState || activeCat || search.trim() || quickFilter || heroStatFilter) && (
                 <button
                   type="button"
-                  onClick={() => {
-                    setSelectedState(null);
-                    setActiveCat(null);
-                    setQuickFilter(null);
-                    if (typeof setSearch === "function") setSearch("");
-                  }}
+                  onClick={clearListFilters}
                   style={{
                     background: DS.accentSoft,
                     border: `1px solid ${DS.accentBorder}`,
@@ -657,18 +752,18 @@ export default function HomePage({
               <div style={{ fontSize: 13 }}>{t("home.noJobsHint")}</div>
             </div>
           ) : (
-            <>
-              {displayed.length >= VIRTUAL_GRID_MIN ? (
+            <div className="home-jobs-section__panel" aria-label={t("home.latestJobs")}>
+              {showJobCardGrid && displayed.length >= VIRTUAL_GRID_MIN ? (
                 <JobCardGrid jobs={displayed} onJobClick={onJobClick} jobCardFilterProps={jobCardFilterProps} />
               ) : (
-                <div className="home-jobs-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div className="home-jobs-grid home-jobs-grid--scroll">
                   {displayed.map((job) => (
                     <JobCard key={job.id} job={job} onClick={() => onJobClick(job)} {...jobCardFilterProps} />
                   ))}
                 </div>
               )}
               {!showAll && filtered.length > INITIAL_JOB_LIMIT && (
-                <div style={{ textAlign: "center", marginTop: 20 }}>
+                <div className="home-jobs-section__load-more">
                   <button
                     type="button"
                     onClick={() => setShowAll(true)}
@@ -678,7 +773,7 @@ export default function HomePage({
                   </button>
                 </div>
               )}
-            </>
+            </div>
           )}
         </section>
 

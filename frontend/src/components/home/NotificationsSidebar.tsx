@@ -6,7 +6,7 @@ const SECTIONS = [
     id: "notifications",
     titleKey: "sidebar.notifications",
     items: [
-      { key: "latest", labelKey: "sidebar.latest", highlight: true },
+      { key: "latest", labelKey: "sidebar.latest" },
       { key: "employment-news", labelKey: "sidebar.employmentNews" },
       { key: "search-jobs", labelKey: "sidebar.searchJobs" },
       { key: "sarkari-job", labelKey: "sidebar.sarkariJob" },
@@ -87,11 +87,11 @@ export default function NotificationsSidebar({ activeKey = null, onSelect }) {
           <ul style={{ listStyle: "none", padding: "6px 4px 8px", margin: 0 }}>
             {section.items.map((item) => {
               const isActive = activeKey === item.key;
-              const baseColor = item.highlight ? DS.saffron : DS.mutedHi;
               return (
                 <li key={item.key} style={{ margin: 0 }}>
                   <button
                     type="button"
+                    aria-current={isActive ? "true" : undefined}
                     onClick={() => handleClick(item)}
                     style={{
                       display: "flex",
@@ -105,8 +105,8 @@ export default function NotificationsSidebar({ activeKey = null, onSelect }) {
                       padding: "6px 10px",
                       fontSize: 12.5,
                       lineHeight: 1.35,
-                      color: isActive ? DS.saffron : baseColor,
-                      fontWeight: item.highlight || isActive ? 700 : 500,
+                      color: isActive ? DS.saffron : DS.mutedHi,
+                      fontWeight: isActive ? 700 : 500,
                       cursor: "pointer",
                       fontFamily: "'Outfit',sans-serif",
                       transition: "background 0.12s, color 0.12s",
@@ -118,7 +118,7 @@ export default function NotificationsSidebar({ activeKey = null, onSelect }) {
                         width: 6,
                         height: 6,
                         borderRadius: "50%",
-                        background: DS.saffron,
+                        background: isActive ? DS.saffron : DS.muted,
                         flexShrink: 0,
                       }}
                     />

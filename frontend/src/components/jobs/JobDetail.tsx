@@ -12,8 +12,6 @@ import { isOfficialRecruitmentUrl } from "@/utils/officialDomains";
 
 import { buildJobDetailView } from "@/utils/jobDetailContent";
 
-import "./JobDetail.css";
-
 
 
 const DAY_MS = 1000 * 60 * 60 * 24;

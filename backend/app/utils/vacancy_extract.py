@@ -104,3 +104,29 @@ def sanitize_vacancies(count: int, title: str = "", context: str = "") -> int:
     if not _plausible(n, ctx):
         return 0
     return n
+
+
+def resolve_vacancies(
+    stored: int,
+    title: str = "",
+    context: str = "",
+) -> int:
+    """Prefer title/body extraction; ignore year-like stored counts (e.g. Advt 06/2025)."""
+    merged = " ".join(filter(None, [title, context])).strip()
+    from_text = extract_vacancies(title, title=title) or (
+        extract_vacancies(merged, title=title) if merged and merged != title else 0
+    )
+    raw = int(stored) if stored else 0
+    stored_n = sanitize_vacancies(raw, title, context)
+    ctx = merged or title
+    if 1900 <= raw <= 2035 and (is_probable_year(raw, ctx) or str(raw) not in ctx):
+        stored_n = 0
+
+    if from_text > 0:
+        if not stored_n or from_text <= stored_n:
+            return sanitize_vacancies(from_text, title, context)
+        title_only = extract_vacancies(title, title=title)
+        if title_only > 0:
+            return sanitize_vacancies(title_only, title, context)
+        return sanitize_vacancies(from_text, title, context)
+    return stored_n

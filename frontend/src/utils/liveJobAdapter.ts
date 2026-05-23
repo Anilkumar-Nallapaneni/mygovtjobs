@@ -11,7 +11,6 @@ function sanitizeDetailForUi(detail) {
   const out = { ...detail }
   delete out.discovery_ref
   delete out.discovered_via
-  if (out.source === 'discovery-freejobalert') out.source = 'discovery-listings'
   return out
 }
 import { sanitizeVacancyCount } from '@/utils/jobMetadataUtils'

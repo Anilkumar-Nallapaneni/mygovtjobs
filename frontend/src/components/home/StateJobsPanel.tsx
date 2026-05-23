@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
 import JobCard from "@/components/jobs/JobCard";
-import "./StateJobsPanel.css";
-
 export default function StateJobsPanel({
   stateName,
   stateJobs,

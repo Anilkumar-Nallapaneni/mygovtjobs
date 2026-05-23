@@ -7,7 +7,7 @@ from urllib.parse import unquote, urlparse
 from app.scrapers.date_utils import row_published_at
 from app.services.noise_filter import clean_job_title, friendly_dept, is_junk_job_title
 
-from app.utils.vacancy_extract import extract_vacancies, sanitize_vacancies
+from app.utils.vacancy_extract import extract_vacancies, resolve_vacancies, sanitize_vacancies
 _ADVT_IN_TITLE = re.compile(r"\b([A-Z]{2,6}/[A-Z0-9/_-]{4,40})\b")
 _DATE_DMY = re.compile(r"\b(\d{1,2})[./\s-](\d{1,2})[./\s-](\d{4})\b")
 _DATE_UPTO = re.compile(
@@ -189,12 +189,7 @@ class NotificationParser:
             or raw.get("vacancies")
             or 0
         )
-        stored = sanitize_vacancies(int(stored) if stored else 0, title, merged_text)
-        title_vac = extract_vacancies(title, title=title)
-        body_vac = extract_vacancies(merged_text, title=title) if merged_text != title else 0
-        extracted = title_vac or body_vac
-        vacancies = max(stored, extracted) if stored and extracted else (extracted or stored)
-        vacancies = sanitize_vacancies(vacancies, title, merged_text)
+        vacancies = resolve_vacancies(int(stored) if stored else 0, title, merged_text)
         last_date = (
             pdf.get("last_date")
             or raw.get("last_date")

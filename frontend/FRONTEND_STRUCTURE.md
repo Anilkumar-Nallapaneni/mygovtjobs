@@ -8,7 +8,7 @@ All application source under `src/` uses TypeScript React extensions:
 | Hooks, utils, data, i18n | `.ts` | `hooks/`, `utils/`, `data/`, `lib/` |
 | Entry | `main.tsx` | |
 | Types | `.ts` | `types/` |
-| Styles | `.css` | unchanged |
+| Styles | `styles/app.css` only (single bundle; imported in `main.tsx`) |
 
 - No `.js` / `.jsx` under `src/` (`allowJs: false` in `tsconfig.json`).
 - Import without file extensions: `import App from './App'`.

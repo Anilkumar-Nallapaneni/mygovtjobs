@@ -14,7 +14,7 @@ export function cloneTree(v) {
   return JSON.parse(JSON.stringify(v));
 }
 
-/** Apply dot-path string overrides onto a deep clone of `enTree`. */
+/** Apply dot-path string overrides onto a deep clone of `enTree`. Skips unknown paths. */
 export function localeFromFlat(enTree, flat) {
   const tree = cloneTree(enTree);
   for (const [path, value] of Object.entries(flat)) {
@@ -23,10 +23,12 @@ export function localeFromFlat(enTree, flat) {
     let cur = tree;
     for (let i = 0; i < keys.length - 1; i++) {
       if (cur[keys[i]] == null || typeof cur[keys[i]] !== "object") {
-        throw new Error(`Bad flat path: ${path}`);
+        cur = null;
+        break;
       }
       cur = cur[keys[i]];
     }
+    if (cur == null || typeof cur !== "object") continue;
     cur[keys[keys.length - 1]] = value;
   }
   return tree;

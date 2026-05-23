@@ -1,13 +1,36 @@
 import { useTranslation } from "react-i18next";
-import "./JobsStatusBar.css";
-
-export default function JobsStatusBar({ loading, staticCount, liveCount, sources: _sources, hasBackend, error }) {
+export default function JobsStatusBar({
+  loading,
+  refreshing = false,
+  staticCount,
+  liveCount,
+  sources: _sources,
+  hasBackend,
+  error,
+}) {
   const { t } = useTranslation();
 
   if (loading) {
     return (
       <div className="jobs-status jobs-status--loading" role="status">
         {t("jobsStatus.loading", { defaultValue: "Loading job listings…" })}
+      </div>
+    );
+  }
+
+  if (refreshing) {
+    return (
+      <div className="jobs-status jobs-status--loading" role="status">
+        <span className="jobs-status__dot" aria-hidden />
+        {t("jobsStatus.refreshing", {
+          defaultValue: "Updating live listings…",
+        })}
+        {liveCount > 0 && (
+          <>
+            {" · "}
+            <strong>{liveCount}</strong> {t("jobsStatus.listings", { defaultValue: "listings" })}
+          </>
+        )}
       </div>
     );
   }

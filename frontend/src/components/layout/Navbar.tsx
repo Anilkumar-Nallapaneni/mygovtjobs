@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
-import LanguagePicker from "@/components/layout/LanguagePicker";
+import IndianLanguageSelector from "@/components/layout/IndianLanguageSelector";
 import BrandLogo from "@/components/layout/BrandLogo";
-import "./Navbar.css";
-
 const NAV_KEYS = ["home", "jobs", "results", "admitCard", "alert"];
 
 function formatNavDate(d, locale) {
@@ -128,7 +126,7 @@ export default function Navbar({ view, onNavigate, search, setSearch, onSearch, 
           <span className="navbar__clock-time">{formatNavTime(now, i18n.language)}</span>
         </div>
 
-        <LanguagePicker />
+        <IndianLanguageSelector />
 
         {typeof onColorModeChange === "function" && (
           <div className="navbar__theme" title="Theme">

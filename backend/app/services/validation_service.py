@@ -11,6 +11,7 @@ from app.services.noise_filter import (
     friendly_dept,
     is_junk_job_title,
     is_portal_section_link,
+    is_result_archive_listing,
     looks_like_job_notification,
 )
 
@@ -55,6 +56,8 @@ class ValidationService:
         apply_url = normalized.get("apply_url") or ""
         if is_portal_section_link(title, apply_url):
             reasons.append("portal_nav_link")
+        if is_result_archive_listing(title, apply_url):
+            reasons.append("result_archive")
 
         if _SCAM.search(title) or _SCAM.search(normalized.get("detail", {}).get("summary") or ""):
             reasons.append("scam_pattern")

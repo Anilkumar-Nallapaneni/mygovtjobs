@@ -79,15 +79,18 @@ export function feedItemToLiveJob(item) {
   };
 }
 
-export function writeOfficialPayload({ items, sourceReports, siteReports = [] }) {
+export function writeOfficialPayload({ items, sourceReports, siteReports = [], feedOnly = false }) {
   mkdirSync(DATA_DIR, { recursive: true });
   const generatedAt = new Date().toISOString();
   const feedPayload = { generatedAt, sourceReports, siteReports, items };
   writeFileSync(FEED_FILE, JSON.stringify(feedPayload, null, 2), "utf8");
 
-  const liveItems = items.map(feedItemToLiveJob);
-  const livePayload = { generatedAt, items: liveItems };
-  writeFileSync(LIVE_JOBS_FILE, JSON.stringify(livePayload, null, 2), "utf8");
+  let livePayload = null;
+  if (!feedOnly) {
+    const liveItems = items.map(feedItemToLiveJob);
+    livePayload = { generatedAt, items: liveItems };
+    writeFileSync(LIVE_JOBS_FILE, JSON.stringify(livePayload, null, 2), "utf8");
+  }
 
   return { feedPayload, livePayload };
 }

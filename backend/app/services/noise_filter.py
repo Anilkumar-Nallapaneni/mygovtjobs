@@ -73,7 +73,6 @@ SOURCE_LABELS: dict[str, str] = {
     "employment-news-rss": "Employment News",
     "railway-rss": "Railway Recruitment Boards",
     "niti": "NITI Aayog",
-    "discovery-listings": "Latest notifications (official apply link)",
 }
 
 
@@ -119,6 +118,30 @@ def is_junk_job_title(title: str | None) -> bool:
         return True
     if re.search(r"\s+g$", t) and len(t) < 30:
         return True
+    return False
+
+
+_RESULT_ARCHIVE = re.compile(
+    r"validity\s+of\s+(?:the\s+)?selection|shortlisting\s+of\s+candidates|"
+    r"document\s+verification|dv\s+schedule|answer\s+key|marksheet|"
+    r"roll\s*no\.?\s*roll|sl\.?\s*no\.?\s*roll|tentative\s+exam\s+date|"
+    r"schedule\s+of\s+(?:document\s+verification|dv)|written\s+examination\s*\(objective\)|"
+    r"final\s+result\s+of|result\s+notification\s+of|list\s+of\s+applications\s+found",
+    re.I,
+)
+
+
+def is_result_archive_listing(title: str | None, url: str | None = None) -> bool:
+    """DV schedules, roll lists, answer keys — not open recruitments."""
+    t = clean_job_title(title)
+    if not t:
+        return False
+    if _RESULT_ARCHIVE.search(t):
+        return True
+    probe = f"{t} {url or ''}"
+    if re.search(r"roll\s*no|answer\s*key|dv\s+schedule|marksheet", probe, re.I):
+        if not re.search(r"\d+\s+posts?|recruit(?:ment)?\s+of|vacanc|notification\s+for", probe, re.I):
+            return True
     return False
 
 

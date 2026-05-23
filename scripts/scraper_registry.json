@@ -4,17 +4,6 @@
   "maxItems": 80,
   "scrapers": [
     {
-      "code": "discovery-listings",
-      "module": "discovery_listings",
-      "category": "state",
-      "enabled": true,
-      "maxItems": 800,
-      "maxDetailFetches": 400,
-      "lookbackDays": 120,
-      "sourceName": "Latest notifications (official links)",
-      "notes": "Resolves listing pages to official apply URLs only."
-    },
-    {
       "code": "pib-rss",
       "module": "rss_feed",
       "feed_id": "pib-press-reg3",
@@ -33,7 +22,8 @@
       "module": "rss_feed",
       "feed_id": "upsc-notifications",
       "category": "upsc",
-      "enabled": true
+      "enabled": false,
+      "notes": "No public RSS — use upsc HTML scraper"
     },
     {
       "code": "ssc-rss",
@@ -794,7 +784,7 @@
     {
       "code": "psc-ar",
       "module": "state_portal_html",
-      "portal_url": "https://appsc.gov.in",
+      "portal_url": "https://appsc.gov.in/Index/institute_index/ins/RECINS001",
       "state": "ne",
       "category": "state",
       "enabled": true,
