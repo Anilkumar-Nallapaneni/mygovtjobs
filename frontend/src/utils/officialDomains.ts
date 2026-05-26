@@ -7,7 +7,7 @@ const BLOCKED_HOST_RE =
   /(?:^|\.)(?:freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive|employmentnews|naukri|indeed|shine|timesjobs|foundit|monster)\./i
 
 const BLOCKED_TEXT_RE =
-  /freejobalert|sarkariresult|sarkarijob|indgovtjobs|rojgarresult|fresherslive/i
+  /freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive/i
 
 const OFFICIAL_HOST_RE = /\.(gov|nic|ac|org|res)\.in$/i
 

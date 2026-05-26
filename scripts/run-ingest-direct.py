@@ -18,11 +18,17 @@ from app.agents.ingest_agent import IngestAgent  # noqa: E402
 async def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0, help="Max sources (0 = all enabled)")
+    parser.add_argument("--source", action="append", default=[], help="Source code to run (repeatable)")
+    parser.add_argument("--source-timeout", type=int, default=90, help="Seconds before skipping a slow source")
     args = parser.parse_args()
 
     agent = IngestAgent()
     registry = agent.registry.get("scrapers") or []
-    enabled = [s for s in registry if s.get("enabled")]
+    if args.source:
+        wanted = set(args.source)
+        enabled = [s for s in registry if s.get("enabled") and s.get("code") in wanted]
+    else:
+        enabled = [s for s in registry if s.get("enabled")]
     if args.limit > 0:
         enabled = enabled[: args.limit]
 
@@ -31,7 +37,8 @@ async def main() -> None:
     for i, entry in enumerate(enabled, 1):
         code = entry.get("code", "?")
         try:
-            row = await agent.run_source(code)
+            print(f"[{i}/{len(enabled)}] start {code}", flush=True)
+            row = await asyncio.wait_for(agent.run_source(code), timeout=args.source_timeout)
             results.append(row)
             tag = "ok" if row.get("saved", 0) else "—"
             print(
@@ -40,7 +47,10 @@ async def main() -> None:
                 f"rejected={row.get('rejected', 0)} errors={row.get('errors', 0)}"
             )
         except Exception as exc:
-            print(f"[{i}/{len(enabled)}] FAIL {code}: {exc}")
+            if isinstance(exc, asyncio.TimeoutError):
+                print(f"[{i}/{len(enabled)}] TIMEOUT {code}: skipped after {args.source_timeout}s")
+            else:
+                print(f"[{i}/{len(enabled)}] FAIL {code}: {exc}")
             results.append({"source": code, "saved": 0, "errors": 1})
 
     saved = sum(r.get("saved", 0) for r in results)

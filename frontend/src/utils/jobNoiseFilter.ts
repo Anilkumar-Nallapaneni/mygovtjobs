@@ -35,7 +35,13 @@ export function isPortalNavTitle(title) {
 export function isPortalNoiseJob(row) {
   const title = cleanJobTitle(row?.title)
   if (/external\s+link\s+that\s+opens/i.test(title)) return true
-  if (/freejobalert|sarkariresult/i.test(`${title} ${row?.dept || ''}`)) return true
+  if (
+    /freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive/i.test(
+      `${title} ${row?.dept || ''}`
+    )
+  ) {
+    return true
+  }
   const url =
     row?.apply_url ||
     row?.applyUrl ||

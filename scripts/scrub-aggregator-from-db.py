@@ -22,8 +22,11 @@ _BLOCKED_SUBSTR = (
     "sarkariresult",
     "sarkarijob",
     "sarkarinaukri",
+    "governmentjob",
     "indgovtjobs",
     "rojgarresult",
+    "jobriya",
+    "fresherslive",
 )
 _LEGACY_DISCOVERY_SOURCES = frozenset({"discovery-listings", "discovery-freejobalert"})
 
@@ -33,6 +36,10 @@ def _url_blocked(url: str | None) -> bool:
         return False
     low = url.lower()
     return any(b in low for b in _BLOCKED_SUBSTR) or is_blocked_aggregator_host(url)
+
+
+def _text_blocked(*values: str | None) -> bool:
+    return any(isinstance(v, str) and any(b in v.lower() for b in _BLOCKED_SUBSTR) for v in values)
 
 
 def _detail_blocked(detail: dict) -> bool:
@@ -50,6 +57,8 @@ def _detail_blocked(detail: dict) -> bool:
 
 
 def _should_delete_job(job: Job) -> bool:
+    if _text_blocked(job.title, job.dept):
+        return True
     detail = dict(job.detail or {})
     if _detail_blocked(detail):
         return True
@@ -103,6 +112,9 @@ def scrub_live_json() -> int:
     kept = []
     dropped = 0
     for row in items:
+        if _text_blocked(row.get("title"), row.get("dept")):
+            dropped += 1
+            continue
         apply = row.get("apply_url")
         detail = sanitize_job_detail(row.get("detail") or {})
         if _detail_blocked(detail):

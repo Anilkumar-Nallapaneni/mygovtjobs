@@ -60,6 +60,16 @@ function displayValue(v, fallback) {
 
 }
 
+function isUsefulDisplayValue(v) {
+
+  const s = String(v ?? "").trim();
+
+  if (!s || s === "—") return false;
+
+  return !/^(?:see|as per)\s+(?:official\s+)?notification$/i.test(s);
+
+}
+
 
 
 export default function JobDetail({ job, onClose }) {
@@ -115,11 +125,30 @@ export default function JobDetail({ job, onClose }) {
 
       : t("job.postsTba", { defaultValue: "See notification" });
 
+  const statCards = [
+
+    { l: t("jobDetail.totalPosts"), v: postsLabel, i: "📋" },
+
+    { l: t("jobDetail.lastDateLabel"), v: displayValue(view.lastDate, t("job.postsTba", { defaultValue: "See notification" })), i: "📅" },
+
+    ...(isUsefulDisplayValue(view.salary) ? [{ l: t("jobDetail.salary"), v: view.salary, i: "💰" }] : []),
+
+    ...(isUsefulDisplayValue(view.age) ? [{ l: t("jobDetail.ageLimit"), v: view.age, i: "👤" }] : []),
+
+  ];
+
 
 
   const dateEntries = Object.entries(view.dates || {}).filter(([, v]) => v && String(v).trim());
 
   const feeEntries = Object.entries(view.fee || {}).filter(([, v]) => v && String(v).trim());
+
+  const eligibilityRows = [
+    { label: t("jobDetail.qualification"), value: view.qual },
+    { label: t("jobDetail.nationality"), value: view.nationality },
+    { label: t("jobDetail.ageRelaxation"), value: view.ageRelax },
+    { label: t("jobDetail.attempts"), value: view.attempts },
+  ].filter(({ value }) => isUsefulDisplayValue(value));
 
   const hasLinks = Boolean(applyHref || pdfHref || officialHref || pdfList.length > 0);
 
@@ -235,17 +264,7 @@ export default function JobDetail({ job, onClose }) {
 
           <div className="job-detail-stats">
 
-            {[
-
-              { l: t("jobDetail.totalPosts"), v: postsLabel, i: "📋" },
-
-              { l: t("jobDetail.lastDateLabel"), v: displayValue(view.lastDate, t("job.postsTba", { defaultValue: "See notification" })), i: "📅" },
-
-              { l: t("jobDetail.salary"), v: displayValue(view.salary, "—"), i: "💰" },
-
-              { l: t("jobDetail.ageLimit"), v: displayValue(view.age, "—"), i: "👤" },
-
-            ].map(({ l, v, i }) => (
+            {statCards.map(({ l, v, i }) => (
 
               <div key={l} style={{ background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 12, padding: "12px", textAlign: "center" }}>
 
@@ -342,6 +361,14 @@ export default function JobDetail({ job, onClose }) {
         {view.about ? (
 
           <Section title={t("jobDetail.aboutRecruitment")}>
+
+            {view.highlights?.length > 0 ? (
+              <div className="job-detail-highlights">
+                {view.highlights.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            ) : null}
 
             <p style={{ fontSize: 13, color: DS.mutedHi, lineHeight: 1.7, margin: 0, fontFamily: "'Outfit',sans-serif" }}>{view.about}</p>
 
@@ -558,7 +585,7 @@ export default function JobDetail({ job, onClose }) {
 
 
 
-        {(feeEntries.length > 0 || view.qual) && (
+        {(feeEntries.length > 0 || eligibilityRows.length > 0 || view.syllabus) && (
 
           <div className="job-detail-fee-grid">
 
@@ -586,37 +613,12 @@ export default function JobDetail({ job, onClose }) {
 
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
 
-                <div style={{ fontSize: 12, fontFamily: "'Outfit',sans-serif" }}>
-
-                  <span style={{ color: DS.muted }}>{t("jobDetail.qualification")} </span>
-
-                  <span style={{ color: DS.mutedHi }}>{displayValue(view.qual, "—")}</span>
-
-                </div>
-
-                <div style={{ fontSize: 12, fontFamily: "'Outfit',sans-serif" }}>
-
-                  <span style={{ color: DS.muted }}>{t("jobDetail.nationality")} </span>
-
-                  <span style={{ color: DS.mutedHi }}>{displayValue(view.nationality, "—")}</span>
-
-                </div>
-
-                <div style={{ fontSize: 12, fontFamily: "'Outfit',sans-serif" }}>
-
-                  <span style={{ color: DS.muted }}>{t("jobDetail.ageRelaxation")} </span>
-
-                  <span style={{ color: DS.mutedHi }}>{displayValue(view.ageRelax, "—")}</span>
-
-                </div>
-
-                <div style={{ fontSize: 12, fontFamily: "'Outfit',sans-serif" }}>
-
-                  <span style={{ color: DS.muted }}>{t("jobDetail.attempts")} </span>
-
-                  <span style={{ color: DS.mutedHi }}>{displayValue(view.attempts, "—")}</span>
-
-                </div>
+                {eligibilityRows.map(({ label, value }) => (
+                  <div key={label} style={{ fontSize: 12, fontFamily: "'Outfit',sans-serif" }}>
+                    <span style={{ color: DS.muted }}>{label} </span>
+                    <span style={{ color: DS.mutedHi }}>{value}</span>
+                  </div>
+                ))}
 
                 {view.syllabus ? (
 

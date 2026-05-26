@@ -52,7 +52,7 @@ def _parse_date(value) -> date | None:
 
 
 class JobPersistService:
-    async def upsert_normalized(self, session: AsyncSession, normalized: dict) -> Job | None:
+    async def upsert_normalized(self, session: AsyncSession, normalized: dict, *, commit: bool = True) -> Job | None:
         title = (normalized.get("title") or "").strip()
         if not title:
             return None
@@ -124,7 +124,8 @@ class JobPersistService:
             .returning(Job)
         )
         result = await session.execute(stmt)
-        await session.commit()
+        if commit:
+            await session.commit()
         return result.scalar_one_or_none()
 
     async def export_live_jobs_json(self, session: AsyncSession) -> int:

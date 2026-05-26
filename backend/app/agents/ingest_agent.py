@@ -50,7 +50,12 @@ class IngestAgent:
         try:
             async with SessionLocal() as session:
                 await session.execute(text("SELECT 1"))
-                source_id = await self.source_sync.ensure_source(session, entry)
+                source_id = None
+                try:
+                    source_id = await self.source_sync.ensure_source(session, entry)
+                except Exception as exc:
+                    await session.rollback()
+                    logger.warning("source metadata skipped source=%s: %s", source_code, exc)
 
                 for raw in rows:
                     try:
@@ -67,16 +72,18 @@ class IngestAgent:
                             last_date=str(normalized.get("last_date") or ""),
                         )
                         normalized["content_hash"] = digest
-                        job = await self.persist.upsert_normalized(session, normalized)
+                        job = await self.persist.upsert_normalized(session, normalized, commit=False)
                         if job:
                             saved += 1
+                            if saved % 100 == 0:
+                                await session.commit()
                     except Exception as exc:
                         errors += 1
                         await session.rollback()
                         logger.warning("ingest row failed source=%s: %s", source_code, exc)
 
-                if errors:
-                    await session.rollback()
+                if saved:
+                    await session.commit()
                 try:
                     await self.persist.export_live_jobs_json(session)
                 except Exception as exc:
@@ -88,11 +95,11 @@ class IngestAgent:
                     except Exception as exc2:
                         logger.warning("live jobs json export retry failed: %s", exc2)
 
-                await self._record_source_run(session, source_code, error=None if saved else "no rows saved")
+                if source_id:
+                    await self._record_source_run(session, source_code, error=None if saved else "no rows saved")
         except Exception as exc:
             db_error = str(exc)
             logger.warning("database unavailable for source=%s: %s", source_code, exc)
-            await self._record_source_run(None, source_code, error=db_error)
             if get_settings().allow_fallback_json_export:
                 self._export_fallback_json(rows, entry, source_code)
             else:

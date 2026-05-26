@@ -1,25 +1,35 @@
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
-import { CATS } from "@/data/categories";
+import { CATS, type CategoryId } from "@/data/categories";
 
-export default function CategoryGrid({ activeCat, onSelectCategory, counts }) {
+type CategoryGridProps = {
+  activeCat: CategoryId | null
+  onSelectCategory: (categoryId: CategoryId | null) => void
+  counts?: Partial<Record<CategoryId, number>>
+}
+
+export default function CategoryGrid({ activeCat, onSelectCategory, counts }: CategoryGridProps) {
   const { t } = useTranslation();
 
   return (
-    <div style={{ marginBottom: 28 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-        <h2 style={{ fontSize: 13, fontWeight: 800, color: DS.white, fontFamily: "'Sora',sans-serif", margin: 0, letterSpacing: 0.2 }}>{t("categoryGrid.title")}</h2>
+    <div className="category-grid">
+      <div className="category-grid__header">
+        <div>
+          <h2 className="category-grid__title">{t("categoryGrid.title")}</h2>
+          <p className="category-grid__subtitle">
+            {t("categoryGrid.subtitle", { defaultValue: "Pick a sector to narrow the live listings." })}
+          </p>
+        </div>
         {activeCat && (
           <button
             type="button"
             onClick={() => onSelectCategory(activeCat)}
-            style={{ background: "transparent", border: `1px solid ${DS.borderHi}`, borderRadius: 8, padding: "4px 12px", fontSize: 11, color: DS.mutedHi, cursor: "pointer", fontFamily: "'Outfit',sans-serif" }}
+            className="category-grid__clear"
           >
             {t("categoryGrid.clearFilter")}
           </button>
         )}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 8 }}>
+      <div className="category-grid__cards" aria-label={t("categoryGrid.title")}>
         {CATS.map((c) => {
           const active = activeCat === c.id;
           const cnt = Number(counts?.[c.id]) || 0;
@@ -27,20 +37,37 @@ export default function CategoryGrid({ activeCat, onSelectCategory, counts }) {
             <button
               key={c.id}
               type="button"
+              className={`category-grid-card${active ? " category-grid-card--active" : ""}`}
               onClick={() => onSelectCategory(c.id)}
               style={{
-                background: active ? `${c.color}18` : DS.bg1,
-                border: `1px solid ${active ? c.color + "50" : DS.border}`,
-                borderRadius: 12,
-                padding: "13px 10px",
-                cursor: "pointer",
-                textAlign: "left",
-                transition: "all 0.15s",
+                borderColor: active ? `${c.color}88` : undefined,
+                boxShadow: active ? `inset 0 0 0 1px ${c.color}44` : undefined,
               }}
             >
-              <div style={{ fontSize: 18, marginBottom: 6 }}>{c.icon}</div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: active ? c.color : DS.white, fontFamily: "'Outfit',sans-serif", marginBottom: 3 }}>{t(`category.${c.id}`)}</div>
-              <div style={{ fontSize: 13, fontWeight: 800, color: c.color, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{cnt.toLocaleString()}</div>
+              <span
+                className="category-grid-card__icon"
+                style={{
+                  background: `${c.color}16`,
+                  borderColor: `${c.color}30`,
+                  color: c.color,
+                }}
+              >
+                {c.icon}
+              </span>
+              <span className="category-grid-card__body">
+                <span className="category-grid-card__name">{t(`category.${c.id}`)}</span>
+                <span className="category-grid-card__meta">{t("categoryGrid.liveCount", { count: cnt, defaultValue: "{{count}} live" })}</span>
+              </span>
+              <span
+                className="category-grid-card__count"
+                style={{
+                  background: `${c.color}14`,
+                  borderColor: `${c.color}28`,
+                  color: c.color,
+                }}
+              >
+                {cnt.toLocaleString()}
+              </span>
             </button>
           );
         })}

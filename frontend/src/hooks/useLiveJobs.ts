@@ -22,6 +22,7 @@ const API_MAX_PAGES = 2
 
 /** auto | static | api | supabase — static is fastest for deployed snapshots */
 const JOBS_SOURCE = (import.meta.env.VITE_JOBS_SOURCE || 'auto').toLowerCase()
+const IS_EXPLICIT_SOURCE = ['static', 'api', 'supabase'].includes(JOBS_SOURCE)
 
 let CACHE = null
 let INFLIGHT = null
@@ -96,21 +97,31 @@ function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise
   })
 }
 
-async function fetchJobsFromSupabase() {
+async function fetchJobsFromSupabase({
+  startOffset = 0,
+  maxRows = MAX_LIVE_ROWS,
+}: {
+  startOffset?: number
+  maxRows?: number
+} = {}) {
   const supabase = getSupabase()
   if (!supabase) return []
 
+  // Keep the homepage list payload lean. Detail JSON can be large and makes
+  // the first render noticeably slower when thousands of rows are returned.
   const select =
-    'id,slug,title,dept,category,state_codes,vacancies,qualification,salary,age_limit,last_date,apply_url,status,published_at,detail'
+    'id,slug,title,dept,category,state_codes,vacancies,qualification,salary,age_limit,last_date,apply_url,status,published_at'
 
   const all = []
-  for (let offset = 0; offset < MAX_LIVE_ROWS; offset += SUPABASE_PAGE) {
+  const endOffset = Math.min(MAX_LIVE_ROWS, startOffset + maxRows)
+  for (let offset = startOffset; offset < endOffset; offset += SUPABASE_PAGE) {
+    const rangeEnd = Math.min(offset + SUPABASE_PAGE - 1, endOffset - 1)
     const query = supabase
       .from('jobs')
       .select(select)
       .in('status', ['live', 'expired'])
       .order('published_at', { ascending: false })
-      .range(offset, offset + SUPABASE_PAGE - 1)
+      .range(offset, rangeEnd)
 
     const { data, error } = await withTimeout(
       (async () => query)(),
@@ -127,6 +138,19 @@ async function fetchJobsFromSupabase() {
     if (data.length < SUPABASE_PAGE) break
   }
   return all
+}
+
+function rowSource(row: Record<string, unknown>) {
+  const detail = row.detail
+  return detail && typeof detail === 'object' ? (detail as Record<string, unknown>).source : ''
+}
+
+function supabasePayload(rows: Array<Record<string, unknown>>) {
+  const real = rows.filter(
+    (r) => !DEMO_SLUG_PREFIX.test(String(r?.slug || '')) && rowSource(r) !== 'demo'
+  )
+  if (!real.length) return null
+  return { raw: real, sources: ['supabase'], hasBackend: true, error: null, strictFilter: true }
 }
 
 async function fetchAllFromApi() {
@@ -164,11 +188,7 @@ async function tryStatic() {
 
 async function trySupabase() {
   const supaRows = await fetchJobsFromSupabase()
-  const real = supaRows.filter(
-    (r) => !DEMO_SLUG_PREFIX.test(String(r.slug || '')) && (r.detail?.source || '') !== 'demo'
-  )
-  if (!real.length) return null
-  return { raw: real, sources: ['supabase'], hasBackend: true, error: null, strictFilter: true }
+  return supabasePayload(supaRows)
 }
 
 async function tryApi() {
@@ -184,9 +204,9 @@ async function tryApi() {
 }
 
 function sourceOrder(): Array<'static' | 'supabase' | 'api'> {
-  if (JOBS_SOURCE === 'static') return ['static', 'supabase', 'api']
-  if (JOBS_SOURCE === 'api') return ['api', 'static', 'supabase']
-  if (JOBS_SOURCE === 'supabase') return ['supabase', 'api', 'static']
+  if (JOBS_SOURCE === 'static') return ['static']
+  if (JOBS_SOURCE === 'api') return ['api', 'static']
+  if (JOBS_SOURCE === 'supabase') return ['supabase', 'static']
   return ['static', 'supabase', 'api']
 }
 
@@ -202,8 +222,9 @@ async function loadJobsPayload() {
     return null
   }
 
-  // When API/Supabase is primary, load static JSON in parallel so the UI is not blocked for minutes
-  const staticPromise = primary !== 'static' ? tryStatic() : null
+  // For explicit live sources, avoid downloading the 1MB static JSON unless
+  // the chosen live source fails. Auto mode still uses static first.
+  const staticPromise = primary !== 'static' && !IS_EXPLICIT_SOURCE ? tryStatic() : null
 
   let hit = await runStep(primary)
   if (!hit && staticPromise) {
@@ -222,9 +243,11 @@ async function loadJobsPayload() {
     if (hit) return hit
   }
 
-  const apiResult = await fetchJobsFromApi({ limit: API_PAGE })
-  if (apiResult.degraded) {
-    return { raw: [], sources: ['static'], hasBackend: false, error: 'Job database temporarily unavailable', strictFilter: false }
+  if (!IS_EXPLICIT_SOURCE) {
+    const apiResult = await fetchJobsFromApi({ limit: API_PAGE })
+    if (apiResult.degraded) {
+      return { raw: [], sources: ['static'], hasBackend: false, error: 'Job database temporarily unavailable', strictFilter: false }
+    }
   }
 
   return { raw: [], sources: ['static'], hasBackend: false, error: null, strictFilter: false }
@@ -263,8 +286,9 @@ export function useLiveJobs() {
       setRefreshing(true)
       setError(null)
 
-      // Fast path: show cached snapshot while API/Supabase connects (avoids 5+ min white bar)
-      if (sourceOrder()[0] !== 'static') {
+      // Fast path for auto mode only. In explicit Supabase mode, loading the
+      // live list directly is faster than parsing the static fallback first.
+      if (sourceOrder()[0] !== 'static' && !IS_EXPLICIT_SOURCE) {
         try {
           const bootstrap = await tryStatic()
           if (!cancelled && bootstrap) {
@@ -277,6 +301,57 @@ export function useLiveJobs() {
           }
         } catch {
           /* fall through to full load */
+        }
+      }
+
+      if (JOBS_SOURCE === 'supabase' && isSupabaseConfigured()) {
+        try {
+          const firstRaw = await fetchJobsFromSupabase({ maxRows: SUPABASE_PAGE })
+          const firstPayload = supabasePayload(firstRaw)
+          const firstRows = firstPayload ? rowsFromPayload(firstPayload) : []
+          if (firstPayload && firstRows.length) {
+            CACHE = {
+              rows: firstRows,
+              sources: firstPayload.sources,
+              hasBackend: firstPayload.hasBackend,
+              error: firstPayload.error,
+            }
+
+            if (!cancelled) {
+              setLiveRows(firstRows)
+              setSources(firstPayload.sources)
+              setHasBackend(firstPayload.hasBackend)
+              setError(null)
+            }
+
+            ;(async () => {
+              try {
+                const restRaw = await fetchJobsFromSupabase({ startOffset: SUPABASE_PAGE })
+                const fullPayload = supabasePayload([...firstRaw, ...restRaw])
+                if (!fullPayload) return
+                const fullRows = rowsFromPayload(fullPayload)
+                CACHE = {
+                  rows: fullRows,
+                  sources: fullPayload.sources,
+                  hasBackend: fullPayload.hasBackend,
+                  error: fullPayload.error,
+                }
+                if (!cancelled) {
+                  setLiveRows(fullRows)
+                  setSources(fullPayload.sources)
+                  setHasBackend(fullPayload.hasBackend)
+                  setError(null)
+                }
+              } catch (e) {
+                if (!cancelled) setError(e?.message || 'Failed to load all live jobs')
+              } finally {
+                if (!cancelled) setRefreshing(false)
+              }
+            })()
+            return
+          }
+        } catch {
+          /* fall through to static fallback */
         }
       }
 

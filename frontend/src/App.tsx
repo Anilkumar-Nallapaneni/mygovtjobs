@@ -9,7 +9,7 @@ import { FEED_POOL } from "@/data/feed";
 import { loadOfficialFeed, feedItemsForTicker } from "@/lib/officialFeed";
 import Ticker from "@/components/layout/Ticker";
 import Navbar from "@/components/layout/Navbar";
-import JobsStatusBar from "@/components/home/JobsStatusBar";
+import CategoryGrid from "@/components/jobs/CategoryGrid";
 import { scrollToSection } from "@/utils/scrollToSection";
 
 const HomePage = lazy(() => import("@/components/home/HomePage"));
@@ -31,12 +31,8 @@ export default function App() {
   const {
     jobs,
     loading: jobsLoading,
-    refreshing: jobsRefreshing,
     staticCount,
     liveCount,
-    sources,
-    hasBackend,
-    error: jobsError,
     refresh: refreshJobs,
   } = useLiveJobs();
   const [view, setView] = useState("home");
@@ -143,6 +139,22 @@ export default function App() {
     setSelectedJob(null);
   }, []);
 
+  const handleCategorySelect = useCallback(
+    (catId) => {
+      const next = activeCat === catId ? null : catId;
+      setView("jobs");
+      setSelectedJob(null);
+      setSelectedState(null);
+      setActiveCat(next);
+      setQuickFilter(null);
+      setSearch("");
+      setHeadlinesTopicKey(null);
+      setHomeResetKey((k) => k + 1);
+      scrollToSection("main-jobs");
+    },
+    [activeCat]
+  );
+
   const resetToHome = useCallback(() => {
     setView("home");
     setSelectedJob(null);
@@ -247,16 +259,8 @@ export default function App() {
         />
         <div style={{ flex: 1 }}>
           {!selectedJob && (
-            <div style={{ padding: "10px 20px 0", maxWidth: 1240, margin: "0 auto" }}>
-              <JobsStatusBar
-                loading={jobsLoading}
-                refreshing={jobsRefreshing}
-                staticCount={staticCount}
-                liveCount={liveCount}
-                sources={sources}
-                hasBackend={hasBackend}
-                error={jobsError}
-              />
+            <div className="app-sector-browser">
+              <CategoryGrid activeCat={activeCat} onSelectCategory={handleCategorySelect} counts={categoryCounts} />
             </div>
           )}
           <Suspense fallback={<PageFallback />}>
@@ -276,7 +280,6 @@ export default function App() {
                 quickFilter={quickFilter}
                 setQuickFilter={setQuickFilter}
                 onBrowseJobs={handleBrowseJobs}
-                categoryCounts={categoryCounts}
                 stateCounts={stateCounts}
                 onJobClick={handleJobClick}
                 search={search}

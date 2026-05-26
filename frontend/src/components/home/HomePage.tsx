@@ -2,7 +2,6 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
-import { CATS } from "@/data/categories";
 import { ALL_JOBS } from "@/data/jobs";
 import { isNationwideAllStatesJob, jobMatchesNationwideFilter, jobMatchesStateFilter } from "@/data/jobRegion";
 import { jobMatchesSearch } from "@/utils/jobSearch";
@@ -10,7 +9,6 @@ import { scrollToSection } from "@/utils/scrollToSection";
 import { useStateLabel } from "@/utils/stateLabels";
 import { resolveJobQualification } from "@/utils/jobQualification";
 import StateStrip from "@/components/jobs/StateStrip";
-import CategoryGrid from "@/components/jobs/CategoryGrid";
 import JobCard from "@/components/jobs/JobCard";
 import JobCardGrid from "@/components/jobs/JobCardGrid";
 import AlertSection from "@/components/home/AlertSection";
@@ -90,7 +88,6 @@ export default function HomePage({
   setQuickFilter,
   onBrowseJobs,
   stateCounts,
-  categoryCounts,
   onJobClick,
   search,
   setSearch,
@@ -124,16 +121,6 @@ export default function HomePage({
       if (next) browseToJobs();
     },
     [quickFilter, setQuickFilter, browseToJobs]
-  );
-
-  const handleCategorySelect = useCallback(
-    (catId) => {
-      const next = activeCat === catId ? null : catId;
-      setHeroStatFilter(null);
-      setActiveCat(next);
-      if (next) browseToJobs();
-    },
-    [activeCat, setActiveCat, browseToJobs]
   );
 
   const handleStateSelect = useCallback(
@@ -299,18 +286,25 @@ export default function HomePage({
 
   const displayed = showAll ? filtered : filtered.slice(0, INITIAL_JOB_LIMIT);
   const totalListings = jobs.length;
-  const hotNewCount = jobs.filter((j) => j.status === "hot" || j.status === "new").length;
-  const jobsWithVacancies = jobs.filter((j) => Number(j.vacancies) > 0).length;
-  const stateTaggedCount = jobs.filter((j) => jobMatchesHeroStatFilter(j, "states")).length;
-  const liveListingsCount = jobs.filter((j) => jobMatchesHeroStatFilter(j, "live")).length;
-  const totalVac = jobs
-    .filter((j) => String(j?.status || "live").toLowerCase() !== "expired")
-    .reduce((s, j) => s + (Number(j.vacancies) || 0), 0);
+  const heroStats = useMemo(() => {
+    let posts = 0;
+    let withPostCount = 0;
+    let hotNew = 0;
+    let states = 0;
+    let live = 0;
+    for (const job of jobs) {
+      const vacancies = Number(job?.vacancies) || 0;
+      if (vacancies > 0) withPostCount += 1;
+      if (vacancies > 0 && String(job?.status || "live").toLowerCase() !== "expired") posts += vacancies;
+      if (job?.status === "hot" || job?.status === "new") hotNew += 1;
+      if (jobMatchesHeroStatFilter(job, "states")) states += 1;
+      if (jobMatchesHeroStatFilter(job, "live")) live += 1;
+    }
+    return { posts, withPostCount, hotNew, states, live };
+  }, [jobs]);
   const stateName = selectedState ? stateLabel(selectedState) : "";
   const stateFilteredVac = selectedState ? filtered.reduce((s, j) => s + (Number(j.vacancies) || 0), 0) : 0;
   const stateFilteredCount = selectedState ? filtered.length : 0;
-
-  const categoryCountsResolved = categoryCounts ?? Object.fromEntries(CATS.map((c) => [c.id, 0]));
 
   return (
     <div>
@@ -318,17 +312,15 @@ export default function HomePage({
       <div
         className="home-subheader"
         style={{
-          borderBottom: `1px solid ${DS.border}`,
-          background: DS.sheetBg,
-          backdropFilter: "blur(10px)",
+          background: "transparent",
         }}
       >
         <div
           className="home-subheader__inner"
           style={{
-            maxWidth: 1240,
+            maxWidth: "var(--layout-max)",
             margin: "0 auto",
-            padding: "10px 20px",
+            padding: "4px 20px 8px",
             width: "100%",
             minWidth: 0,
             overflowX: "auto",
@@ -339,7 +331,7 @@ export default function HomePage({
       </div>
 
       {/* Row 2 — tagline (hidden while a state is selected — “jobs scroll” mode) */}
-      <section style={{ padding: "0 20px 28px", maxWidth: 1240, margin: "0 auto" }}>
+      <section style={{ padding: "0 20px 28px", maxWidth: "var(--layout-max)", margin: "0 auto" }}>
         {!selectedState && (
           <div
             className="home-hero-tagline"
@@ -497,12 +489,21 @@ export default function HomePage({
                       margin: 0,
                     }}
                   >
-                    {t("home.heroDesc", {
-                      vacancies: totalVac.toLocaleString("en-IN"),
+                    {t("home.heroDescFast", {
                       listings: totalListings,
-                      withCounts: jobsWithVacancies,
+                      defaultValue:
+                        "Real-time government job alerts from UPSC, SSC, Railways, Banking, Police & more. Browse {{listings}} live recruitment notices from official sources.",
                     })}
                   </p>
+                  <div className="home-first-visit">
+                    <strong>{t("home.firstVisitTitle", { defaultValue: "New here?" })}</strong>
+                    <span>
+                      {t("home.firstVisitText", {
+                        defaultValue:
+                          "Start with the map, sector cards, or education filters. Every listing links back to an official notification.",
+                      })}
+                    </span>
+                  </div>
                 </header>
 
                 <div style={{ marginBottom: 20 }}>
@@ -510,13 +511,13 @@ export default function HomePage({
                     {[
                       {
                         key: "vacancies",
-                        v: totalVac.toLocaleString("en-IN"),
-                        l: t("home.totalNotifiedPosts", { count: jobsWithVacancies }),
+                        v: heroStats.posts.toLocaleString("en-IN"),
+                        l: t("home.totalNotifiedPosts", { count: heroStats.withPostCount }),
                         i: "📋",
                       },
-                      { key: "hotNew", v: hotNewCount.toLocaleString("en-IN"), l: t("home.hotNewTags"), i: "🔥" },
-                      { key: "states", v: stateTaggedCount.toLocaleString("en-IN"), l: t("home.statesMap"), i: "🗺️" },
-                      { key: "live", v: liveListingsCount.toLocaleString("en-IN"), l: t("home.liveListings"), i: "📰" },
+                      { key: "hotNew", v: heroStats.hotNew.toLocaleString("en-IN"), l: t("home.hotNewTags"), i: "🔥" },
+                      { key: "states", v: heroStats.states.toLocaleString("en-IN"), l: t("home.statesMap"), i: "🗺️" },
+                      { key: "live", v: heroStats.live.toLocaleString("en-IN"), l: t("home.liveListings"), i: "📰" },
                     ].map(({ key, v, l, i }) => {
                       const on = heroStatFilter === key;
                       return (
@@ -594,9 +595,6 @@ export default function HomePage({
                     </div>
                   </div>
 
-                  <div style={{ marginTop: 10 }}>
-                    <CategoryGrid activeCat={activeCat} onSelectCategory={handleCategorySelect} counts={categoryCountsResolved} />
-                  </div>
                 </div>
               </>
             ) : (
@@ -654,9 +652,9 @@ export default function HomePage({
                   ? t("latestNotif.subtitle", {
                       defaultValue: "Post Date · Board · Post · Qualification · Advt No · Last Date",
                     })
-                  : t("home.jobsMeta", {
+                  : t("home.jobsMetaFast", {
                       count: filtered.length,
-                      vacancies: filtered.reduce((s, j) => s + (Number(j.vacancies) || 0), 0).toLocaleString("en-IN"),
+                      defaultValue: "{{count}} listings available",
                     })}
                 {!showLatestTable && jobsLoading
                   ? ` · ${t("ticker.live")}…`

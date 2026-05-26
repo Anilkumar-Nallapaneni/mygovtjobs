@@ -4,19 +4,24 @@
 
 let CACHE = null;
 let INFLIGHT = null;
+let CACHE_AT = 0;
 
-/** @param {{ cache?: RequestCache }} [opts] */
-export async function loadOfficialFeed({ cache = "default" } = {}) {
-  if (CACHE) return CACHE;
+const DEFAULT_MAX_AGE_MS = 15 * 60 * 1000;
+
+/** @param {{ cache?: RequestCache, maxAgeMs?: number }} [opts] */
+export async function loadOfficialFeed({ cache = "no-cache", maxAgeMs = DEFAULT_MAX_AGE_MS } = {}) {
+  if (CACHE && Date.now() - CACHE_AT < maxAgeMs) return CACHE;
   if (!INFLIGHT) {
     INFLIGHT = (async () => {
       try {
-        const res = await fetch("/data/official-feed-items.json", {
+        const cacheBust = cache === "no-cache" || cache === "no-store" || cache === "reload";
+        const res = await fetch(`/data/official-feed-items.json${cacheBust ? `?t=${Date.now()}` : ""}`, {
           cache: cache as RequestCache,
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         CACHE = json;
+        CACHE_AT = Date.now();
         return json;
       } finally {
         INFLIGHT = null;

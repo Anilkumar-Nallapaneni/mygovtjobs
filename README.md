@@ -99,6 +99,8 @@ bharatnaukri-live/
 | **Supabase** (or Postgres) | — | Job storage |
 | **Git** | — | Clone repo |
 
+> **Full install & run guide (frontend, backend, Supabase, Vercel):** **[docs/INSTALLATION_AND_RUN.md](docs/INSTALLATION_AND_RUN.md)**
+
 ---
 
 ## Step-by-step: first-time setup
@@ -530,7 +532,7 @@ Run from repo root. Scripts use `backend/.venv/Scripts/python` — create the ve
 
 ## Deployment (Vercel + Supabase)
 
-Full guide: **[docs/DEPLOY_VERCEL_SUPABASE.md](docs/DEPLOY_VERCEL_SUPABASE.md)**
+Full guides: **[docs/INSTALLATION_AND_RUN.md](docs/INSTALLATION_AND_RUN.md)** (complete setup) · **[docs/DEPLOY_VERCEL_SUPABASE.md](docs/DEPLOY_VERCEL_SUPABASE.md)** (deploy focus)
 
 | Component | Where |
 |-----------|--------|

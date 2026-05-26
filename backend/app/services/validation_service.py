@@ -25,6 +25,10 @@ _BLOCKED_AGGREGATOR = re.compile(
     r"(?:^|\.)(?:freejobalert|sarkariresult|sarkarijob|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive)\.",
     re.I,
 )
+_BLOCKED_BRAND_TEXT = re.compile(
+    r"freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive",
+    re.I,
+)
 
 
 def _parse_date(value) -> date | None:
@@ -52,6 +56,11 @@ class ValidationService:
             reasons.append("junk_title")
         if not looks_like_job_notification(title):
             reasons.append("not_job_notification")
+        detail = normalized.get("detail", {})
+        summary = detail.get("summary") if isinstance(detail, dict) else ""
+        brand_probe = " ".join(str(part or "") for part in (title, normalized.get("dept"), summary))
+        if _BLOCKED_BRAND_TEXT.search(brand_probe):
+            reasons.append("aggregator_brand")
 
         apply_url = normalized.get("apply_url") or ""
         if is_portal_section_link(title, apply_url):
@@ -59,7 +68,7 @@ class ValidationService:
         if is_result_archive_listing(title, apply_url):
             reasons.append("result_archive")
 
-        if _SCAM.search(title) or _SCAM.search(normalized.get("detail", {}).get("summary") or ""):
+        if _SCAM.search(title) or _SCAM.search(summary or ""):
             reasons.append("scam_pattern")
 
         if apply_url:

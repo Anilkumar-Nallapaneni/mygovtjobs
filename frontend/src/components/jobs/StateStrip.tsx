@@ -3,8 +3,6 @@ import { DS } from "@/theme/designSystem";
 import { STATES } from "@/data/states";
 import { useStateLabel } from "@/utils/stateLabels";
 
-const TOP_STATE_COUNT = 16;
-
 /**
  * @param {"full" | "embedded" | "subheader"} variant
  * - full: standalone bar (default), with background + bottom border
@@ -26,11 +24,12 @@ export default function StateStrip({
 }) {
   const { t } = useTranslation();
   const stateLabel = useStateLabel();
+  const isSubheader = variant === "subheader";
   const sorted = [...STATES]
+    .filter((state) => (stateCounts[state.id] || 0) > 0 || selected === state.id)
     .sort((a, b) => (stateCounts[b.id] || 0) - (stateCounts[a.id] || 0))
-    .slice(0, TOP_STATE_COUNT);
 
-  const showLabel = hideLabel ? false : variant !== "subheader";
+  const showLabel = hideLabel ? false : true;
 
   const wrapStyle =
     variant === "subheader"
@@ -67,10 +66,11 @@ export default function StateStrip({
   };
 
   return (
-    <div style={wrapStyle}>
+    <div className={`state-strip${isSubheader ? " state-strip--subheader" : ""}`} style={wrapStyle}>
       <div className="state-strip-row" style={rowStyle}>
         {showLabel && (
           <span
+            className="state-strip-label"
             style={{
               fontSize: 10.5,
               color: DS.muted,
@@ -80,25 +80,30 @@ export default function StateStrip({
               flexShrink: 0,
             }}
           >
-            {t("stateStrip.topStates")}
+            {isSubheader ? t("stateStrip.browse", { defaultValue: "Browse by state" }) : t("stateStrip.topStates")}
           </span>
         )}
         <button
           type="button"
+          className={`state-strip-chip state-strip-chip--all${!selected ? " state-strip-chip--active" : ""}`}
           onClick={() => onSelect(null)}
-          style={{
-            background: !selected ? DS.accentSoft : "transparent",
-            border: `1px solid ${!selected ? DS.accentBorderHi : DS.border}`,
-            borderRadius: 20,
-            padding: "4px 14px",
-            fontSize: 11.5,
-            fontWeight: !selected ? 700 : 400,
-            color: !selected ? DS.saffron : DS.mutedHi,
-            cursor: "pointer",
-            flexShrink: 0,
-            fontFamily: "'Outfit',sans-serif",
-            transition: "all 0.12s",
-          }}
+          style={
+            isSubheader
+              ? undefined
+              : {
+                  background: !selected ? DS.accentSoft : "transparent",
+                  border: `1px solid ${!selected ? DS.accentBorderHi : DS.border}`,
+                  borderRadius: 20,
+                  padding: "4px 14px",
+                  fontSize: 11.5,
+                  fontWeight: !selected ? 700 : 400,
+                  color: !selected ? DS.saffron : DS.mutedHi,
+                  cursor: "pointer",
+                  flexShrink: 0,
+                  fontFamily: "'Outfit',sans-serif",
+                  transition: "all 0.12s",
+                }
+          }
         >
           🇮🇳 {t("stateStrip.allIndia")}
         </button>
@@ -108,26 +113,32 @@ export default function StateStrip({
             <button
               key={s.id}
               type="button"
+              className={`state-strip-chip${active ? " state-strip-chip--active" : ""}`}
               title={stateLabel(s.id)}
               aria-label={stateLabel(s.id)}
               onClick={() => onSelect(active ? null : s.id)}
-              style={{
-                background: active ? DS.accentSoft : "transparent",
-                border: `1px solid ${active ? DS.accentBorderHi : DS.border}`,
-                borderRadius: 20,
-                padding: "4px 12px",
-                fontSize: 11.5,
-                fontWeight: active ? 700 : 400,
-                color: active ? DS.saffron : DS.mutedHi,
-                cursor: "pointer",
-                flexShrink: 0,
-                fontFamily: "'Outfit',sans-serif",
-                whiteSpace: "nowrap",
-                transition: "all 0.12s",
-              }}
+              style={
+                isSubheader
+                  ? undefined
+                  : {
+                      background: active ? DS.accentSoft : "transparent",
+                      border: `1px solid ${active ? DS.accentBorderHi : DS.border}`,
+                      borderRadius: 20,
+                      padding: "4px 12px",
+                      fontSize: 11.5,
+                      fontWeight: active ? 700 : 400,
+                      color: active ? DS.saffron : DS.mutedHi,
+                      cursor: "pointer",
+                      flexShrink: 0,
+                      fontFamily: "'Outfit',sans-serif",
+                      whiteSpace: "nowrap",
+                      transition: "all 0.12s",
+                    }
+              }
             >
               {s.ab}{" "}
               <span
+                className="state-strip-chip__count"
                 style={{
                   fontFamily: "'JetBrains Mono',monospace",
                   color: active ? DS.gold : DS.muted,
