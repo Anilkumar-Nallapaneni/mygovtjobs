@@ -85,7 +85,7 @@
   "category.health": "Health",
   "category.state": "State PSC",
   "job.posts": "POSTS",
-  "job.postsTba": "TBA",
+  "job.postsTba": \"Check PDF\",
   "job.postsTbaHint": "See official notification for post count",
   "job.postedOn": "Posted",
   "job.new": "NEW",

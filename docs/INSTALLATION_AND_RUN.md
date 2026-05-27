@@ -434,7 +434,7 @@ asyncio.run(main())
 "
 ```
 
-### Enrich metadata (vacancies, PDFs — reduces “TBA” labels)
+### Enrich metadata (vacancies, PDFs — reduces placeholder labels)
 
 ```bash
 npm run backfill:pdfs
@@ -621,7 +621,7 @@ Ingest still runs against Supabase; Vercel only serves the frontend.
 | Problem | Fix |
 |---------|-----|
 | **Demo jobs only** | Run ingest; set `VITE_JOBS_SOURCE=supabase` or `api`; restart `npm run dev` |
-| **Many “TBA” on cards** | Missing vacancy counts in DB — run `npm run enrich:jobs` |
+| **Many placeholder labels on cards** | Missing vacancy counts in DB — run `npm run enrich:jobs` |
 | **`ModuleNotFoundError: http_client`** | Ensure `backend/app/scrapers/http_client.py` exists |
 | **`db:test` fails** | Fix `DATABASE_URL`, password encoding, run SQL setup |
 | **Supabase 401 on jobs** | Run migration `002`; check anon key; confirm RLS |

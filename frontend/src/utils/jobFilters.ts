@@ -23,14 +23,14 @@ export function isJobExpired(job) {
   return false
 }
 
-/** Hide draft rows and portal noise; live + expired both shown. */
+/** Hide draft/pending rows and portal noise; live + expired both shown. */
 export function filterDisplayJobs(jobs) {
   if (!Array.isArray(jobs)) return []
   return jobs.filter((j) => {
     if (!j || isPortalNoiseJob(j)) return false
     if (!isAllowedOfficialJob(j)) return false
     const status = String(j?.status || '').toLowerCase()
-    return status !== 'draft'
+    return status !== 'draft' && status !== 'pending'
   })
 }
 

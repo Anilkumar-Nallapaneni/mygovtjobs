@@ -54,7 +54,7 @@ function displayValue(v, fallback) {
 
   const s = String(v ?? "").trim();
 
-  if (!s || s === "—") return fallback;
+  if (!s || /^(?:-|—|tba|pending|null|undefined)$/i.test(s)) return fallback;
 
   return s;
 
@@ -64,7 +64,7 @@ function isUsefulDisplayValue(v) {
 
   const s = String(v ?? "").trim();
 
-  if (!s || s === "—") return false;
+  if (!s || /^(?:-|—|tba|pending|null|undefined)$/i.test(s)) return false;
 
   return !/^(?:see|as per)\s+(?:official\s+)?notification$/i.test(s);
 
@@ -117,19 +117,23 @@ export default function JobDetail({ job, onClose }) {
 
 
 
+  const missingDetailLabel = pdfHref
+    ? t("job.postsCheckPdf", { defaultValue: "Check PDF" })
+    : t("job.postsUnavailable", { defaultValue: "Not listed" });
+
   const postsLabel =
 
     view.vacancies > 0
 
       ? view.vacancies.toLocaleString(dateLocale)
 
-      : t("job.postsTba", { defaultValue: "See notification" });
+      : missingDetailLabel;
 
   const statCards = [
 
     { l: t("jobDetail.totalPosts"), v: postsLabel, i: "📋" },
 
-    { l: t("jobDetail.lastDateLabel"), v: displayValue(view.lastDate, t("job.postsTba", { defaultValue: "See notification" })), i: "📅" },
+    { l: t("jobDetail.lastDateLabel"), v: displayValue(view.lastDate, missingDetailLabel), i: "📅" },
 
     ...(isUsefulDisplayValue(view.salary) ? [{ l: t("jobDetail.salary"), v: view.salary, i: "💰" }] : []),
 
@@ -151,6 +155,24 @@ export default function JobDetail({ job, onClose }) {
   ].filter(({ value }) => isUsefulDisplayValue(value));
 
   const hasLinks = Boolean(applyHref || pdfHref || officialHref || pdfList.length > 0);
+  const primaryOfficialHref = applyHref || officialHref || null;
+  const mockTestHref = `https://www.google.com/search?q=${encodeURIComponent(`${view.title} mock test`)}`;
+  const linkBtnBase = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 7,
+    borderRadius: 12,
+    minHeight: 46,
+    padding: "11px 20px",
+    fontSize: 13,
+    fontWeight: 700,
+    cursor: "pointer",
+    textDecoration: "none",
+    fontFamily: "'Outfit',sans-serif",
+    flex: "1 1 0",
+    minWidth: 0,
+  } as const;
 
 
 
@@ -281,78 +303,6 @@ export default function JobDetail({ job, onClose }) {
           </div>
 
 
-
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-
-            {applyHref && (
-
-              <a href={applyHref} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 7, background: DS.gradientBrand, border: "none", borderRadius: 12, padding: "11px 22px", fontSize: 13, fontWeight: 700, color: DS.inkOnBrand, cursor: "pointer", textDecoration: "none", fontFamily: "'Outfit',sans-serif" }}>
-
-                🌐 {t("jobDetail.applyOfficial")}
-
-              </a>
-
-            )}
-
-            {pdfList.length > 0 ? (
-              pdfList.map((url, idx) => (
-                <a
-                  key={url}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 7,
-                    background: DS.bg3,
-                    border: `1px solid ${DS.borderHi}`,
-                    borderRadius: 12,
-                    padding: "11px 20px",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: DS.white,
-                    cursor: "pointer",
-                    textDecoration: "none",
-                    fontFamily: "'Outfit',sans-serif",
-                  }}
-                >
-                  📄 {pdfList.length > 1 ? `${t("jobDetail.downloadPdf")} ${idx + 1}` : t("jobDetail.downloadPdf")}
-                </a>
-              ))
-            ) : pdfHref && pdfHref !== applyHref ? (
-              <a href={pdfHref} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 7, background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 12, padding: "11px 20px", fontSize: 13, fontWeight: 600, color: DS.white, cursor: "pointer", textDecoration: "none", fontFamily: "'Outfit',sans-serif" }}>
-                📄 {t("jobDetail.downloadPdf")}
-              </a>
-            ) : null}
-
-            {officialHref && (
-
-              <a href={officialHref} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: DS.muted, padding: "11px 14px", borderRadius: 12, border: `1px solid ${DS.border}`, textDecoration: "none", fontFamily: "'Outfit',sans-serif" }}>
-
-                🔗 {t("jobDetail.officialWebsite")}
-
-              </a>
-
-            )}
-
-          </div>
-
-
-
-          {!hasLinks && (
-
-            <p style={{ marginTop: 14, fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif", lineHeight: 1.5 }}>
-
-              {t("jobDetail.noOfficialLink", {
-
-                defaultValue: "No verified official link was saved for this listing. Try searching the department name on a .gov.in portal.",
-
-              })}
-
-            </p>
-
-          )}
 
         </div>
 
@@ -587,7 +537,10 @@ export default function JobDetail({ job, onClose }) {
 
         {(feeEntries.length > 0 || eligibilityRows.length > 0 || view.syllabus) && (
 
-          <div className="job-detail-fee-grid">
+          <div
+            className="job-detail-fee-grid"
+            style={feeEntries.length > 0 ? undefined : { gridTemplateColumns: "1fr" }}
+          >
 
             {feeEntries.length > 0 ? (
 
@@ -641,6 +594,51 @@ export default function JobDetail({ job, onClose }) {
         )}
 
 
+
+        <Section title={t("jobDetail.officialLinks", { defaultValue: "Official Links" })}>
+          {hasLinks ? (
+            <div style={{ display: "flex", flexWrap: "nowrap", gap: 10 }}>
+              {primaryOfficialHref && (
+                <a href={primaryOfficialHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.gradientBrand, border: "none", color: DS.inkOnBrand }}>
+                  🌐 {t("jobDetail.applyOfficial")}
+                </a>
+              )}
+
+              {pdfList.length > 0 ? (
+                pdfList.map((url, idx) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}
+                  >
+                    📄 {pdfList.length > 1 ? `${t("jobDetail.downloadPdf")} ${idx + 1}` : t("jobDetail.downloadPdf")}
+                  </a>
+                ))
+              ) : pdfHref && pdfHref !== primaryOfficialHref ? (
+                <a href={pdfHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}>
+                  📄 {t("jobDetail.downloadPdf")}
+                </a>
+              ) : null}
+
+              <a href={mockTestHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}>
+                📝 {t("sidebar.mockTest", { defaultValue: "Mock Test" })}
+              </a>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <a href={mockTestHref} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", width: "fit-content", alignItems: "center", gap: 7, background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 12, padding: "11px 20px", fontSize: 13, fontWeight: 600, color: DS.white, cursor: "pointer", textDecoration: "none", fontFamily: "'Outfit',sans-serif" }}>
+                📝 {t("sidebar.mockTest", { defaultValue: "Mock Test" })}
+              </a>
+              <p style={{ marginTop: 2, fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif", lineHeight: 1.5 }}>
+                {t("jobDetail.noOfficialLink", {
+                  defaultValue: "No verified official link was saved for this listing. Try searching the department name on a .gov.in portal.",
+                })}
+              </p>
+            </div>
+          )}
+        </Section>
 
         <div style={{ marginTop: 14, padding: "12px 16px", background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 10, fontSize: 11.5, color: DS.muted, lineHeight: 1.6, fontFamily: "'Outfit',sans-serif" }}>
 

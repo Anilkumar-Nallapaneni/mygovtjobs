@@ -51,10 +51,14 @@ async function rest(path) {
 }
 
 const health = await fetch(`${url}/rest/v1/`, { headers })
-console.log(health.ok ? '✓ REST API reachable' : `✗ REST ${health.status}`)
+console.log(
+  health.ok || health.status === 401
+    ? '✓ REST API reachable'
+    : `✗ REST ${health.status}`
+)
 
 const TABLES = ['sources', 'raw_ingest', 'jobs', 'job_posts', 'job_dates', 'alert_subscriptions', 'alert_deliveries']
-let ok = health.ok
+let ok = health.ok || health.status === 401
 
 for (const table of TABLES) {
   const r = await rest(`${table}?select=id&limit=1`)

@@ -74,9 +74,17 @@ for (const table of TABLES) {
   }
 }
 
-const live = await fetch(`${url}/rest/v1/jobs?select=id&status=eq.live&limit=1`, { headers });
-const liveRange = live.headers.get("content-range") || "";
-const lm = liveRange.match(/\/(\d+)/);
-if (live.ok && lm) console.log(`  jobs (live only): ${lm[1]}`);
+async function countJobsByStatus(status) {
+  const res = await fetch(`${url}/rest/v1/jobs?select=id&status=eq.${status}&limit=1`, { headers });
+  const range = res.headers.get("content-range") || "";
+  const match = range.match(/\/(\d+)/);
+  return res.ok && match ? Number(match[1]) : null;
+}
+
+const liveCount = await countJobsByStatus("live");
+const expiredCount = await countJobsByStatus("expired");
+if (liveCount != null) console.log(`  jobs (live only): ${liveCount}`);
+if (expiredCount != null) console.log(`  jobs (expired): ${expiredCount}`);
+if (liveCount != null && expiredCount != null) console.log(`  jobs (visible total): ${liveCount + expiredCount}`);
 
 process.exit(ok ? 0 : 1);

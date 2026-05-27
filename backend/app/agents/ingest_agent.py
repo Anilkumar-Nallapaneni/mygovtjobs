@@ -245,6 +245,11 @@ class IngestAgent:
 
                 from datetime import date
 
+                digest = content_hash(
+                    title=normalized.get("title", ""),
+                    apply_url=normalized.get("apply_url"),
+                    last_date=str(normalized.get("last_date") or ""),
+                )
                 last = normalized.get("last_date")
                 if last and str(last) < date.today().isoformat():
                     row_status = "expired"
@@ -253,7 +258,7 @@ class IngestAgent:
 
                 items.append(
                     {
-                        "slug": (normalized.get("title") or "job")[:48].lower().replace(" ", "-"),
+                        "slug": f"{(normalized.get('title') or 'job')[:48].lower().replace(' ', '-')}-{digest[:8]}",
                         "title": normalized.get("title"),
                         "dept": normalized.get("dept"),
                         "category": normalized.get("category"),
@@ -262,7 +267,11 @@ class IngestAgent:
                         "vacancies": int(normalized.get("vacancies") or 0),
                         "last_date": normalized.get("last_date"),
                         "status": row_status,
-                        "detail": {"source": source_code, "fallback": True},
+                        "detail": {
+                            "source": source_code,
+                            "fallback": True,
+                            "pdfUrls": normalized.get("pdf_urls") or raw_copy.get("pdfUrls") or [],
+                        },
                     }
                 )
             except Exception as exc:
@@ -274,9 +283,26 @@ class IngestAgent:
 
         path = Path(get_settings().live_jobs_json_path)
         path.parent.mkdir(parents=True, exist_ok=True)
+        existing: list[dict] = []
+        if path.exists():
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                existing = [row for row in payload.get("items", []) if isinstance(row, dict)]
+            except Exception as exc:
+                logger.warning("fallback export could not read existing JSON: %s", exc)
+
+        merged: dict[str, dict] = {}
+        for row in [*existing, *items]:
+            key = str(row.get("slug") or row.get("apply_url") or row.get("title") or "").lower()
+            if key:
+                merged[key] = row
+
         path.write_text(
             json.dumps(
-                {"generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"), "items": items},
+                {
+                    "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+                    "items": list(merged.values()),
+                },
                 indent=2,
             ),
             encoding="utf-8",

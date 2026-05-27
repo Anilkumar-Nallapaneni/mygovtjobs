@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 
+from app.services.daily_sync_service import DailySyncService
+
 router = APIRouter()
 
 STATES = [
@@ -55,3 +57,9 @@ async def list_states():
 @router.get("/categories")
 async def list_categories():
     return {"items": CATEGORIES}
+
+
+@router.get("/sync-status")
+async def sync_status():
+    """Public daily sync window — 8:00 AM IST, one update per day."""
+    return DailySyncService().public_status()

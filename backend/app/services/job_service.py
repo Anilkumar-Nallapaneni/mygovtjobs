@@ -34,9 +34,10 @@ def _to_job_out(row: Job) -> JobOut:
     if not apply_url or is_blocked_aggregator_host(apply_url) or not is_official_recruitment_host(apply_url or ""):
         pdf_urls = detail.get("pdf_urls") or detail.get("pdfUrls") or []
         candidates = [u for u in pdf_urls if isinstance(u, str)]
-        notif = detail.get("notification_url")
-        if isinstance(notif, str):
-            candidates.append(notif)
+        for key in ("notification_url", "link", "source_url", "pdf_url", "pdfUrl"):
+            value = detail.get(key)
+            if isinstance(value, str):
+                candidates.append(value)
         apply_url = pick_best_official_url(candidates) or (
             None if (row.apply_url and is_blocked_aggregator_host(row.apply_url)) else row.apply_url
         )

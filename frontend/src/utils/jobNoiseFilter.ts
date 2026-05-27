@@ -8,7 +8,22 @@ const JOB_HINT_RE =
   /\d|post|vacanc|group|assistant|clerk|constable|engineer|teacher|officer|exam|bharti|recruit|notification\s+(?:no|for)|advt|direct\s+recruit|apprentice|resident|specialist|selection|engagement/i
 
 const JUNK_TITLE_RE =
-  /^application\s+form\b|^download\b|^click\s+here\b|^pdf\b|^notification$|^english\s*\(|^hindi\s*\(|pdf\s*size|old\s+questions|answer\s+key\s+\d{4}|chairman,?\s|submission\s+of\s+the\s+offline|^question\s+departmental|^schedule\s+of\s+examinations|^direct\s+recruitment$|^departmental\s+notification$|^examination$|^lde\s+results|^valid\s*\/?\s*rejected\s+lists|constitutional\s+provision|^biodata\s+of\b|public\s+service\s+commission$|^external\s+link\b/i
+  /^application\s+form\b|^download\b|^click\s+here\b|^pdf\b|^notification$|^english\s*\(|^hindi\s*\(|pdf\s*size|old\s+questions|answer\s+key\s+\d{4}|chairman,?\s|submission\s+of\s+the\s+offline|^question\s+departmental|^schedule\s+of\s+examinations|^direct\s+recruitment$|^departmental\s+notification$|^examination$|^lde\s+results|^valid\s*\/?\s*rejected\s+lists|constitutional\s+provision|^biodata\s+of\b|public\s+service\s+commission$|^external\s+link\b|^page\d+$|^home$|^app$|^linked\s+in$|wcag\s+\d|make\s+in\s+india.*new\s+window|study\s+material.*new\s+window|marks\s+secured\s+by\s+the\s+candidates|cbse\s+(?:10|12)(?:th)?\s+result/i
+
+const AGGREGATOR_BRAND_RE = new RegExp(
+  [
+    `${'free'}${'job'}${'alert'}`,
+    'sarkariresult',
+    'sarkarijob',
+    'sarkarinaukri',
+    'governmentjob',
+    'indgovtjobs',
+    'rojgarresult',
+    'jobriya',
+    'fresherslive',
+  ].join('|'),
+  'i'
+)
 
 export function cleanJobTitle(title) {
   return String(title || '')
@@ -35,11 +50,10 @@ export function isPortalNavTitle(title) {
 export function isPortalNoiseJob(row) {
   const title = cleanJobTitle(row?.title)
   if (/external\s+link\s+that\s+opens/i.test(title)) return true
-  if (
-    /freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive/i.test(
-      `${title} ${row?.dept || ''}`
-    )
-  ) {
+  if (/^apply\s+for\s+term\s+plan\s+online$/i.test(title)) return true
+  if (/fellowship\/scholarship\s+legacy\s+cases/i.test(title)) return true
+  if (/awzpact\s+technologies/i.test(title)) return true
+  if (AGGREGATOR_BRAND_RE.test(`${title} ${row?.dept || ''}`)) {
     return true
   }
   const url =

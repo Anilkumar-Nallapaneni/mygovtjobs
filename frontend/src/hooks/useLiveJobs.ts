@@ -1,6 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ALL_JOBS } from '@/data/jobs'
-import { fetchJobsFromApi, fetchJobsFromJson, JOBS_FETCH_TIMEOUT_MS } from '@/lib/jobsApi'
+import {
+  fetchJobsFromApi,
+  fetchLiveJobsSnapshot,
+  JOBS_FETCH_TIMEOUT_MS,
+} from '@/lib/jobsApi'
+import {
+  dailySyncFromJsonPayload,
+  fetchSyncStatus,
+  type DailySyncMeta,
+  type SyncStatusResponse,
+} from '@/lib/dailySync'
 import { getSupabase, isSupabaseConfigured } from '@/lib/supabase'
 import { adaptLiveJob, mergeJobs } from '@/utils/liveJobAdapter'
 import { filterDisplayJobs } from '@/utils/jobFilters'
@@ -13,23 +23,24 @@ const NOISE_TITLE_RE =
   /^(careers?|tenders?|contact(\s+us)?|login|sign\s*up|privacy|sitemap|gallery|tourism|about\s+us|governing\s+board|policies|rules|guidelines|circulars\s+withdrawn|home|news\s*&\s*events)$/i
 
 const MAX_LIVE_ROWS = 8000
-const SUPABASE_PAGE = 500
+const SUPABASE_PAGE = 1000
 const JSON_CAP = 8000
 const DEMO_SLUG_PREFIX = /^demo-/
-const API_PAGE = 500
-/** Homepage only needs a representative slice — avoids dozens of slow paginated API calls */
-const API_MAX_PAGES = 2
+const API_PAGE = 1000
 
-/** auto | static | api | supabase — static is fastest for deployed snapshots */
+/** auto | static | api | supabase — auto uses the refreshed official snapshot first */
 const JOBS_SOURCE = (import.meta.env.VITE_JOBS_SOURCE || 'auto').toLowerCase()
 const IS_EXPLICIT_SOURCE = ['static', 'api', 'supabase'].includes(JOBS_SOURCE)
 
 let CACHE = null
 let INFLIGHT = null
+/** Set when user hits Refresh — refetch without blanking the UI. */
+let FORCE_RELOAD = false
 
 export function invalidateJobsCache() {
   CACHE = null
   INFLIGHT = null
+  FORCE_RELOAD = true
 }
 
 function isUsefulLiveRow(row, { strict = false } = {}) {
@@ -44,12 +55,7 @@ function isUsefulLiveRow(row, { strict = false } = {}) {
   if (/reach out to|contact us|privacy policy|sitemap|login|gallery|tourism/i.test(title)) return false
   if (String(row?.status || '').toLowerCase() === 'draft') return false
 
-  if (!strict) {
-    if (Number(row?.vacancies) > 0) return true
-    if (row?.last_date) return true
-    if (RECRUIT_RE.test(title) && title.length >= 18) return true
-    if (title.length >= 28 && RECRUIT_RE.test(title)) return true
-  }
+  if (!strict) return true
   return RECRUIT_RE.test(title) || RECRUIT_RE.test(String(row?.dept || ''))
 }
 
@@ -62,6 +68,10 @@ function scoreLiveRow(row) {
   if (row?.last_date) score += 1
   if (Array.isArray(row?.state_codes) && row.state_codes.length) score += 1
   return score
+}
+
+function vacancyCount(row) {
+  return Number(row?.rawVacancies ?? row?.vacancies) || 0
 }
 
 function dedupeLiveRows(rows, { strictFilter = false } = {}) {
@@ -97,6 +107,34 @@ function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise
   })
 }
 
+async function fetchSupabasePage(
+  supabase: NonNullable<ReturnType<typeof getSupabase>>,
+  offset: number,
+  rangeEnd: number
+) {
+  const select =
+    'id,slug,title,dept,category,state_codes,vacancies,qualification,salary,age_limit,last_date,apply_url,status,published_at,detail'
+
+  const query = supabase
+    .from('jobs')
+    .select(select)
+    .in('status', ['live', 'expired'])
+    .order('published_at', { ascending: false })
+    .range(offset, rangeEnd)
+
+  const { data, error } = await withTimeout(
+    (async () => query)(),
+    JOBS_FETCH_TIMEOUT_MS,
+    'Supabase jobs'
+  )
+
+  if (error) {
+    console.warn('[useLiveJobs] Supabase:', error.message)
+    return []
+  }
+  return data || []
+}
+
 async function fetchJobsFromSupabase({
   startOffset = 0,
   maxRows = MAX_LIVE_ROWS,
@@ -107,35 +145,24 @@ async function fetchJobsFromSupabase({
   const supabase = getSupabase()
   if (!supabase) return []
 
-  // Keep the homepage list payload lean. Detail JSON can be large and makes
-  // the first render noticeably slower when thousands of rows are returned.
-  const select =
-    'id,slug,title,dept,category,state_codes,vacancies,qualification,salary,age_limit,last_date,apply_url,status,published_at'
-
-  const all = []
   const endOffset = Math.min(MAX_LIVE_ROWS, startOffset + maxRows)
+  const pageStarts: number[] = []
   for (let offset = startOffset; offset < endOffset; offset += SUPABASE_PAGE) {
-    const rangeEnd = Math.min(offset + SUPABASE_PAGE - 1, endOffset - 1)
-    const query = supabase
-      .from('jobs')
-      .select(select)
-      .in('status', ['live', 'expired'])
-      .order('published_at', { ascending: false })
-      .range(offset, rangeEnd)
+    pageStarts.push(offset)
+  }
 
-    const { data, error } = await withTimeout(
-      (async () => query)(),
-      JOBS_FETCH_TIMEOUT_MS,
-      'Supabase jobs'
-    )
+  const pages = await Promise.all(
+    pageStarts.map((offset) => {
+      const rangeEnd = Math.min(offset + SUPABASE_PAGE - 1, endOffset - 1)
+      return fetchSupabasePage(supabase, offset, rangeEnd)
+    })
+  )
 
-    if (error) {
-      console.warn('[useLiveJobs] Supabase:', error.message)
-      break
-    }
-    if (!data?.length) break
-    all.push(...data)
-    if (data.length < SUPABASE_PAGE) break
+  const all: Array<Record<string, unknown>> = []
+  for (const batch of pages) {
+    if (!batch.length) break
+    all.push(...batch)
+    if (batch.length < SUPABASE_PAGE) break
   }
   return all
 }
@@ -150,7 +177,7 @@ function supabasePayload(rows: Array<Record<string, unknown>>) {
     (r) => !DEMO_SLUG_PREFIX.test(String(r?.slug || '')) && rowSource(r) !== 'demo'
   )
   if (!real.length) return null
-  return { raw: real, sources: ['supabase'], hasBackend: true, error: null, strictFilter: true }
+  return { raw: real, sources: ['supabase'], hasBackend: true, error: null, strictFilter: false }
 }
 
 async function fetchAllFromApi() {
@@ -159,13 +186,11 @@ async function fetchAllFromApi() {
   let items = [...first.items]
   const total = Math.min(first.total || items.length, MAX_LIVE_ROWS)
   let offset = items.length
-  let pages = 1
-  while (pages < API_MAX_PAGES && items.length < total && offset < MAX_LIVE_ROWS) {
+  while (items.length < total && offset < MAX_LIVE_ROWS) {
     const page = await fetchJobsFromApi({
       limit: Math.min(API_PAGE, total - items.length, MAX_LIVE_ROWS - items.length),
       offset,
     })
-    pages += 1
     if (page.degraded || !page.items.length) break
     items = items.concat(page.items)
     offset += page.items.length
@@ -175,14 +200,19 @@ async function fetchAllFromApi() {
 }
 
 async function tryStatic() {
-  const jsonRows = await fetchJobsFromJson()
-  if (!jsonRows.length) return null
+  const snap = await fetchLiveJobsSnapshot()
+  if (!snap.items.length) return null
   return {
-    raw: jsonRows.slice(0, JSON_CAP).filter((r) => !r.status || r.status !== 'draft'),
+    raw: snap.items.slice(0, JSON_CAP).filter((r) => !r.status || r.status !== 'draft'),
     sources: ['official-sites'],
     hasBackend: true,
     error: null,
     strictFilter: false,
+    dailySync: dailySyncFromJsonPayload({
+      dailySync: snap.dailySync,
+      generatedAt: snap.generatedAt,
+    }),
+    generatedAt: snap.generatedAt,
   }
 }
 
@@ -199,7 +229,7 @@ async function tryApi() {
     sources: ['api'],
     hasBackend: true,
     error: null,
-    strictFilter: true,
+    strictFilter: false,
   }
 }
 
@@ -222,25 +252,13 @@ async function loadJobsPayload() {
     return null
   }
 
-  // For explicit live sources, avoid downloading the 1MB static JSON unless
-  // the chosen live source fails. Auto mode still uses static first.
-  const staticPromise = primary !== 'static' && !IS_EXPLICIT_SOURCE ? tryStatic() : null
-
   let hit = await runStep(primary)
-  if (!hit && staticPromise) {
-    hit = await staticPromise
-    if (hit) return hit
-  }
 
-  for (const step of fallbacks) {
-    if (step === primary) continue
-    hit = await runStep(step)
-    if (hit) return hit
-  }
-
-  if (!hit && staticPromise) {
-    hit = await staticPromise
-    if (hit) return hit
+  if (!hit) {
+    for (const step of fallbacks) {
+      hit = await runStep(step)
+      if (hit) break
+    }
   }
 
   if (!IS_EXPLICIT_SOURCE) {
@@ -253,8 +271,29 @@ async function loadJobsPayload() {
   return { raw: [], sources: ['static'], hasBackend: false, error: null, strictFilter: false }
 }
 
-function rowsFromPayload(payload: { raw: unknown[]; strictFilter: boolean }) {
-  return dedupeLiveRows(payload.raw, { strictFilter: payload.strictFilter }).map(adaptLiveJob)
+function processPayload(payload: { raw: unknown[]; strictFilter: boolean }) {
+  const rows = dedupeLiveRows(payload.raw, { strictFilter: payload.strictFilter }).map(adaptLiveJob)
+  return { rows, stats: statsFromRows(rows) }
+}
+
+function statsFromRows(rows: Array<Record<string, unknown>>) {
+  let vacancies = 0
+  let noticesWithVacancies = 0
+  let liveNotices = 0
+  for (const row of rows) {
+    const count = vacancyCount(row)
+    if (count > 0) {
+      vacancies += count
+      noticesWithVacancies += 1
+    }
+    if (String(row.status || 'live').toLowerCase() !== 'expired') liveNotices += 1
+  }
+  return {
+    totalNotices: rows.length,
+    vacancies,
+    noticesWithVacancies,
+    liveNotices,
+  }
 }
 
 export function useLiveJobs() {
@@ -263,40 +302,60 @@ export function useLiveJobs() {
   const [refreshing, setRefreshing] = useState(!CACHE)
   const [error, setError] = useState(CACHE?.error || null)
   const [hasBackend, setHasBackend] = useState(Boolean(CACHE?.hasBackend))
+  const [catalogStats, setCatalogStats] = useState(CACHE?.catalogStats || null)
+  const [dailySyncMeta, setDailySyncMeta] = useState<DailySyncMeta | null>(CACHE?.dailySync || null)
+  const [syncStatus, setSyncStatus] = useState<SyncStatusResponse | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
 
+  const dailySyncOnly = import.meta.env.VITE_DAILY_SYNC_ONLY === '1'
+
   const refresh = useCallback(() => {
-    invalidateJobsCache()
+    if (dailySyncOnly) return
+    FORCE_RELOAD = true
     setRefreshKey((k) => k + 1)
+  }, [dailySyncOnly])
+
+  useEffect(() => {
+    let cancelled = false
+    fetchSyncStatus().then((st) => {
+      if (!cancelled && st) setSyncStatus(st)
+    })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   useEffect(() => {
     let cancelled = false
 
     ;(async () => {
-      if (CACHE?.rows) {
+      const forced = FORCE_RELOAD
+      FORCE_RELOAD = false
+
+      if (CACHE?.rows && !forced) {
         setLiveRows(CACHE.rows)
         setSources(CACHE.sources)
         setHasBackend(CACHE.hasBackend)
         setError(CACHE.error)
+        setCatalogStats(CACHE.catalogStats || null)
         setRefreshing(false)
         return
       }
 
       setRefreshing(true)
-      setError(null)
+      if (!forced || !CACHE?.rows?.length) setError(null)
 
-      // Fast path for auto mode only. In explicit Supabase mode, loading the
-      // live list directly is faster than parsing the static fallback first.
+      // Fast bootstrap for explicit live modes: show the snapshot while live sources load.
       if (sourceOrder()[0] !== 'static' && !IS_EXPLICIT_SOURCE) {
         try {
           const bootstrap = await tryStatic()
           if (!cancelled && bootstrap) {
-            const bootRows = rowsFromPayload(bootstrap)
+            const { rows: bootRows, stats: bootStats } = processPayload(bootstrap)
             if (bootRows.length) {
               setLiveRows(bootRows)
               setSources(bootstrap.sources)
               setHasBackend(bootstrap.hasBackend)
+              setCatalogStats(bootStats)
             }
           }
         } catch {
@@ -308,39 +367,47 @@ export function useLiveJobs() {
         try {
           const firstRaw = await fetchJobsFromSupabase({ maxRows: SUPABASE_PAGE })
           const firstPayload = supabasePayload(firstRaw)
-          const firstRows = firstPayload ? rowsFromPayload(firstPayload) : []
-          if (firstPayload && firstRows.length) {
+          const firstProcessed = firstPayload ? processPayload(firstPayload) : null
+          if (firstProcessed?.rows.length) {
             CACHE = {
-              rows: firstRows,
+              rows: firstProcessed.rows,
               sources: firstPayload.sources,
               hasBackend: firstPayload.hasBackend,
               error: firstPayload.error,
+              catalogStats: firstProcessed.stats,
             }
 
             if (!cancelled) {
-              setLiveRows(firstRows)
+              setLiveRows(firstProcessed.rows)
               setSources(firstPayload.sources)
               setHasBackend(firstPayload.hasBackend)
               setError(null)
+              setCatalogStats(firstProcessed.stats)
+              setRefreshing(false)
             }
+
+            if (firstRaw.length < SUPABASE_PAGE) return
 
             ;(async () => {
               try {
+                if (!cancelled) setRefreshing(true)
                 const restRaw = await fetchJobsFromSupabase({ startOffset: SUPABASE_PAGE })
                 const fullPayload = supabasePayload([...firstRaw, ...restRaw])
                 if (!fullPayload) return
-                const fullRows = rowsFromPayload(fullPayload)
+                const { rows: fullRows, stats: fullStats } = processPayload(fullPayload)
                 CACHE = {
                   rows: fullRows,
                   sources: fullPayload.sources,
                   hasBackend: fullPayload.hasBackend,
                   error: fullPayload.error,
+                  catalogStats: fullStats,
                 }
                 if (!cancelled) {
                   setLiveRows(fullRows)
                   setSources(fullPayload.sources)
                   setHasBackend(fullPayload.hasBackend)
                   setError(null)
+                  setCatalogStats(fullStats)
                 }
               } catch (e) {
                 if (!cancelled) setError(e?.message || 'Failed to load all live jobs')
@@ -362,13 +429,18 @@ export function useLiveJobs() {
           })
         }
         const payload = await INFLIGHT
-        const rows = rowsFromPayload(payload)
+        const { rows, stats } = processPayload(payload)
+
+        const dailySync =
+          (payload as { dailySync?: DailySyncMeta | null }).dailySync ?? dailySyncMeta
 
         CACHE = {
           rows,
           sources: payload.sources,
           hasBackend: payload.hasBackend,
           error: payload.error,
+          catalogStats: stats,
+          dailySync: dailySync || null,
         }
 
         if (!cancelled) {
@@ -376,6 +448,8 @@ export function useLiveJobs() {
           setSources(payload.sources)
           setHasBackend(payload.hasBackend)
           if (payload.error) setError(payload.error)
+          setCatalogStats(stats)
+          if (dailySync) setDailySyncMeta(dailySync)
         }
       } catch (e) {
         if (!cancelled) setError(e?.message || 'Failed to load live jobs')
@@ -409,7 +483,11 @@ export function useLiveJobs() {
     error,
     staticCount: ALL_JOBS.length,
     liveCount: hasBackend ? displayJobs.length : liveRows.length,
+    catalogStats,
     hasBackend,
     refresh,
+    dailySyncMeta,
+    syncStatus,
+    dailySyncOnly,
   }
 }

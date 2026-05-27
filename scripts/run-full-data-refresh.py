@@ -10,6 +10,9 @@ sys.path.insert(0, str(ROOT / "backend"))
 
 from app.agents.ingest_agent import IngestAgent  # noqa: E402
 
+SOURCE_TIMEOUT_SECONDS = 30
+NPM = "npm.cmd" if sys.platform == "win32" else "npm"
+
 
 async def run_all_scrapers() -> None:
     agent = IngestAgent()
@@ -18,20 +21,23 @@ async def run_all_scrapers() -> None:
     for i, entry in enumerate(enabled, 1):
         code = entry.get("code", "?")
         try:
-            row = await agent.run_source(code)
+            row = await asyncio.wait_for(agent.run_source(code), timeout=SOURCE_TIMEOUT_SECONDS)
             print(
                 f"[{i}/{len(enabled)}] {code}: saved={row.get('saved', 0)} "
                 f"fetched={row.get('fetched', 0)}",
                 flush=True,
             )
         except Exception as exc:
-            print(f"[{i}/{len(enabled)}] {code}: FAIL {exc}", flush=True)
+            if isinstance(exc, asyncio.TimeoutError):
+                print(f"[{i}/{len(enabled)}] {code}: TIMEOUT after {SOURCE_TIMEOUT_SECONDS}s", flush=True)
+            else:
+                print(f"[{i}/{len(enabled)}] {code}: FAIL {exc}", flush=True)
 
 
 def run_node_official() -> None:
     print("\n=== 2/3 RSS/portal feed snapshot (feed-only, no live-jobs overwrite) ===", flush=True)
     subprocess.run(
-        ["npm", "run", "fetch:official", "--", "--feed-only"],
+        [NPM, "run", "fetch:official", "--", "--feed-only"],
         cwd=ROOT,
         check=False,
     )
@@ -39,7 +45,7 @@ def run_node_official() -> None:
 
 def run_scrub() -> None:
     print("\n=== 3/3 Scrub aggregator links + export live-jobs.json ===", flush=True)
-    subprocess.run(["npm", "run", "data:scrub"], cwd=ROOT, check=False)
+    subprocess.run([NPM, "run", "data:scrub"], cwd=ROOT, check=False)
 
 
 async def main() -> None:

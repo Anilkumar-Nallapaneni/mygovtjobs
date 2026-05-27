@@ -5,6 +5,7 @@ import { STATES, toSvgStateId } from "@/data/states";
 import { computeJobAggregates } from "@/utils/jobAggregates";
 import { useStateLabel } from "@/utils/stateLabels";
 import { useLiveJobs } from "@/hooks/useLiveJobs";
+import { dailySyncLabel } from "@/lib/dailySync";
 import { FEED_POOL } from "@/data/feed";
 import { loadOfficialFeed, feedItemsForTicker } from "@/lib/officialFeed";
 import Ticker from "@/components/layout/Ticker";
@@ -26,15 +27,23 @@ function PageFallback() {
 }
 
 export default function App() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const stateLabel = useStateLabel();
   const {
     jobs,
     loading: jobsLoading,
     staticCount,
     liveCount,
+    catalogStats,
     refresh: refreshJobs,
+    dailySyncMeta,
+    syncStatus,
   } = useLiveJobs();
+
+  const dailySyncLine = useMemo(
+    () => dailySyncLabel(dailySyncMeta, syncStatus, t),
+    [dailySyncMeta, syncStatus, t, i18n.language]
+  );
   const [view, setView] = useState("home");
   const [homeResetKey, setHomeResetKey] = useState(0);
   const [selectedState, setSelectedState] = useState(null);
@@ -273,6 +282,7 @@ export default function App() {
                 jobsLoading={jobsLoading}
                 staticCount={staticCount}
                 liveCount={liveCount}
+                catalogStats={catalogStats}
                 selectedState={selectedState}
                 setSelectedState={setSelectedState}
                 activeCat={activeCat}
@@ -288,6 +298,7 @@ export default function App() {
                 onFooterLink={handleFooterLink}
                 headlinesTopicKey={headlinesTopicKey}
                 setHeadlinesTopicKey={setHeadlinesTopicKey}
+                dailySyncLine={dailySyncLine}
               />
             )}
           </Suspense>

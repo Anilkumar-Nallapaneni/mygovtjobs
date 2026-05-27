@@ -97,14 +97,14 @@ CREATE TABLE IF NOT EXISTS alert_deliveries (
 );
 
 -- ---------------------------------------------------------------------------
--- Row Level Security (public read for live jobs, public alert signup)
+-- Row Level Security (public read for visible jobs, public alert signup)
 -- ---------------------------------------------------------------------------
 
 ALTER TABLE jobs ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS jobs_public_read ON jobs;
 CREATE POLICY jobs_public_read ON jobs
-  FOR SELECT USING (status = 'live');
+  FOR SELECT USING (status IN ('live', 'expired'));
 
 ALTER TABLE alert_subscriptions ENABLE ROW LEVEL SECURITY;
 

@@ -38,7 +38,8 @@ export function adaptLiveJob(row, index = 0) {
 
   const urls = sanitizeOfficialUrls(row)
   const title = cleanJobTitle(row.title) || 'Government recruitment'
-  const vacancies = sanitizeVacancyCount(Number(row.vacancies) || 0, title)
+  const rawVacancies = Number(row.vacancies) || 0
+  const vacancies = sanitizeVacancyCount(rawVacancies, title)
 
   return enrichJobMetadata({
     id: row.id || `live-${index}`,
@@ -49,6 +50,7 @@ export function adaptLiveJob(row, index = 0) {
     stateIds,
     category,
     vacancies,
+    rawVacancies,
     qual: qualResolved.label || 'See notification',
     eduFilterKey: qualResolved.key,
     lastDate,

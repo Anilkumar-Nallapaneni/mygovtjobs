@@ -17,6 +17,11 @@ function formatDate(value, locale) {
   });
 }
 
+function hasKnownDisplayValue(value) {
+  const text = String(value ?? "").trim();
+  return Boolean(text && !/^(?:-|—|tba|pending|null|undefined)$/i.test(text));
+}
+
 function JobCard({
   job,
   onClick,
@@ -40,7 +45,7 @@ function JobCard({
   const lastDateRaw = enriched?.lastDate;
   const lastDate = formatDate(lastDateRaw, dateLocale);
   const publishedDate = formatDate(enriched?.publishedDate, dateLocale);
-  const hasLastDate = lastDateRaw && lastDateRaw !== "—";
+  const hasLastDate = hasKnownDisplayValue(lastDateRaw);
   const isExpired = job?.status === "expired";
   const lastMs = hasLastDate ? new Date(String(lastDateRaw)).getTime() : NaN;
   const daysLeft =
@@ -50,16 +55,22 @@ function JobCard({
       : null;
   const isUrgent = daysLeft != null && daysLeft >= 0 && daysLeft <= 7;
 
+  const pdfHref =
+    enriched?.pdfUrl && isOfficialRecruitmentUrl(String(enriched.pdfUrl)) ? String(enriched.pdfUrl) : null;
   const postsDisplay =
     vacancies > 0
       ? vacancies.toLocaleString(dateLocale)
-      : t("job.postsTba", { defaultValue: "—" });
+      : pdfHref
+        ? t("job.postsCheckPdf", { defaultValue: "Check PDF" })
+        : t("job.postsUnavailable", { defaultValue: "Not listed" });
 
   const dateLabel = hasLastDate
     ? lastDate
     : publishedDate !== "—"
       ? publishedDate
-      : "—";
+      : pdfHref
+        ? t("job.postsCheckPdf", { defaultValue: "Check PDF" })
+        : t("job.postsUnavailable", { defaultValue: "Not listed" });
   const dateCaption = hasLastDate
     ? t("jobDetail.lastDate")
     : publishedDate !== "—"
@@ -68,9 +79,6 @@ function JobCard({
 
   const catId = job?.category && CATS.some((c) => c.id === job.category) ? job.category : "state";
   const catColor = (CATS.find((c) => c.id === catId) || { color: DS.saffron }).color;
-  const pdfHref =
-    enriched?.pdfUrl && isOfficialRecruitmentUrl(String(enriched.pdfUrl)) ? String(enriched.pdfUrl) : null;
-
   const meta = [
     {
       icon: "📍",
@@ -146,17 +154,13 @@ function JobCard({
           <div className={`job-card__vacancy-num${vacancies > 0 ? "" : " job-card__vacancy-num--muted"}`}>
             {postsDisplay}
           </div>
-          <div className="job-card__vacancy-label">{t("job.posts")}</div>
+          <div className="job-card__vacancy-label">
+            {vacancies > 0 ? t("job.posts") : t("job.notice", { defaultValue: "NOTICE" })}
+          </div>
         </div>
       </div>
 
       <div className={`job-card__stats${vacancies > 0 ? " job-card__stats--vacancy-shown" : ""}`}>
-        {vacancies <= 0 ? (
-          <div className="job-card__stat">
-            <span className="job-card__stat-label">{t("job.posts")}</span>
-            <span className="job-card__stat-value job-card__stat-value--muted">{postsDisplay}</span>
-          </div>
-        ) : null}
         <div className="job-card__stat job-card__stat--highlight">
           <span className="job-card__stat-label">{dateCaption}</span>
           <span className="job-card__stat-value">{dateLabel}</span>

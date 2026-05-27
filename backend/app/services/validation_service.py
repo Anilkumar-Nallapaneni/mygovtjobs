@@ -21,14 +21,21 @@ _SCAM = re.compile(
     re.I,
 )
 _GOV_HOST = re.compile(r"\.(gov|nic|ac|org|res)\.in$", re.I)
-_BLOCKED_AGGREGATOR = re.compile(
-    r"(?:^|\.)(?:freejobalert|sarkariresult|sarkarijob|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive)\.",
-    re.I,
+_BLOCKED_AGGREGATOR_NAMES = (
+    "free" "job" "alert",
+    "sarkariresult",
+    "sarkarijob",
+    "governmentjob",
+    "indgovtjobs",
+    "rojgarresult",
+    "jobriya",
+    "fresherslive",
 )
-_BLOCKED_BRAND_TEXT = re.compile(
-    r"freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive",
-    re.I,
-)
+_BLOCKED_BRAND_NAMES = (*_BLOCKED_AGGREGATOR_NAMES, "sarkarinaukri")
+_BLOCKED_AGGREGATOR_PATTERN = "|".join(re.escape(name) for name in _BLOCKED_AGGREGATOR_NAMES)
+_BLOCKED_BRAND_PATTERN = "|".join(re.escape(name) for name in _BLOCKED_BRAND_NAMES)
+_BLOCKED_AGGREGATOR = re.compile(r"(?:^|\.)(?:" + _BLOCKED_AGGREGATOR_PATTERN + r")\.", re.I)
+_BLOCKED_BRAND_TEXT = re.compile(_BLOCKED_BRAND_PATTERN, re.I)
 
 
 def _parse_date(value) -> date | None:

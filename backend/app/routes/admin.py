@@ -1,12 +1,14 @@
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy import func, select
 
 from app.database.session import SessionLocal
 from app.middleware.auth import require_admin_key
 from app.models.job import Job, Source
+from app.config import get_settings
+from app.services.daily_sync_service import DailySyncService
 from app.services.ingest_service import IngestService
 from app.services.supabase_audit_service import SupabaseAuditService
 
@@ -112,8 +114,19 @@ async def admin_supabase_audit():
         }
 
 
+@router.get("/sync-status")
+async def admin_sync_status():
+    return DailySyncService().public_status()
+
+
 @router.post("/ingest/run-all")
-async def admin_run_ingest():
+async def admin_run_ingest(force: bool = Query(False)):
+    settings = get_settings()
+    sync = DailySyncService()
+    if settings.daily_sync_enforce_once and not force:
+        ok, reason = sync.can_start(force=False)
+        if not ok and sync.already_ran_today_ist():
+            raise HTTPException(status_code=409, detail=reason)
     synced = await IngestService().sync_sources_registry()
     results = await IngestService().run_all_enabled()
     return {"sources_synced": synced, "results": results}

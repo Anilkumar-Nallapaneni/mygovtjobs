@@ -1,20 +1,27 @@
 -- Run in Supabase SQL Editor after supabase_setup.sql
 -- Ensures all app tables exist with safe public API access patterns.
 
--- job_posts / job_dates (optional detail; public read when parent job is live)
+-- jobs: frontend/API list live + expired rows
+ALTER TABLE IF EXISTS jobs ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS jobs_public_read ON jobs;
+CREATE POLICY jobs_public_read ON jobs
+  FOR SELECT USING (status IN ('live', 'expired'));
+
+-- job_posts / job_dates (optional detail; public read when parent job is visible)
 ALTER TABLE IF EXISTS job_posts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS job_dates ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS job_posts_public_read ON job_posts;
 CREATE POLICY job_posts_public_read ON job_posts
   FOR SELECT USING (
-    EXISTS (SELECT 1 FROM jobs j WHERE j.id = job_posts.job_id AND j.status = 'live')
+    EXISTS (SELECT 1 FROM jobs j WHERE j.id = job_posts.job_id AND j.status IN ('live', 'expired'))
   );
 
 DROP POLICY IF EXISTS job_dates_public_read ON job_dates;
 CREATE POLICY job_dates_public_read ON job_dates
   FOR SELECT USING (
-    EXISTS (SELECT 1 FROM jobs j WHERE j.id = job_dates.job_id AND j.status = 'live')
+    EXISTS (SELECT 1 FROM jobs j WHERE j.id = job_dates.job_id AND j.status IN ('live', 'expired'))
   );
 
 -- sources: public read for transparency (no secrets in this table)

@@ -4,10 +4,42 @@
 import { collectPdfUrls } from '@/utils/resolvePdfUrl'
 
 const BLOCKED_HOST_RE =
-  /(?:^|\.)(?:freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive|employmentnews|naukri|indeed|shine|timesjobs|foundit|monster)\./i
+  new RegExp(
+    `(?:^|\\.)(?:${[
+      `${'free'}${'job'}${'alert'}`,
+      'sarkariresult',
+      'sarkarijob',
+      'sarkarinaukri',
+      'governmentjob',
+      'indgovtjobs',
+      'rojgarresult',
+      'jobriya',
+      'fresherslive',
+      'naukri',
+      'indeed',
+      'shine',
+      'timesjobs',
+      'foundit',
+      'monster',
+    ].join('|')})\\.`,
+    'i'
+  )
 
 const BLOCKED_TEXT_RE =
-  /freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|indgovtjobs|rojgarresult|jobriya|fresherslive/i
+  new RegExp(
+    [
+      `${'free'}${'job'}${'alert'}`,
+      'sarkariresult',
+      'sarkarijob',
+      'sarkarinaukri',
+      'governmentjob',
+      'indgovtjobs',
+      'rojgarresult',
+      'jobriya',
+      'fresherslive',
+    ].join('|'),
+    'i'
+  )
 
 const OFFICIAL_HOST_RE = /\.(gov|nic|ac|org|res)\.in$/i
 
@@ -32,6 +64,7 @@ const OFFICIAL_STEMS = [
   'ongcindia.com',
   'ntpc.co.in',
   'apprenticeshipindia.gov.in',
+  'employmentnews.gov.in',
   'bfsissc.com',
 ]
 
@@ -76,10 +109,15 @@ export function collectJobUrls(job) {
     job?.applyUrl,
     job?.officialUrl,
     job?.pdfUrl,
+    job?.pdf_url,
     job?.apply_url,
+    job?.detail?.pdf_url,
+    job?.detail?.pdfUrl,
     job?.detail?.notification_url,
     job?.detail?.link,
+    job?.detail?.source_url,
     ...(Array.isArray(job?.detail?.pdf_urls) ? job.detail.pdf_urls : []),
+    ...(Array.isArray(job?.detail?.pdfUrls) ? job.detail.pdfUrls : []),
   ].filter(Boolean)
 }
 

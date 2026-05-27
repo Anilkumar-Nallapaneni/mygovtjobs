@@ -26,10 +26,15 @@ class Settings(BaseSettings):
     admin_api_key: str | None = None
     allow_insecure_admin: bool = False
     app_env: str = "development"
-    allow_fallback_json_export: bool = False
+    allow_fallback_json_export: bool = True
     rate_limit_per_minute: int = 120
     ingest_lookback_days: int = 60
     ingest_max_items_per_source: int = 120
+    # Daily IngestAgent run — 8:00 AM IST, once per calendar day
+    daily_sync_hour_ist: int = 8
+    daily_sync_minute_ist: int = 0
+    daily_sync_enforce_once: bool = True
+    daily_sync_state_path: str = str(REPO_ROOT / "frontend" / "public" / "data" / "daily-sync-state.json")
 
 
 @lru_cache

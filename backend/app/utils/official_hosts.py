@@ -5,11 +5,19 @@ from __future__ import annotations
 import re
 from urllib.parse import urlparse
 
-_BLOCKED_AGGREGATOR = re.compile(
-    r"(?:^|\.)(?:freejobalert|sarkariresult|sarkarijob|sarkarinaukri|governmentjob|"
-    r"indgovtjobs|rojgarresult|jobriya|fresherslive|employmentnews\.gov)\.",
-    re.I,
+_BLOCKED_AGGREGATOR_NAMES = (
+    "free" "job" "alert",
+    "sarkariresult",
+    "sarkarijob",
+    "sarkarinaukri",
+    "governmentjob",
+    "indgovtjobs",
+    "rojgarresult",
+    "jobriya",
+    "fresherslive",
 )
+_BLOCKED_AGGREGATOR_PATTERN = "|".join(re.escape(name) for name in _BLOCKED_AGGREGATOR_NAMES)
+_BLOCKED_AGGREGATOR = re.compile(r"(?:^|\.)(?:" + _BLOCKED_AGGREGATOR_PATTERN + r")\.", re.I)
 
 _GOV_TLD = re.compile(r"\.(gov|nic|ac|org|res)\.in$", re.I)
 

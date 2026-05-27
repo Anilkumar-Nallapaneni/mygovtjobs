@@ -1,5 +1,6 @@
 """Find notification PDF URLs on official pages when the scrape only captured an HTML link."""
 
+import logging
 import re
 from urllib.parse import urljoin, urlparse
 
@@ -18,6 +19,7 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 )
+logger = logging.getLogger(__name__)
 
 
 def _is_pdf_url(url: str | None) -> bool:
@@ -96,7 +98,8 @@ async def discover_pdf_on_page(page_url: str, *, timeout: float = 20) -> str | N
                 text = " ".join(a.get_text(strip=True).split())
                 anchors.append((text, href))
             return _pick_best_pdf(anchors, str(res.url))
-    except Exception:
+    except Exception as exc:
+        logger.info("pdf discovery failed url=%s error=%s", page_url, exc)
         return None
 
 
@@ -118,7 +121,8 @@ async def discover_all_pdfs_on_page(page_url: str, *, timeout: float = 20, limit
                 text = " ".join(a.get_text(strip=True).split())
                 anchors.append((text, href))
             return _pick_all_pdfs(anchors, str(res.url), limit=limit)
-    except Exception:
+    except Exception as exc:
+        logger.info("pdf discovery failed url=%s error=%s", page_url, exc)
         return []
 
 

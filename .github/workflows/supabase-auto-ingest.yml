@@ -27,12 +27,15 @@ jobs:
           npm ci
           pip install -r backend/requirements.txt
 
-      - name: Sync sources + ingest to Supabase
+      - name: Daily 8AM IST sync (IngestAgent)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+          DAILY_SYNC_ENFORCE_ONCE: "1"
           ALLOW_FALLBACK_JSON_EXPORT: "0"
-        run: node scripts/run-python.mjs scripts/run-supabase-full-sync.py
+        run: node scripts/run-python.mjs scripts/run-daily-8am-sync.py
 
       - name: Audit tables
         env:

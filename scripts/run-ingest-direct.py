@@ -19,7 +19,7 @@ async def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0, help="Max sources (0 = all enabled)")
     parser.add_argument("--source", action="append", default=[], help="Source code to run (repeatable)")
-    parser.add_argument("--source-timeout", type=int, default=90, help="Seconds before skipping a slow source")
+    parser.add_argument("--source-timeout", type=int, default=240, help="Seconds before skipping a slow source")
     args = parser.parse_args()
 
     agent = IngestAgent()

@@ -19,6 +19,8 @@ from app.database.session import SessionLocal  # noqa: E402
 from app.services.source_sync_service import SourceSyncService  # noqa: E402
 from app.services.supabase_audit_service import SupabaseAuditService  # noqa: E402
 
+SOURCE_TIMEOUT_SECONDS = 240
+
 
 async def sync_sources() -> int:
     async with SessionLocal() as session:
@@ -32,13 +34,16 @@ async def run_ingest() -> None:
     for i, entry in enumerate(enabled, 1):
         code = entry.get("code", "?")
         try:
-            row = await agent.run_source(code)
+            row = await asyncio.wait_for(agent.run_source(code), timeout=SOURCE_TIMEOUT_SECONDS)
             print(
                 f"[{i}/{len(enabled)}] {code}: saved={row.get('saved', 0)} fetched={row.get('fetched', 0)}",
                 flush=True,
             )
         except Exception as exc:
-            print(f"[{i}/{len(enabled)}] {code}: FAIL {exc}", flush=True)
+            if isinstance(exc, asyncio.TimeoutError):
+                print(f"[{i}/{len(enabled)}] {code}: TIMEOUT after {SOURCE_TIMEOUT_SECONDS}s", flush=True)
+            else:
+                print(f"[{i}/{len(enabled)}] {code}: FAIL {exc}", flush=True)
 
 
 def run_official_import() -> None:

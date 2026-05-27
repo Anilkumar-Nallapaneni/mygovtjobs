@@ -1,5 +1,6 @@
 """State PSC / portal HTML scraper — mirrors scripts/lib/html-job-links.mjs."""
 
+import logging
 import re
 from typing import Any
 from urllib.parse import urljoin, urlparse
@@ -63,6 +64,7 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 )
+logger = logging.getLogger(__name__)
 
 
 def _host_key(url: str) -> str:
@@ -189,9 +191,11 @@ class StatePortalHtmlScraper(BaseScraper):
                     assert_safe_url(page_url)
                     res = await client.get(page_url)
                     if res.status_code >= 400:
+                        logger.info("state portal page skipped status=%s url=%s", res.status_code, page_url)
                         continue
                     html = res.text
-                except Exception:
+                except Exception as exc:
+                    logger.info("state portal page fetch failed url=%s error=%s", page_url, exc)
                     continue
 
                 links = _extract_links(html, page_url, relaxed=False, max_items=self.max_items)

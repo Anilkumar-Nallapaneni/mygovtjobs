@@ -16,7 +16,7 @@ async def main() -> None:
     if "REPLACE_WITH" in url:
         print("[FAIL] backend/.env still has REPLACE_WITH_DB_PASSWORD - set Supabase database password")
         sys.exit(1)
-    engine = create_async_engine(url)
+    engine = create_async_engine(url, connect_args={"statement_cache_size": 0})
     try:
         async with engine.connect() as conn:
             n = (await conn.execute(text("SELECT count(*) FROM jobs"))).scalar_one()

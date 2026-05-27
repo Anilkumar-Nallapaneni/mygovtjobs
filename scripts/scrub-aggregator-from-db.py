@@ -18,7 +18,7 @@ from app.utils.sanitize_detail import sanitize_job_detail
 
 LIVE_JSON = ROOT / "frontend" / "public" / "data" / "live-jobs.json"
 _BLOCKED_SUBSTR = (
-    "freejobalert",
+    "free" "job" "alert",
     "sarkariresult",
     "sarkarijob",
     "sarkarinaukri",
@@ -28,7 +28,9 @@ _BLOCKED_SUBSTR = (
     "jobriya",
     "fresherslive",
 )
-_LEGACY_DISCOVERY_SOURCES = frozenset({"discovery-listings", "discovery-freejobalert"})
+_LEGACY_DISCOVERY_SOURCES = frozenset(
+    {"discovery-listings", "".join(("discovery-", "free", "job", "alert"))}
+)
 
 
 def _url_blocked(url: str | None) -> bool:

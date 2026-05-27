@@ -131,9 +131,39 @@ class JobPersistService:
     async def export_live_jobs_json(self, session: AsyncSession) -> int:
         from app.services.job_service import JobService
 
-        items, _ = await JobService().list_jobs(limit=800, offset=0, session=session)
+        service = JobService()
+        items = []
+        offset = 0
+        page_size = 1000
+        total = None
+        while total is None or offset < total:
+            page, total = await service.list_jobs(limit=page_size, offset=offset, session=session)
+            if not page:
+                break
+            items.extend(page)
+            offset += len(page)
+
+        daily_block: dict = {}
+        try:
+            from app.services.daily_sync_service import DailySyncService
+
+            daily_block = DailySyncService()._read()
+            if daily_block.get("status") == "completed":
+                daily_block = {
+                    "completedAt": daily_block.get("completedAt"),
+                    "completedAtIst": daily_block.get("completedAtIst"),
+                    "dateIst": daily_block.get("lastCompletedDateIst"),
+                    "nextRunAtIst": daily_block.get("nextRunAtIst"),
+                    "jobCount": len(items),
+                    "sourcesScraped": daily_block.get("sourcesScraped"),
+                    "scheduledLabel": "8:00 AM IST daily",
+                }
+        except Exception:
+            pass
+
         payload = {
             "generatedAt": datetime.now(timezone.utc).isoformat(),
+            "dailySync": daily_block or None,
             "items": [item.model_dump(mode="json") for item in items],
         }
         path = Path(get_settings().live_jobs_json_path)

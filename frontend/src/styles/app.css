@@ -1294,6 +1294,14 @@ input::placeholder {
   }
 }
 
+.home-hero-grid--state .home-state-jobs-panel {
+  min-height: 0;
+}
+
+.home-state-jobs-panel .state-jobs-panel {
+  max-height: none;
+}
+
 .home-notifications-sidebar::-webkit-scrollbar {
   width: 6px;
 }
