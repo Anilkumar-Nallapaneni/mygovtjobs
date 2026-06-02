@@ -32,7 +32,6 @@ export default function App() {
   const {
     jobs,
     loading: jobsLoading,
-    staticCount,
     liveCount,
     catalogStats,
     refresh: refreshJobs,
@@ -256,7 +255,7 @@ export default function App() {
   return (
     <>
       <div className="app-shell" key={i18n.resolvedLanguage || i18n.language}>
-        <Ticker feedItems={feedItems} />
+        <Ticker feedItems={feedItems} jobItems={jobs} />
         <Navbar
           view={view}
           onNavigate={handleNavigate}
@@ -280,7 +279,6 @@ export default function App() {
                 key={`home-${homeResetKey}-${i18n.resolvedLanguage || i18n.language}`}
                 jobs={jobs}
                 jobsLoading={jobsLoading}
-                staticCount={staticCount}
                 liveCount={liveCount}
                 catalogStats={catalogStats}
                 selectedState={selectedState}

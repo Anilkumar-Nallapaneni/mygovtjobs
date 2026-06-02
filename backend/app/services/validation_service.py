@@ -12,6 +12,7 @@ from app.services.noise_filter import (
     is_junk_job_title,
     is_portal_section_link,
     is_result_archive_listing,
+    is_tender_or_procurement,
     looks_like_job_notification,
 )
 
@@ -57,11 +58,14 @@ class ValidationService:
         """Return (is_valid, reasons)."""
         reasons: list[str] = []
         title = clean_job_title(normalized.get("title"))
+        apply_url = normalized.get("apply_url") or ""
         if len(title) < 8:
             reasons.append("title_too_short")
-        if is_junk_job_title(title):
+        if is_junk_job_title(title, apply_url):
             reasons.append("junk_title")
-        if not looks_like_job_notification(title):
+        if is_tender_or_procurement(title, apply_url):
+            reasons.append("tender_or_procurement")
+        if not looks_like_job_notification(title, apply_url):
             reasons.append("not_job_notification")
         detail = normalized.get("detail", {})
         summary = detail.get("summary") if isinstance(detail, dict) else ""
@@ -69,7 +73,6 @@ class ValidationService:
         if _BLOCKED_BRAND_TEXT.search(brand_probe):
             reasons.append("aggregator_brand")
 
-        apply_url = normalized.get("apply_url") or ""
         if is_portal_section_link(title, apply_url):
             reasons.append("portal_nav_link")
         if is_result_archive_listing(title, apply_url):

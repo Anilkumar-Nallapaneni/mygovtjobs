@@ -1,10 +1,14 @@
 import * as cheerio from "cheerio";
 
 const STRICT_PATTERN =
-  /recruit|vacanc|notif|advert|career|employment|bharti|naukri|exam|admit|result|apply|opening|posting|selection|appointment|walk-?in|directorate|commission|board|notification|tender|job/i;
+  /recruit|vacanc|notif|advert|career|employment|bharti|naukri|exam|admit|result|apply|opening|posting|appointment|walk-?in|directorate|commission|board|notification|job/i;
 
 const PATH_PATTERN =
-  /recruit|vacanc|notif|advert|career|employment|bharti|exam|admit|result|apply|opening|posting|selection|notice|tender|job|cwe|archive|walkin/i;
+  /recruit|vacanc|notif|advert|career|employment|bharti|exam|admit|result|apply|opening|posting|notice|job|cwe|archive|walkin/i;
+
+const TENDER_URL_PATTERN = /\/tenders?(?:\/|$|\?|s\b)|\/e-?tender|\/procurement|downloadtender/i;
+const TENDER_TEXT_PATTERN =
+  /\be-?tenders?\b|\btenders?\b|\bprocurement\b|\bquotations?\b|\bnotice\s+tender\b/i;
 
 const SKIP_HREF =
   /^(mailto:|javascript:|#)|facebook\.com|twitter\.com|instagram\.com|youtube\.com\/watch|linkedin\.com\/share|play\.google|apps\.apple|\.(jpg|jpeg|png|gif|svg|css|js)(\?|$)/i;
@@ -28,6 +32,7 @@ function scoreLink(text, abs, pageHost) {
   if (text.length >= 15) score += 1;
   if (text.length >= 30) score += 1;
   if (/login|signup|register|privacy|terms|contact|sitemap|gallery|tourism/i.test(probe)) score -= 5;
+  if (TENDER_URL_PATTERN.test(abs) || TENDER_TEXT_PATTERN.test(title)) score -= 20;
   if (
     /^(apply\s+online|notifications?|advertisements?|examination\s+syllabus|recruitment\s+calendar|results?)$/i.test(
       text.trim()

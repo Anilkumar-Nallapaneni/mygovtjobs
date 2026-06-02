@@ -15,9 +15,27 @@ from app.utils.official_hosts import (
     is_official_recruitment_host,
     pick_best_official_url,
 )
+from app.services.noise_filter import (
+    is_junk_job_title,
+    is_tender_or_procurement,
+    looks_like_job_notification,
+)
+
 from app.utils.sanitize_detail import sanitize_job_detail
 
 logger = logging.getLogger(__name__)
+
+
+def _is_recruitment_job(row: Job) -> bool:
+    title = row.title or ""
+    url = row.apply_url or ""
+    if is_tender_or_procurement(title, url):
+        return False
+    if is_junk_job_title(title, url):
+        return False
+    if not looks_like_job_notification(title, url):
+        return False
+    return True
 
 
 def _escape_like(q: str) -> str:
@@ -112,7 +130,8 @@ class JobService:
                     stmt.order_by(Job.published_at.desc().nullslast()).limit(limit).offset(offset)
                 )
             ).scalars().all()
-            return [_to_job_out(r) for r in rows], int(total)
+            filtered = [_to_job_out(r) for r in rows if _is_recruitment_job(r)]
+            return filtered, int(total)
         except Exception as exc:
             await session.rollback()
             logger.exception("list_jobs failed")
@@ -149,7 +168,9 @@ class JobService:
             session = SessionLocal()
         try:
             row = (await session.execute(select(Job).where(Job.slug == slug))).scalar_one_or_none()
-            return _to_job_out(row) if row else None
+            if not row or not _is_recruitment_job(row):
+                return None
+            return _to_job_out(row)
         except Exception as exc:
             logger.exception("get_by_slug failed slug=%s", slug)
             raise DatabaseUnavailableError from exc

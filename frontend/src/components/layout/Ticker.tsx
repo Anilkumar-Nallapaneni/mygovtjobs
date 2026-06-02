@@ -1,18 +1,22 @@
 import { useEffect, useRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
-import { ALL_JOBS } from "@/data/jobs";
 
-export default function Ticker({ feedItems }) {
+export default function Ticker({ feedItems = [], jobItems = [] }) {
   const { t } = useTranslation();
   const ref = useRef(null);
-  const baseTicker = useMemo(() => {
-    const line = (j) => {
+
+  const jobLines = useMemo(() => {
+    return jobItems.slice(0, 10).map((j) => {
       const tag = j.status === "hot" ? "🔥" : j.status === "new" ? "🆕" : "📋";
-      return `${tag} ${j.title} — ${Number(j.vacancies).toLocaleString("en-IN")} ${t("ticker.posts")} | ${t("ticker.last")} ${j.lastDate}`;
-    };
-    return [...ALL_JOBS].sort((a, b) => b.vacancies - a.vacancies).slice(0, 10).map(line);
-  }, [t]);
+      const vac =
+        j.vacancies != null && Number(j.vacancies) > 0
+          ? ` — ${Number(j.vacancies).toLocaleString("en-IN")} ${t("ticker.posts")}`
+          : "";
+      const last = j.lastDate ? ` | ${t("ticker.last")} ${j.lastDate}` : "";
+      return `${tag} ${j.title}${vac}${last}`;
+    });
+  }, [jobItems, t]);
 
   useEffect(() => {
     let x = 0;
@@ -32,7 +36,7 @@ export default function Ticker({ feedItems }) {
     };
     raf = requestAnimationFrame(run);
     return () => cancelAnimationFrame(raf);
-  }, [feedItems]);
+  }, [feedItems, jobLines]);
 
   const liveFeeds = feedItems.slice(0, 5).map((f) => {
     const vac =
@@ -41,7 +45,11 @@ export default function Ticker({ feedItems }) {
         : "";
     return `🔴 ${t("ticker.liveLine", { title: `${f.title}${vac}` })}`;
   });
-  const all = [...liveFeeds, ...baseTicker, ...liveFeeds, ...baseTicker];
+
+  const base = jobLines.length ? jobLines : liveFeeds;
+  const all = base.length ? [...liveFeeds, ...base, ...liveFeeds, ...base] : liveFeeds;
+
+  if (!all.length) return null;
 
   return (
     <div style={{ height: 32, background: DS.bg0, borderBottom: `1px solid ${DS.border}`, display: "flex", alignItems: "center", overflow: "hidden", flexShrink: 0 }}>

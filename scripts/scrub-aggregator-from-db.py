@@ -2,6 +2,7 @@
 """Remove third-party aggregator jobs/URLs and export official-only live-jobs.json."""
 import asyncio
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -31,6 +32,40 @@ _BLOCKED_SUBSTR = (
 _LEGACY_DISCOVERY_SOURCES = frozenset(
     {"discovery-listings", "".join(("discovery-", "free", "job", "alert"))}
 )
+_NOISE_TITLE_PATTERNS = (
+    re.compile(r"^\s*(?:home|app|page\s*\d+|read\s*more)\s*$", re.I),
+    re.compile(r"\bexternal\s+link\b", re.I),
+    re.compile(r"\bwcag\b", re.I),
+    re.compile(r"\bcopyright\b", re.I),
+    re.compile(r"\btoll\s*free\b", re.I),
+    re.compile(r"\bwaitlist\b", re.I),
+    re.compile(r"\bmarks\s+secured\b", re.I),
+    re.compile(r"\bresult(?:s)?\b", re.I),
+    re.compile(r"\bstudy\s+material\b", re.I),
+    re.compile(r"\bwithdrawn\s+products?\b", re.I),
+)
+_NOISE_DEPT_PATTERNS = (
+    re.compile(r"^\s*www\.", re.I),
+    re.compile(r"\.gov\.in\s*$", re.I),
+)
+
+
+def _looks_like_noise_title(value: str | None) -> bool:
+    text = str(value or "").strip()
+    if not text:
+        return True
+    if len(text) <= 4:
+        return True
+    if re.fullmatch(r"page\s*\d+", text, flags=re.I):
+        return True
+    return any(pattern.search(text) for pattern in _NOISE_TITLE_PATTERNS)
+
+
+def _looks_like_noise_dept(value: str | None) -> bool:
+    text = str(value or "").strip()
+    if not text:
+        return False
+    return any(pattern.search(text) for pattern in _NOISE_DEPT_PATTERNS)
 
 
 def _url_blocked(url: str | None) -> bool:
@@ -59,6 +94,10 @@ def _detail_blocked(detail: dict) -> bool:
 
 
 def _should_delete_job(job: Job) -> bool:
+    if _looks_like_noise_title(job.title):
+        return True
+    if _looks_like_noise_dept(job.dept) and _looks_like_noise_title(job.title):
+        return True
     if _text_blocked(job.title, job.dept):
         return True
     detail = dict(job.detail or {})
@@ -114,6 +153,12 @@ def scrub_live_json() -> int:
     kept = []
     dropped = 0
     for row in items:
+        if _looks_like_noise_title(row.get("title")):
+            dropped += 1
+            continue
+        if _looks_like_noise_dept(row.get("dept")) and _looks_like_noise_title(row.get("title")):
+            dropped += 1
+            continue
         if _text_blocked(row.get("title"), row.get("dept")):
             dropped += 1
             continue

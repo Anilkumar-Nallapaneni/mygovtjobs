@@ -2,7 +2,6 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } fro
 import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
-import { ALL_JOBS } from "@/data/jobs";
 import { isNationwideAllStatesJob, jobMatchesNationwideFilter, jobMatchesStateFilter } from "@/data/jobRegion";
 import { jobMatchesSearch } from "@/utils/jobSearch";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -127,9 +126,8 @@ function EducationFilterPill({
 }
 
 export default function HomePage({
-  jobs = ALL_JOBS,
+  jobs = [],
   jobsLoading = false,
-  staticCount = 0,
   liveCount = 0,
   catalogStats = null,
   selectedState,
@@ -441,7 +439,7 @@ export default function HomePage({
       </div>
 
       {/* Row 2 — tagline (hidden while a state is selected — “jobs scroll” mode) */}
-      <section style={{ padding: "0 20px 28px", maxWidth: "var(--layout-max)", margin: "0 auto" }}>
+      <section className="home-page-main" style={{ padding: "0 20px 28px", maxWidth: "var(--layout-max)", margin: "0 auto" }}>
         {!selectedState && (
           <div
             className="home-hero-tagline"
@@ -761,7 +759,7 @@ export default function HomePage({
                 {!showLatestTable && jobsLoading
                   ? ` · ${t("ticker.live")}…`
                   : !showLatestTable && liveCount > 0
-                    ? ` · ${t("home.catalogMix", { demo: staticCount, live: liveCount })}`
+                    ? ` · ${t("home.liveCount", { count: liveCount, defaultValue: "{{count}} official notices" })}`
                     : ""}
                 {!showLatestTable && quickFilter ? ` · ${t(`quickFilter.${quickFilter}`)}` : ""}
                 {!showLatestTable && heroStatFilter

@@ -91,36 +91,69 @@ export type LiveJobsSnapshot = {
   dailySync?: Record<string, unknown> | null
 }
 
-/** Static snapshot written by daily IngestAgent sync (8 AM IST). */
-export async function fetchLiveJobsSnapshot(): Promise<LiveJobsSnapshot> {
-  const dailyOnly = import.meta.env.VITE_DAILY_SYNC_ONLY === '1'
-  try {
-    const res = await fetchWithTimeout(
-      dailyOnly ? '/data/live-jobs.json' : `/data/live-jobs.json?t=${Date.now()}`,
-      {
-        cache: dailyOnly ? 'force-cache' : 'no-store',
-        timeoutMs: 8_000,
-      }
-    )
-    if (!res.ok) return { items: [] }
-    const json = await res.json()
-    const items = Array.isArray(json.items) ? json.items : []
-    return {
-      items: items.slice(0, 8000),
-      generatedAt: typeof json.generatedAt === 'string' ? json.generatedAt : null,
-      dailySync:
-        json.dailySync && typeof json.dailySync === 'object'
-          ? (json.dailySync as Record<string, unknown>)
-          : null,
-    }
-  } catch {
-    return { items: [] }
+let snapshotPrefetch: Promise<LiveJobsSnapshot> | null = null
+
+export function invalidateSnapshotPrefetch() {
+  snapshotPrefetch = null
+}
+
+/** Start loading the static snapshot before React mounts (faster first paint). */
+export function prefetchLiveJobsSnapshot() {
+  if (!snapshotPrefetch) {
+    snapshotPrefetch = fetchLiveJobsSnapshot()
+  }
+  return snapshotPrefetch
+}
+
+function parseLiveJobsSnapshot(json: unknown): LiveJobsSnapshot {
+  const payload = json && typeof json === 'object' ? (json as Record<string, unknown>) : {}
+  const items = Array.isArray(payload.items) ? payload.items : []
+  return {
+    items: items.slice(0, 8000),
+    generatedAt: typeof payload.generatedAt === 'string' ? payload.generatedAt : null,
+    dailySync:
+      payload.dailySync && typeof payload.dailySync === 'object'
+        ? (payload.dailySync as Record<string, unknown>)
+        : null,
   }
 }
 
-export async function fetchJobsFromJson(): Promise<ApiJob[]> {
-  const snap = await fetchLiveJobsSnapshot()
-  return snap.items
+/** Static snapshot written by daily IngestAgent sync (8 AM IST). */
+export async function fetchLiveJobsSnapshot(options?: {
+  bustCache?: boolean
+}): Promise<LiveJobsSnapshot> {
+  const dailyOnly = import.meta.env.VITE_DAILY_SYNC_ONLY === '1'
+  const bustCache = Boolean(options?.bustCache)
+
+  if (!bustCache && snapshotPrefetch) {
+    return snapshotPrefetch
+  }
+
+  const run = async (): Promise<LiveJobsSnapshot> => {
+    try {
+      const url =
+        dailyOnly || !bustCache
+          ? '/data/live-jobs.json'
+          : `/data/live-jobs.json?t=${Date.now()}`
+      const res = await fetchWithTimeout(url, {
+        cache: dailyOnly ? 'force-cache' : bustCache ? 'no-store' : 'default',
+        timeoutMs: 8_000,
+      })
+      if (!res.ok) return { items: [] }
+      const json = await res.json()
+      return parseLiveJobsSnapshot(json)
+    } catch {
+      return { items: [] }
+    }
+  }
+
+  if (bustCache) {
+    snapshotPrefetch = run()
+    return snapshotPrefetch
+  }
+
+  snapshotPrefetch = run()
+  return snapshotPrefetch
 }
 
 export async function fetchJobBySlug(slug: string): Promise<ApiJob | null> {

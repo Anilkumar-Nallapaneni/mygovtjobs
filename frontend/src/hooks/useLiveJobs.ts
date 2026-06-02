@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { ALL_JOBS } from '@/data/jobs'
 import {
   fetchJobsFromApi,
   fetchLiveJobsSnapshot,
+  invalidateSnapshotPrefetch,
   JOBS_FETCH_TIMEOUT_MS,
 } from '@/lib/jobsApi'
 import {
@@ -12,15 +12,13 @@ import {
   type SyncStatusResponse,
 } from '@/lib/dailySync'
 import { getSupabase, isSupabaseConfigured } from '@/lib/supabase'
-import { adaptLiveJob, mergeJobs } from '@/utils/liveJobAdapter'
+import { adaptLiveJob } from '@/utils/liveJobAdapter'
 import { filterDisplayJobs } from '@/utils/jobFilters'
 import { isPortalNoiseJob } from '@/utils/jobNoiseFilter'
 import { isAllowedOfficialJob, rowHasBlockedHost } from '@/utils/officialDomains'
 
 const RECRUIT_RE =
   /recruit|vacanc|notif|advert|exam|bharti|apply|post|constable|group[\s-]*[i1-4]|cgl|ntpc|psc|ssc|upsc|railway|bank|police|teacher|defence|apprentice|walk-?in|selection|appointment/i
-const NOISE_TITLE_RE =
-  /^(careers?|tenders?|contact(\s+us)?|login|sign\s*up|privacy|sitemap|gallery|tourism|about\s+us|governing\s+board|policies|rules|guidelines|circulars\s+withdrawn|home|news\s*&\s*events)$/i
 
 const MAX_LIVE_ROWS = 8000
 const SUPABASE_PAGE = 1000
@@ -32,18 +30,25 @@ const API_PAGE = 1000
 const JOBS_SOURCE = (import.meta.env.VITE_JOBS_SOURCE || 'auto').toLowerCase()
 const IS_EXPLICIT_SOURCE = ['static', 'api', 'supabase'].includes(JOBS_SOURCE)
 
-let CACHE = null
-let INFLIGHT = null
-/** Set when user hits Refresh — refetch without blanking the UI. */
+let CACHE: {
+  rows: ReturnType<typeof adaptLiveJob>[]
+  sources: string[]
+  hasBackend: boolean
+  error: string | null
+  catalogStats: ReturnType<typeof statsFromRows> | null
+  dailySync?: DailySyncMeta | null
+} | null = null
+let INFLIGHT: Promise<Awaited<ReturnType<typeof loadJobsPayload>>> | null = null
 let FORCE_RELOAD = false
 
 export function invalidateJobsCache() {
   CACHE = null
   INFLIGHT = null
   FORCE_RELOAD = true
+  invalidateSnapshotPrefetch()
 }
 
-function isUsefulLiveRow(row, { strict = false } = {}) {
+function isUsefulLiveRow(row: Record<string, unknown>) {
   const title = String(row?.title || '').trim()
   if (!title || title.length < 6) return false
   if (isPortalNoiseJob(row)) return false
@@ -51,15 +56,11 @@ function isUsefulLiveRow(row, { strict = false } = {}) {
   if (!isAllowedOfficialJob(row)) return false
   if (/^\{\{.*\}\}$/.test(title)) return false
   if (/translate\s*\}\}/i.test(title)) return false
-  if (NOISE_TITLE_RE.test(title)) return false
-  if (/reach out to|contact us|privacy policy|sitemap|login|gallery|tourism/i.test(title)) return false
   if (String(row?.status || '').toLowerCase() === 'draft') return false
-
-  if (!strict) return true
   return RECRUIT_RE.test(title) || RECRUIT_RE.test(String(row?.dept || ''))
 }
 
-function scoreLiveRow(row) {
+function scoreLiveRow(row: Record<string, unknown>) {
   const title = String(row?.title || '')
   let score = 0
   if (isPortalNoiseJob(row)) score -= 10
@@ -70,17 +71,19 @@ function scoreLiveRow(row) {
   return score
 }
 
-function vacancyCount(row) {
+function vacancyCount(row: Record<string, unknown>) {
   return Number(row?.rawVacancies ?? row?.vacancies) || 0
 }
 
-function dedupeLiveRows(rows, { strictFilter = false } = {}) {
-  const seen = new Set()
-  const out = []
-  const sorted = [...rows].sort((a, b) => scoreLiveRow(b) - scoreLiveRow(a))
+function dedupeLiveRows(rows: unknown[]) {
+  const seen = new Set<string>()
+  const out: unknown[] = []
+  const sorted = [...rows].sort(
+    (a, b) => scoreLiveRow(b as Record<string, unknown>) - scoreLiveRow(a as Record<string, unknown>)
+  )
   for (const row of sorted) {
-    if (!isUsefulLiveRow(row, { strict: strictFilter })) continue
-    const slug = String(row?.slug || row?.id || '').trim()
+    if (!isUsefulLiveRow(row as Record<string, unknown>)) continue
+    const slug = String((row as Record<string, unknown>)?.slug || (row as Record<string, unknown>)?.id || '').trim()
     if (!slug) continue
     const key = slug.toLowerCase()
     if (seen.has(key)) continue
@@ -177,7 +180,7 @@ function supabasePayload(rows: Array<Record<string, unknown>>) {
     (r) => !DEMO_SLUG_PREFIX.test(String(r?.slug || '')) && rowSource(r) !== 'demo'
   )
   if (!real.length) return null
-  return { raw: real, sources: ['supabase'], hasBackend: true, error: null, strictFilter: false }
+  return { raw: real, sources: ['supabase'], hasBackend: true, error: null as string | null }
 }
 
 async function fetchAllFromApi() {
@@ -199,15 +202,14 @@ async function fetchAllFromApi() {
   return { items, degraded: false, total: first.total || items.length }
 }
 
-async function tryStatic() {
-  const snap = await fetchLiveJobsSnapshot()
+async function tryStatic(bustCache = false) {
+  const snap = await fetchLiveJobsSnapshot({ bustCache })
   if (!snap.items.length) return null
   return {
     raw: snap.items.slice(0, JSON_CAP).filter((r) => !r.status || r.status !== 'draft'),
     sources: ['official-sites'],
     hasBackend: true,
-    error: null,
-    strictFilter: false,
+    error: null as string | null,
     dailySync: dailySyncFromJsonPayload({
       dailySync: snap.dailySync,
       generatedAt: snap.generatedAt,
@@ -228,8 +230,7 @@ async function tryApi() {
     raw: apiResult.items.filter((r) => r.status !== 'draft'),
     sources: ['api'],
     hasBackend: true,
-    error: null,
-    strictFilter: false,
+    error: null as string | null,
   }
 }
 
@@ -240,39 +241,46 @@ function sourceOrder(): Array<'static' | 'supabase' | 'api'> {
   return ['static', 'supabase', 'api']
 }
 
-async function loadJobsPayload() {
+async function loadJobsPayload(bustCache = false) {
   const order = sourceOrder()
-  const primary = order[0]
-  const fallbacks = order.slice(1)
 
   const runStep = async (step: 'static' | 'supabase' | 'api') => {
-    if (step === 'static') return tryStatic()
+    if (step === 'static') return tryStatic(bustCache)
     if (step === 'supabase' && isSupabaseConfigured()) return trySupabase()
     if (step === 'api') return tryApi()
     return null
   }
 
-  let hit = await runStep(primary)
-
-  if (!hit) {
-    for (const step of fallbacks) {
-      hit = await runStep(step)
-      if (hit) break
-    }
+  for (const step of order) {
+    const hit = await runStep(step)
+    if (hit) return hit
   }
 
   if (!IS_EXPLICIT_SOURCE) {
     const apiResult = await fetchJobsFromApi({ limit: API_PAGE })
     if (apiResult.degraded) {
-      return { raw: [], sources: ['static'], hasBackend: false, error: 'Job database temporarily unavailable', strictFilter: false }
+      return {
+        raw: [],
+        sources: ['static'],
+        hasBackend: false,
+        error: 'Job database temporarily unavailable',
+      }
+    }
+    if (apiResult.items.length) {
+      return {
+        raw: apiResult.items.filter((r) => r.status !== 'draft'),
+        sources: ['api'],
+        hasBackend: true,
+        error: null,
+      }
     }
   }
 
-  return { raw: [], sources: ['static'], hasBackend: false, error: null, strictFilter: false }
+  return { raw: [], sources: ['static'], hasBackend: false, error: null }
 }
 
-function processPayload(payload: { raw: unknown[]; strictFilter: boolean }) {
-  const rows = dedupeLiveRows(payload.raw, { strictFilter: payload.strictFilter }).map(adaptLiveJob)
+function processPayload(payload: { raw: unknown[] }) {
+  const rows = dedupeLiveRows(payload.raw).map(adaptLiveJob)
   return { rows, stats: statsFromRows(rows) }
 }
 
@@ -345,24 +353,6 @@ export function useLiveJobs() {
       setRefreshing(true)
       if (!forced || !CACHE?.rows?.length) setError(null)
 
-      // Fast bootstrap for explicit live modes: show the snapshot while live sources load.
-      if (sourceOrder()[0] !== 'static' && !IS_EXPLICIT_SOURCE) {
-        try {
-          const bootstrap = await tryStatic()
-          if (!cancelled && bootstrap) {
-            const { rows: bootRows, stats: bootStats } = processPayload(bootstrap)
-            if (bootRows.length) {
-              setLiveRows(bootRows)
-              setSources(bootstrap.sources)
-              setHasBackend(bootstrap.hasBackend)
-              setCatalogStats(bootStats)
-            }
-          }
-        } catch {
-          /* fall through to full load */
-        }
-      }
-
       if (JOBS_SOURCE === 'supabase' && isSupabaseConfigured()) {
         try {
           const firstRaw = await fetchJobsFromSupabase({ maxRows: SUPABASE_PAGE })
@@ -371,16 +361,16 @@ export function useLiveJobs() {
           if (firstProcessed?.rows.length) {
             CACHE = {
               rows: firstProcessed.rows,
-              sources: firstPayload.sources,
-              hasBackend: firstPayload.hasBackend,
-              error: firstPayload.error,
+              sources: firstPayload!.sources,
+              hasBackend: firstPayload!.hasBackend,
+              error: firstPayload!.error,
               catalogStats: firstProcessed.stats,
             }
 
             if (!cancelled) {
               setLiveRows(firstProcessed.rows)
-              setSources(firstPayload.sources)
-              setHasBackend(firstPayload.hasBackend)
+              setSources(firstPayload!.sources)
+              setHasBackend(firstPayload!.hasBackend)
               setError(null)
               setCatalogStats(firstProcessed.stats)
               setRefreshing(false)
@@ -410,7 +400,7 @@ export function useLiveJobs() {
                   setCatalogStats(fullStats)
                 }
               } catch (e) {
-                if (!cancelled) setError(e?.message || 'Failed to load all live jobs')
+                if (!cancelled) setError((e as Error)?.message || 'Failed to load all live jobs')
               } finally {
                 if (!cancelled) setRefreshing(false)
               }
@@ -418,13 +408,13 @@ export function useLiveJobs() {
             return
           }
         } catch {
-          /* fall through to static fallback */
+          /* fall through to static/api fallback */
         }
       }
 
       try {
         if (!INFLIGHT) {
-          INFLIGHT = loadJobsPayload().finally(() => {
+          INFLIGHT = loadJobsPayload(forced).finally(() => {
             INFLIGHT = null
           })
         }
@@ -452,7 +442,7 @@ export function useLiveJobs() {
           if (dailySync) setDailySyncMeta(dailySync)
         }
       } catch (e) {
-        if (!cancelled) setError(e?.message || 'Failed to load live jobs')
+        if (!cancelled) setError((e as Error)?.message || 'Failed to load live jobs')
       } finally {
         if (!cancelled) setRefreshing(false)
       }
@@ -463,13 +453,7 @@ export function useLiveJobs() {
     }
   }, [refreshKey])
 
-  const displayJobs = useMemo(() => {
-    const adapted = filterDisplayJobs(liveRows)
-    if (hasBackend && adapted.length > 0) return adapted
-    if (adapted.length > 0) return filterDisplayJobs(mergeJobs([], adapted))
-    return filterDisplayJobs(mergeJobs(ALL_JOBS, []))
-  }, [liveRows, hasBackend])
-
+  const displayJobs = useMemo(() => filterDisplayJobs(liveRows), [liveRows])
   const hasCatalog = displayJobs.length > 0
 
   return {
@@ -477,12 +461,10 @@ export function useLiveJobs() {
     liveRows,
     source: sources.join('+'),
     sources,
-    /** Only block empty views — curated/demo data can show while live source connects */
     loading: refreshing && !hasCatalog,
     refreshing,
     error,
-    staticCount: ALL_JOBS.length,
-    liveCount: hasBackend ? displayJobs.length : liveRows.length,
+    liveCount: displayJobs.length,
     catalogStats,
     hasBackend,
     refresh,

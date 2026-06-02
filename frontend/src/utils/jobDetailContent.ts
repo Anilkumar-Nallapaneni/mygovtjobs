@@ -29,6 +29,62 @@ function meaningfulValue(value) {
   return s;
 }
 
+function toDisplayLabel(rawKey) {
+  return String(rawKey || "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (ch) => ch.toUpperCase());
+}
+
+function normalizeDetailValue(value) {
+  if (value == null) return "";
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (Array.isArray(value)) {
+    const list = value
+      .map((item) => normalizeDetailValue(item))
+      .filter(Boolean)
+      .slice(0, 5);
+    return list.join(" • ");
+  }
+  if (typeof value === "object") {
+    const pairs = Object.entries(value)
+      .slice(0, 5)
+      .map(([k, v]) => `${toDisplayLabel(k)}: ${normalizeDetailValue(v)}`)
+      .filter((entry) => !/:\s*$/.test(entry));
+    return pairs.join(" | ");
+  }
+  return "";
+}
+
+function buildExtraDetails(job) {
+  const detail = job?.detail && typeof job.detail === "object" ? job.detail : {};
+  const blockedKeys = new Set([
+    "summary",
+    "source",
+    "pdf_url",
+    "pdf_urls",
+    "pdfUrls",
+    "published",
+    "notification_url",
+    "qualification",
+    "vacancy",
+    "vacancies",
+  ]);
+
+  return Object.entries(detail)
+    .filter(([key]) => !blockedKeys.has(key))
+    .map(([key, value]) => ({ label: toDisplayLabel(key), value: normalizeDetailValue(value) }))
+    .filter(({ value }) => {
+      const v = String(value || "").trim();
+      if (!v) return false;
+      if (/^(?:na|n\/a|none|null|undefined|not available)$/i.test(v)) return false;
+      return v.length <= 360;
+    })
+    .slice(0, 8);
+}
+
 function looksLikeRawPdfDump(text) {
   const s = String(text || "");
   const markerCount = RAW_PDF_MARKERS.reduce((n, re) => n + (re.test(s) ? 1 : 0), 0);
@@ -109,6 +165,13 @@ function buildDates(job) {
 
 function buildHowApply(job, applyHref) {
   if (Array.isArray(job.howApply) && job.howApply.length) return job.howApply;
+  if (Array.isArray(job.detail?.documents_required) && job.detail.documents_required.length) {
+    return [
+      "Read the official notification carefully.",
+      ...job.detail.documents_required.slice(0, 4).map((item) => `Keep ready: ${String(item)}`),
+      "Submit the application on the official portal before the last date.",
+    ];
+  }
   if (!applyHref) {
     return ["Open the official PDF notification using the link below and follow the instructions inside."];
   }
@@ -130,9 +193,116 @@ function buildHowApply(job, applyHref) {
 
 function buildSelection(job) {
   if (Array.isArray(job.selection) && job.selection.length) return job.selection;
+  if (Array.isArray(job.detail?.selection_process) && job.detail.selection_process.length) {
+    return job.detail.selection_process.slice(0, 6).map((item) => String(item));
+  }
   return [
     "Refer to the official notification for the exact selection stages (written exam, interview, skill test, etc.).",
   ];
+}
+
+function isMpscLdeMpessJob(job) {
+  const title = String(job?.title || "").toLowerCase();
+  const summary = String(job?.detail?.summary || job?.about || "").toLowerCase();
+  const dept = String(job?.dept || "").toLowerCase();
+  return (
+    /junior\s+grade\s+of\s+mpe&ss/.test(title) ||
+    /lde\s*\(gazetted\s*post\)\s*no\.\s*17\s*of\s*2026/.test(title) ||
+    (/mizoram public service commission|mpsc/.test(dept) &&
+      /junior\s+grade\s+of\s+mpe&ss|planning\s*&?\s*programme\s*implementation|inspector\s+of\s+statistics/.test(
+        summary
+      ))
+  );
+}
+
+function applyKnownPdfOverrides(base, { pdfHref, pdfUrls }) {
+  if (!isMpscLdeMpessJob(base)) return null;
+
+  const notificationPdf =
+    pdfHref ||
+    "https://mpsc.mizoram.gov.in/uploads/notifications/17-lde-gazetted-post-no17-of-2026-2027-jr-gr-of-mpess.pdf";
+  const applyUrl = "https://mpsconline.mizoram.gov.in";
+  const syllabusUrl = "https://tinyurl.com/mpesslde";
+
+  return {
+    ...base,
+    title: "LDE (Gazetted Post) No. 17 of 2026-2027 - Junior Grade of MPE&SS",
+    dept: "Mizoram Public Service Commission (MPSC)",
+    vacancies: 1,
+    qual:
+      "From officers in Inspector of Statistics with 5 years of regular service in the grade (after regular appointment) with Bachelor Degree",
+    salary: "Level 10 in the Pay Matrix",
+    age: "As per departmental LDE rules / official notification",
+    lastDate: "2026-06-29",
+    published_at: base.published_at || "2026-05-26T00:00:00Z",
+    nationality: "As per Mizoram Government service rules",
+    ageRelax: "As per Mizoram Government rules",
+    attempts: "As per departmental rules / official notification",
+    syllabus: `Available at ${syllabusUrl}`,
+    about:
+      "Mizoram Public Service Commission (MPSC) will conduct Limited Departmental Examination (Gazetted Post) No. 17 of 2026-2027 for Junior Grade of MPE&SS under Planning & Programme Implementation Department. Apply online through the official MPSC portal before 29-06-2026, 4:00 PM.",
+    highlights: [
+      "1 notified post",
+      "Group A (Gazetted)",
+      "Pay: Level 10 in Pay Matrix",
+      "Last date: 29-06-2026, 4:00 PM",
+      "Rules: Mizoram Planning, Economic & Statistical Service Rules, 2025",
+    ],
+    dates: {
+      Notification: "2026-05-26",
+      "Last Date": "2026-06-29",
+      "Last Time": "4:00 PM",
+      "Advt. No.": "LDE (Gazetted Post) No. 17 of 2026-2027",
+      "Memo No.": "A.34012/5/2026-MPSC(PRE)",
+    },
+    fee: {
+      "PwD Candidate": "Exempted from application fee",
+      "UPI Note": "UPI payment should use the same mobile number as one-time registration",
+      Refund: "Fees once paid are non-refundable",
+    },
+    howApply: [
+      "Complete one-time registration if not already registered.",
+      `Apply through ${applyUrl}.`,
+      "Upload required documents before the last date.",
+      "Verify final submission after payment.",
+      "Submit on or before 29-06-2026, 4:00 PM.",
+    ],
+    selection: [
+      "Limited Departmental Examination as notified by MPSC.",
+      "Refer official syllabus for paper-wise scheme and stages.",
+    ],
+    applyUrl,
+    officialUrl: applyUrl,
+    pdfUrl: notificationPdf,
+    pdfUrls: Array.from(new Set([notificationPdf, ...(Array.isArray(pdfUrls) ? pdfUrls : [])])),
+    detail: {
+      ...(base.detail || {}),
+      source: "mpsc",
+      notification_no: "LDE (Gazetted Post) No. 17 of 2026-2027",
+      memo_no: "A.34012/5/2026-MPSC(PRE)",
+      department: "Planning & Programme Implementation",
+      classification: "Group A (Gazetted)",
+      relevant_rules: "Mizoram Planning, Economic & Statistical Service Rules, 2025",
+      published: "2026-05-26T00:00:00Z",
+      notification_url: applyUrl,
+      syllabus_url: syllabusUrl,
+      documents_required: [
+        "Confirmation Order",
+        "Joining Report / Service Book entry showing date of joining feeder post",
+        "Certification by HoD or Cadre Authority",
+      ],
+      disqualifications: [
+        "Canvassing directly or indirectly",
+        "Incomplete/incorrect particulars in application",
+        "Not fulfilling eligibility conditions at any stage",
+        "Failure to upload required documents before the last date",
+      ],
+      helpdesk_phone: "0389-3596493",
+      helpdesk_hours: "Working days, 10:00 AM - 4:00 PM",
+      summary:
+        "MPSC LDE (Gazetted Post) No. 17 of 2026-2027 for Junior Grade of MPE&SS under Planning & Programme Implementation Department.",
+    },
+  };
 }
 
 /**
@@ -167,11 +337,17 @@ export function buildJobDetailView(job) {
   const highlights = buildHighlights({ ...job, vacancies, salary, age, qual });
   const howApply = buildHowApply(job, htmlApply || pdfHref);
   const selection = buildSelection(job);
+  const extraDetails = buildExtraDetails(job);
 
-  const fee = job.fee && Object.keys(job.fee).length ? job.fee : {};
+  const fee =
+    job.fee && Object.keys(job.fee).length
+      ? job.fee
+      : job.detail?.fee && typeof job.detail.fee === "object"
+      ? job.detail.fee
+      : {};
   const posts = Array.isArray(job.posts) && job.posts.length ? job.posts : [];
 
-  return {
+  const base = {
     ...job,
     title,
     vacancies,
@@ -195,6 +371,14 @@ export function buildJobDetailView(job) {
     helpdesk: job.helpdesk || "—",
     email: job.email || "—",
     syllabus: job.syllabus || "",
+    extraDetails,
     _detailReady: true,
   };
+
+  return (
+    applyKnownPdfOverrides(base, {
+      pdfHref,
+      pdfUrls,
+    }) || base
+  );
 }

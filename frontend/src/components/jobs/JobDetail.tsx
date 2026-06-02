@@ -102,6 +102,8 @@ export default function JobDetail({ job, onClose }) {
 
   const pdfList = (Array.isArray(view.pdfUrls) ? view.pdfUrls : [])
     .filter((u) => u && isOfficialRecruitmentUrl(u));
+  const visiblePdfList = pdfList.slice(0, 1);
+  const extraPdfCount = Math.max(0, pdfList.length - visiblePdfList.length);
   const pdfHref =
     (view.pdfUrl && isOfficialRecruitmentUrl(view.pdfUrl) ? view.pdfUrl : null) ||
     pdfList[0] ||
@@ -153,6 +155,9 @@ export default function JobDetail({ job, onClose }) {
     { label: t("jobDetail.ageRelaxation"), value: view.ageRelax },
     { label: t("jobDetail.attempts"), value: view.attempts },
   ].filter(({ value }) => isUsefulDisplayValue(value));
+  const extraDetails = Array.isArray(view.extraDetails)
+    ? view.extraDetails.filter((row) => row?.label && isUsefulDisplayValue(row?.value))
+    : [];
 
   const hasLinks = Boolean(applyHref || pdfHref || officialHref || pdfList.length > 0);
   const primaryOfficialHref = applyHref || officialHref || null;
@@ -597,15 +602,15 @@ export default function JobDetail({ job, onClose }) {
 
         <Section title={t("jobDetail.officialLinks", { defaultValue: "Official Links" })}>
           {hasLinks ? (
-            <div style={{ display: "flex", flexWrap: "nowrap", gap: 10 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               {primaryOfficialHref && (
                 <a href={primaryOfficialHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.gradientBrand, border: "none", color: DS.inkOnBrand }}>
                   🌐 {t("jobDetail.applyOfficial")}
                 </a>
               )}
 
-              {pdfList.length > 0 ? (
-                pdfList.map((url, idx) => (
+              {visiblePdfList.length > 0 ? (
+                visiblePdfList.map((url, idx) => (
                   <a
                     key={url}
                     href={url}
@@ -613,7 +618,7 @@ export default function JobDetail({ job, onClose }) {
                     rel="noopener noreferrer"
                     style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}
                   >
-                    📄 {pdfList.length > 1 ? `${t("jobDetail.downloadPdf")} ${idx + 1}` : t("jobDetail.downloadPdf")}
+                    📄 {visiblePdfList.length > 1 ? `${t("jobDetail.downloadPdf")} ${idx + 1}` : t("jobDetail.downloadPdf")}
                   </a>
                 ))
               ) : pdfHref && pdfHref !== primaryOfficialHref ? (
@@ -638,7 +643,29 @@ export default function JobDetail({ job, onClose }) {
               </p>
             </div>
           )}
+          {hasLinks && extraPdfCount > 0 ? (
+            <p style={{ marginTop: 10, fontSize: 11, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>
+              +{extraPdfCount} more notification PDF{extraPdfCount > 1 ? "s" : ""} available via official page.
+            </p>
+          ) : (
+            <></>
+          )}
         </Section>
+
+        {extraDetails.length > 0 ? (
+          <Section title={t("jobDetail.additionalInfo", { defaultValue: "Additional Details" })}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+              {extraDetails.map((row) => (
+                <div key={row.label} style={{ background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 10, padding: "10px 12px" }}>
+                  <div style={{ fontSize: 10, color: DS.muted, fontWeight: 700, letterSpacing: 0.6, textTransform: "uppercase", marginBottom: 4, fontFamily: "'Outfit',sans-serif" }}>
+                    {row.label}
+                  </div>
+                  <div style={{ fontSize: 12, color: DS.mutedHi, lineHeight: 1.55, fontFamily: "'Outfit',sans-serif" }}>{row.value}</div>
+                </div>
+              ))}
+            </div>
+          </Section>
+        ) : null}
 
         <div style={{ marginTop: 14, padding: "12px 16px", background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 10, fontSize: 11.5, color: DS.muted, lineHeight: 1.6, fontFamily: "'Outfit',sans-serif" }}>
 

@@ -38,6 +38,16 @@ _JOB_HINT = re.compile(
 
 _PDF_SIZE_SUFFIX = re.compile(r"[\s\-–—]*PDF\s*size:\s*\([^)]*\)\s*\.?\s*$", re.I)
 
+_TENDER = re.compile(
+    r"\be-?tenders?\b|\btenders?\b|\bprocurement\b|\bquotations?\b|\brfp\b|"
+    r"bid\s+invit|\bnotice\s+tender\b|\bvendor\s+for\b",
+    re.I,
+)
+_TENDER_URL = re.compile(
+    r"/tenders?(?:/|$|\?|s\b)|/e-?tender|/procurement|downloadtender",
+    re.I,
+)
+
 _JUNK_TITLE = re.compile(
     r"^application\s+form\b|^download\b|^click\s+here\b|^view\b|^pdf\b|"
     r"^english\s*\(|^hindi\s*\(|^notification$|^form$|"
@@ -76,6 +86,16 @@ SOURCE_LABELS: dict[str, str] = {
 }
 
 
+def is_tender_or_procurement(title: str | None = None, url: str | None = None) -> bool:
+    """Procurement / e-tender notices — not recruitment jobs."""
+    t = clean_job_title(title)
+    if t and _TENDER.search(t):
+        return True
+    if url and _TENDER_URL.search(url):
+        return True
+    return False
+
+
 def clean_job_title(title: str | None) -> str:
     """Strip portal chrome (Read More, PDFsize suffixes, stray punctuation)."""
     t = (title or "").strip()
@@ -100,10 +120,12 @@ def is_portal_nav_title(title: str | None) -> bool:
     return False
 
 
-def is_junk_job_title(title: str | None) -> bool:
+def is_junk_job_title(title: str | None, url: str | None = None) -> bool:
     """True when anchor text is not a real recruitment notification title."""
     t = clean_job_title(title)
     if not t or len(t) < 10:
+        return True
+    if is_tender_or_procurement(t, url):
         return True
     if is_portal_nav_title(t):
         return True
@@ -155,10 +177,12 @@ _STRONG_JOB = re.compile(
 )
 
 
-def looks_like_job_notification(title: str | None) -> bool:
+def looks_like_job_notification(title: str | None, url: str | None = None) -> bool:
     """Stricter check — title reads like an actual vacancy/result notice, not a portal page."""
     t = clean_job_title(title)
-    if is_junk_job_title(t):
+    if is_tender_or_procurement(t, url):
+        return False
+    if is_junk_job_title(t, url):
         return False
     if _STRONG_JOB.search(t):
         return True

@@ -18,19 +18,21 @@ from app.services.noise_filter import (
     is_junk_job_title,
     is_portal_section_link,
     is_result_archive_listing,
+    is_tender_or_procurement,
 )
 
 _STRICT = re.compile(
     r"recruit|vacanc|notif|advert|career|employment|bharti|naukri|exam|admit|result|apply|"
-    r"opening|posting|selection|appointment|walk-?in|directorate|commission|board|"
-    r"notification|tender|job",
+    r"opening|posting|appointment|walk-?in|directorate|commission|board|"
+    r"notification|job",
     re.I,
 )
 _PATH = re.compile(
     r"recruit|vacanc|notif|advert|career|employment|bharti|exam|admit|result|apply|"
-    r"opening|posting|selection|notice|tender|job|cwe|archive|walkin",
+    r"opening|posting|notice|job|cwe|archive|walkin",
     re.I,
 )
+_TENDER_URL = re.compile(r"/tenders?(?:/|$|\?|s\b)|/e-?tender|/procurement|downloadtender", re.I)
 _SKIP = re.compile(
     r"^(mailto:|javascript:|#)|facebook\.com|twitter\.com|instagram\.com|"
     r"youtube\.com/watch|linkedin\.com/share|play\.google|apps\.apple|"
@@ -94,6 +96,8 @@ def _score_link(text: str, abs_url: str, page_host: str) -> int:
         score += 1
     if _NOISE.search(probe):
         score -= 5
+    if _TENDER_URL.search(abs_url) or is_tender_or_procurement(text, abs_url):
+        score -= 20
     return score
 
 
@@ -212,7 +216,11 @@ class StatePortalHtmlScraper(BaseScraper):
                         parent = clean_job_title(item.get("parentText"))
                         if parent and not is_junk_job_title(parent) and len(parent) >= len(title or ""):
                             title = parent
+                    if is_tender_or_procurement(title, link):
+                        continue
                     if is_portal_section_link(title, link):
+                        continue
+                    if is_junk_job_title(title, link):
                         continue
                     if is_result_archive_listing(title, link):
                         continue

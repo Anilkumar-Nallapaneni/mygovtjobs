@@ -4,6 +4,7 @@ import { I18nextProvider } from 'react-i18next'
 import i18n from '@/i18n'
 import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
+import { prefetchLiveJobsSnapshot } from '@/lib/jobsApi'
 import { applyColorMode } from './theme/designSystem'
 import './styles/app.css'
 
@@ -20,6 +21,8 @@ try {
 } catch {
   applyColorMode('bw')
 }
+
+prefetchLiveJobsSnapshot()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

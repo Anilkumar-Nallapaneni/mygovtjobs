@@ -20,6 +20,14 @@ from app.parsers.pdf_parser import parse_pdf_url
 from app.scrapers.pdf_discover import ensure_pdf_urls
 
 
+def _log(msg: str) -> None:
+    """Print safely on Windows consoles (cp1252) and UTF-8 terminals."""
+    try:
+        print(msg, flush=True)
+    except UnicodeEncodeError:
+        print(msg.encode("ascii", errors="replace").decode("ascii"), flush=True)
+
+
 def _has_pdf(job: Job) -> bool:
     detail = job.detail or {}
     if detail.get("pdf_url"):
@@ -69,13 +77,13 @@ async def main() -> None:
             if detail.get("pdf_url"):
                 job.detail = detail
                 updated += 1
-                print(f"ok {job.title[:60]} -> {detail['pdf_url'][:70]}")
+                _log(f"ok {job.title[:60]} -> {detail['pdf_url'][:70]}")
             else:
-                print(f"—  {job.title[:60]} (no PDF found)")
+                _log(f"-  {job.title[:60]} (no PDF found)")
 
         await session.commit()
 
-    print(f"\nDone. scanned={scanned} updated={updated}")
+    _log(f"\nDone. scanned={scanned} updated={updated}")
 
 
 if __name__ == "__main__":

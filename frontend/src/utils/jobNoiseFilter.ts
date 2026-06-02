@@ -10,6 +10,11 @@ const JOB_HINT_RE =
 const JUNK_TITLE_RE =
   /^application\s+form\b|^download\b|^click\s+here\b|^pdf\b|^notification$|^english\s*\(|^hindi\s*\(|pdf\s*size|old\s+questions|answer\s+key\s+\d{4}|chairman,?\s|submission\s+of\s+the\s+offline|^question\s+departmental|^schedule\s+of\s+examinations|^direct\s+recruitment$|^departmental\s+notification$|^examination$|^lde\s+results|^valid\s*\/?\s*rejected\s+lists|constitutional\s+provision|^biodata\s+of\b|public\s+service\s+commission$|^external\s+link\b|^page\d+$|^home$|^app$|^linked\s+in$|wcag\s+\d|make\s+in\s+india.*new\s+window|study\s+material.*new\s+window|marks\s+secured\s+by\s+the\s+candidates|cbse\s+(?:10|12)(?:th)?\s+result/i
 
+/** Procurement / e-tender — not recruitment jobs. */
+const TENDER_RE =
+  /\be-?tenders?\b|\btenders?\b|\bprocurement\b|\bquotations?\b|\brfp\b|bid\s+invit|\bnotice\s+tender\b|\bvendor\s+for\b/i
+const TENDER_URL_RE = /\/tenders?(?:\/|$|\?|s\b)|\/e-?tender|\/procurement|downloadtender/i
+
 const AGGREGATOR_BRAND_RE = new RegExp(
   [
     `${'free'}${'job'}${'alert'}`,
@@ -36,6 +41,22 @@ export function cleanJobTitle(title) {
     .replace(/^[.\-–—\s]+|[.\-–—\s]+$/g, '')
 }
 
+export function isTenderOrProcurement(row) {
+  const title = cleanJobTitle(row?.title)
+  if (title && TENDER_RE.test(title)) return true
+  const urls = [
+    row?.apply_url,
+    row?.applyUrl,
+    row?.officialUrl,
+    row?.detail?.notification_url,
+    row?.detail?.link,
+  ]
+  for (const url of urls) {
+    if (url && TENDER_URL_RE.test(String(url))) return true
+  }
+  return false
+}
+
 export function isPortalNavTitle(title) {
   const t = cleanJobTitle(title)
   if (!t || t.length < 6) return true
@@ -48,6 +69,7 @@ export function isPortalNavTitle(title) {
 }
 
 export function isPortalNoiseJob(row) {
+  if (isTenderOrProcurement(row)) return true
   const title = cleanJobTitle(row?.title)
   if (/external\s+link\s+that\s+opens/i.test(title)) return true
   if (/^apply\s+for\s+term\s+plan\s+online$/i.test(title)) return true

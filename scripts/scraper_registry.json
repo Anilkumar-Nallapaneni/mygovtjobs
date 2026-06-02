@@ -604,7 +604,7 @@
     {
       "code": "psc-hr",
       "module": "state_portal_html",
-      "portal_url": "https://hpsc.gov.in/en-us/Tenders",
+      "portal_url": "https://hpsc.gov.in/en-us/Recruitment",
       "state": "hr",
       "category": "state",
       "enabled": true,

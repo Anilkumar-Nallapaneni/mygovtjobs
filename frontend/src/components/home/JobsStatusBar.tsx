@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next";
+
 export default function JobsStatusBar({
   loading,
   refreshing = false,
-  staticCount,
   liveCount,
-  sources: _sources,
   hasBackend,
   error,
 }) {
@@ -22,9 +21,7 @@ export default function JobsStatusBar({
     return (
       <div className="jobs-status jobs-status--loading" role="status">
         <span className="jobs-status__dot" aria-hidden />
-        {t("jobsStatus.refreshing", {
-          defaultValue: "Updating live listings…",
-        })}
+        {t("jobsStatus.refreshing", { defaultValue: "Updating live listings…" })}
         {liveCount > 0 && (
           <>
             {" · "}
@@ -36,45 +33,20 @@ export default function JobsStatusBar({
   }
 
   const mode = hasBackend
-    ? t("jobsStatus.liveMode", { defaultValue: "Live database connected" })
-    : t("jobsStatus.demoMode", {
-        defaultValue: "Demo catalog — connect Supabase + backend for real-time jobs",
-      });
+    ? t("jobsStatus.liveMode", { defaultValue: "Official recruitment notices" })
+    : t("jobsStatus.offlineMode", { defaultValue: "Could not load live listings" });
 
   return (
     <div className={`jobs-status${hasBackend ? " jobs-status--live" : ""}`} role="status">
       <span className="jobs-status__dot" aria-hidden />
       <span>
-        <strong>{hasBackend ? liveCount : staticCount + liveCount}</strong>{" "}
-        {t("jobsStatus.listings", { defaultValue: "listings" })}
-        {!hasBackend && (
-          <>
-            {" · "}
-            <strong>{staticCount}</strong> {t("jobsStatus.curated", { defaultValue: "curated" })}
-          </>
-        )}
-        {liveCount > 0 && (
-          <>
-            {" · "}
-            <strong>{liveCount}</strong>{" "}
-            {hasBackend
-              ? t("jobsStatus.liveFromDb", { defaultValue: "live from official sources" })
-              : t("jobsStatus.live", { defaultValue: "live" })}
-          </>
-        )}
+        <strong>{liveCount}</strong> {t("jobsStatus.listings", { defaultValue: "recruitment listings" })}
         {" · "}
         <span className="jobs-status__mode">{mode}</span>
       </span>
       {error && (
         <span className="jobs-status__err">
           {/unavailable/i.test(error) ? t("jobsStatus.degraded") : error}
-        </span>
-      )}
-      {!hasBackend && import.meta.env.DEV && (
-        <span className="jobs-status__hint">
-          {t("jobsStatus.setupHint", {
-            defaultValue: "Next: set up Supabase → run backend ingest → add VITE_SUPABASE_URL",
-          })}
         </span>
       )}
     </div>
