@@ -489,15 +489,7 @@ export default function HomePage({
           </div>
         )}
 
-        <div
-          className={`home-hero-grid${selectedState ? " home-hero-grid--state" : ""}`}
-          style={{
-            display: "grid",
-            gridTemplateColumns: selectedState ? "minmax(260px, 1fr) minmax(340px, 1.15fr)" : "220px minmax(0, 1fr) minmax(0, 1fr)",
-            gap: 24,
-            alignItems: "start",
-          }}
-        >
+        <div className={`home-hero-grid${selectedState ? " home-hero-grid--state" : ""}`}>
           {/* Left – Notifications sidebar (hidden in state drill-down for space) */}
           {!selectedState && <NotificationsSidebar activeKey={sidebarActiveKey} onSelect={handleSidebarSelect} />}
 
@@ -541,8 +533,8 @@ export default function HomePage({
                 </div>
               )}
 
-              <div style={{ background: DS.bg1, border: `1px solid ${DS.border}`, borderRadius: 14, padding: 10, overflow: "visible", minHeight: 320 }}>
-                <Suspense fallback={<div style={{ minHeight: 320, color: DS.muted, fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>Loading map…</div>}>
+              <div className="home-map-shell">
+                <Suspense fallback={<div className="home-map-shell-fallback">Loading map…</div>}>
                   <IndiaSvgMap
                     stateData={mapStateData}
                     selectionSyncKey={selectedState ?? ""}

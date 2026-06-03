@@ -35,8 +35,9 @@ if (!url || !anon || url.includes('your-project')) {
   process.exit(1)
 }
 
-const jobsSource = process.env.VERCEL_JOBS_SOURCE || 'supabase'
-const apiUrl = process.env.VERCEL_API_URL ?? ''
+const jobsSource = process.env.VERCEL_JOBS_SOURCE || local.VITE_JOBS_SOURCE || 'supabase'
+const apiUrl = process.env.VERCEL_API_URL ?? local.VITE_API_URL ?? ''
+const dailySyncOnly = local.VITE_DAILY_SYNC_ONLY
 
 const pairs = [
   ['VITE_SUPABASE_URL', url],
@@ -44,6 +45,7 @@ const pairs = [
   ['VITE_JOBS_SOURCE', jobsSource],
   // Omit empty API URL — Vercel CLI rejects --value ""
   ...(apiUrl ? [['VITE_API_URL', apiUrl]] : []),
+  ...(dailySyncOnly ? [['VITE_DAILY_SYNC_ONLY', dailySyncOnly]] : []),
 ]
 
 function addOne(key, value, target) {

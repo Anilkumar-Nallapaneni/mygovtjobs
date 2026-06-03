@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   fetchJobsFromApi,
   fetchLiveJobsSnapshot,
@@ -312,6 +312,8 @@ export function useLiveJobs() {
   const [hasBackend, setHasBackend] = useState(Boolean(CACHE?.hasBackend))
   const [catalogStats, setCatalogStats] = useState(CACHE?.catalogStats || null)
   const [dailySyncMeta, setDailySyncMeta] = useState<DailySyncMeta | null>(CACHE?.dailySync || null)
+  const dailySyncMetaRef = useRef(dailySyncMeta)
+  dailySyncMetaRef.current = dailySyncMeta
   const [syncStatus, setSyncStatus] = useState<SyncStatusResponse | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
 
@@ -422,7 +424,7 @@ export function useLiveJobs() {
         const { rows, stats } = processPayload(payload)
 
         const dailySync =
-          (payload as { dailySync?: DailySyncMeta | null }).dailySync ?? dailySyncMeta
+          (payload as { dailySync?: DailySyncMeta | null }).dailySync ?? dailySyncMetaRef.current
 
         CACHE = {
           rows,

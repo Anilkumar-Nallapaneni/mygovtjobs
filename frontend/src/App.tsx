@@ -41,7 +41,7 @@ export default function App() {
 
   const dailySyncLine = useMemo(
     () => dailySyncLabel(dailySyncMeta, syncStatus, t),
-    [dailySyncMeta, syncStatus, t, i18n.language]
+    [dailySyncMeta, syncStatus, t]
   );
   const [view, setView] = useState("home");
   const [homeResetKey, setHomeResetKey] = useState(0);
