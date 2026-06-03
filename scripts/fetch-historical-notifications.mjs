@@ -17,7 +17,7 @@ async function main() {
   const limitArg = process.argv.find((a) => a.startsWith("--limit="));
   const maxSites = limitArg ? Number(limitArg.split("=")[1]) : 0;
 
-  console.log(`\nBharatNaukri — historical fetch (${lookbackDays} day window)\n`);
+  console.log(`\nMy Govt Jobs — historical fetch (${lookbackDays} day window)\n`);
 
   const rss = await fetchRssItems({ lookbackDays });
   const sites = await fetchOfficialSiteItems({ lookbackDays, maxSites });

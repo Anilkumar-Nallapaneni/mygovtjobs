@@ -9,7 +9,7 @@ import { applyColorMode } from './theme/designSystem'
 import './styles/app.css'
 
 try {
-  const key = 'bharatnaukri-color-mode'
+  const key = 'mygovtjobs-color-mode'
   let m = localStorage.getItem(key)
   if (m === 'night') {
     localStorage.setItem(key, 'dark')

@@ -11,7 +11,7 @@ load_dotenv()
 _settings = get_settings()
 
 app = FastAPI(
-    title="BharatNaukri API",
+    title="My Govt Jobs API",
     description="Government job listings, ingestion, and alerts",
     version="0.2.0",
 )
@@ -45,4 +45,4 @@ app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 
 @app.get("/")
 def root():
-    return {"service": "bharatnaukri-api", "docs": "/docs", "version": "0.2.0"}
+    return {"service": "mygovtjobs-api", "docs": "/docs", "version": "0.2.0"}

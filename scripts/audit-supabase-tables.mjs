@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Count rows in every BharatNaukri Supabase table via REST.
+ * Count rows in every My Govt Jobs Supabase table via REST.
  * Run: npm run supabase:audit
  */
 import { readFileSync, existsSync } from "fs";

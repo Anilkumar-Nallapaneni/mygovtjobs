@@ -1,4 +1,4 @@
-# BharatNaukri Live
+# My Govt Jobs
 
 Government job portal — monorepo with React frontend, FastAPI backend, Supabase/Postgres, and shared ingest scripts.
 
@@ -44,7 +44,7 @@ The UI loads jobs from **three sources** (whichever is available):
 ## Repository layout
 
 ```
-bharatnaukri-live/
+mygovtjobs/
 ├── frontend/                      # Vite + React + TypeScript (port 2222)
 │   ├── src/
 │   │   ├── main.tsx               # App entry
@@ -568,7 +568,7 @@ Or use **Vercel → Integrations → Supabase** and map keys to `VITE_*` names.
 | `DATABASE_URL` | Supabase pooler for Python ingest |
 | `VITE_SUPABASE_URL` | Supabase audit in CI |
 | `VITE_SUPABASE_ANON_KEY` | Supabase audit in CI |
-| `BHARATNAUKRI_API_URL` | Deployed API base URL (if using API ingest) |
+| `MYGOVTJOBS_API_URL` | Deployed API base URL (if using API ingest; `BHARATNAUKRI_API_URL` still works in scripts) |
 | `ADMIN_API_KEY` | Same as backend `ADMIN_API_KEY` |
 
 ---

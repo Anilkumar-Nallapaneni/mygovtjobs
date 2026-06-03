@@ -8,7 +8,7 @@
 
 $ErrorActionPreference = "Stop"
 $RepoRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$TaskName = "BharatNaukri-Daily-8AM-IST-Sync"
+$TaskName = "MyGovtJobs-Daily-8AM-IST-Sync"
 $LogDir = Join-Path $RepoRoot "logs"
 $LogFile = Join-Path $LogDir "daily-sync.log"
 
@@ -41,7 +41,7 @@ Register-ScheduledTask `
   -Action $Action `
   -Trigger $Trigger `
   -Settings $Settings `
-  -Description "BharatNaukri: official India govt jobs sync once daily (8 AM IST)." `
+  -Description "My Govt Jobs: official India govt jobs sync once daily (8 AM IST)." `
   -Force | Out-Null
 
 Write-Host "Registered scheduled task: $TaskName"

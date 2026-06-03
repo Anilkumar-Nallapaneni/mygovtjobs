@@ -1,7 +1,7 @@
 {
   "brand": {
-    "primary": "BHARAT",
-    "accent": "NAUKRI",
+    "primary": "My ",
+    "accent": "Govt Jobs",
     "tagline": "OFFICIAL GOVT JOB ALERTS"
   },
   "nav": {
@@ -166,12 +166,12 @@
   },
   "footer": {
     "blurb": "India's trusted government job alert platform. Live notifications from official sources — UPSC, SSC, Railways, Banking & all states.",
-    "disclaimer": "BharatNaukri lists jobs from official government portals (.gov.in / .gov) only. Always verify on the recruiting organisation's website before applying.",
+    "disclaimer": "My Govt Jobs lists jobs from official government portals (.gov.in / .gov) only. Always verify on the recruiting organisation's website before applying.",
     "quickLinks": "Quick Links",
     "categories": "Categories",
     "topStates": "Top States",
     "company": "Company",
-    "copyright": "© {{year}} BharatNaukri · Made with ❤️ in India",
+    "copyright": "© {{year}} My Govt Jobs · Made with ❤️ in India",
     "latestJobs": "Latest Jobs",
     "results": "Results",
     "admitCards": "Admit Cards",
@@ -274,7 +274,7 @@
     "syllabus": "Syllabus:",
     "helpdesk": "Helpdesk:",
     "email": "Email:",
-    "disclaimer": "BharatNaukri lists jobs from official government portals (.gov.in / .gov) only. Always verify on the recruiting organisation's website before applying.",
+    "disclaimer": "My Govt Jobs lists jobs from official government portals (.gov.in / .gov) only. Always verify on the recruiting organisation's website before applying.",
     "dates": {
       "Notification": "Notification",
       "ApplyStart": "Apply Start",

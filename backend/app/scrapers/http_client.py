@@ -10,7 +10,7 @@ import httpx
 
 
 def _headers(user_agent: str | None) -> dict[str, str]:
-    ua = user_agent or "BharatNaukri/1.0 (+https://github.com/gov-job-alert)"
+    ua = user_agent or "MyGovtJobs/1.0 (+https://github.com/gov-job-alert)"
     return {
         "User-Agent": ua,
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",

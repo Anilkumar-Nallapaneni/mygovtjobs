@@ -38,7 +38,7 @@ async def fetch_pdf_text(url: str, *, timeout: float = 25) -> str:
             url,
             headers={
                 "User-Agent": (
-                    "Mozilla/5.0 (compatible; BharatNaukri/1.0; +https://github.com/gov-job-alert)"
+                    "Mozilla/5.0 (compatible; MyGovtJobs/1.0; +https://github.com/gov-job-alert)"
                 )
             },
         ) as res:

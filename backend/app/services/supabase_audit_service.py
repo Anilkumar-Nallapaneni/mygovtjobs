@@ -1,4 +1,4 @@
-"""Row counts and health for all Supabase tables used by BharatNaukri."""
+"""Row counts and health for all Supabase tables used by My Govt Jobs."""
 
 from sqlalchemy import func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession

@@ -1,6 +1,6 @@
 {
-  "brand.primary": "ଭରତ",
-  "brand.accent": "NAUKRI",
+  "brand.primary": "My ",
+  "brand.accent": "Govt Jobs",
   "brand.tagline": "ଅଫିସିଆଲ୍ ସରକାରୀ କାର୍ଯ୍ୟ ଆଲର୍ଟସ୍ |",
   "nav.home": "ଘର",
   "nav.jobs": "ଚାକିରି",
@@ -132,7 +132,7 @@
   "footer.categories": "ବର୍ଗଗୁଡିକ",
   "footer.topStates": "ଶୀର୍ଷ ରାଜ୍ୟଗୁଡିକ |",
   "footer.company": "କମ୍ପାନୀ",
-  "footer.copyright": "© {{year}} BharatNaukri · ସହିତ ତିଆରି India ଭାରତରେ |",
+  "footer.copyright": "© {{year}} My Govt Jobs · ସହିତ ତିଆରି India ଭାରତରେ |",
   "footer.latestJobs": "ସର୍ବଶେଷ ଚାକିରି |",
   "footer.results": "ଫଳାଫଳ",
   "footer.admitCards": "କାର୍ଡ ଆଡମିଟ୍ କରନ୍ତୁ |",

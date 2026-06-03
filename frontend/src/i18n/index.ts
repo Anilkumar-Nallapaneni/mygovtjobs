@@ -8,7 +8,7 @@ import { withStateNames } from "@/i18n/stateNames";
 export { ensureLocale };
 
 const LEGACY_LOCALE_KEYS = [
-  "bharatnaukri-ui-language",
+  "mygovtjobs-ui-language",
   "naukrisetu-listing-language",
   "naukrisetu-ui-language",
 ];

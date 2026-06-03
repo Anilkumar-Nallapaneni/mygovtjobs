@@ -1,6 +1,6 @@
 {
-  "brand.primary": "பாரத்",
-  "brand.accent": "நௌக்ரி",
+  "brand.primary": "My ",
+  "brand.accent": "Govt Jobs",
   "brand.tagline": "அரசு வேலைகள் போர்டல்",
   "nav.home": "வீடு",
   "nav.jobs": "வேலைகள்",
@@ -92,7 +92,7 @@
   "footer.categories": "வகைகள்",
   "footer.topStates": "சிறந்த மாநிலங்கள்",
   "footer.company": "நிறுவனம்",
-  "footer.copyright": "© {{year}} BharatNaukri · இந்தியாவில் ❤️ கொண்டு தயாரிக்கப்பட்டது · GST பதிவு செய்யப்பட்டது",
+  "footer.copyright": "© {{year}} My Govt Jobs · இந்தியாவில் ❤️ கொண்டு தயாரிக்கப்பட்டது · GST பதிவு செய்யப்பட்டது",
   "footer.latestJobs": "சமீபத்திய வேலைகள்",
   "footer.results": "முடிவுகள்",
   "footer.admitCards": "அனுமதி அட்டைகள்",

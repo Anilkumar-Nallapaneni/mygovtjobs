@@ -13,7 +13,7 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/bharatnaukri"
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/mygovtjobs"
     supabase_url: str | None = None
     supabase_service_role_key: str | None = None
     sql_echo: bool = False

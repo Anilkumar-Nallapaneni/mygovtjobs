@@ -1,6 +1,6 @@
 import { useId } from "react";
 /**
- * BharatNaukri brand mark — bell + live dot on saffron-gold gradient.
+ * My Govt Jobs brand mark — bell + live dot on saffron-gold gradient.
  */
 export default function BrandLogo({ size = 36, className = "" }) {
   const uid = useId().replace(/:/g, "");

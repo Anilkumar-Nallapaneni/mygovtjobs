@@ -74,7 +74,7 @@ class RssFeedScraper(BaseScraper):
             return []
 
         url = target["feedUrl"]
-        user_agent = cfg.get("userAgent", "BharatNaukri/1.0")
+        user_agent = cfg.get("userAgent", "MyGovtJobs/1.0")
         title_filter = target.get("titleMustMatch")
         title_re = re.compile(title_filter, re.I) if title_filter else None
         lookback = int(target.get("lookbackDays") or global_days)

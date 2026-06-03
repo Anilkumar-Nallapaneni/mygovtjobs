@@ -1,4 +1,4 @@
-# BharatNaukri — Installation & Run Guide
+# My Govt Jobs — Installation & Run Guide
 
 Complete step-by-step setup for **Frontend**, **Backend**, **Supabase**, and **Vercel**. Use this page on a new machine from zero to a running app (local + production).
 

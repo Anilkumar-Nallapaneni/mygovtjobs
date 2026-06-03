@@ -1,4 +1,4 @@
-# BharatNaukri — helper to create frontend/.env.local and backend/.env
+# My Govt Jobs — helper to create frontend/.env.local and backend/.env
 # Run from repo root:  powershell -ExecutionPolicy Bypass -File scripts/setup-supabase-env.ps1
 
 $root = Split-Path -Parent $PSScriptRoot
@@ -6,7 +6,7 @@ $frontendEnv = Join-Path $root "frontend\.env.local"
 $backendEnv = Join-Path $root "backend\.env"
 
 Write-Host ""
-Write-Host "=== BharatNaukri Supabase setup ===" -ForegroundColor Cyan
+Write-Host "=== My Govt Jobs Supabase setup ===" -ForegroundColor Cyan
 Write-Host "Schema file: database\supabase_setup.sql" -ForegroundColor Yellow
 Write-Host "Paste that file in Supabase → SQL Editor → Run" -ForegroundColor Yellow
 Write-Host ""

@@ -34,7 +34,7 @@ export const INDIAN_LANGUAGES: IndianLanguage[] = [
 ];
 
 export const DEFAULT_LOCALE = "en";
-export const LOCALE_STORAGE_KEY = "bharatnaukri-ui-locale";
+export const LOCALE_STORAGE_KEY = "mygovtjobs-ui-locale";
 export const LANGUAGE_COUNT = INDIAN_LANGUAGES.length;
 
 export function languageMeta(code: string): IndianLanguage {

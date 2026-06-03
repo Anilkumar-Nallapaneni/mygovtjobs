@@ -1,6 +1,6 @@
 {
-  "brand.primary": "ಭಾರತ್",
-  "brand.accent": "ನೌಕ್ರಿ",
+  "brand.primary": "My ",
+  "brand.accent": "Govt Jobs",
   "brand.tagline": "GOV ಜಾಬ್ಸ್ ಪೋರ್ಟಲ್",
   "nav.home": "ಮನೆ",
   "nav.jobs": "ಉದ್ಯೋಗಗಳು",
@@ -92,7 +92,7 @@
   "footer.categories": "ವರ್ಗಗಳು",
   "footer.topStates": "ಉನ್ನತ ರಾಜ್ಯಗಳು",
   "footer.company": "ಕಂಪನಿ",
-  "footer.copyright": "© {{year}} BharatNaukri · ಭಾರತದಲ್ಲಿ ❤️ ನಿಂದ ತಯಾರಿಸಲ್ಪಟ್ಟಿದೆ · GST ನೋಂದಾಯಿಸಲಾಗಿದೆ",
+  "footer.copyright": "© {{year}} My Govt Jobs · ಭಾರತದಲ್ಲಿ ❤️ ನಿಂದ ತಯಾರಿಸಲ್ಪಟ್ಟಿದೆ · GST ನೋಂದಾಯಿಸಲಾಗಿದೆ",
   "footer.latestJobs": "ಇತ್ತೀಚಿನ ಉದ್ಯೋಗಗಳು",
   "footer.results": "ಫಲಿತಾಂಶಗಳು",
   "footer.admitCards": "ಪ್ರವೇಶ ಕಾರ್ಡ್‌ಗಳು",

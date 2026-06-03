@@ -1,48 +1,28 @@
 {
-  "at": "2026-06-02T09:40:39.284Z",
-  "total": 1081,
+  "at": "2026-06-02T14:05:29.086Z",
+  "total": 1013,
   "stats": {
-    "live": 906,
-    "expired": 175,
-    "withPdf": 767,
-    "withApplyUrl": 1068,
-    "withLastDate": 205,
-    "withVacancy": 144,
-    "recruitmentLike": 850,
+    "live": 858,
+    "expired": 155,
+    "withPdf": 731,
+    "withApplyUrl": 1004,
+    "withLastDate": 187,
+    "withVacancy": 129,
+    "recruitmentLike": 795,
     "blockedHost": 0,
     "shortTitle": 0,
-    "noPdfNoApply": 9
+    "noPdfNoApply": 5
   },
   "issues": {
     "noPdfNoApply": [
-      {
-        "slug": "marks-secured-by-the-candidates-assistant-manager-engineer-civil-assistant-manag-ae47445e",
-        "title": "MARKS SECURED BY THE CANDIDATES - ASSISTANT MANAGER (ENGINEER – CIVIL) & ASSISTANT MANAGER",
-        "dept": "sbi.co.in"
-      },
       {
         "slug": "10-2026-99-57-99-42-e3dcd08e",
         "title": "सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में",
         "dept": "kvsangathan.nic.in"
       },
       {
-        "slug": "cbse-12th-result-2026-12-98-55-b7534c7e",
-        "title": "CBSE 12th Result 2026: सीबीएसई 12वीं में केंद्रीय विद्यालय का दबदबा, 98.55% छात्रों की सफल",
-        "dept": "kvsangathan.nic.in"
-      },
-      {
-        "slug": "cbse-12th-result-c8928169",
-        "title": "CBSE 12th Result: संस्थानवार प्रदर्शन में केंद्रीय विद्यालय रहा टॉप पर",
-        "dept": "kvsangathan.nic.in"
-      },
-      {
         "slug": "cbse-10-12-78488b20",
         "title": "CBSE 10वीं के बाद 12वीं रिजल्ट में भी चमके केंद्रीय विद्यालय और नवोदय विद्यालय",
-        "dept": "kvsangathan.nic.in"
-      },
-      {
-        "slug": "cbse-12th-result-2026-kv-12-78ed6c5d",
-        "title": "CBSE 12th Result 2026: KV और नवोदय का जलवा, 12वीं के नतीजों में इन स्कूलों ने मारी बाजी",
         "dept": "kvsangathan.nic.in"
       },
       {
@@ -77,20 +57,8 @@
         "title": "आई टी आर, चांदीपुर द्वारा इंजीनियरिंग/विज्ञान स्नातक/स्नातकोत्तर छात्रों से सशुल्क इंटर्नश"
       },
       {
-        "slug": "copyright-2018-indian-air-force-designed-and-developed-by-c-dac-36f6f8e8",
-        "title": "COPYRIGHT © 2018 | INDIAN AIR FORCE | DESIGNED AND DEVELOPED BY: C-DAC"
-      },
-      {
-        "slug": "advt-no-dos-iv-1-2026-result-for-engaging-as-legal-consultant-in-dos-on-contract-de0d8a74",
-        "title": "Advt No. DOS/IV/1/2026 - Result for Engaging as Legal Consultant in DOS on contract basis"
-      },
-      {
         "slug": "corrigendum-walk-in-interview-on-01-06-2026-for-full-time-specialist-part-time-s-3b2aaa08",
         "title": "CORRIGENDUM - Walk in Interview on 01-06-2026 for Full Time Specialist - Part Time Special"
-      },
-      {
-        "slug": "toll-free-helpline-1800-266-7575-or-1800-22-7575-a1c71fc5",
-        "title": "Toll Free Helpline:1800 266 7575 or 1800 22 7575"
       },
       {
         "slug": "implementation-of-multiple-nav-s-framework-w-e-f-1st-april-2026-0177ce68",
@@ -105,24 +73,36 @@
         "title": "Legal Affairs Department 1 (LAD 1) Vertical-I (LAD1 Vertical-I)"
       },
       {
-        "slug": "pension-group-schemes-withdrawn-products-c6ca1c30",
-        "title": "Pension & Group Schemes Withdrawn Products"
-      },
-      {
         "slug": "bharat-ka-share-bazaar-india-international-trade-fair-2025-5612590a",
         "title": "Bharat Ka Share Bazaar @ INDIA INTERNATIONAL TRADE FAIR – 2025"
       },
       {
-        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-iii-46239ac6",
-        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-III"
+        "slug": "1-0-2c88aa98",
+        "title": "राष्ट्रीय स्तर का केवीएस हैकाथॉन, एआई विद्यासेतु 1.0"
       },
       {
-        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-ii-c332a0b1",
-        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-II"
+        "slug": "5-9943a8d3",
+        "title": "सीबीएसई-कक्षा बारहवीं (राज्यवार पिछले 5 वर्ष)"
       },
       {
-        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-i-7af976ac",
-        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) WAITLIST-I"
+        "slug": "5-54f58deb",
+        "title": "सीबीएसई-कक्षा दसवीं (राज्यवार पिछले 5 वर्ष)"
+      },
+      {
+        "slug": "2026-8d34cbf7",
+        "title": "ईद-उल-जुहा (बकरीद) के उपलक्ष्य में अवकाश की तिथि में परिवर्तन – 2026.नई"
+      },
+      {
+        "slug": "2026-ee8f07b0",
+        "title": "स्थानांतरण आदेश 2026 – सभी पद एवं सभी विषय ।नई"
+      },
+      {
+        "slug": "2026-pwd-mdg-dfp-89445b74",
+        "title": "स्थानांतरण आदेश 2026- सभी पोस्ट्स -सभी विषय- विस्थापन PwD/MDG/DFP के द्वारा।नई"
+      },
+      {
+        "slug": "2026-hard-ner-05261742",
+        "title": "स्थानांतरण आदेश 2026- सभी पोस्ट्स -सभी विषय- विस्थापन Hard/NER के द्वाराशिवम।नई"
       }
     ]
   }

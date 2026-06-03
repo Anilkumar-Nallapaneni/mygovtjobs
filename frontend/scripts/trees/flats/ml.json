@@ -1,6 +1,6 @@
 {
-  "brand.primary": "ഭാരത്",
-  "brand.accent": "നൗക്രി",
+  "brand.primary": "My ",
+  "brand.accent": "Govt Jobs",
   "brand.tagline": "ഔദ്യോഗിക സർക്കാർ ജോലി അലേർട്ടുകൾ",
   "nav.home": "വീട്",
   "nav.jobs": "ജോലികൾ",
@@ -132,7 +132,7 @@
   "footer.categories": "വിഭാഗങ്ങൾ",
   "footer.topStates": "മുൻനിര സംസ്ഥാനങ്ങൾ",
   "footer.company": "കമ്പനി",
-  "footer.copyright": "© {{year}} BharatNaukri · ഇന്ത്യയിൽ ❤️ ഉപയോഗിച്ച് നിർമ്മിച്ചത്",
+  "footer.copyright": "© {{year}} My Govt Jobs · ഇന്ത്യയിൽ ❤️ ഉപയോഗിച്ച് നിർമ്മിച്ചത്",
   "footer.latestJobs": "ഏറ്റവും പുതിയ ജോലികൾ",
   "footer.results": "ഫലങ്ങൾ",
   "footer.admitCards": "അഡ്മിറ്റ് കാർഡുകൾ",

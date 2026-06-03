@@ -1,13 +1,14 @@
 {
-  "name": "bharatnaukri-live",
+  "name": "mygovtjobs",
   "private": true,
   "workspaces": [
     "frontend"
   ],
-  "description": "BharatNaukri — frontend (Vite) and official-site fetch scripts",
+  "description": "My Govt Jobs — frontend (Vite) and official-site fetch scripts",
   "devDependencies": {
     "cheerio": "^1.1.2",
-    "rss-parser": "^3.13.0"
+    "rss-parser": "^3.13.0",
+    "tsx": "^4.19.4"
   },
   "scripts": {
     "dev": "npm run dev --prefix frontend",
@@ -15,7 +16,8 @@
     "build": "npm run build --prefix frontend",
     "lint": "npm run lint --prefix frontend",
     "type-check": "npm run type-check --prefix frontend",
-    "fetch:official": "node --experimental-strip-types scripts/fetch-all-official.mjs",
+    "fetch:official": "tsx scripts/fetch-all-official.mjs",
+    "fetch:official:feeds": "node scripts/fetch-official-feeds.mjs",
     "fetch:historical": "node scripts/fetch-historical-notifications.mjs",
     "registry:generate": "node scripts/generate-scraper-registry.mjs",
     "ingest:all": "node scripts/run-ingest-all.mjs",

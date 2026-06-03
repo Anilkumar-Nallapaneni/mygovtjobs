@@ -20,7 +20,7 @@ const FEED_TICK_MS = 18_000;
 const INITIAL_FEED_SIZE = 6;
 const FEED_MAX = 30;
 
-const COLOR_MODE_KEY = "bharatnaukri-color-mode";
+const COLOR_MODE_KEY = "mygovtjobs-color-mode";
 
 function PageFallback() {
   return <div className="page-fallback">Loading…</div>;

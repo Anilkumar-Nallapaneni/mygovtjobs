@@ -1,8 +1,8 @@
-/* BharatNaukri — single frontend stylesheet (tokens + all components) */
+/* My Govt Jobs — single frontend stylesheet (tokens + all components) */
 
 /* ========== TOKENS ========== */
 /* ============================================================================
-   BharatNaukri — Design tokens (CSS custom properties)
+   My Govt Jobs — Design tokens (CSS custom properties)
    ----------------------------------------------------------------------------
    Per-component styles use `var(--ds-*)` from here. Color tokens default to
    the DARK palette at load; `applyColorMode()` in `src/theme/designSystem.ts`
@@ -114,7 +114,7 @@
 
 /* ========== GLOBAL ========== */
 /* ============================================================================
-   BharatNaukri — Global element & shell styles (tokens in variables.css)
+   My Govt Jobs — Global element & shell styles (tokens in variables.css)
 ============================================================================ */
 
 

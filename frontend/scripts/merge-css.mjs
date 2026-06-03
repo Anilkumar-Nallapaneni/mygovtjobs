@@ -21,7 +21,7 @@ const sections = [
   ["IndiaMap", "components/Maps/IndiaMap/IndiaMap.css"],
 ];
 
-let out = "/* BharatNaukri — single frontend stylesheet (tokens + all components) */\n\n";
+let out = "/* My Govt Jobs — single frontend stylesheet (tokens + all components) */\n\n";
 
 for (const [title, rel] of sections) {
   let c = fs.readFileSync(path.join(root, rel), "utf8");

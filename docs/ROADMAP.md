@@ -1,4 +1,4 @@
-# BharatNaukri — Product roadmap
+# My Govt Jobs — Product roadmap
 
 Full delivery plan from foundation → live data → trust → alerts → monetization → scale.
 

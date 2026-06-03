@@ -1,5 +1,5 @@
 -- =============================================================================
--- BharatNaukri — ONE-FILE Supabase setup
+-- My Govt Jobs — ONE-FILE Supabase setup
 -- Copy ALL of this into: Supabase Dashboard → SQL Editor → New query → Run
 -- =============================================================================
 

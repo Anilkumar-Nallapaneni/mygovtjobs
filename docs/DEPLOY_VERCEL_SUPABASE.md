@@ -1,4 +1,4 @@
-# Deploy BharatNaukri on Vercel + Supabase
+# Deploy My Govt Jobs on Vercel + Supabase
 
 This guide connects your **Supabase** database to the **Vercel** frontend so production loads live jobs from Postgres.
 
