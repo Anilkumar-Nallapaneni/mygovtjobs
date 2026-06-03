@@ -5,23 +5,24 @@ on:
     branches: [main, master]
   pull_request:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   frontend:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: package-lock.json
       - run: npm ci
-      - run: npm run type-check
-      - run: npm run lint
-      - run: npm run build
+      - run: npm run type-check --prefix frontend
+      - run: npm run lint --prefix frontend
+      - run: npm run test --prefix frontend
+      - run: npm run build --prefix frontend
 
   backend-smoke:
     runs-on: ubuntu-latest
@@ -31,6 +32,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r backend/requirements.txt
+      - name: Backend unit tests
+        working-directory: backend
+        run: python -m pytest tests -q
       - name: Import app
         working-directory: backend
         env:

@@ -14,11 +14,14 @@
     "build": "npm run clean && tsc && vite build",
     "serve": "vite preview",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src --max-warnings 0"
+    "lint": "eslint src --max-warnings 0",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.8",
     "@tanstack/react-virtual": "^3.13.12",
+    "@vercel/speed-insights": "^2.0.0",
     "i18next": "^26.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,6 +40,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "typescript": "^5.9.3",
-    "vite": "^7.2.2"
+    "vite": "^7.2.2",
+    "vitest": "^4.1.8"
   }
 }

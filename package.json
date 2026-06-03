@@ -36,6 +36,8 @@
     "i18n:generate": "npm run i18n:generate --prefix frontend",
     "i18n:fill": "npm run i18n:fill --prefix frontend",
     "verify": "node scripts/verify-stack.mjs",
+    "test": "npm run test --prefix frontend && npm run test:backend",
+    "test:backend": "node scripts/run-python.mjs scripts/run-backend-tests.py",
     "check:frontend": "node scripts/check-frontend-hygiene.mjs",
     "vercel:link": "vercel link",
     "vercel:env:push": "node scripts/push-vercel-env.mjs",
