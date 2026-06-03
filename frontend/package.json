@@ -19,6 +19,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.49.8",
     "@tanstack/react-virtual": "^3.13.12",
+    "@vercel/speed-insights": "^2.0.0",
     "i18next": "^26.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
