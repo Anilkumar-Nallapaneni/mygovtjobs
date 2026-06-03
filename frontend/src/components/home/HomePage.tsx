@@ -166,7 +166,7 @@ export default function HomePage({
     onBrowseJobs?.();
     const target = selectedState && !search.trim() ? "state-jobs-panel" : "main-jobs";
     scrollToSection(target);
-  }, [onBrowseJobs, selectedState, search]);
+  }, [onBrowseJobs, selectedState, search, setShowAll]);
 
   const handleQuickFilterClick = useCallback(
     (key) => {
@@ -188,7 +188,7 @@ export default function HomePage({
         scrollToSection("state-jobs-panel");
       }
     },
-    [setSelectedState, onBrowseJobs]
+    [setSelectedState, onBrowseJobs, setShowAll]
   );
 
   const handleHeroStatClick = useCallback(
@@ -221,7 +221,7 @@ export default function HomePage({
     if (typeof setSearch === "function") setSearch("");
     setSidebarKey(null);
     if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
-  }, [setSelectedState, setActiveCat, setQuickFilter, setSearch, setHeadlinesTopicKey]);
+  }, [setSelectedState, setActiveCat, setQuickFilter, setSearch, setHeadlinesTopicKey, setSidebarKey]);
 
   const handleEducationFromCard = useCallback(
     (eduKey) => {
@@ -230,7 +230,7 @@ export default function HomePage({
       onBrowseJobs?.();
       scrollToSection(selectedState && !search.trim() ? "state-jobs-panel" : "main-jobs");
     },
-    [setQuickFilter, onBrowseJobs, selectedState, search]
+    [setQuickFilter, onBrowseJobs, selectedState, search, setShowAll]
   );
 
   const jobCardFilterProps = {

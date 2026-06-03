@@ -182,7 +182,7 @@ ADMIN_API_KEY=<long-random-string>
 ALLOW_INSECURE_ADMIN=0
 APP_ENV=development
 
-CORS_ORIGINS=http://localhost:2222,http://127.0.0.1:2222,https://bharatnaukri-live.vercel.app
+CORS_ORIGINS=http://localhost:2222,http://127.0.0.1:2222,https://mygovtjobs.vercel.app
 
 SQL_ECHO=0
 INGEST_LOOKBACK_DAYS=60
@@ -230,7 +230,7 @@ $env:APP_ENV="development"
 python -c "from app.main import app; print(app.title)"
 ```
 
-Expected: `BharatNaukri API`
+Expected: `My Govt Jobs API`
 
 ### Step 3.5 — Verify database from backend
 
@@ -472,7 +472,7 @@ From **repo root**:
 vercel link
 ```
 
-Choose your team and project (or create **bharatnaukri-live**).
+Choose your team and project (or create **mygovtjobs**).
 
 ### Step 7.3 — Set environment variables
 
@@ -537,7 +537,7 @@ Workflow: `.github/workflows/supabase-auto-ingest.yml`
 | `VITE_SUPABASE_URL` | Audit workflow |
 | `VITE_SUPABASE_ANON_KEY` | Audit workflow |
 | `ADMIN_API_KEY` | If using API ingest workflow |
-| `BHARATNAUKRI_API_URL` | Deployed API URL (optional) |
+| `MYGOVTJOBS_API_URL` | Deployed API URL (optional) |
 
 Ingest still runs against Supabase; Vercel only serves the frontend.
 

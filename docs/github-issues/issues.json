@@ -40,7 +40,7 @@
       "title": "[P0] Apply Supabase schema and verify jobs table",
       "labels": ["P0", "phase-0", "infra"],
       "milestone": "Week 1 — Live data MVP",
-      "body": "## Goal\nProvision Postgres (Supabase) with the full BharatNaukri schema.\n\n## Tasks\n- [ ] Open Supabase SQL Editor\n- [ ] Run entire `database/supabase_setup.sql`\n- [ ] Confirm tables: `jobs`, `sources`, `raw_ingest`, `alert_subscriptions`, `alert_deliveries`\n- [ ] Confirm RLS policies allow public read on live jobs\n\n## Acceptance criteria\n- `SELECT count(*) FROM jobs;` runs without error\n- Anon key can `select` from `jobs` where `status = 'live'`"
+      "body": "## Goal\nProvision Postgres (Supabase) with the full My Govt Jobs schema.\n\n## Tasks\n- [ ] Open Supabase SQL Editor\n- [ ] Run entire `database/supabase_setup.sql`\n- [ ] Confirm tables: `jobs`, `sources`, `raw_ingest`, `alert_subscriptions`, `alert_deliveries`\n- [ ] Confirm RLS policies allow public read on live jobs\n\n## Acceptance criteria\n- `SELECT count(*) FROM jobs;` runs without error\n- Anon key can `select` from `jobs` where `status = 'live'`"
     },
     {
       "title": "[P0] Configure backend DATABASE_URL and smoke-test API",
@@ -76,7 +76,7 @@
       "title": "[P1] GitHub Action — scheduled API ingest",
       "labels": ["P1", "phase-1", "infra", "scrapers"],
       "milestone": "Week 1 — Live data MVP",
-      "body": "## Goal\nJobs refresh automatically without manual curl.\n\n## Tasks\n- [ ] Use `.github/workflows/ingest-api.yml` (or extend existing workflow)\n- [ ] Add repo secrets: `BHARATNAUKRI_API_URL`, `ADMIN_API_KEY`\n- [ ] Schedule cron (e.g. every 6–12 hours)\n- [ ] Monitor Action logs for failures\n\n## Acceptance criteria\n- Workflow runs on schedule and `workflow_dispatch`\n- API returns 200 and ingest `saved > 0` on success"
+      "body": "## Goal\nJobs refresh automatically without manual curl.\n\n## Tasks\n- [ ] Use `.github/workflows/ingest-api.yml` (or extend existing workflow)\n- [ ] Add repo secrets: `MYGOVTJOBS_API_URL`, `ADMIN_API_KEY`\n- [ ] Schedule cron (e.g. every 6–12 hours)\n- [ ] Monitor Action logs for failures\n\n## Acceptance criteria\n- Workflow runs on schedule and `workflow_dispatch`\n- API returns 200 and ingest `saved > 0` on success"
     },
     {
       "title": "[P1] Unify frontend live data priority chain",

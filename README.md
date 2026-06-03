@@ -568,7 +568,7 @@ Or use **Vercel → Integrations → Supabase** and map keys to `VITE_*` names.
 | `DATABASE_URL` | Supabase pooler for Python ingest |
 | `VITE_SUPABASE_URL` | Supabase audit in CI |
 | `VITE_SUPABASE_ANON_KEY` | Supabase audit in CI |
-| `MYGOVTJOBS_API_URL` | Deployed API base URL (if using API ingest; `BHARATNAUKRI_API_URL` still works in scripts) |
+| `MYGOVTJOBS_API_URL` | Deployed API base URL (if using API ingest) |
 | `ADMIN_API_KEY` | Same as backend `ADMIN_API_KEY` |
 
 ---

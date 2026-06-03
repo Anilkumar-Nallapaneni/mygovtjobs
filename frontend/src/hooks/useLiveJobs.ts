@@ -313,7 +313,9 @@ export function useLiveJobs() {
   const [catalogStats, setCatalogStats] = useState(CACHE?.catalogStats || null)
   const [dailySyncMeta, setDailySyncMeta] = useState<DailySyncMeta | null>(CACHE?.dailySync || null)
   const dailySyncMetaRef = useRef(dailySyncMeta)
-  dailySyncMetaRef.current = dailySyncMeta
+  useEffect(() => {
+    dailySyncMetaRef.current = dailySyncMeta
+  }, [dailySyncMeta])
   const [syncStatus, setSyncStatus] = useState<SyncStatusResponse | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
 

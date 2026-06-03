@@ -9,6 +9,8 @@ export { ensureLocale };
 
 const LEGACY_LOCALE_KEYS = [
   "mygovtjobs-ui-language",
+  "bharatnaukri-ui-language",
+  "bharatnaukri-listing-language",
   "naukrisetu-listing-language",
   "naukrisetu-ui-language",
 ];

@@ -1,6 +1,6 @@
 # GitHub issues — bulk create
 
-This folder defines **35 issues**, **12 labels**, and **3 milestones** for the BharatNaukri roadmap.
+This folder defines **35 issues**, **12 labels**, and **3 milestones** for the My Govt Jobs roadmap.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ After installing `gh` and `gh auth login`:
 2. Filter by label: `P0`, `P1`, …
 3. Use milestone **Week 1 — Live data MVP** for the current sprint.
 4. Add repository secrets for ingest workflow:
-   - `BHARATNAUKRI_API_URL` — e.g. `https://your-api.railway.app`
+   - `MYGOVTJOBS_API_URL` — e.g. `https://your-api.railway.app`
    - `ADMIN_API_KEY` — same as backend `ADMIN_API_KEY`
 
 ## Edit issues

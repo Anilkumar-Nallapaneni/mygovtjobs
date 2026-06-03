@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Trigger backend ingest
         env:
-          API_URL: ${{ secrets.MYGOVTJOBS_API_URL || secrets.BHARATNAUKRI_API_URL }}
+          API_URL: ${{ secrets.MYGOVTJOBS_API_URL }}
           ADMIN_KEY: ${{ secrets.ADMIN_API_KEY }}
         run: |
           if [ -z "$API_URL" ] || [ -z "$ADMIN_KEY" ]; then

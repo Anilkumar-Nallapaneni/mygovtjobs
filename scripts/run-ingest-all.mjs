@@ -26,7 +26,7 @@ function loadEnv(path) {
 }
 
 const env = loadEnv(join(__dirname, "..", "backend", ".env"));
-const apiUrl = (process.env.MYGOVTJOBS_API_URL || process.env.BHARATNAUKRI_API_URL || "http://localhost:8000").replace(/\/$/, "");
+const apiUrl = (process.env.MYGOVTJOBS_API_URL || "http://localhost:8000").replace(/\/$/, "");
 const adminKey = process.env.ADMIN_API_KEY || env.ADMIN_API_KEY;
 
 if (!adminKey) {

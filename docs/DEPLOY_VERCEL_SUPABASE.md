@@ -97,7 +97,7 @@ If you deploy FastAPI (`backend/`) to Railway, Render, or Fly:
 | `VITE_API_URL` | `https://your-api.example.com` |
 | `VITE_JOBS_SOURCE` | `api` |
 
-Set `CORS_ORIGINS` on the backend to include your Vercel domain, e.g. `https://bharatnaukri.vercel.app`.
+Set `CORS_ORIGINS` on the backend to include your Vercel domain, e.g. `https://mygovtjobs.vercel.app`.
 
 ---
 

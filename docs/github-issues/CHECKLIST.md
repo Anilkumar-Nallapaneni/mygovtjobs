@@ -13,7 +13,7 @@ Use this if you cannot run `create-github-issues.ps1` yet. Check boxes as you co
 
 ## Phase 1 — Week 1
 
-- [ ] Secrets: `BHARATNAUKRI_API_URL`, `ADMIN_API_KEY` on GitHub
+- [ ] Secrets: `MYGOVTJOBS_API_URL`, `ADMIN_API_KEY` on GitHub
 - [ ] `ingest-api.yml` runs on schedule
 - [ ] Unified live data path in `useLiveJobs.js`
 - [ ] Enable RRB / DRDO / ISRO RSS
