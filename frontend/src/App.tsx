@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { applyColorMode } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
 import { computeJobAggregates } from "@/utils/jobAggregates";
@@ -302,6 +303,7 @@ export default function App() {
           </Suspense>
         </div>
       </div>
+      <SpeedInsights />
     </>
   );
 }
