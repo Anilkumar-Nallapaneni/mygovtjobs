@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 import { CATS, type CategoryId } from "@/data/categories";
 
@@ -39,33 +40,14 @@ export default function CategoryGrid({ activeCat, onSelectCategory, counts }: Ca
               type="button"
               className={`category-grid-card${active ? " category-grid-card--active" : ""}`}
               onClick={() => onSelectCategory(c.id)}
-              style={{
-                borderColor: active ? `${c.color}88` : undefined,
-                boxShadow: active ? `inset 0 0 0 1px ${c.color}44` : undefined,
-              }}
+              style={{ "--cat-color": c.color } as CSSProperties}
             >
-              <span
-                className="category-grid-card__icon"
-                style={{
-                  background: `${c.color}16`,
-                  borderColor: `${c.color}30`,
-                  color: c.color,
-                }}
-              >
-                {c.icon}
-              </span>
+              <span className="category-grid-card__icon">{c.icon}</span>
               <span className="category-grid-card__body">
                 <span className="category-grid-card__name">{t(`category.${c.id}`)}</span>
                 <span className="category-grid-card__meta">{t("categoryGrid.liveCount", { count: cnt, defaultValue: "{{count}} live" })}</span>
               </span>
-              <span
-                className="category-grid-card__count"
-                style={{
-                  background: `${c.color}14`,
-                  borderColor: `${c.color}28`,
-                  color: c.color,
-                }}
-              >
+              <span className="category-grid-card__count">
                 {cnt.toLocaleString()}
               </span>
             </button>

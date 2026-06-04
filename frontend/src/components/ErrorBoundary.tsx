@@ -34,14 +34,10 @@ class ErrorBoundary extends Component<Props, State> {
           <h1>{i18n.t('errorBoundary.title')}</h1>
           <p>{i18n.t('errorBoundary.message')}</p>
           {this.state.errorMessage && (
-            <pre style={{ marginTop: 16, whiteSpace: 'pre-wrap', textAlign: 'left' }}>
-              {this.state.errorMessage}
-            </pre>
+            <pre className="error-container__detail">{this.state.errorMessage}</pre>
           )}
           {this.state.errorStack && (
-            <pre style={{ marginTop: 8, whiteSpace: 'pre-wrap', textAlign: 'left', maxHeight: 260, overflow: 'auto' }}>
-              {this.state.errorStack}
-            </pre>
+            <pre className="error-container__detail error-container__stack">{this.state.errorStack}</pre>
           )}
         </div>
       );

@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DS } from '@/theme/designSystem'
 import { buildLatestNotificationsData } from '@/utils/latestNotificationsTable'
 function formatDisplayDate(value, locale) {
   if (!value) return '—'
@@ -43,7 +42,7 @@ export default function LatestNotificationsTable({ jobs = [], loading = false, o
   if (loading && !jobs.length) {
     return (
       <div className="latest-notif" role="status">
-        <p style={{ color: DS.muted, fontSize: 13 }}>
+        <p className="latest-notif__status">
           {t('latestNotif.loading', { defaultValue: 'Loading latest notifications…' })}
         </p>
       </div>
@@ -53,11 +52,11 @@ export default function LatestNotificationsTable({ jobs = [], loading = false, o
   if (!total) {
     return (
       <div className="latest-notif">
-        <p style={{ color: DS.muted, fontSize: 13 }}>
+        <p className="latest-notif__status">
           {t('latestNotif.empty', {
             defaultValue: 'No official listings yet. Run ingest to pull jobs from .gov.in / .gov portals only.',
           })}{' '}
-          <code style={{ fontSize: 11 }}>npm run ingest:direct</code>
+          <code className="latest-notif__code">npm run ingest:direct</code>
         </p>
       </div>
     )

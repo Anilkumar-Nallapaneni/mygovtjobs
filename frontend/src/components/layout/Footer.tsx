@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
 import BrandLogo from "@/components/layout/BrandLogo";
 const FOOTER_LINK_KEYS = {
   quickLinks: ["latestJobs", "results", "admitCards", "syllabus", "examCalendar", "answerKeys"],
@@ -78,7 +77,7 @@ export default function Footer({ onFooterLink }) {
               <div>
                 <div className="footer__brand-name">
                   {t("brand.primary")}
-                  <span style={{ color: DS.saffron }}>{t("brand.accent")}</span>
+                  <span className="footer__brand-accent">{t("brand.accent")}</span>
                 </div>
                 <div className="footer__brand-tagline">{t("brand.tagline")}</div>
               </div>

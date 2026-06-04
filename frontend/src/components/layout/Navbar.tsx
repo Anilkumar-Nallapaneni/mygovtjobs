@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
 import IndianLanguageSelector from "@/components/layout/IndianLanguageSelector";
 import BrandLogo from "@/components/layout/BrandLogo";
 const NAV_KEYS = ["home", "jobs", "results", "admitCard", "alert"];
@@ -53,7 +52,7 @@ function SearchForm({ search, setSearch, onSearch, className = "" }) {
       }}
     >
       <div className="navbar__search-box">
-        <span style={{ color: DS.muted, fontSize: 13 }} aria-hidden>
+        <span className="navbar__menu-icon" aria-hidden>
           🔍
         </span>
         <input
@@ -111,7 +110,7 @@ export default function Navbar({ view, onNavigate, search, setSearch, onSearch, 
           <div>
             <div className="navbar__brand-name">
               {t("brand.primary")}
-              <span style={{ color: DS.saffron }}>{t("brand.accent")}</span>
+              <span className="navbar__brand-accent">{t("brand.accent")}</span>
             </div>
             <div className="navbar__brand-tagline">{t("brand.tagline")}</div>
           </div>

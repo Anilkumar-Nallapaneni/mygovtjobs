@@ -1,10 +1,9 @@
 import { useEffect, useRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
 
 export default function Ticker({ feedItems = [], jobItems = [] }) {
   const { t } = useTranslation();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const jobLines = useMemo(() => {
     return jobItems.slice(0, 10).map((j) => {
@@ -20,7 +19,7 @@ export default function Ticker({ feedItems = [], jobItems = [] }) {
 
   useEffect(() => {
     let x = 0;
-    let raf;
+    let raf: number;
     const run = () => {
       if (document.visibilityState === "hidden") {
         raf = requestAnimationFrame(run);
@@ -52,15 +51,15 @@ export default function Ticker({ feedItems = [], jobItems = [] }) {
   if (!all.length) return null;
 
   return (
-    <div style={{ height: 32, background: DS.bg0, borderBottom: `1px solid ${DS.border}`, display: "flex", alignItems: "center", overflow: "hidden", flexShrink: 0 }}>
-      <div style={{ background: DS.saffron, padding: "0 14px", height: "100%", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
-        <span style={{ width: 6, height: 6, borderRadius: "50%", background: DS.inkOnBrand, animation: "pulse 1s infinite" }} />
-        <span style={{ fontSize: 11, fontWeight: 700, color: DS.inkOnBrand, fontFamily: "'JetBrains Mono',monospace", letterSpacing: 1 }}>{t("ticker.live")}</span>
+    <div className="ticker">
+      <div className="ticker__badge">
+        <span className="ticker__dot" />
+        <span className="ticker__label">{t("ticker.live")}</span>
       </div>
-      <div style={{ overflow: "hidden", flex: 1 }}>
-        <div ref={ref} style={{ display: "flex", whiteSpace: "nowrap", willChange: "transform" }}>
+      <div className="ticker__viewport">
+        <div ref={ref} className="ticker__track">
           {all.map((line, i) => (
-            <span key={i} style={{ fontSize: 11.5, color: DS.mutedHi, padding: "0 24px", borderRight: `1px solid ${DS.border}`, flexShrink: 0, fontFamily: "'Outfit',sans-serif" }}>
+            <span key={i} className="ticker__item">
               {line}
             </span>
           ))}

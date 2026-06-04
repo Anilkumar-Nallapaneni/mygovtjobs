@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
 import { subscribeToAlerts } from "@/lib/jobsApi";
 
 const CHANNEL_KEYS = ["email", "whatsapp", "telegram", "push"] as const;
@@ -54,38 +53,15 @@ export default function AlertSection() {
   };
 
   return (
-    <div id="alert-section" style={{ padding: "40px 20px", background: DS.bg0, borderTop: `1px solid ${DS.border}`, scrollMarginTop: 80 }}>
-      <div
-        style={{
-          maxWidth: 800,
-          margin: "0 auto",
-          background: DS.alertPanelBg,
-          border: `1px solid ${DS.accentBorderLo}`,
-          borderRadius: 22,
-          padding: "42px 24px",
-          textAlign: "center",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: `radial-gradient(ellipse at 50% 0%,${DS.accentGlow},transparent 60%)`,
-            pointerEvents: "none",
-          }}
-        />
-        <div style={{ position: "relative" }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>🔔</div>
-          <h2 style={{ fontSize: 26, fontWeight: 900, color: DS.white, fontFamily: "var(--font-display)", marginBottom: 8, letterSpacing: 0.5 }}>
-            {t("alert.title")}
-          </h2>
-          <p style={{ fontSize: 13.5, color: DS.mutedHi, marginBottom: 26, lineHeight: 1.6, maxWidth: 440, margin: "0 auto 24px", fontFamily: "var(--font-sans)" }}>
-            {t("alert.desc")}
-          </p>
+    <div id="alert-section" className="alert-section">
+      <div className="alert-section__card">
+        <div className="alert-section__glow" aria-hidden />
+        <div className="alert-section__body">
+          <div className="alert-section__icon">🔔</div>
+          <h2 className="alert-section__title">{t("alert.title")}</h2>
+          <p className="alert-section__desc">{t("alert.desc")}</p>
 
-          <div style={{ display: "flex", gap: 8, justifyContent: "center", marginBottom: 18, flexWrap: "wrap" }} role="radiogroup" aria-label={t("alert.title")}>
+          <div className="alert-section__channels" role="radiogroup" aria-label={t("alert.title")}>
             {CHANNEL_KEYS.map((key) => {
               const active = channel === key;
               return (
@@ -94,20 +70,10 @@ export default function AlertSection() {
                   type="button"
                   role="radio"
                   aria-checked={active}
+                  className={`alert-section__channel${active ? " alert-section__channel--active" : ""}`}
                   onClick={() => {
                     setChannel(key as AlertChannel);
                     setError("");
-                  }}
-                  style={{
-                    background: active ? DS.accentChipActiveBg : DS.bg1,
-                    border: `1px solid ${active ? DS.accentChipActiveBorder : DS.border}`,
-                    borderRadius: 10,
-                    padding: "7px 16px",
-                    fontSize: 12.5,
-                    fontWeight: active ? 700 : 500,
-                    color: active ? DS.saffron : DS.muted,
-                    cursor: "pointer",
-                    fontFamily: "var(--font-sans)",
                   }}
                 >
                   {t(`alert.${key}`)}
@@ -117,7 +83,7 @@ export default function AlertSection() {
           </div>
 
           {sub ? (
-            <p style={{ color: DS.green, fontSize: 14, fontFamily: "var(--font-sans)", padding: "14px 0" }}>
+            <p className="alert-section__success">
               ✅ {t("alert.success", { channel: t(`alert.${channel}`) })}
             </p>
           ) : (
@@ -127,7 +93,7 @@ export default function AlertSection() {
                 handleSubscribe();
               }}
             >
-              <div style={{ display: "flex", gap: 10, maxWidth: 460, margin: "0 auto", flexWrap: "wrap", justifyContent: "center" }}>
+              <div className="alert-section__form-row">
                 <input
                   value={address}
                   onChange={(e) => {
@@ -136,43 +102,13 @@ export default function AlertSection() {
                   }}
                   placeholder={t(PLACEHOLDER_KEYS[channel] || "alert.placeholder")}
                   aria-label={t(PLACEHOLDER_KEYS[channel] || "alert.placeholder")}
-                  style={{
-                    flex: "1 1 200px",
-                    background: DS.bg2,
-                    border: `1px solid ${DS.borderHi}`,
-                    borderRadius: 12,
-                    padding: "12px 16px",
-                    fontSize: 13,
-                    color: DS.white,
-                    outline: "none",
-                    fontFamily: "var(--font-sans)",
-                  }}
+                  className="alert-section__input"
                 />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  style={{
-                    background: DS.gradientBrand,
-                    border: "none",
-                    borderRadius: 12,
-                    padding: "12px 22px",
-                    fontSize: 13,
-                    fontWeight: 700,
-                    color: DS.inkOnBrand,
-                    cursor: loading ? "wait" : "pointer",
-                    flexShrink: 0,
-                    fontFamily: "var(--font-sans)",
-                    opacity: loading ? 0.7 : 1,
-                  }}
-                >
+                <button type="submit" disabled={loading} className="alert-section__submit">
                   {loading ? t("alert.subscribing") : t("alert.subscribe")}
                 </button>
               </div>
-              {error && (
-                <p style={{ color: DS.red, fontSize: 12, marginTop: 10, fontFamily: "var(--font-sans)" }}>
-                  {error}
-                </p>
-              )}
+              {error && <p className="alert-section__error">{error}</p>}
             </form>
           )}
         </div>

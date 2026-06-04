@@ -1,6 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DS } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
 import { isNationwideAllStatesJob, jobMatchesNationwideFilter, jobMatchesStateFilter } from "@/data/jobRegion";
 import { jobMatchesSearch } from "@/utils/jobSearch";
@@ -92,35 +91,10 @@ function EducationFilterPill({
       type="button"
       onClick={onClick}
       title={meta}
-      style={{
-        background: active ? DS.accentSoft : DS.bg2,
-        border: `1px solid ${active ? DS.accentBorderHi : DS.border}`,
-        borderRadius: 20,
-        padding: compact ? "5px 13px" : "6px 14px",
-        fontSize: 11.5,
-        color: active ? DS.saffron : DS.mutedHi,
-        fontWeight: active ? 700 : 500,
-        cursor: "pointer",
-        fontFamily: "'Outfit',sans-serif",
-        transition: "background 0.12s, border-color 0.12s, color 0.12s",
-        lineHeight: 1.35,
-        textAlign: "left",
-      }}
+      className={`home-edu-pill${active ? " home-edu-pill--active" : ""}${compact ? " home-edu-pill--compact" : ""}`}
     >
-      <span style={{ display: "block", fontWeight: active ? 700 : 600, color: active ? DS.saffron : compact ? DS.muted : DS.mutedHi }}>
-        {t(`quickFilter.${filterKey}`)}
-      </span>
-      <span
-        style={{
-          display: "block",
-          fontSize: 10,
-          color: active ? DS.saffron : DS.muted,
-          marginTop: 2,
-          fontFamily: "'JetBrains Mono',monospace",
-        }}
-      >
-        {meta}
-      </span>
+      <span className="home-edu-pill__title">{t(`quickFilter.${filterKey}`)}</span>
+      <span className="home-edu-pill__meta">{meta}</span>
     </button>
   );
 }
@@ -417,62 +391,25 @@ export default function HomePage({
   return (
     <div>
       {/* Row 1 — state strip only (under navbar) */}
-      <div
-        className="home-subheader"
-        style={{
-          background: "transparent",
-        }}
-      >
-        <div
-          className="home-subheader__inner"
-          style={{
-            maxWidth: "var(--layout-max)",
-            margin: "0 auto",
-            padding: "4px 20px 8px",
-            width: "100%",
-            minWidth: 0,
-            overflowX: "auto",
-          }}
-        >
+      <div className="home-subheader">
+        <div className="home-subheader__inner">
           <StateStrip variant="subheader" selected={selectedState} onSelect={handleStateSelect} stateCounts={stateCounts} />
         </div>
       </div>
 
       {/* Row 2 — tagline (hidden while a state is selected — “jobs scroll” mode) */}
-      <section className="home-page-main" style={{ padding: "0 20px 28px", maxWidth: "var(--layout-max)", margin: "0 auto" }}>
+      <section className="home-page-main">
         {!selectedState && (
-          <div
-            className="home-hero-tagline"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 10,
-              padding: "8px 0 14px",
-              marginBottom: 16,
-              width: "100%",
-            }}
-          >
-            <div style={{ height: 2, width: 28, background: DS.gradientRule, flexShrink: 0 }} />
-            <span style={{ fontSize: 11, fontWeight: 700, color: DS.saffron, letterSpacing: 3, fontFamily: "monospace" }}>
-              {t("home.tagline")}
-            </span>
+          <div className="home-hero-tagline">
+            <div className="home-hero-tagline__rule" aria-hidden />
+            <span className="home-hero-tagline__text">{t("home.tagline")}</span>
           </div>
         )}
 
         {selectedState && (
-          <div
-            style={{
-              marginBottom: 20,
-              paddingBottom: 16,
-              borderBottom: `1px solid ${DS.border}`,
-              width: "100%",
-            }}
-          >
-            <div style={{ fontSize: 10.5, fontWeight: 700, color: DS.muted, letterSpacing: 1, fontFamily: "'Outfit',sans-serif", marginBottom: 10 }}>
-              {t("home.filterListings")}
-            </div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+          <div className="home-state-filters">
+            <div className="home-state-filters__label">{t("home.filterListings")}</div>
+            <div className="home-state-filters__pills">
               {QUICK_FILTER_KEYS.map((f) => (
                 <EducationFilterPill
                   key={f}
@@ -494,23 +431,23 @@ export default function HomePage({
           {!selectedState && <NotificationsSidebar activeKey={sidebarActiveKey} onSelect={handleSidebarSelect} />}
 
           {/* Middle – Map */}
-          <div id="india-map-panel" ref={mapPanelRef} style={{ width: "100%", maxWidth: "100%", margin: "0 auto", scrollMarginTop: 80 }}>
-            <div style={{ width: "100%" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: DS.saffron, boxShadow: `0 0 8px ${DS.saffron}` }} />
-                  <span style={{ fontSize: 12, fontWeight: 700, color: DS.white, fontFamily: "'Outfit',sans-serif" }}>
+          <div id="india-map-panel" ref={mapPanelRef}>
+            <div className="home-map-block">
+              <div className="home-map-block__head">
+                <div className="home-map-block__title-row">
+                  <span className="home-map-block__dot" aria-hidden />
+                  <span className="home-map-block__title">
                     {stateName ? t("home.jobMap", { state: stateName }) : t("home.allIndiaJobMap")}
                   </span>
                 </div>
                 {selectedState && (
                   <button
                     type="button"
+                    className="home-map-block__clear"
                     onClick={() => {
                       setHeroStatFilter(null);
                       setSelectedState(null);
                     }}
-                    style={{ background: "transparent", border: `1px solid ${DS.border}`, borderRadius: 7, padding: "3px 10px", fontSize: 11, color: DS.muted, cursor: "pointer", fontFamily: "'Outfit',sans-serif" }}
                   >
                     {t("home.clear")}
                   </button>
@@ -518,17 +455,17 @@ export default function HomePage({
               </div>
 
               {selectedState && (
-                <div style={{ background: DS.panelWarm, border: `1px solid ${DS.accentBorder}`, borderRadius: 12, padding: "10px 14px", marginBottom: 10, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div className="home-map-block__banner">
                   <div>
-                    <div style={{ fontSize: 12, color: DS.saffron, fontWeight: 600, marginBottom: 2 }}>📍 {stateName}</div>
-                    <div style={{ fontSize: 10.5, color: DS.muted }}>{t("home.region")} {STATES.find((s) => s.id === selectedState)?.reg}</div>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: 22, fontWeight: 800, color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>
-                      {stateFilteredVac.toLocaleString("en-IN")}
+                    <div className="home-map-block__banner-label">📍 {stateName}</div>
+                    <div className="home-map-block__banner-region">
+                      {t("home.region")} {STATES.find((s) => s.id === selectedState)?.reg}
                     </div>
-                    <div style={{ fontSize: 9.5, color: DS.muted }}>{t("home.vacanciesFiltered")}</div>
-                    <div style={{ fontSize: 9, color: DS.muted, marginTop: 2 }}>{t("home.listing", { count: stateFilteredCount })}</div>
+                  </div>
+                  <div className="home-map-block__banner-stat">
+                    <div className="home-map-block__banner-num">{stateFilteredVac.toLocaleString("en-IN")}</div>
+                    <div className="home-map-block__banner-meta">{t("home.vacanciesFiltered")}</div>
+                    <div className="home-map-block__banner-sub">{t("home.listing", { count: stateFilteredCount })}</div>
                   </div>
                 </div>
               )}
@@ -552,39 +489,16 @@ export default function HomePage({
           <div
             id="state-jobs-panel"
             className={selectedState ? "home-state-jobs-panel" : undefined}
-            style={
-              selectedState
-                ? { minWidth: 0, scrollMarginTop: 80, ...(statePanelHeight ? { height: statePanelHeight } : {}) }
-                : undefined
-            }
+            style={selectedState && statePanelHeight ? { height: statePanelHeight } : undefined}
           >
             {!selectedState ? (
               <>
-                <header style={{ marginBottom: 16, width: "100%" }}>
-                  <h1
-                    id="dream-job-heading"
-                    style={{
-                      fontSize: "clamp(24px, 3.4vw, 34px)",
-                      fontWeight: 900,
-                      color: DS.white,
-                      fontFamily: "'Sora',sans-serif",
-                      lineHeight: 1.12,
-                      marginBottom: 10,
-                      letterSpacing: 0.3,
-                    }}
-                  >
-                    {t("home.dreamJobPrefix")} <span style={{ color: DS.saffron }}>{t("home.dreamJobHighlight")}</span>
+                <header className="home-dream-job">
+                  <h1 id="dream-job-heading" className="home-dream-job__title">
+                    {t("home.dreamJobPrefix")}{" "}
+                    <span className="home-dream-job__highlight">{t("home.dreamJobHighlight")}</span>
                   </h1>
-                  <p
-                    style={{
-                      fontSize: 14,
-                      color: DS.mutedHi,
-                      lineHeight: 1.65,
-                      maxWidth: "none",
-                      fontFamily: "'Outfit',sans-serif",
-                      margin: 0,
-                    }}
-                  >
+                  <p className="home-dream-job__desc">
                     {t("home.heroDescFast", {
                       listings: totalListings,
                       defaultValue:
@@ -603,7 +517,7 @@ export default function HomePage({
                 </header>
 
                 <div style={{ marginBottom: 20 }}>
-                  <div className="home-hero-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 10 }}>
+                  <div className="home-hero-stats">
                     {[
                       {
                         key: "vacancies",
@@ -630,50 +544,29 @@ export default function HomePage({
                           onClick={() => handleHeroStatClick(key)}
                           title={on ? t("home.clearFilter") : l}
                         >
-                          <div style={{ fontSize: 16, marginBottom: 4 }}>{i}</div>
-                          <div style={{ fontSize: 17, fontWeight: 800, color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{v}</div>
-                          <div style={{ fontSize: 9.5, color: DS.muted, marginTop: 4, fontFamily: "'Outfit',sans-serif" }}>{l}</div>
+                          <div className="home-hero-stat__icon">{i}</div>
+                          <div className="home-hero-stat__value">{v}</div>
+                          <div className="home-hero-stat__label">{l}</div>
                         </button>
                       );
                     })}
                   </div>
 
-                  <div
-                    style={{
-                      background: DS.bg1,
-                      border: `1px solid ${DS.border}`,
-                      borderRadius: 12,
-                      padding: "12px 14px 14px",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, gap: 12 }}>
-                      <h2 style={{ fontSize: 13, fontWeight: 800, color: DS.white, fontFamily: "'Sora',sans-serif", margin: 0, letterSpacing: 0.2 }}>
+                  <div className="home-edu-panel">
+                    <div className="home-edu-panel__head">
+                      <h2 className="home-edu-panel__title">
                         {t("home.browseEducationYear", {
                           year: eduYear,
                           defaultValue: "Browse by Education · {{year}}",
                         })}
                       </h2>
                       {quickFilter && (
-                        <button
-                          type="button"
-                          onClick={() => setQuickFilter(null)}
-                          style={{
-                            background: "transparent",
-                            border: `1px solid ${DS.borderHi}`,
-                            borderRadius: 8,
-                            padding: "4px 10px",
-                            fontSize: 10.5,
-                            color: DS.mutedHi,
-                            cursor: "pointer",
-                            fontFamily: "'Outfit',sans-serif",
-                            flexShrink: 0,
-                          }}
-                        >
+                        <button type="button" className="home-edu-panel__clear" onClick={() => setQuickFilter(null)}>
                           {t("home.clearFilter")}
                         </button>
                       )}
                     </div>
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+                    <div className="home-edu-panel__pills">
                       {QUICK_FILTER_KEYS.map((f) => (
                         <EducationFilterPill
                           key={f}
@@ -721,12 +614,11 @@ export default function HomePage({
 
       <section
         id="main-jobs"
-        className="home-jobs-section"
-        style={{ display: selectedState && !search.trim() ? "none" : "block" }}
+        className={`home-jobs-section${selectedState && !search.trim() ? " home-jobs-section--hidden" : ""}`}
       >
           <div className="home-jobs-section__header">
             <div>
-              <h2 style={{ fontSize: 16, fontWeight: 800, color: DS.white, fontFamily: "'Sora',sans-serif", margin: "0 0 3px" }}>
+              <h2 className="home-jobs-section__title">
                 {showLatestTable
                   ? t("sidebar.latest")
                   : selectedState
@@ -739,7 +631,7 @@ export default function HomePage({
                           ? t(HERO_STAT_FILTERS.find((h) => h.key === heroStatFilter)?.labelKey ?? "home.latestJobs")
                           : t("home.latestJobs")}
               </h2>
-              <p style={{ fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif", margin: 0 }}>
+              <p className="home-jobs-section__meta">
                 {showLatestTable
                   ? t("latestNotif.subtitle", {
                       defaultValue: "Post Date · Board · Post · Qualification · Advt No · Last Date",
@@ -759,24 +651,13 @@ export default function HomePage({
                   : ""}
               </p>
               {!showLatestTable && dailySyncLine ? (
-                <p
-                  style={{
-                    fontSize: 11,
-                    color: DS.saffron,
-                    fontFamily: "'Outfit',sans-serif",
-                    margin: "6px 0 0",
-                  }}
-                >
-                  {dailySyncLine}
-                </p>
+                <p className="home-jobs-section__sync">{dailySyncLine}</p>
               ) : null}
               {!showLatestTable && !selectedState && !activeCat && !search.trim() && !quickFilter && !heroStatFilter ? (
-                <p style={{ fontSize: 11, color: DS.muted, fontFamily: "'Outfit',sans-serif", margin: "4px 0 0" }}>
-                  {t("home.showEverything")}
-                </p>
+                <p className="home-jobs-section__hint">{t("home.showEverything")}</p>
               ) : null}
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <div className="home-jobs-section__toolbar">
               {showLatestTable && (sidebarKey || headlinesTopicKey === "latest") && (
                 <button
                   type="button"
@@ -784,58 +665,25 @@ export default function HomePage({
                     setSidebarKey(null);
                     if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
                   }}
-                  style={{
-                    background: DS.accentSoft,
-                    border: `1px solid ${DS.accentBorder}`,
-                    borderRadius: 8,
-                    padding: "5px 12px",
-                    fontSize: 11.5,
-                    color: DS.saffron,
-                    cursor: "pointer",
-                    fontFamily: "'Outfit',sans-serif",
-                    fontWeight: 600,
-                  }}
+                  className="home-jobs-section__filter-btn"
                 >
                   {t("home.clearAllFilters")}
                 </button>
               )}
               {!showLatestTable && (selectedState || activeCat || search.trim() || quickFilter || heroStatFilter) && (
-                <button
-                  type="button"
-                  onClick={clearListFilters}
-                  style={{
-                    background: DS.accentSoft,
-                    border: `1px solid ${DS.accentBorder}`,
-                    borderRadius: 8,
-                    padding: "5px 12px",
-                    fontSize: 11.5,
-                    color: DS.saffron,
-                    cursor: "pointer",
-                    fontFamily: "'Outfit',sans-serif",
-                    fontWeight: 600,
-                  }}
-                >
+                <button type="button" onClick={clearListFilters} className="home-jobs-section__filter-btn">
                   {t("home.clearAllFilters")}
                 </button>
               )}
               {!showLatestTable && (
                 <>
-              <span style={{ fontSize: 11.5, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>{t("home.sort")}</span>
+              <span className="home-jobs-section__sort-label">{t("home.sort")}</span>
               {["lastDate", "vacancies"].map((s) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => setSort(s)}
-                  style={{
-                    background: sort === s ? DS.accentSoft : "transparent",
-                    border: `1px solid ${sort === s ? DS.accentBorder : DS.border}`,
-                    borderRadius: 8,
-                    padding: "5px 12px",
-                    fontSize: 11.5,
-                    color: sort === s ? DS.saffron : DS.muted,
-                    cursor: "pointer",
-                    fontFamily: "'Outfit',sans-serif",
-                  }}
+                  className={`home-jobs-section__sort-btn${sort === s ? " home-jobs-section__sort-btn--active" : ""}`}
                 >
                   {s === "lastDate" ? t("home.deadline") : t("home.vacancies")}
                 </button>
@@ -848,10 +696,10 @@ export default function HomePage({
           {showLatestTable ? (
             <LatestNotificationsTable jobs={jobs} loading={jobsLoading} onJobClick={onJobClick} />
           ) : filtered.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "60px 0", color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>
-              <div style={{ fontSize: 44, marginBottom: 12 }}>📭</div>
-              <div style={{ fontSize: 17, fontWeight: 600, marginBottom: 6, color: DS.mutedHi }}>{t("home.noJobs")}</div>
-              <div style={{ fontSize: 13 }}>{t("home.noJobsHint")}</div>
+            <div className="home-jobs-empty">
+              <div className="home-jobs-empty__icon">📭</div>
+              <div className="home-jobs-empty__title">{t("home.noJobs")}</div>
+              <div className="home-jobs-empty__hint">{t("home.noJobsHint")}</div>
             </div>
           ) : (
             <div className="home-jobs-section__panel" aria-label={t("home.latestJobs")}>
@@ -869,7 +717,7 @@ export default function HomePage({
                   <button
                     type="button"
                     onClick={() => setShowAll(true)}
-                    style={{ background: DS.bg1, border: `1px solid ${DS.accentBorder}`, borderRadius: 12, padding: "12px 32px", fontSize: 13, fontWeight: 600, color: DS.saffron, cursor: "pointer", fontFamily: "'Outfit',sans-serif" }}
+                    className="home-jobs-section__load-more-btn"
                   >
                     {t("home.loadMore", { count: filtered.length - INITIAL_JOB_LIMIT })}
                   </button>
