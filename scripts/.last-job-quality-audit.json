@@ -1,46 +1,20 @@
 {
-  "at": "2026-06-03T08:44:40.972Z",
-  "total": 1042,
+  "at": "2026-06-03T11:18:36.543Z",
+  "total": 918,
   "stats": {
-    "live": 886,
-    "expired": 156,
-    "withPdf": 754,
-    "withApplyUrl": 1033,
-    "withLastDate": 191,
-    "withVacancy": 133,
-    "recruitmentLike": 817,
+    "live": 918,
+    "expired": 0,
+    "withPdf": 668,
+    "withApplyUrl": 918,
+    "withLastDate": 47,
+    "withVacancy": 126,
+    "recruitmentLike": 732,
     "blockedHost": 0,
     "shortTitle": 0,
-    "noPdfNoApply": 5
+    "noPdfNoApply": 0
   },
   "issues": {
-    "noPdfNoApply": [
-      {
-        "slug": "10-2026-99-57-99-42-e3dcd08e",
-        "title": "सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में",
-        "dept": "kvsangathan.nic.in"
-      },
-      {
-        "slug": "cbse-10-12-78488b20",
-        "title": "CBSE 10वीं के बाद 12वीं रिजल्ट में भी चमके केंद्रीय विद्यालय और नवोदय विद्यालय",
-        "dept": "kvsangathan.nic.in"
-      },
-      {
-        "slug": "eoi-for-submission-of-interest-rate-for-term-loan-of-rs-542-65-crore-to-the-comp-5c8a3378",
-        "title": "EOI for submission of interest rate for term loan of Rs 542.65 Crore to the Company execut",
-        "dept": "ircon.org"
-      },
-      {
-        "slug": "eoi-for-submission-of-interest-rate-for-term-loan-of-rs-769-38-crore-to-ircon-va-66563562",
-        "title": "EOI for submission of interest rate for term loan of Rs 769.38 Crore to Ircon Vadodara Kim",
-        "dept": "ircon.org"
-      },
-      {
-        "slug": "subsidiaries-and-group-companies-e7cbed22",
-        "title": "Subsidiaries And Group Companies",
-        "dept": "ircon.org"
-      }
-    ],
+    "noPdfNoApply": [],
     "blockedHost": [],
     "shortTitle": [],
     "notRecruitment": [
@@ -61,48 +35,48 @@
         "title": "Walk-in Interview for Engagement of Full-Time Specialists and Senior Residents on Contract"
       },
       {
-        "slug": "5-engagement-of-project-manager-it-on-contract-basis-in-the-office-of-the-custod-8af7f255",
-        "title": "7 Engagement of Project Manager (IT) on Contract Basis in the Office of the Custodian of E"
+        "slug": "esms-document-for-solar-rooftop-investment-program-tranche-3-b4900bd2",
+        "title": "ESMS Document For Solar Rooftop Investment Program (Tranche 3)"
       },
       {
-        "slug": "4-engagement-of-chief-supervisors-on-contract-basis-in-the-office-of-the-custodi-7a55d3df",
-        "title": "6 Engagement of Chief Supervisors on Contract Basis in the Office of the Custodian of Enem"
+        "slug": "sexual-harassment-of-women-at-workplace-act-2013-01820228",
+        "title": "Sexual Harassment of Women at Workplace Act,2013"
       },
       {
-        "slug": "3-engagement-of-senior-consultants-on-contract-basis-in-the-office-of-the-custod-0c79069b",
-        "title": "5 Engagement of Senior Consultants on Contract Basis in the Office of the Custodian of Ene"
+        "slug": "esms-document-for-solar-rooftop-investment-program-tranche-3-86f634ac",
+        "title": "ESMS Document For Solar Rooftop Investment Program (Tranche 3)"
       },
       {
-        "slug": "2-engagement-of-supervisor-on-contract-basis-in-the-office-of-the-custodian-of-e-6d7c1c36",
-        "title": "4 Engagement of Supervisor on Contract Basis in the Office of the Custodian of Enemy Prope"
+        "slug": "sexual-harassment-of-women-at-workplace-act-2013-f844c2e7",
+        "title": "Sexual Harassment of Women at Workplace Act,2013"
       },
       {
-        "slug": "1-engagement-of-surveyors-on-contract-basis-in-the-office-of-the-custodian-of-en-b1a4f7bf",
-        "title": "3 Engagement of Surveyors on Contract Basis in the Office of the Custodian of Enemy Proper"
+        "slug": "latest-notice-2025-malpractices-6985f45e",
+        "title": "LATEST NOTICE:उत्तर प्रदेश पुलिस भर्ती एवं प्रोन्नति बोर्ड द्वारा आयोजित उत्तर प्रदेश पुलि"
       },
       {
-        "slug": "3-hiring-of-195-technical-manpower-under-i4c-reg-download-1-43-mb-eafd0b64",
-        "title": "12 Hiring of 195 Technical Manpower Under I4C -Reg Download 1.43 MB)"
+        "slug": "revised-standard-technical-specification-and-purchase-amc-of-computers-other-it--ecb1b11d",
+        "title": "Revised Standard Technical Specification and Purchase, AMC of Computers/other IT Equipment"
       },
       {
-        "slug": "2-engagement-of-01-retired-indian-air-force-officer-as-consultant-on-contractual-27f3be06",
-        "title": "2 Engagement of 01 Retired Indian Air Force Officer as Consultant on contractual basis in "
+        "slug": "right-to-information-17-manuals-of-cm-office-06fdeae5",
+        "title": "Right to Information 17 Manuals of CM Office"
       },
       {
-        "slug": "copyright-2018-indian-air-force-designed-and-developed-by-c-dac-36f6f8e8",
-        "title": "COPYRIGHT © 2018 | INDIAN AIR FORCE | DESIGNED AND DEVELOPED BY: C-DAC"
+        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-iii-46239ac6",
+        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-III"
       },
       {
-        "slug": "2027-10-11-2027-74f330ef",
-        "title": "उन्मेष-2027 चतुर्थ अखिल भारतीय तकनीकी राजभाषा सम्मेलन तिथि 10-11 जनवरी 2027"
+        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-ii-c332a0b1",
+        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-II"
       },
       {
-        "slug": "3-25c7b122",
-        "title": "भारतीय नौसेना के लिए 3डी निगरानी रडार - रेवती"
+        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-i-7af976ac",
+        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) WAITLIST-I"
       },
       {
-        "slug": "3-i-22cf160b",
-        "title": "3डी निम्न स्तरीय हल्के वजन वाला रडार अश्लेषा एमके I"
+        "slug": "1-0-2c88aa98",
+        "title": "राष्ट्रीय स्तर का केवीएस हैकाथॉन, एआई विद्यासेतु 1.0"
       }
     ]
   }
