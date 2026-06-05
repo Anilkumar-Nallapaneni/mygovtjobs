@@ -56,6 +56,12 @@ function JobCard({
   const isUrgent = daysLeft != null && daysLeft >= 0 && daysLeft <= 7;
 
   const officialHref = resolveOfficialApplyHref(enriched);
+  const pdfHref =
+    enriched?.pdfUrl && String(enriched.pdfUrl).trim()
+      ? String(enriched.pdfUrl)
+      : Array.isArray((enriched as any)?.pdfUrls) && (enriched as any).pdfUrls.length
+        ? String((enriched as any).pdfUrls[0])
+        : null;
   const postsDisplay =
     vacancies > 0
       ? vacancies.toLocaleString(dateLocale)
@@ -216,6 +222,18 @@ function JobCard({
               title={t("jobDetail.applyOfficial")}
             >
               🌐 {t("job.official", { defaultValue: "Official" })}
+            </a>
+          ) : null}
+          {pdfHref && pdfHref !== officialHref ? (
+            <a
+              href={pdfHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="job-card__pdf"
+              onClick={(e) => e.stopPropagation()}
+              title={t("jobDetail.downloadPdf")}
+            >
+              📄 {t("job.pdf", { defaultValue: "PDF" })}
             </a>
           ) : null}
           <span className="job-card__cta">{t("jobDetail.viewDetails")} →</span>

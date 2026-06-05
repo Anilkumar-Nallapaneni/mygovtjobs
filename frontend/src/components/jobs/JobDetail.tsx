@@ -99,6 +99,7 @@ export default function JobDetail({ job, onClose }) {
 
 
   const primaryOfficialHref = resolveOfficialApplyHref(view);
+  const pdfHref = view.pdfUrl || (Array.isArray(view.pdfUrls) ? view.pdfUrls[0] : null);
 
 
 
@@ -588,6 +589,11 @@ export default function JobDetail({ job, onClose }) {
               {primaryOfficialHref && (
                 <a href={primaryOfficialHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.gradientBrand, border: "none", color: DS.inkOnBrand }}>
                   🌐 {t("jobDetail.applyOfficial")}
+                </a>
+              )}
+              {pdfHref && pdfHref !== primaryOfficialHref && (
+                <a href={pdfHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}>
+                  📄 {t("jobDetail.downloadPdf")}
                 </a>
               )}
 

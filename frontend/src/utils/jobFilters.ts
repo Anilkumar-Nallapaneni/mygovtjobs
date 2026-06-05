@@ -4,8 +4,15 @@ import { isPortalNoiseJob } from '@/utils/jobNoiseFilter'
 import { isAllowedOfficialJob } from '@/utils/officialDomains'
 
 const DAY_MS = 86400000
+const RECENT_PUBLISHED_DAYS = 4
 
 export function parseLastDate(value) {
+  if (!value || value === '—') return null
+  const d = new Date(value)
+  return Number.isNaN(d.getTime()) ? null : d
+}
+
+function parsePublishedAt(value) {
   if (!value || value === '—') return null
   const d = new Date(value)
   return Number.isNaN(d.getTime()) ? null : d
@@ -30,7 +37,22 @@ export function filterDisplayJobs(jobs) {
     if (!j || isPortalNoiseJob(j)) return false
     if (!isAllowedOfficialJob(j)) return false
     const status = String(j?.status || '').toLowerCase()
-    return status !== 'draft' && status !== 'pending'
+    if (status === 'draft' || status === 'pending') return false
+
+    // Only show jobs posted in the last 4 days.
+    const publishedAt = parsePublishedAt(
+      (j as any)?.published_at || (j as any)?.publishedAt || (j as any)?.detail?.published
+    )
+    if (!publishedAt) return false
+    if (publishedAt.getTime() < Date.now() - RECENT_PUBLISHED_DAYS * DAY_MS) return false
+
+    // Only show jobs that have a notification PDF.
+    const hasPdf =
+      Boolean((j as any)?.pdfUrl || (j as any)?.pdf_url) ||
+      (Array.isArray((j as any)?.pdfUrls) && (j as any)?.pdfUrls.length > 0) ||
+      (Array.isArray((j as any)?.pdf_urls) && (j as any)?.pdf_urls.length > 0)
+
+    return hasPdf
   })
 }
 

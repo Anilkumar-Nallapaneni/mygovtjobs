@@ -41,22 +41,32 @@ describe('filterDisplayJobs', () => {
     dept: 'Staff Selection Commission',
     status: 'live',
     applyUrl: 'https://ssc.nic.in/apply',
+    published_at: '2026-06-03T00:00:00Z',
+    pdfUrl: 'https://ssc.nic.in/notice.pdf',
   }
 
   it('keeps official live jobs', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-06-05T12:00:00Z'))
     expect(filterDisplayJobs([officialJob])).toHaveLength(1)
   })
 
   it('drops draft and pending rows', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-06-05T12:00:00Z'))
     expect(filterDisplayJobs([{ ...officialJob, status: 'draft' }])).toHaveLength(0)
     expect(filterDisplayJobs([{ ...officialJob, status: 'pending' }])).toHaveLength(0)
   })
 
   it('drops aggregator links', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-06-05T12:00:00Z'))
     const blocked = {
       title: 'Some recruitment',
       status: 'live',
       applyUrl: 'https://www.sarkariresult.com/foo',
+      published_at: '2026-06-03T00:00:00Z',
+      pdfUrl: 'https://www.sarkariresult.com/foo/notice.pdf',
     }
     expect(filterDisplayJobs([blocked])).toHaveLength(0)
   })
