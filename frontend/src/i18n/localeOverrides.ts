@@ -130,7 +130,7 @@ export const localeOverrides = {
       "officialSource": "Official notification"
     },
     "alert": {
-      "title": "Never Miss a Sarkari Notification",
+      "title": "Never Miss a MygovtJobs Notification",
       "desc": "Instant alerts when new vacancies open. Customised by state, category, and qualification level.",
       "email": "Email",
       "whatsapp": "WhatsApp",

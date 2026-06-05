@@ -57,7 +57,9 @@ export default function AlertSection() {
       <div className="alert-section__card">
         <div className="alert-section__glow" aria-hidden />
         <div className="alert-section__body">
-          <div className="alert-section__icon">🔔</div>
+          <div className="alert-section__icon" aria-hidden>
+            <img src="/images/alerts-bell-transparent.png" alt="" />
+          </div>
           <h2 className="alert-section__title">{t("alert.title")}</h2>
           <p className="alert-section__desc">{t("alert.desc")}</p>
 
