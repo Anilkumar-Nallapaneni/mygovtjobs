@@ -141,11 +141,20 @@ export function sanitizeOfficialUrls(job) {
   }
 }
 
+export function isPdfUrl(url) {
+  return /\.pdf(\?|#|$)/i.test(String(url || ''))
+}
+
+/** Prefer an official portal page; fall back to an official notification PDF. */
 export function pickOfficialDetailUrl(job) {
-  for (const u of collectJobUrls(job)) {
-    if (isOfficialRecruitmentUrl(u)) return u
-  }
-  return null
+  const official = collectJobUrls(job).filter((u) => isOfficialRecruitmentUrl(u))
+  const portal = official.find((u) => !isPdfUrl(u))
+  return portal || official[0] || null
+}
+
+/** Single outbound apply link for UI — portal first, then official PDF. */
+export function resolveOfficialApplyHref(job) {
+  return pickOfficialDetailUrl(job)
 }
 
 /**

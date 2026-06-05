@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { DS } from "@/theme/designSystem";
 import { CATS } from "@/data/categories";
 import { enrichJobMetadata } from "@/utils/jobMetadataUtils";
-import { isOfficialRecruitmentUrl } from "@/utils/officialDomains";
+import { resolveOfficialApplyHref } from "@/utils/officialDomains";
 const DAY_MS = 1000 * 60 * 60 * 24;
 
 function formatDate(value, locale) {
@@ -55,21 +55,20 @@ function JobCard({
       : null;
   const isUrgent = daysLeft != null && daysLeft >= 0 && daysLeft <= 7;
 
-  const pdfHref =
-    enriched?.pdfUrl && isOfficialRecruitmentUrl(String(enriched.pdfUrl)) ? String(enriched.pdfUrl) : null;
+  const officialHref = resolveOfficialApplyHref(enriched);
   const postsDisplay =
     vacancies > 0
       ? vacancies.toLocaleString(dateLocale)
-      : pdfHref
-        ? t("job.postsCheckPdf", { defaultValue: "Check PDF" })
+      : officialHref
+        ? t("job.postsCheckOfficial", { defaultValue: "See official" })
         : t("job.postsUnavailable", { defaultValue: "Not listed" });
 
   const dateLabel = hasLastDate
     ? lastDate
     : publishedDate !== "—"
       ? publishedDate
-      : pdfHref
-        ? t("job.postsCheckPdf", { defaultValue: "Check PDF" })
+      : officialHref
+        ? t("job.postsCheckOfficial", { defaultValue: "See official" })
         : t("job.postsUnavailable", { defaultValue: "Not listed" });
   const dateCaption = hasLastDate
     ? t("jobDetail.lastDate")
@@ -207,16 +206,16 @@ function JobCard({
           )}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {pdfHref ? (
+          {officialHref ? (
             <a
-              href={pdfHref}
+              href={officialHref}
               target="_blank"
               rel="noopener noreferrer"
               className="job-card__pdf"
               onClick={(e) => e.stopPropagation()}
-              title={t("jobDetail.downloadPdf")}
+              title={t("jobDetail.applyOfficial")}
             >
-              📄 {t("job.pdf", { defaultValue: "PDF" })}
+              🌐 {t("job.official", { defaultValue: "Official" })}
             </a>
           ) : null}
           <span className="job-card__cta">{t("jobDetail.viewDetails")} →</span>

@@ -4,6 +4,7 @@ import {
   isAllowedOfficialJob,
   isBlockedAggregatorHost,
   isOfficialRecruitmentUrl,
+  pickOfficialDetailUrl,
 } from './officialDomains'
 
 describe('hostnameOf', () => {
@@ -35,6 +36,25 @@ describe('isOfficialRecruitmentUrl', () => {
 
   it('rejects aggregators', () => {
     expect(isOfficialRecruitmentUrl('https://www.naukri.com/job')).toBe(false)
+  })
+})
+
+describe('pickOfficialDetailUrl', () => {
+  it('prefers an official portal over a notification PDF', () => {
+    expect(
+      pickOfficialDetailUrl({
+        pdfUrl: 'https://ssc.nic.in/notice.pdf',
+        applyUrl: 'https://ssc.nic.in/Portal/Apply',
+      })
+    ).toBe('https://ssc.nic.in/Portal/Apply')
+  })
+
+  it('falls back to an official PDF when no portal exists', () => {
+    expect(
+      pickOfficialDetailUrl({
+        pdfUrl: 'https://employmentnews.gov.in/notice.pdf',
+      })
+    ).toBe('https://employmentnews.gov.in/notice.pdf')
   })
 })
 

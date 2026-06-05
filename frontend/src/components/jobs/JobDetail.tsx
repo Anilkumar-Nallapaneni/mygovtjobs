@@ -8,7 +8,7 @@ import { CATS } from "@/data/categories";
 
 import { translateDateKey, translateFeeKey } from "@/utils/jobDetailLabels";
 
-import { isOfficialRecruitmentUrl } from "@/utils/officialDomains";
+import { resolveOfficialApplyHref } from "@/utils/officialDomains";
 
 import { buildJobDetailView } from "@/utils/jobDetailContent";
 
@@ -98,29 +98,12 @@ export default function JobDetail({ job, onClose }) {
 
 
 
-  const applyHref = view.applyUrl && view.applyUrl !== "#" && isOfficialRecruitmentUrl(view.applyUrl) ? view.applyUrl : null;
-
-  const pdfList = (Array.isArray(view.pdfUrls) ? view.pdfUrls : [])
-    .filter((u) => u && isOfficialRecruitmentUrl(u));
-  const visiblePdfList = pdfList.slice(0, 1);
-  const extraPdfCount = Math.max(0, pdfList.length - visiblePdfList.length);
-  const pdfHref =
-    (view.pdfUrl && isOfficialRecruitmentUrl(view.pdfUrl) ? view.pdfUrl : null) ||
-    pdfList[0] ||
-    null;
-
-  const officialHref =
-
-    view.officialUrl && view.officialUrl !== "#" && isOfficialRecruitmentUrl(view.officialUrl) && view.officialUrl !== applyHref
-
-      ? view.officialUrl
-
-      : null;
+  const primaryOfficialHref = resolveOfficialApplyHref(view);
 
 
 
-  const missingDetailLabel = pdfHref
-    ? t("job.postsCheckPdf", { defaultValue: "Check PDF" })
+  const missingDetailLabel = primaryOfficialHref
+    ? t("job.postsCheckOfficial", { defaultValue: "See official" })
     : t("job.postsUnavailable", { defaultValue: "Not listed" });
 
   const postsLabel =
@@ -159,8 +142,7 @@ export default function JobDetail({ job, onClose }) {
     ? view.extraDetails.filter((row) => row?.label && isUsefulDisplayValue(row?.value))
     : [];
 
-  const hasLinks = Boolean(applyHref || pdfHref || officialHref || pdfList.length > 0);
-  const primaryOfficialHref = applyHref || officialHref || null;
+  const hasLinks = Boolean(primaryOfficialHref);
   const mockTestHref = `https://www.google.com/search?q=${encodeURIComponent(`${view.title} mock test`)}`;
   const linkBtnBase = {
     display: "flex",
@@ -609,24 +591,6 @@ export default function JobDetail({ job, onClose }) {
                 </a>
               )}
 
-              {visiblePdfList.length > 0 ? (
-                visiblePdfList.map((url, idx) => (
-                  <a
-                    key={url}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}
-                  >
-                    📄 {visiblePdfList.length > 1 ? `${t("jobDetail.downloadPdf")} ${idx + 1}` : t("jobDetail.downloadPdf")}
-                  </a>
-                ))
-              ) : pdfHref && pdfHref !== primaryOfficialHref ? (
-                <a href={pdfHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}>
-                  📄 {t("jobDetail.downloadPdf")}
-                </a>
-              ) : null}
-
               <a href={mockTestHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}>
                 📝 {t("sidebar.mockTest", { defaultValue: "Mock Test" })}
               </a>
@@ -642,13 +606,6 @@ export default function JobDetail({ job, onClose }) {
                 })}
               </p>
             </div>
-          )}
-          {hasLinks && extraPdfCount > 0 ? (
-            <p style={{ marginTop: 10, fontSize: 11, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>
-              +{extraPdfCount} more notification PDF{extraPdfCount > 1 ? "s" : ""} available via official page.
-            </p>
-          ) : (
-            <></>
           )}
         </Section>
 
