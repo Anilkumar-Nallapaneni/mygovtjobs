@@ -1,6 +1,8 @@
 import { pickOfficialDetailUrl } from "@/utils/officialDomains";
+import { resolveTrustedApplyHref } from "@/utils/jobDetailLinks";
 import { collectPdfUrls } from "@/utils/resolvePdfUrl";
 import { normalizeIsoDate, resolveVacancyCount } from "@/utils/jobMetadataUtils";
+import { buildStructuredJobDetail } from "@/utils/jobDetailStructured";
 
 const MISSING_DETAIL = "See official notification";
 const RAW_PDF_MARKERS = [
@@ -71,6 +73,11 @@ function buildExtraDetails(job) {
     "qualification",
     "vacancy",
     "vacancies",
+    "important_dates",
+    "content_sections",
+    "selection_process",
+    "documents_required",
+    "external_id",
   ]);
 
   return Object.entries(detail)
@@ -159,6 +166,15 @@ function buildDates(job) {
   }
   if (job.detail?.advt_no && !dates["Advertisement No."]) {
     dates["Advertisement No."] = job.detail.advt_no;
+  }
+  if (Array.isArray(job.detail?.important_dates)) {
+    for (const entry of job.detail.important_dates) {
+      const event = meaningfulValue(entry?.event || entry?.Event);
+      const when = meaningfulValue(entry?.date || entry?.Date);
+      if (event && when && !dates[event]) {
+        dates[event] = when;
+      }
+    }
   }
   return dates;
 }
@@ -316,28 +332,65 @@ export function buildJobDetailView(job) {
   const vacancies = resolveVacancyCount(job.vacancies, title, summary, job?.about);
   const applyHref =
     pickOfficialDetailUrl(job) ||
+    resolveTrustedApplyHref(job) ||
     (job.applyUrl && job.applyUrl !== "#" ? job.applyUrl : null) ||
-    (job.pdfUrl || null);
+    (job.apply_url && job.apply_url !== "#" ? job.apply_url : null) ||
+    (job.pdfUrl || job.pdf_url || null);
 
   const pdfUrls = Array.isArray(job.pdfUrls) && job.pdfUrls.length ? job.pdfUrls : collectPdfUrls(job);
   const pdfHref = pdfUrls[0] || job.pdfUrl || (applyHref && /\.pdf(\?|$)/i.test(applyHref) ? applyHref : null);
   const htmlApply =
     applyHref && applyHref !== pdfHref && !/\.pdf(\?|$)/i.test(applyHref) ? applyHref : null;
 
+  const structured = buildStructuredJobDetail(job);
+  const useStructured = structured.isStructured;
+  const overviewQual = structured.overviewFacts.find((f) => /qualification/i.test(f.label))?.value;
+  const overviewSalary = structured.overviewFacts.find((f) =>
+    /salary|stipend|emoluments/i.test(f.label)
+  )?.value;
+  const overviewAge = structured.overviewFacts.find((f) => /age/i.test(f.label))?.value;
+
   const qual =
     job.qual && job.qual !== "—" && job.qual !== "See notification"
       ? job.qual
-      : job.detail?.qualification || "See official notification";
+      : overviewQual || job.detail?.qualification || "See official notification";
 
-  const salary = meaningfulValue(job.salary) || extractSalary(summary) || MISSING_DETAIL;
-  const age = meaningfulValue(job.age) || meaningfulValue(job.age_limit) || extractAge(summary) || MISSING_DETAIL;
+  const salary =
+    meaningfulValue(job.salary) ||
+    overviewSalary ||
+    structured.salaryInfo[0] ||
+    extractSalary(summary) ||
+    MISSING_DETAIL;
+  const age =
+    meaningfulValue(job.age) ||
+    meaningfulValue(job.age_limit) ||
+    overviewAge ||
+    structured.ageLimit[0] ||
+    extractAge(summary) ||
+    MISSING_DETAIL;
 
   const dates = buildDates({ ...job, vacancies, lastDate: job.lastDate });
-  const about = buildAbout({ ...job, vacancies, salary, age });
-  const highlights = buildHighlights({ ...job, vacancies, salary, age, qual });
-  const howApply = buildHowApply(job, htmlApply || pdfHref);
-  const selection = buildSelection(job);
-  const extraDetails = buildExtraDetails(job);
+  if (useStructured) {
+    for (const entry of structured.importantDates) {
+      if (entry.event && entry.date && !dates[entry.event]) {
+        dates[entry.event] = entry.date;
+      }
+    }
+  }
+  const about = useStructured && structured.summary
+    ? structured.summary
+    : buildAbout({ ...job, vacancies, salary, age });
+  const highlights = useStructured ? [] : buildHighlights({ ...job, vacancies, salary, age, qual });
+
+  const howApply = useStructured && structured.howToApply.length
+    ? structured.howToApply
+    : buildHowApply(job, htmlApply || pdfHref);
+
+  const selection = useStructured && structured.selection.length
+    ? structured.selection
+    : buildSelection(job);
+
+  const extraDetails = useStructured ? [] : buildExtraDetails(job);
 
   const fee =
     job.fee && Object.keys(job.fee).length
@@ -372,6 +425,7 @@ export function buildJobDetailView(job) {
     email: job.email || "—",
     syllabus: job.syllabus || "",
     extraDetails,
+    structured,
     _detailReady: true,
   };
 

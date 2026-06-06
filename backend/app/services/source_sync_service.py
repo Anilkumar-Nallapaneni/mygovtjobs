@@ -95,10 +95,6 @@ class SourceSyncService:
         sid = result.scalar_one()
         return str(sid)
 
-    async def get_source_id(self, session: AsyncSession, code: str) -> str | None:
-        row = (await session.execute(select(Source.id).where(Source.code == code))).scalar_one_or_none()
-        return str(row) if row else None
-
 
 def _state_code(state: str | None) -> str | None:
     if not state:

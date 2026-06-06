@@ -157,17 +157,6 @@ export const OFFICIAL_SITES = [
   { id: "py-rec",        name: "Puducherry Recruitment Portal",                ...u("https://recruitment.py.gov.in/", "https://recruitment.py.gov.in/"),                    scope: "state",   category: "state",    stateIds: ["py"] },
 ];
 
-/** Quick lookup helpers. */
-export function sitesForState(stateId) {
-  if (!stateId) return OFFICIAL_SITES.filter((s) => s.stateIds.includes("all"));
-  return OFFICIAL_SITES.filter((s) => s.stateIds.includes(stateId) || s.stateIds.includes("all"));
-}
-
-export function sitesForCategory(catId) {
-  if (!catId) return OFFICIAL_SITES;
-  return OFFICIAL_SITES.filter((s) => s.category === catId);
-}
-
 export function sitesForStateAndCategory(stateId, catId) {
   return OFFICIAL_SITES.filter(
     (s) =>

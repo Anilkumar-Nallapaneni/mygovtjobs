@@ -1,10 +1,15 @@
 import { collectPdfUrls, resolvePdfUrl } from '@/utils/resolvePdfUrl'
 import { cleanJobTitle, cleanDept } from '@/utils/jobNoiseFilter'
-import { enrichJobMetadata } from '@/utils/jobMetadataUtils'
+import { enrichJobMetadata, sanitizeVacancyCount } from '@/utils/jobMetadataUtils'
 import { isJobExpired } from '@/utils/jobFilters'
 import { resolveStateDisplay } from '@/utils/jobStateResolve'
 import { resolveJobQualification } from '@/utils/jobQualification'
-import { sanitizeOfficialUrls } from '@/utils/officialDomains'
+import { isPdfUrl, sanitizeOfficialUrls } from '@/utils/officialDomains'
+import {
+  collectDetailLinksFromJob,
+  resolveTrustedApplyHref,
+  resolveTrustedPdfHref,
+} from '@/utils/jobDetailLinks'
 
 function sanitizeDetailForUi(detail) {
   if (!detail || typeof detail !== 'object') return {}
@@ -13,7 +18,6 @@ function sanitizeDetailForUi(detail) {
   delete out.discovered_via
   return out
 }
-import { sanitizeVacancyCount } from '@/utils/jobMetadataUtils'
 
 /** Map API / Supabase job row → shape used by JobCard / HomePage. */
 export function adaptLiveJob(row, index = 0) {
@@ -36,7 +40,21 @@ export function adaptLiveJob(row, index = 0) {
         ? 'hot'
         : 'new'
 
-  const urls = sanitizeOfficialUrls(row)
+  const isFjaImport = row?.detail?.source === 'fja-import'
+  const urls = isFjaImport
+    ? (() => {
+        const links = collectDetailLinksFromJob(row)
+        const apply = resolveTrustedApplyHref(row)
+        const pdf = resolveTrustedPdfHref(row)
+        const pdfUrls = links.filter((l) => isPdfUrl(l.url)).map((l) => l.url)
+        return {
+          applyUrl: apply || '#',
+          officialUrl: apply || '#',
+          pdfUrl: pdf,
+          pdfUrls: pdfUrls.length ? pdfUrls : pdf ? [pdf] : [],
+        }
+      })()
+    : sanitizeOfficialUrls(row)
   const title = cleanJobTitle(row.title) || 'Government recruitment'
   const rawVacancies = Number(row.vacancies) || 0
   const vacancies = sanitizeVacancyCount(rawVacancies, title)
@@ -75,20 +93,4 @@ export function adaptLiveJob(row, index = 0) {
     isLive: true,
     _fromLive: true,
   })
-}
-
-/** Curated demo jobs + live rows (unique slug). */
-export function mergeJobs(staticJobs, liveJobs) {
-  const out = [...staticJobs]
-  const usedSlugs = new Set(staticJobs.map((j) => j.slug))
-
-  for (let i = 0; i < liveJobs.length; i++) {
-    const job = { ...liveJobs[i] }
-    let slug = job.slug || `live-${job.id || i}`
-    if (usedSlugs.has(slug)) slug = `${slug}-${job.id || i}`
-    usedSlugs.add(slug)
-    out.push({ ...job, slug, id: job.id || slug })
-  }
-
-  return out
 }

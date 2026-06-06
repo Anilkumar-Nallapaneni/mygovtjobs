@@ -156,16 +156,6 @@ export async function fetchLiveJobsSnapshot(options?: {
   return snapshotPrefetch
 }
 
-export async function fetchJobBySlug(slug: string): Promise<ApiJob | null> {
-  try {
-    const res = await fetch(apiUrl(`/api/jobs/${encodeURIComponent(slug)}`), { cache: 'default' })
-    if (!res.ok) return null
-    return await res.json()
-  } catch {
-    return null
-  }
-}
-
 export type AlertSubscribePayload = {
   channel: 'email' | 'whatsapp' | 'telegram' | 'push'
   channel_address: string

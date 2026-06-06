@@ -104,6 +104,14 @@ export function isOfficialRecruitmentUrl(url) {
   }
 }
 
+function collectSectionLinks(job) {
+  const sections = job?.detail?.content_sections
+  if (!Array.isArray(sections)) return []
+  return sections.flatMap((section) =>
+    (section?.links || []).map((link) => link?.url).filter(Boolean)
+  )
+}
+
 export function collectJobUrls(job) {
   return [
     job?.applyUrl,
@@ -118,6 +126,7 @@ export function collectJobUrls(job) {
     job?.detail?.source_url,
     ...(Array.isArray(job?.detail?.pdf_urls) ? job.detail.pdf_urls : []),
     ...(Array.isArray(job?.detail?.pdfUrls) ? job.detail.pdfUrls : []),
+    ...collectSectionLinks(job),
   ].filter(Boolean)
 }
 

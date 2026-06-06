@@ -25,8 +25,6 @@ All UI code lives under `frontend/src/` (TypeScript only — `.ts` / `.tsx`).
 | Component | Role |
 |-----------|------|
 | `home/HomePage.tsx` | Main jobs grid, map, filters, categories, state panel |
-| `home/JobsStatusBar.tsx` | Live vs demo count, data source indicator |
-| `home/CategoryGrid.tsx` | Category tiles with **live** job counts |
 | `home/StateJobsPanel.tsx` | Jobs for selected state |
 | `home/NotificationsSidebar.tsx` | Side notifications list |
 | `home/LatestNotificationsTable.tsx` | Table view of latest jobs |
@@ -54,6 +52,7 @@ All UI code lives under `frontend/src/` (TypeScript only — `.ts` / `.tsx`).
 | Module | Role |
 |--------|------|
 | `hooks/useLiveJobs.ts` | Loads jobs: API / Supabase / JSON (up to 8000 rows) |
+| `hooks/useNow.ts` | Deadline clock for cards and detail |
 | `hooks/useOfficialFeed.ts` | Official headlines JSON |
 | `lib/jobsApi.ts` | `GET /api/jobs` client |
 | `lib/supabase.ts` | Supabase client |
@@ -70,5 +69,4 @@ All UI code lives under `frontend/src/` (TypeScript only — `.ts` / `.tsx`).
 |------|------|
 | `data/categories.ts` | Category ids, icons, colors (counts are live) |
 | `data/states.ts` | State list for map and filters |
-| `data/jobs.ts` | Demo seed jobs (shown when no backend) |
 | `data/officialSites.ts` | Portal registry for `fetch:official` |

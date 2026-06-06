@@ -140,10 +140,6 @@ export function extractVacanciesFromText(...chunks) {
   return found.length ? Math.max(...found) : 0;
 }
 
-export function extractVacanciesFromTitle(title) {
-  return extractVacanciesFromText(title);
-}
-
 export function extractLastDateFromTitle(title) {
   const t = String(title || '');
   for (const { re, pick } of LAST_DATE_PATTERNS) {

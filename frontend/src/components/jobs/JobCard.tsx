@@ -1,9 +1,14 @@
 import { memo, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useNow } from "@/hooks/useNow";
 import { DS } from "@/theme/designSystem";
 import { CATS } from "@/data/categories";
+import type { JobRecord } from "@/types/job";
 import { enrichJobMetadata } from "@/utils/jobMetadataUtils";
 import { resolveOfficialApplyHref } from "@/utils/officialDomains";
+import { resolveTrustedApplyHref } from "@/utils/jobDetailLinks";
+import { resolvePdfUrl } from "@/utils/resolvePdfUrl";
+
 const DAY_MS = 1000 * 60 * 60 * 24;
 
 function formatDate(value, locale) {
@@ -29,13 +34,14 @@ function JobCard({
   onEducationClick,
   onStateClick,
 }: {
-  job: Record<string, unknown>
+  job: JobRecord
   onClick?: () => void
   compact?: boolean
   onEducationClick?: (key: string) => void
   onStateClick?: (stateId: string) => void
 }) {
   const { t, i18n } = useTranslation();
+  const now = useNow();
   const dateLocale = i18n.language === "en" ? "en-IN" : i18n.language;
   const enriched = useMemo(() => (job?._enriched ? job : enrichJobMetadata(job)), [job]);
 
@@ -50,18 +56,12 @@ function JobCard({
   const lastMs = hasLastDate ? new Date(String(lastDateRaw)).getTime() : NaN;
   const daysLeft =
     hasLastDate && !isExpired && !Number.isNaN(lastMs)
-      ? // eslint-disable-next-line react-hooks/purity -- display-only "days left" label
-        Math.ceil((lastMs - Date.now()) / DAY_MS)
+      ? Math.ceil((lastMs - now) / DAY_MS)
       : null;
   const isUrgent = daysLeft != null && daysLeft >= 0 && daysLeft <= 7;
 
-  const officialHref = resolveOfficialApplyHref(enriched);
-  const pdfHref =
-    enriched?.pdfUrl && String(enriched.pdfUrl).trim()
-      ? String(enriched.pdfUrl)
-      : Array.isArray((enriched as any)?.pdfUrls) && (enriched as any).pdfUrls.length
-        ? String((enriched as any).pdfUrls[0])
-        : null;
+  const officialHref = resolveOfficialApplyHref(enriched) || resolveTrustedApplyHref(enriched);
+  const pdfHref = resolvePdfUrl(enriched) || null;
   const postsDisplay =
     vacancies > 0
       ? vacancies.toLocaleString(dateLocale)

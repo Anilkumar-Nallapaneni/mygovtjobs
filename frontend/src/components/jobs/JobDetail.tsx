@@ -1,647 +1,288 @@
-import { Fragment, useEffect, useMemo, useRef } from "react";
-
+import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
+import { useNow } from "@/hooks/useNow";
 import { DS } from "@/theme/designSystem";
-
 import { CATS } from "@/data/categories";
-
 import { translateDateKey, translateFeeKey } from "@/utils/jobDetailLabels";
-
-import { resolveOfficialApplyHref } from "@/utils/officialDomains";
-
+import { isPdfUrl } from "@/utils/officialDomains";
 import { buildJobDetailView } from "@/utils/jobDetailContent";
-
-
+import { collectDetailLinksFromJob } from "@/utils/jobDetailLinks";
 
 const DAY_MS = 1000 * 60 * 60 * 24;
 
-
-
-function sumCategoryVacancies(categoryVacancies) {
-
-  if (!categoryVacancies || typeof categoryVacancies !== "object") return 0;
-
-  return Object.values(categoryVacancies).reduce((a: number, n) => a + (Number(n) || 0), 0);
-
+function Section({ title, children }) {
+  return (
+    <div className="job-detail-section">
+      {title ? <h3 className="job-detail-section-title">{title}</h3> : null}
+      {children}
+    </div>
+  );
 }
 
+function displayValue(v, fallback = "—") {
+  const s = String(v ?? "").trim();
+  if (!s || /^(?:-|—|tba|pending|null|undefined)$/i.test(s)) return fallback;
+  return s;
+}
 
-
-function Section({ title, children }) {
+function renderDynamicTable(rows: Record<string, string>[]) {
+  if (!rows?.length) return null;
+  const keys = Object.keys(rows[0] || {});
+  if (!keys.length) return null;
 
   return (
-
-    <div style={{ background: DS.bg1, border: `1px solid ${DS.border}`, borderRadius: 14, padding: "16px 18px", marginBottom: 12 }}>
-
-      <h3 style={{ fontSize: 11, fontWeight: 700, color: DS.saffron, letterSpacing: 1.5, marginBottom: 12, paddingBottom: 10, borderBottom: `1px solid ${DS.border}`, fontFamily: "'Outfit',sans-serif", textTransform: "uppercase", margin: "0 0 12px" }}>
-
-        {title}
-
-      </h3>
-
-      {children}
-
+    <div className="job-detail-table-wrap">
+      <table className="job-detail-table">
+        <thead>
+          <tr>
+            {keys.map((key) => (
+              <th key={key}>{key}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i}>
+              {keys.map((key) => (
+                <td key={key}>{row[key] ?? ""}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-
   );
-
 }
 
+function ApplyLinks({ links }) {
+  if (!links?.length) return null;
 
-
-function displayValue(v, fallback) {
-
-  const s = String(v ?? "").trim();
-
-  if (!s || /^(?:-|—|tba|pending|null|undefined)$/i.test(s)) return fallback;
-
-  return s;
-
+  return (
+    <div className="job-detail-apply-links">
+      <div className="job-detail-apply-links-row">
+        {links.map((link) => (
+          <a
+            key={link.url}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="job-detail-apply-btn"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {isPdfUrl(link.url) ? "📄 " : "🔗 "}
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-function isUsefulDisplayValue(v) {
-
-  const s = String(v ?? "").trim();
-
-  if (!s || /^(?:-|—|tba|pending|null|undefined)$/i.test(s)) return false;
-
-  return !/^(?:see|as per)\s+(?:official\s+)?notification$/i.test(s);
-
+function MetaRow({ items }) {
+  return (
+    <div className="job-detail-meta-row">
+      {items.map(({ label, value }) => (
+        <span key={label}>
+          <strong>{label}:</strong> {value}
+        </span>
+      ))}
+    </div>
+  );
 }
 
+function ContentSections({ sections }) {
+  if (!sections?.length) return null;
 
+  return sections.map((section, idx) => (
+    <Section key={`${section.heading}-${idx}`} title={section.heading || ""}>
+      {section.paragraphs?.map((paragraph, pIdx) => (
+        <p key={pIdx} className="job-detail-summary">
+          {paragraph}
+        </p>
+      ))}
+      {section.tables?.map((table, tIdx) => (
+        <div key={tIdx}>{renderDynamicTable(table)}</div>
+      ))}
+      {section.lists?.map((list, lIdx) => (
+        <ul key={lIdx} className="job-detail-bullets">
+          {list.map((item, iIdx) => (
+            <li key={iIdx}>{item}</li>
+          ))}
+        </ul>
+      ))}
+    </Section>
+  ));
+}
 
 export default function JobDetail({ job, onClose }) {
-
   const { t, i18n } = useTranslation();
-
   const panelRef = useRef(null);
-
   const view = useMemo(() => buildJobDetailView(job), [job]);
+  const structured = view.structured;
+  const useStructured = structured?.isStructured;
 
+  const now = useNow();
   const catColor = (CATS.find((c) => c.id === view.category) || { color: DS.saffron }).color;
-
   const lastDateMs = view.lastDate ? new Date(view.lastDate).getTime() : NaN;
-
-  const nowMs = new Date().getTime();
-
-  const daysLeft = Number.isFinite(lastDateMs) ? Math.ceil((lastDateMs - nowMs) / DAY_MS) : null;
-
+  const daysLeft = Number.isFinite(lastDateMs)
+    ? Math.ceil((lastDateMs - now) / DAY_MS)
+    : null;
   const isUrgent = daysLeft != null && daysLeft >= 0 && daysLeft <= 7;
-
-  const postsVacSum = (view.posts || []).reduce((s, p) => s + (Number(p.vacancies) || 0), 0);
-
-  const postsSumMismatch = view.posts?.length > 0 && postsVacSum !== (Number(view.vacancies) || 0);
-
   const dateLocale = i18n.language === "en" ? "en-IN" : i18n.language;
 
+  const bottomLinks = useMemo(() => collectDetailLinksFromJob(job), [job]);
 
+  const postName =
+    structured?.overviewFacts.find((f) => /post name/i.test(f.label))?.value ||
+    (view.vacancies > 0 ? `${view.vacancies.toLocaleString(dateLocale)} posts` : "—");
 
-  const primaryOfficialHref = resolveOfficialApplyHref(view);
-  const pdfHref = view.pdfUrl || (Array.isArray(view.pdfUrls) ? view.pdfUrls[0] : null);
+  const metaItems = [
+    { label: t("jobDetail.board", { defaultValue: "Board" }), value: displayValue(view.dept) },
+    { label: t("jobDetail.postName"), value: displayValue(postName) },
+    { label: t("jobDetail.lastDateLabel"), value: displayValue(view.lastDate) },
+  ].filter((item) => item.value !== "—");
 
-
-
-  const missingDetailLabel = primaryOfficialHref
-    ? t("job.postsCheckOfficial", { defaultValue: "See official" })
-    : t("job.postsUnavailable", { defaultValue: "Not listed" });
-
-  const postsLabel =
-
-    view.vacancies > 0
-
-      ? view.vacancies.toLocaleString(dateLocale)
-
-      : missingDetailLabel;
-
-  const statCards = [
-
-    { l: t("jobDetail.totalPosts"), v: postsLabel, i: "📋" },
-
-    { l: t("jobDetail.lastDateLabel"), v: displayValue(view.lastDate, missingDetailLabel), i: "📅" },
-
-    ...(isUsefulDisplayValue(view.salary) ? [{ l: t("jobDetail.salary"), v: view.salary, i: "💰" }] : []),
-
-    ...(isUsefulDisplayValue(view.age) ? [{ l: t("jobDetail.ageLimit"), v: view.age, i: "👤" }] : []),
-
-  ];
-
-
-
-  const dateEntries = Object.entries(view.dates || {}).filter(([, v]) => v && String(v).trim());
+  const dateEntries = useStructured
+    ? structured.importantDates.map((d) => [d.event, d.date])
+    : Object.entries(view.dates || {}).filter(([, v]) => v && String(v).trim());
 
   const feeEntries = Object.entries(view.fee || {}).filter(([, v]) => v && String(v).trim());
-
-  const eligibilityRows = [
-    { label: t("jobDetail.qualification"), value: view.qual },
-    { label: t("jobDetail.nationality"), value: view.nationality },
-    { label: t("jobDetail.ageRelaxation"), value: view.ageRelax },
-    { label: t("jobDetail.attempts"), value: view.attempts },
-  ].filter(({ value }) => isUsefulDisplayValue(value));
-  const extraDetails = Array.isArray(view.extraDetails)
-    ? view.extraDetails.filter((row) => row?.label && isUsefulDisplayValue(row?.value))
-    : [];
-
-  const hasLinks = Boolean(primaryOfficialHref);
-  const mockTestHref = `https://www.google.com/search?q=${encodeURIComponent(`${view.title} mock test`)}`;
-  const linkBtnBase = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 7,
-    borderRadius: 12,
-    minHeight: 46,
-    padding: "11px 20px",
-    fontSize: 13,
-    fontWeight: 700,
-    cursor: "pointer",
-    textDecoration: "none",
-    fontFamily: "'Outfit',sans-serif",
-    flex: "1 1 0",
-    minWidth: 0,
-  } as const;
-
-
+  const summaryText = useStructured ? structured.summary || view.about : view.about;
 
   useEffect(() => {
-
     const onKey = (e) => {
-
       if (e.key === "Escape") onClose();
-
     };
-
     const prevOverflow = document.body.style.overflow;
-
     document.body.style.overflow = "hidden";
-
     document.addEventListener("keydown", onKey);
-
     panelRef.current?.focus();
-
     return () => {
-
       document.removeEventListener("keydown", onKey);
-
       document.body.style.overflow = prevOverflow;
-
     };
-
   }, [onClose]);
 
-
-
   return (
-
     <div
-
       className="job-detail-overlay"
-
       style={{ background: DS.overlayScrim }}
-
       role="dialog"
-
       aria-modal="true"
-
       aria-label={view.title}
-
       onClick={(e) => {
-
         if (e.target === e.currentTarget) onClose();
-
       }}
-
     >
-
-      <div ref={panelRef} className="job-detail-panel" tabIndex={-1}>
-
-        <button
-
-          type="button"
-
-          onClick={onClose}
-
-          style={{ background: DS.bg2, border: `1px solid ${DS.borderHi}`, borderRadius: 10, padding: "8px 16px", fontSize: 12, color: DS.mutedHi, cursor: "pointer", marginBottom: 14, fontFamily: "'Outfit',sans-serif", display: "flex", alignItems: "center", gap: 6 }}
-
-        >
-
+      <div
+        ref={panelRef}
+        className="job-detail-panel"
+        tabIndex={-1}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button type="button" onClick={onClose} className="job-detail-back-btn">
           {t("jobDetail.back")}
-
         </button>
 
-
-
-        <div style={{ background: DS.bg1, border: `1px solid ${DS.border}`, borderRadius: 18, padding: "22px 24px", marginBottom: 12 }}>
-
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
-
-            <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 20, background: `${catColor}18`, color: catColor, border: `1px solid ${catColor}40` }}>
-
+        <div className="job-detail-hero">
+          <div className="job-detail-badges">
+            <span
+              className="job-detail-badge"
+              style={{ color: catColor, borderColor: `${catColor}40`, background: `${catColor}18` }}
+            >
               {t(`category.${view.category}`).toUpperCase()}
-
             </span>
-
-            <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 20, background: DS.bg3, color: DS.mutedHi, border: `1px solid ${DS.borderHi}` }}>{view.type}</span>
-
-            {view.status === "hot" && (
-
-              <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 20, background: DS.redSoftBg, color: DS.red, border: `1px solid ${DS.redSoftBorder}` }}>
-
-                🔥 {t("job.hot")}
-
-              </span>
-
-            )}
-
-            {isUrgent && (
-
-              <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 20, background: DS.redSoftBg, color: DS.red, border: `1px solid ${DS.redSoftBorder}` }}>
-
+            {view.state ? (
+              <span className="job-detail-badge job-detail-badge-muted">{view.state}</span>
+            ) : null}
+            {isUrgent ? (
+              <span className="job-detail-badge job-detail-badge-urgent">
                 ⚠️ {t("jobDetail.closingIn", { count: daysLeft })}
-
               </span>
-
-            )}
-
+            ) : null}
           </div>
 
-          <h1 style={{ fontSize: 21, fontWeight: 900, color: DS.white, fontFamily: "'Sora',sans-serif", lineHeight: 1.25, marginBottom: 6 }}>{view.title}</h1>
-
-          <p style={{ fontSize: 13, color: DS.muted, fontFamily: "'Outfit',sans-serif", marginBottom: 16 }}>{view.dept}</p>
-
-
-
-          <div className="job-detail-stats">
-
-            {statCards.map(({ l, v, i }) => (
-
-              <div key={l} style={{ background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 12, padding: "12px", textAlign: "center" }}>
-
-                <div style={{ fontSize: 18, marginBottom: 5 }}>{i}</div>
-
-                <div style={{ fontSize: 12, fontWeight: 800, color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1.2 }}>{v}</div>
-
-                <div style={{ fontSize: 9.5, color: DS.muted, marginTop: 4, fontFamily: "'Outfit',sans-serif" }}>{l}</div>
-
-              </div>
-
-            ))}
-
-          </div>
-
-
-
+          <h1 className="job-detail-title">{view.title}</h1>
+          <MetaRow items={metaItems} />
         </div>
 
-
-
-        {view.about ? (
-
-          <Section title={t("jobDetail.aboutRecruitment")}>
-
-            {view.highlights?.length > 0 ? (
-              <div className="job-detail-highlights">
-                {view.highlights.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            ) : null}
-
-            <p style={{ fontSize: 13, color: DS.mutedHi, lineHeight: 1.7, margin: 0, fontFamily: "'Outfit',sans-serif" }}>{view.about}</p>
-
-          </Section>
-
-        ) : null}
-
-
+        {summaryText ? <p className="job-detail-lead">{summaryText}</p> : null}
 
         {dateEntries.length > 0 ? (
-
           <Section title={t("jobDetail.importantDates")}>
-
-            <div className="job-detail-dates">
-
-              {dateEntries.map(([k, v]) => (
-
-                <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: `1px solid ${DS.border}` }}>
-
-                  <span style={{ fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>{translateDateKey(t, k)}</span>
-
-                  <span style={{ fontSize: 12, fontWeight: 700, color: DS.white, fontFamily: "'JetBrains Mono',monospace" }}>{String(v)}</span>
-
-                </div>
-
-              ))}
-
-            </div>
-
-          </Section>
-
-        ) : null}
-
-
-
-        {view.posts?.length > 0 && (
-
-          <Section title={t("jobDetail.postWiseVacancy")}>
-
-            {postsSumMismatch && (
-
-              <p style={{ fontSize: 11, color: DS.red, margin: "0 0 10px", fontFamily: "'Outfit',sans-serif", lineHeight: 1.5, background: DS.redSoftBg, border: `1px solid ${DS.redSoftBorder}`, borderRadius: 8, padding: "8px 10px" }}>
-
-                {t("jobDetail.postsMismatch", { sum: postsVacSum.toLocaleString(dateLocale), total: (Number(view.vacancies) || 0).toLocaleString(dateLocale) })}
-
-              </p>
-
-            )}
-
-            <p style={{ fontSize: 11, color: DS.muted, margin: "0 0 12px", fontFamily: "'Outfit',sans-serif", lineHeight: 1.5 }}>{t("jobDetail.postWiseHint")}</p>
-
-            <div style={{ overflowX: "auto" }}>
-
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
-
+            <div className="job-detail-table-wrap">
+              <table className="job-detail-table">
                 <thead>
-
-                  <tr style={{ borderBottom: `1px solid ${DS.border}` }}>
-
-                    <th style={{ textAlign: "left", padding: "6px 8px", color: DS.muted, fontFamily: "'Outfit',sans-serif", fontWeight: 600 }}>{t("jobDetail.postName")}</th>
-
-                    <th style={{ textAlign: "right", padding: "6px 8px", color: DS.muted, fontFamily: "'Outfit',sans-serif", fontWeight: 600 }}>{t("home.vacancies")}</th>
-
-                    <th style={{ textAlign: "right", padding: "6px 8px", color: DS.muted, fontFamily: "'Outfit',sans-serif", fontWeight: 600 }}>{t("jobDetail.payLevel")}</th>
-
+                  <tr>
+                    <th>{t("jobDetail.dateEvent", { defaultValue: "Event" })}</th>
+                    <th>{t("jobDetail.dateValue", { defaultValue: "Date" })}</th>
                   </tr>
-
                 </thead>
-
                 <tbody>
-
-                  {view.posts.map((p, i) => {
-
-                    const cat = p.categoryVacancies;
-
-                    const catSum = sumCategoryVacancies(cat);
-
-                    const showCat = cat && typeof cat === "object" && Object.keys(cat).length > 0;
-
-                    return (
-
-                      <Fragment key={`post-${p.post || i}`}>
-
-                        <tr style={{ borderBottom: showCat ? "none" : `1px solid ${DS.tableRowBorder}` }}>
-
-                          <td style={{ padding: "9px 8px", color: DS.mutedHi, fontFamily: "'Outfit',sans-serif", verticalAlign: "top" }}>{p.post}</td>
-
-                          <td style={{ padding: "9px 8px", textAlign: "right", color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, verticalAlign: "top" }}>{(p.vacancies || 0).toLocaleString(dateLocale)}</td>
-
-                          <td style={{ padding: "9px 8px", textAlign: "right", color: DS.muted, fontSize: 11, verticalAlign: "top" }}>{p.pay}</td>
-
-                        </tr>
-
-                        {showCat && (
-
-                          <tr style={{ borderBottom: `1px solid ${DS.tableRowBorder}` }}>
-
-                            <td colSpan={3} style={{ padding: "0 8px 12px 16px", background: DS.bg0 }}>
-
-                              <div style={{ fontSize: 10, fontWeight: 700, color: DS.saffron, letterSpacing: 0.8, marginBottom: 8, fontFamily: "'Outfit',sans-serif", textTransform: "uppercase" }}>{t("jobDetail.categoryWiseVacancy")}</div>
-
-                              <table style={{ width: "100%", maxWidth: 420, borderCollapse: "collapse", fontSize: 11 }}>
-
-                                <thead>
-
-                                  <tr>
-
-                                    <th style={{ textAlign: "left", padding: "5px 8px", color: DS.muted, fontWeight: 600, borderBottom: `1px solid ${DS.border}`, fontFamily: "'Outfit',sans-serif" }}>{t("jobDetail.categoryCol")}</th>
-
-                                    <th style={{ textAlign: "right", padding: "5px 8px", color: DS.muted, fontWeight: 600, borderBottom: `1px solid ${DS.border}`, fontFamily: "'Outfit',sans-serif" }}>{t("job.posts")}</th>
-
-                                  </tr>
-
-                                </thead>
-
-                                <tbody>
-
-                                  {Object.entries(cat).map(([label, n]) => (
-
-                                    <tr key={label}>
-
-                                      <td style={{ padding: "6px 8px", color: DS.mutedHi, fontFamily: "'Outfit',sans-serif", borderBottom: `1px solid ${DS.tableRowBorder}` }}>{label}</td>
-
-                                      <td style={{ padding: "6px 8px", textAlign: "right", color: DS.white, fontFamily: "'JetBrains Mono',monospace", fontWeight: 600, borderBottom: `1px solid ${DS.tableRowBorder}` }}>{Number(n).toLocaleString(dateLocale)}</td>
-
-                                    </tr>
-
-                                  ))}
-
-                                  <tr>
-
-                                    <td style={{ padding: "7px 8px", color: DS.muted, fontFamily: "'Outfit',sans-serif", fontWeight: 600 }}>{t("jobDetail.categoryTotal")}</td>
-
-                                    <td style={{ padding: "7px 8px", textAlign: "right", color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>{Number(catSum).toLocaleString(dateLocale)}</td>
-
-                                  </tr>
-
-                                </tbody>
-
-                              </table>
-
-                            </td>
-
-                          </tr>
-
-                        )}
-
-                      </Fragment>
-
-                    );
-
-                  })}
-
+                  {dateEntries.map(([event, dateVal]) => (
+                    <tr key={`${event}-${dateVal}`}>
+                      <td>{translateDateKey(t, event)}</td>
+                      <td>{String(dateVal)}</td>
+                    </tr>
+                  ))}
                 </tbody>
-
               </table>
-
             </div>
-
           </Section>
-        )}
-
-
-
-        {view.selection?.length > 0 ? (
-
-          <Section title={t("jobDetail.selectionProcess")}>
-
-            <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
-
-              {view.selection.map((step, i) => (
-
-                <li key={i} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 13 }}>
-
-                  <span style={{ width: 24, height: 24, borderRadius: "50%", background: `${DS.saffron}18`, border: `1px solid ${DS.saffron}40`, color: DS.saffron, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</span>
-
-                  <span style={{ color: DS.mutedHi, fontFamily: "'Outfit',sans-serif" }}>{step}</span>
-
-                </li>
-
-              ))}
-
-            </ol>
-
-          </Section>
-
         ) : null}
 
-
-
-        {view.howApply?.length > 0 ? (
-
-          <Section title={t("jobDetail.howToApply")}>
-
-            <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
-
-              {view.howApply.map((step, i) => (
-
-                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13 }}>
-
-                  <span style={{ color: DS.saffron, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, flexShrink: 0, marginTop: 1 }}>0{i + 1}</span>
-
-                  <span style={{ color: DS.mutedHi, fontFamily: "'Outfit',sans-serif", lineHeight: 1.5 }}>{step}</span>
-
-                </li>
-
-              ))}
-
-            </ol>
-
-          </Section>
-
-        ) : null}
-
-
-
-        {(feeEntries.length > 0 || eligibilityRows.length > 0 || view.syllabus) && (
-
-          <div
-            className="job-detail-fee-grid"
-            style={feeEntries.length > 0 ? undefined : { gridTemplateColumns: "1fr" }}
-          >
-
-            {feeEntries.length > 0 ? (
-
-              <Section title={t("jobDetail.applicationFee")}>
-
-                {feeEntries.map(([k, v]) => (
-
-                  <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: `1px solid ${DS.border}` }}>
-
-                    <span style={{ fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif" }}>{translateFeeKey(t, k)}</span>
-
-                    <span style={{ fontSize: 12, fontWeight: 600, color: DS.white, fontFamily: "'Outfit',sans-serif" }}>{String(v)}</span>
-
-                  </div>
-
-                ))}
-
+        {useStructured ? (
+          <ContentSections sections={structured.displaySections} />
+        ) : (
+          <>
+            {view.selection?.length > 0 ? (
+              <Section title={t("jobDetail.selectionProcess")}>
+                <ol className="job-detail-steps">
+                  {view.selection.map((step, i) => (
+                    <li key={i}>{step}</li>
+                  ))}
+                </ol>
               </Section>
-
             ) : null}
 
-            <Section title={t("jobDetail.eligibilityDetails")}>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-
-                {eligibilityRows.map(({ label, value }) => (
-                  <div key={label} style={{ fontSize: 12, fontFamily: "'Outfit',sans-serif" }}>
-                    <span style={{ color: DS.muted }}>{label} </span>
-                    <span style={{ color: DS.mutedHi }}>{value}</span>
-                  </div>
-                ))}
-
-                {view.syllabus ? (
-
-                  <div style={{ fontSize: 12, fontFamily: "'Outfit',sans-serif" }}>
-
-                    <span style={{ color: DS.muted }}>{t("jobDetail.syllabus")} </span>
-
-                    <span style={{ color: DS.mutedHi }}>{view.syllabus}</span>
-
-                  </div>
-
-                ) : null}
-
-              </div>
-
-            </Section>
-
-          </div>
-
+            {view.howApply?.length > 0 ? (
+              <Section title={t("jobDetail.howToApply")}>
+                <ol className="job-detail-steps">
+                  {view.howApply.map((step, i) => (
+                    <li key={i}>{step}</li>
+                  ))}
+                </ol>
+              </Section>
+            ) : null}
+          </>
         )}
 
-
-
-        <Section title={t("jobDetail.officialLinks", { defaultValue: "Official Links" })}>
-          {hasLinks ? (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              {primaryOfficialHref && (
-                <a href={primaryOfficialHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.gradientBrand, border: "none", color: DS.inkOnBrand }}>
-                  🌐 {t("jobDetail.applyOfficial")}
-                </a>
-              )}
-              {pdfHref && pdfHref !== primaryOfficialHref && (
-                <a href={pdfHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}>
-                  📄 {t("jobDetail.downloadPdf")}
-                </a>
-              )}
-
-              <a href={mockTestHref} target="_blank" rel="noopener noreferrer" style={{ ...linkBtnBase, background: DS.bg3, border: `1px solid ${DS.borderHi}`, color: DS.white }}>
-                📝 {t("sidebar.mockTest", { defaultValue: "Mock Test" })}
-              </a>
-            </div>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <a href={mockTestHref} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", width: "fit-content", alignItems: "center", gap: 7, background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 12, padding: "11px 20px", fontSize: 13, fontWeight: 600, color: DS.white, cursor: "pointer", textDecoration: "none", fontFamily: "'Outfit',sans-serif" }}>
-                📝 {t("sidebar.mockTest", { defaultValue: "Mock Test" })}
-              </a>
-              <p style={{ marginTop: 2, fontSize: 12, color: DS.muted, fontFamily: "'Outfit',sans-serif", lineHeight: 1.5 }}>
-                {t("jobDetail.noOfficialLink", {
-                  defaultValue: "No verified official link was saved for this listing. Try searching the department name on a .gov.in portal.",
-                })}
-              </p>
-            </div>
-          )}
-        </Section>
-
-        {extraDetails.length > 0 ? (
-          <Section title={t("jobDetail.additionalInfo", { defaultValue: "Additional Details" })}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
-              {extraDetails.map((row) => (
-                <div key={row.label} style={{ background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 10, padding: "10px 12px" }}>
-                  <div style={{ fontSize: 10, color: DS.muted, fontWeight: 700, letterSpacing: 0.6, textTransform: "uppercase", marginBottom: 4, fontFamily: "'Outfit',sans-serif" }}>
-                    {row.label}
-                  </div>
-                  <div style={{ fontSize: 12, color: DS.mutedHi, lineHeight: 1.55, fontFamily: "'Outfit',sans-serif" }}>{row.value}</div>
-                </div>
-              ))}
-            </div>
+        {feeEntries.length > 0 ? (
+          <Section title={t("jobDetail.applicationFee")}>
+            {feeEntries.map(([k, v]) => (
+              <div key={k} className="job-detail-fee-row">
+                <span>{translateFeeKey(t, k)}</span>
+                <span>{String(v)}</span>
+              </div>
+            ))}
           </Section>
         ) : null}
 
-        <div style={{ marginTop: 14, padding: "12px 16px", background: DS.bg3, border: `1px solid ${DS.borderHi}`, borderRadius: 10, fontSize: 11.5, color: DS.muted, lineHeight: 1.6, fontFamily: "'Outfit',sans-serif" }}>
+        <Section title={t("jobDetail.officialLinks", { defaultValue: "Official Links" })}>
+          <ApplyLinks links={bottomLinks} />
+          {!bottomLinks.length ? (
+            <p className="job-detail-summary">
+              {t("jobDetail.noOfficialLink", {
+                defaultValue:
+                  "No verified official link was saved for this listing. Try searching the department name on a .gov.in portal.",
+              })}
+            </p>
+          ) : null}
+        </Section>
 
-          ⚠️ {t("jobDetail.disclaimer")}
-
-        </div>
-
+        <div className="job-detail-disclaimer">⚠️ {t("jobDetail.disclaimer")}</div>
       </div>
-
     </div>
-
   );
-
 }
-
-

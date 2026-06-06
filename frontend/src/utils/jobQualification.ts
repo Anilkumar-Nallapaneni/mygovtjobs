@@ -78,12 +78,3 @@ export function resolveJobQualification(job) {
 
   return { label: null, key: null };
 }
-
-export function qualificationFilterLabel(key, t) {
-  if (!key) return null;
-  if (typeof t === 'function') {
-    return t(`quickFilter.${key}`, { defaultValue: key });
-  }
-  const rule = QUAL_RULES.find((r) => r.key === key);
-  return rule?.label || key;
-}

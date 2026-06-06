@@ -51,11 +51,3 @@ def assert_safe_url(url: str) -> None:
         sockaddr = info[4]
         if sockaddr and _ip_blocked(sockaddr[0]):
             raise ValueError(f"Blocked private/reserved IP for host: {host}")
-
-
-def is_safe_url(url: str) -> bool:
-    try:
-        assert_safe_url(url)
-        return True
-    except ValueError:
-        return False

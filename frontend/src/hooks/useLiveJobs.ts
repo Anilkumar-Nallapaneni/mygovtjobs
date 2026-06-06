@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   fetchJobsFromApi,
   fetchLiveJobsSnapshot,
-  invalidateSnapshotPrefetch,
   JOBS_FETCH_TIMEOUT_MS,
 } from '@/lib/jobsApi'
 import {
@@ -40,13 +39,6 @@ let CACHE: {
 } | null = null
 let INFLIGHT: Promise<Awaited<ReturnType<typeof loadJobsPayload>>> | null = null
 let FORCE_RELOAD = false
-
-export function invalidateJobsCache() {
-  CACHE = null
-  INFLIGHT = null
-  FORCE_RELOAD = true
-  invalidateSnapshotPrefetch()
-}
 
 function isUsefulLiveRow(row: Record<string, unknown>) {
   const title = String(row?.title || '').trim()
@@ -110,6 +102,24 @@ function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise
   })
 }
 
+/** Trim heavy JSONB blobs before list rendering (detail.summary can be 10KB+ per row). */
+function trimRowForList(row: Record<string, unknown>) {
+  const detail = row.detail
+  if (!detail || typeof detail !== 'object') return row
+  const d = { ...(detail as Record<string, unknown>) }
+  const summary = d.summary
+  if (typeof summary === 'string' && summary.length > 400) {
+    d.summary = `${summary.slice(0, 400)}…`
+  }
+  for (const key of ['pdf_urls', 'pdfUrls'] as const) {
+    const list = d[key]
+    if (Array.isArray(list) && list.length > 4) {
+      d[key] = list.slice(0, 4)
+    }
+  }
+  return { ...row, detail: d }
+}
+
 async function fetchSupabasePage(
   supabase: NonNullable<ReturnType<typeof getSupabase>>,
   offset: number,
@@ -125,8 +135,12 @@ async function fetchSupabasePage(
     .order('published_at', { ascending: false })
     .range(offset, rangeEnd)
 
+  // PostgrestFilterBuilder is thenable — must await the query itself (not the builder object).
   const { data, error } = await withTimeout(
-    (async () => query)(),
+    Promise.resolve(query) as Promise<{
+      data: Record<string, unknown>[] | null
+      error: { message: string } | null
+    }>,
     JOBS_FETCH_TIMEOUT_MS,
     'Supabase jobs'
   )
@@ -135,7 +149,7 @@ async function fetchSupabasePage(
     console.warn('[useLiveJobs] Supabase:', error.message)
     return []
   }
-  return data || []
+  return (data || []).map((row) => trimRowForList(row as Record<string, unknown>))
 }
 
 async function fetchJobsFromSupabase({
@@ -237,7 +251,8 @@ async function tryApi() {
 function sourceOrder(): Array<'static' | 'supabase' | 'api'> {
   if (JOBS_SOURCE === 'static') return ['static']
   if (JOBS_SOURCE === 'api') return ['api', 'static']
-  if (JOBS_SOURCE === 'supabase') return ['supabase', 'static']
+  if (JOBS_SOURCE === 'supabase') return ['static', 'supabase']
+  // auto: static snapshot first (prefetched, CDN-cached) then live Supabase
   return ['static', 'supabase', 'api']
 }
 
@@ -357,65 +372,6 @@ export function useLiveJobs() {
       setRefreshing(true)
       if (!forced || !CACHE?.rows?.length) setError(null)
 
-      if (JOBS_SOURCE === 'supabase' && isSupabaseConfigured()) {
-        try {
-          const firstRaw = await fetchJobsFromSupabase({ maxRows: SUPABASE_PAGE })
-          const firstPayload = supabasePayload(firstRaw)
-          const firstProcessed = firstPayload ? processPayload(firstPayload) : null
-          if (firstProcessed?.rows.length) {
-            CACHE = {
-              rows: firstProcessed.rows,
-              sources: firstPayload!.sources,
-              hasBackend: firstPayload!.hasBackend,
-              error: firstPayload!.error,
-              catalogStats: firstProcessed.stats,
-            }
-
-            if (!cancelled) {
-              setLiveRows(firstProcessed.rows)
-              setSources(firstPayload!.sources)
-              setHasBackend(firstPayload!.hasBackend)
-              setError(null)
-              setCatalogStats(firstProcessed.stats)
-              setRefreshing(false)
-            }
-
-            if (firstRaw.length < SUPABASE_PAGE) return
-
-            ;(async () => {
-              try {
-                if (!cancelled) setRefreshing(true)
-                const restRaw = await fetchJobsFromSupabase({ startOffset: SUPABASE_PAGE })
-                const fullPayload = supabasePayload([...firstRaw, ...restRaw])
-                if (!fullPayload) return
-                const { rows: fullRows, stats: fullStats } = processPayload(fullPayload)
-                CACHE = {
-                  rows: fullRows,
-                  sources: fullPayload.sources,
-                  hasBackend: fullPayload.hasBackend,
-                  error: fullPayload.error,
-                  catalogStats: fullStats,
-                }
-                if (!cancelled) {
-                  setLiveRows(fullRows)
-                  setSources(fullPayload.sources)
-                  setHasBackend(fullPayload.hasBackend)
-                  setError(null)
-                  setCatalogStats(fullStats)
-                }
-              } catch (e) {
-                if (!cancelled) setError((e as Error)?.message || 'Failed to load all live jobs')
-              } finally {
-                if (!cancelled) setRefreshing(false)
-              }
-            })()
-            return
-          }
-        } catch {
-          /* fall through to static/api fallback */
-        }
-      }
-
       try {
         if (!INFLIGHT) {
           INFLIGHT = loadJobsPayload(forced).finally(() => {
@@ -444,10 +400,52 @@ export function useLiveJobs() {
           if (payload.error) setError(payload.error)
           setCatalogStats(stats)
           if (dailySync) setDailySyncMeta(dailySync)
+          setRefreshing(false)
         }
+
+        // Background: refresh from Supabase when live DB is configured (after fast static paint).
+        const usedStatic = payload.sources.includes('official-sites')
+        if (
+          cancelled ||
+          !isSupabaseConfigured() ||
+          JOBS_SOURCE === 'static' ||
+          JOBS_SOURCE === 'api' ||
+          (!usedStatic && payload.raw.length > 0)
+        ) {
+          return
+        }
+
+        ;(async () => {
+          try {
+            if (!cancelled) setRefreshing(true)
+            const supaRows = await fetchJobsFromSupabase({ maxRows: MAX_LIVE_ROWS })
+            const livePayload = supabasePayload(supaRows)
+            if (!livePayload || cancelled) return
+            const { rows: liveRows, stats: liveStats } = processPayload(livePayload)
+            if (!liveRows.length) return
+            CACHE = {
+              rows: liveRows,
+              sources: livePayload.sources,
+              hasBackend: livePayload.hasBackend,
+              error: livePayload.error,
+              catalogStats: liveStats,
+              dailySync: CACHE?.dailySync || null,
+            }
+            setLiveRows(liveRows)
+            setSources(livePayload.sources)
+            setHasBackend(livePayload.hasBackend)
+            setError(null)
+            setCatalogStats(liveStats)
+          } catch (e) {
+            if (!cancelled) {
+              console.warn('[useLiveJobs] Supabase background refresh failed:', e)
+            }
+          } finally {
+            if (!cancelled) setRefreshing(false)
+          }
+        })()
       } catch (e) {
         if (!cancelled) setError((e as Error)?.message || 'Failed to load live jobs')
-      } finally {
         if (!cancelled) setRefreshing(false)
       }
     })()

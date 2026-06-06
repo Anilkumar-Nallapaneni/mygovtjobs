@@ -83,8 +83,16 @@ async function countJobsByStatus(status) {
 
 const liveCount = await countJobsByStatus("live");
 const expiredCount = await countJobsByStatus("expired");
+const draftCount = await countJobsByStatus("draft");
 if (liveCount != null) console.log(`  jobs (live only): ${liveCount}`);
 if (expiredCount != null) console.log(`  jobs (expired): ${expiredCount}`);
+if (draftCount != null && draftCount > 0) console.log(`  jobs (draft, hidden from anon): ${draftCount}`);
 if (liveCount != null && expiredCount != null) console.log(`  jobs (visible total): ${liveCount + expiredCount}`);
+
+if (expiredCount === 0) {
+  console.log(
+    '  tip: if backend /health/detailed shows expired rows, run database/migrations/003_ensure_expired_jobs_public_read.sql'
+  );
+}
 
 process.exit(ok ? 0 : 1);

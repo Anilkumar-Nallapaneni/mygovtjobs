@@ -7,7 +7,7 @@ from urllib.parse import unquote, urlparse
 from app.scrapers.date_utils import row_published_at
 from app.services.noise_filter import clean_job_title, friendly_dept, is_junk_job_title
 
-from app.utils.vacancy_extract import extract_vacancies, resolve_vacancies, sanitize_vacancies
+from app.utils.vacancy_extract import extract_vacancies, resolve_vacancies
 _ADVT_IN_TITLE = re.compile(r"\b([A-Z]{2,6}/[A-Z0-9/_-]{4,40})\b")
 _DATE_DMY = re.compile(r"\b(\d{1,2})[./\s-](\d{1,2})[./\s-](\d{4})\b")
 _DATE_UPTO = re.compile(

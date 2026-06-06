@@ -1,10 +1,6 @@
 {
-  "status": "failed",
-  "startedAt": "2026-06-04T06:16:28.408808+00:00",
-  "startedAtIst": "2026-06-04T11:46:28.408818+05:30",
-  "dateIst": "2026-06-04",
-  "failedAt": "2026-06-04T06:20:04.004258+00:00",
-  "failedAtIst": "2026-06-04T11:50:04.004577+05:30",
-  "error": "[Errno 22] Invalid argument",
-  "nextRunAtIst": "2026-06-05T08:00:00+05:30"
+  "status": "running",
+  "startedAt": "2026-06-06T14:00:02.725535+00:00",
+  "startedAtIst": "2026-06-06T19:30:02.725543+05:30",
+  "dateIst": "2026-06-06"
 }

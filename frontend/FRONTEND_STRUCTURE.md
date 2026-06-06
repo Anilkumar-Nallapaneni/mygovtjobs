@@ -12,6 +12,7 @@ All application source under `src/` uses TypeScript React extensions:
 
 - No `.js` / `.jsx` under `src/` (`allowJs: false` in `tsconfig.json`).
 - Import without file extensions: `import App from './App'`.
+- Shared types: `types/job.ts`. Deadline UI: `hooks/useNow.ts` (not `Date.now()` in render).
 - Run `npm run check:frontend`, `npm run type-check`, and `npm run lint` before PRs.
 - Category grid counts come from `computeJobAggregates(jobs)` — not static strings in `categories.ts`.
 

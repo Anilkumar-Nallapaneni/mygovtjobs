@@ -12,7 +12,6 @@ const sections = [
   ["BrandLogo", "components/layout/BrandLogo.css"],
   ["Navbar", "components/layout/Navbar.css"],
   ["Footer", "components/layout/Footer.css"],
-  ["JobsStatusBar", "components/home/JobsStatusBar.css"],
   ["HomePage", "components/home/HomePage.css"],
   ["StateJobsPanel", "components/home/StateJobsPanel.css"],
   ["LatestNotificationsTable", "components/home/LatestNotificationsTable.css"],

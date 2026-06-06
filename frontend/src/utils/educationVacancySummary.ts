@@ -241,14 +241,3 @@ export function computeEducationVacancySummary(
 
   return EDUCATION_BUCKETS.map((b) => tallies.get(b.id)!)
 }
-
-export function educationSummaryTotals(rows: EducationSummaryRow[]) {
-  return rows.reduce(
-    (acc, row) => ({
-      vacancies: acc.vacancies + row.vacancies,
-      listings: acc.listings + row.listings,
-      listingsWithVacancies: acc.listingsWithVacancies + row.listingsWithVacancies,
-    }),
-    { vacancies: 0, listings: 0, listingsWithVacancies: 0 }
-  )
-}

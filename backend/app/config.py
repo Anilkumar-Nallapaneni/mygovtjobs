@@ -19,9 +19,8 @@ class Settings(BaseSettings):
     sql_echo: bool = False
     live_jobs_json_path: str = str(REPO_ROOT / "frontend" / "public" / "data" / "live-jobs.json")
     cors_origins: str = (
-        "http://localhost:5174,http://localhost:5175,http://127.0.0.1:5174,"
-        "http://localhost:2222,http://localhost:2223,http://localhost:2224,"
-        "http://127.0.0.1:2222,http://127.0.0.1:2223,http://127.0.0.1:2224"
+        "http://localhost:2222,http://localhost:2223,http://127.0.0.1:2222,"
+        "http://127.0.0.1:2223"
     )
     admin_api_key: str | None = None
     allow_insecure_admin: bool = False

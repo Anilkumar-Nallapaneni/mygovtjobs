@@ -1,7 +1,6 @@
 """Job queries — Postgres via SQLAlchemy."""
 
 import logging
-from datetime import date
 
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -122,16 +121,15 @@ class JobService:
                     )
                 )
 
-            count_stmt = select(func.count()).select_from(stmt.subquery())
-            total = (await session.execute(count_stmt)).scalar_one()
-
             rows = (
                 await session.execute(
-                    stmt.order_by(Job.published_at.desc().nullslast()).limit(limit).offset(offset)
+                    stmt.order_by(Job.published_at.desc().nullslast())
                 )
             ).scalars().all()
             filtered = [_to_job_out(r) for r in rows if _is_recruitment_job(r)]
-            return filtered, int(total)
+            total = len(filtered)
+            page = filtered[offset : offset + limit]
+            return page, total
         except Exception as exc:
             await session.rollback()
             logger.exception("list_jobs failed")

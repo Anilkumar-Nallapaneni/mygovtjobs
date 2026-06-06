@@ -23,8 +23,3 @@ export function jobMatchesStateFilter(job, stateId) {
 export function jobMatchesNationwideFilter(job) {
   return isNationwideAllStatesJob(job);
 }
-
-/** Vacancies attributed to `stateId` for map / strip (matches state-filtered lists when no extra filters). */
-export function vacanciesForStateId(job, stateId) {
-  return jobMatchesStateFilter(job, stateId) ? Number(job.vacancies) || 0 : 0;
-}

@@ -1,14 +1,12 @@
 """Validation agent — expired jobs, broken links, missing fields, scam filtering."""
 
 import re
-from datetime import date, datetime
 from typing import Any
 from urllib.parse import urlparse
 
 from app.utils.official_hosts import is_official_recruitment_host
 from app.services.noise_filter import (
     clean_job_title,
-    friendly_dept,
     is_junk_job_title,
     is_portal_section_link,
     is_result_archive_listing,
@@ -21,7 +19,6 @@ _SCAM = re.compile(
     r"guaranteed\s*job|agent\s*required|call\s*\d{10}",
     re.I,
 )
-_GOV_HOST = re.compile(r"\.(gov|nic|ac|org|res)\.in$", re.I)
 _BLOCKED_AGGREGATOR_NAMES = (
     "free" "job" "alert",
     "sarkariresult",
@@ -37,20 +34,6 @@ _BLOCKED_AGGREGATOR_PATTERN = "|".join(re.escape(name) for name in _BLOCKED_AGGR
 _BLOCKED_BRAND_PATTERN = "|".join(re.escape(name) for name in _BLOCKED_BRAND_NAMES)
 _BLOCKED_AGGREGATOR = re.compile(r"(?:^|\.)(?:" + _BLOCKED_AGGREGATOR_PATTERN + r")\.", re.I)
 _BLOCKED_BRAND_TEXT = re.compile(_BLOCKED_BRAND_PATTERN, re.I)
-
-
-def _parse_date(value) -> date | None:
-    if not value:
-        return None
-    if isinstance(value, date):
-        return value
-    text = str(value).strip()
-    for fmt in ("%Y-%m-%d", "%d-%m-%Y", "%d/%m/%Y", "%d.%m.%Y", "%d %b %Y", "%d %B %Y"):
-        try:
-            return datetime.strptime(text, fmt).date()
-        except ValueError:
-            continue
-    return None
 
 
 class ValidationService:
@@ -94,7 +77,6 @@ class ValidationService:
             except Exception:
                 reasons.append("invalid_url")
 
-        last = _parse_date(normalized.get("last_date"))
         # Expired listings are kept for archive — status set at persist time
 
         if not normalized.get("apply_url") and not normalized.get("pdf_urls"):

@@ -26,8 +26,7 @@ const IndiaSvgMap = lazy(() =>
 );
 const OfficialHeadlinesSection = lazy(() => import("@/components/home/OfficialHeadlinesSection"));
 
-/** Default: show full filtered list (virtualized when large). Set false + limit for low-end devices. */
-const INITIAL_JOB_LIMIT = 5000;
+/** Default: show full filtered list (virtualized when large). */
 const VIRTUAL_GRID_MIN = 49;
 /** Hero summary cards → job list filter (null = show all on home). */
 const HERO_STAT_FILTERS = [
@@ -126,9 +125,7 @@ export default function HomePage({
   const eduYear = new Date().getFullYear();
   const stateLabel = useStateLabel();
   const [sort, setSort] = useState("lastDate");
-  /** Home default: show full job list (not collapsed behind “load more”). */
-  const [showAll, setShowAll] = useState(true);
-  /** Selected item in the left notifications sidebar (purely visual for now). */
+  /** Selected item in the left notifications sidebar. */
   const [sidebarKey, setSidebarKey] = useState(null);
   /** Hero stat card filter: vacancies | hotNew | states | live | null = all jobs */
   const [heroStatFilter, setHeroStatFilter] = useState(null);
@@ -136,11 +133,10 @@ export default function HomePage({
   const [statePanelHeight, setStatePanelHeight] = useState<number | null>(null);
 
   const browseToJobs = useCallback(() => {
-    setShowAll(true);
     onBrowseJobs?.();
     const target = selectedState && !search.trim() ? "state-jobs-panel" : "main-jobs";
     scrollToSection(target);
-  }, [onBrowseJobs, selectedState, search, setShowAll]);
+  }, [onBrowseJobs, selectedState, search]);
 
   const handleQuickFilterClick = useCallback(
     (key) => {
@@ -157,12 +153,11 @@ export default function HomePage({
       setHeroStatFilter(null);
       setSelectedState(stateId);
       if (stateId) {
-        setShowAll(true);
         onBrowseJobs?.();
         scrollToSection("state-jobs-panel");
       }
     },
-    [setSelectedState, onBrowseJobs, setShowAll]
+    [setSelectedState, onBrowseJobs]
   );
 
   const handleHeroStatClick = useCallback(
@@ -176,7 +171,6 @@ export default function HomePage({
       if (typeof setSearch === "function") setSearch("");
       setSidebarKey(null);
       if (typeof setHeadlinesTopicKey === "function") setHeadlinesTopicKey(null);
-      setShowAll(true);
       onBrowseJobs?.();
       if (statKey === "states") {
         scrollToSection("india-map-panel");
@@ -200,11 +194,10 @@ export default function HomePage({
   const handleEducationFromCard = useCallback(
     (eduKey) => {
       setQuickFilter(eduKey);
-      setShowAll(true);
       onBrowseJobs?.();
       scrollToSection(selectedState && !search.trim() ? "state-jobs-panel" : "main-jobs");
     },
-    [setQuickFilter, onBrowseJobs, selectedState, search, setShowAll]
+    [setQuickFilter, onBrowseJobs, selectedState, search]
   );
 
   const jobCardFilterProps = {
@@ -226,7 +219,6 @@ export default function HomePage({
       setHeroStatFilter(null);
       setQuickFilter(null);
       if (typeof setSearch === "function") setSearch("");
-      setShowAll(true);
       onBrowseJobs?.();
       scrollToSection("main-jobs");
     }
@@ -244,12 +236,6 @@ export default function HomePage({
     !quickFilter &&
     !heroStatFilter;
   const sidebarActiveKey = sidebarKey || (headlinesTopicKey === "latest" ? "latest" : null);
-
-  useEffect(() => {
-    if (search.trim() || activeCat || quickFilter || heroStatFilter || selectedState) {
-      setShowAll(true);
-    }
-  }, [selectedState, activeCat, search, quickFilter, heroStatFilter]);
 
   useEffect(() => {
     setQuickFilter(null);
@@ -345,7 +331,7 @@ export default function HomePage({
     return j.slice(0, 16);
   }, [jobs, selectedState, sort, search, activeCat, quickFilter]);
 
-  const displayed = showAll ? filtered : filtered.slice(0, INITIAL_JOB_LIMIT);
+  const displayed = filtered;
   const totalListings = jobs.length;
   const quickFilterCounts = useMemo(() => {
     const summary = computeEducationVacancySummary(jobs);
@@ -710,17 +696,6 @@ export default function HomePage({
                   {displayed.map((job) => (
                     <JobCard key={job.id} job={job} onClick={() => onJobClick(job)} {...jobCardFilterProps} />
                   ))}
-                </div>
-              )}
-              {!showAll && filtered.length > INITIAL_JOB_LIMIT && (
-                <div className="home-jobs-section__load-more">
-                  <button
-                    type="button"
-                    onClick={() => setShowAll(true)}
-                    className="home-jobs-section__load-more-btn"
-                  >
-                    {t("home.loadMore", { count: filtered.length - INITIAL_JOB_LIMIT })}
-                  </button>
                 </div>
               )}
             </div>

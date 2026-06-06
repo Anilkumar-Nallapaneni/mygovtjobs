@@ -37,7 +37,8 @@
     "i18n:generate": "npm run i18n:generate --prefix frontend",
     "i18n:fill": "npm run i18n:fill --prefix frontend",
     "verify": "node scripts/verify-stack.mjs",
-    "everything": "npm run check:frontend && npm run type-check && npm run lint && npm run test && npm run build && npm run supabase:test && npm run supabase:audit && npm run db:test && npm run jobs:audit && npm run verify",
+    "env:check": "node scripts/check-env-alignment.mjs",
+    "everything": "npm run check:frontend && npm run type-check && npm run lint && npm run test && npm run build && npm run env:check && npm run supabase:test && npm run supabase:audit && npm run db:test && npm run jobs:audit && npm run verify",
     "test": "npm run test --prefix frontend && npm run test:backend",
     "test:backend": "node scripts/run-python.mjs scripts/run-backend-tests.py",
     "check:frontend": "node scripts/check-frontend-hygiene.mjs",
@@ -52,10 +53,12 @@
     "supabase:full-sync:fast": "node scripts/run-python.mjs scripts/run-supabase-full-sync.py --concurrency 8 --source-timeout 120 --retries 1",
     "supabase:quick-sync": "node scripts/run-python.mjs scripts/run-supabase-full-sync.py --concurrency 8 --source-timeout 90 --retries 0 --skip-official-import",
     "supabase:import-official": "node scripts/run-python.mjs scripts/import-official-json-to-db.py",
+    "import:freejobalert": "node scripts/run-python.mjs scripts/import-freejobalert-to-db.py",
+    "import:freejobalert:dry": "node scripts/run-python.mjs scripts/import-freejobalert-to-db.py --dry-run",
     "db:test": "node scripts/run-python.mjs scripts/test-backend-db.py"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
-    "@supabase/supabase-js": "^2.107.0"
+    "@supabase/supabase-js": "^2.49.8"
   }
 }

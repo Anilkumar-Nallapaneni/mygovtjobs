@@ -373,6 +373,7 @@ Run every command from the **repo root** unless noted.
 | `npm run lint` | ESLint on frontend |
 | `npm run type-check` | TypeScript check (frontend) |
 | `npm run verify` | Health-check frontend files + localhost:2222 |
+| `npm run env:check` | Confirm frontend/backend Supabase project refs match |
 | `npm run check:frontend` | Fail if stray `.js`/`.jsx` under `frontend/src` |
 | `npm run api:dev` | Start FastAPI on port 8000 (from repo root) |
 
@@ -536,7 +537,7 @@ Full guides: **[docs/INSTALLATION_AND_RUN.md](docs/INSTALLATION_AND_RUN.md)** (c
 
 | Component | Where |
 |-----------|--------|
-| **Frontend** | Vercel (`vercel.json` at repo root) |
+| **Frontend** | Vercel (`vercel.json` at repo root — not `frontend/vercel.json`) |
 | **Database** | Supabase Postgres (`jobs` table, RLS) |
 | **Ingest** | Local machine or GitHub Actions → Supabase |
 | **API (optional)** | Docker / Railway / Render — `backend/Dockerfile` |
