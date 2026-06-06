@@ -3,11 +3,14 @@ import { isBlockedAggregatorHost, isOfficialRecruitmentUrl } from '@/utils/offic
 const PDF_PATH_RE =
   /\.pdf(\?|#|$)|\/pdf\/|\/writereaddata\/|\/documents\/|\/attachments\/|\/uploads\/|notification.*\.pdf|advt.*\.pdf/i
 
+const PDF_VIEWER_RE = /ViewPdf\.aspx|ViewFile\.aspx|viewpdf\.aspx|viewfile\.aspx|getfile\.aspx/i
+
 /** True if URL likely points at a notification document (PDF or gov document path). */
 export function looksLikeNotificationDocument(url: string): boolean {
   const u = String(url || '').trim()
   if (!u) return false
   if (/\.pdf(\?|#|$)/i.test(u)) return true
+  if (PDF_VIEWER_RE.test(u)) return true
   if (PDF_PATH_RE.test(u)) return true
   if (/[?&](?:file|doc|document)=/i.test(u) && /\.pdf/i.test(u)) return true
   return false

@@ -49,6 +49,54 @@ describe("jobDetailLinks", () => {
     expect(resolveTrustedApplyHref(job)).toBe("https://www.kawardha.gov.in/recruit");
   });
 
+  it("prefers official website from how-to-apply text over notification PDF", () => {
+    const job = {
+      apply_url: "https://cdnbbsr.s3waas.gov.in/s3ec03f7cfdde9db36af8e0d9a6d123d5c/uploads/2026/05/2026052118.pdf",
+      detail: {
+        content_sections: [
+          {
+            heading: "How to Apply",
+            links: [],
+            lists: [
+              [
+                "Download the application form from the official website: https://jagatsinghpur.dcourts.gov.in.",
+              ],
+            ],
+            paragraphs: [],
+            tables: [],
+          },
+          {
+            heading: "Important Links",
+            links: [
+              { url: "https://cdnbbsr.s3waas.gov.in/s3ec03f7cfdde9db36af8e0d9a6d123d5c/uploads/2026/05/2026052118.pdf", label: "Click here" },
+              { url: "https://jagatsinghpur.dcourts.gov.in/", label: "Click here" },
+            ],
+            lists: [],
+            paragraphs: [],
+            tables: [],
+          },
+        ],
+      },
+    };
+    expect(resolveTrustedApplyHref(job)).toBe("https://jagatsinghpur.dcourts.gov.in/");
+  });
+
+  it("labels ViewPdf.aspx links as notification PDFs", () => {
+    const job = {
+      apply_url: "https://upsssc.gov.in/ViewPdf.aspx?abc123",
+      detail: {
+        content_sections: [
+          {
+            heading: "Important Links",
+            links: [{ label: "Click here", url: "https://upsssc.gov.in/ViewPdf.aspx?abc123" }],
+          },
+        ],
+      },
+    };
+    const links = collectDetailLinksFromJob(job);
+    expect(links.every((l) => l.label === "Download Notification PDF")).toBe(true);
+  });
+
   it("dedupes links by normalized URL", () => {
     const out = dedupeDetailLinks([
       { label: "A", url: "https://ssc.nic.in/apply" },

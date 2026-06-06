@@ -1,7 +1,7 @@
 /**
  * Official recruitment URLs only — block third-party job-aggregator domains.
  */
-import { collectPdfUrls } from '@/utils/resolvePdfUrl'
+import { collectPdfUrls, looksLikeNotificationDocument } from '@/utils/resolvePdfUrl'
 
 const BLOCKED_HOST_RE =
   new RegExp(
@@ -66,6 +66,8 @@ const OFFICIAL_STEMS = [
   'apprenticeshipindia.gov.in',
   'employmentnews.gov.in',
   'bfsissc.com',
+  'ncrtc.co.in',
+  'apeda.gov.in',
 ]
 
 export function hostnameOf(url) {
@@ -91,13 +93,17 @@ export function isOfficialRecruitmentUrl(url) {
   if (!url || url === '#') return false
   if (isBlockedAggregatorHost(url)) return false
   try {
-    const host = new URL(url).hostname.toLowerCase()
+    const parsed = new URL(url)
+    const host = parsed.hostname.toLowerCase()
+    const path = parsed.pathname.toLowerCase()
     if (OFFICIAL_HOST_RE.test(host)) return true
     if (host.endsWith('.gov')) return true
     if (/\.gov\.[a-z]{2,}$/.test(host)) return true
     if (PSU_PREFIX_RE.test(host)) return true
     if (host === 'pib.gov.in' || host.endsWith('.pib.gov.in')) return true
     if (OFFICIAL_STEMS.some((stem) => host === stem || host.endsWith(`.${stem}`))) return true
+    // Hindi / IDN government hosts (punycode) serving DRDO, NIC, etc.
+    if (host.includes('xn--') && /\/(drdo|nic|gov)\//.test(path)) return true
     return false
   } catch {
     return false
@@ -151,7 +157,7 @@ export function sanitizeOfficialUrls(job) {
 }
 
 export function isPdfUrl(url) {
-  return /\.pdf(\?|#|$)/i.test(String(url || ''))
+  return looksLikeNotificationDocument(String(url || ''))
 }
 
 /** Prefer an official portal page; fall back to an official notification PDF. */

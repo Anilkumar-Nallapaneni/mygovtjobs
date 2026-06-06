@@ -1,4 +1,6 @@
-import { isBlockedAggregatorHost } from "@/utils/officialDomains";
+import { normalizeDetailUrl } from "@/utils/jobDetailLinks";
+import { isBlockedAggregatorHost, isPdfUrl } from "@/utils/officialDomains";
+import { isStructuredImportSource } from "@/utils/structuredJobSource";
 
 export type DetailFact = { label: string; value: string };
 export type DetailDate = { event: string; date: string };
@@ -27,6 +29,8 @@ export type StructuredJobDetail = {
   officialLinks: DetailLink[];
   applyMode: string;
   displaySections: DisplaySection[];
+  /** Full article body — same section order as source notification pages. */
+  articleSections: DisplaySection[];
 };
 
 const HEADING = {
@@ -41,6 +45,7 @@ const HEADING = {
   links: /important\s*links/i,
   intro: /^introduction$/i,
   pdf: /notification\s*pdf/i,
+  fee: /application\s*fee|exam\s*fee|registration\s*fee|\bfee\b/i,
 };
 
 function cleanText(value: unknown) {
@@ -148,7 +153,27 @@ function classifyHeading(heading: string) {
   if (HEADING.selection.test(h)) return "selection";
   if (HEADING.howApply.test(h)) return "howApply";
   if (HEADING.links.test(h) || HEADING.pdf.test(h)) return "links";
+  if (HEADING.fee.test(h)) return "fee";
   return "other";
+}
+
+function isFeeLabel(label: string) {
+  return HEADING.fee.test(cleanText(label));
+}
+
+function isFeeHeading(heading: string) {
+  return HEADING.fee.test(cleanText(heading));
+}
+
+function stripFeeRowsFromTables(tables: Record<string, string>[][]) {
+  return tables
+    .map((table) =>
+      table.filter((row) => {
+        const fact = normalizeKvRow(row);
+        return !(fact && isFeeLabel(fact.label));
+      })
+    )
+    .filter((table) => table.length > 0);
 }
 
 function flattenLists(lists: unknown) {
@@ -165,7 +190,7 @@ export function buildStructuredJobDetail(job: Record<string, unknown>): Structur
     unknown
   >;
   const sections = Array.isArray(detail.content_sections) ? detail.content_sections : [];
-  const hasStructuredSource = detail.source === "fja-import" || sections.length > 0;
+  const hasStructuredSource = isStructuredImportSource(detail.source) || sections.length > 0;
 
   const empty: StructuredJobDetail = {
     isStructured: false,
@@ -181,6 +206,7 @@ export function buildStructuredJobDetail(job: Record<string, unknown>): Structur
     officialLinks: [],
     applyMode: "",
     displaySections: [],
+    articleSections: [],
   };
 
   if (!hasStructuredSource || sections.length === 0) {
@@ -270,8 +296,21 @@ export function buildStructuredJobDetail(job: Record<string, unknown>): Structur
   const displaySections = pruneDisplaySections(
     sections,
     summary,
-    importantDates.length > 0
+    importantDates.length > 0,
+    overviewFacts.length > 0
   );
+
+  const extractedFee =
+    detail.fee && typeof detail.fee === "object"
+      ? (detail.fee as Record<string, string>)
+      : {};
+  const hasExtractedFee = Object.values(extractedFee).some((v) => cleanText(v));
+
+  if (hasExtractedFee) {
+    overviewFacts = overviewFacts.filter((f) => !isFeeLabel(f.label));
+  }
+
+  const articleSections = buildArticleSections(sections, hasExtractedFee);
 
   return {
     isStructured: true,
@@ -287,7 +326,81 @@ export function buildStructuredJobDetail(job: Record<string, unknown>): Structur
     officialLinks,
     applyMode,
     displaySections,
+    articleSections,
   };
+}
+
+function sanitizeSectionLinks(raw: Array<{ label?: string; text?: string; url?: string }>): DetailLink[] {
+  const out: DetailLink[] = [];
+  const seen = new Set<string>();
+  for (const link of raw) {
+    const url = normalizeDetailUrl(link.url);
+    if (!url || seen.has(url)) continue;
+    seen.add(url);
+    const label = cleanText(link.label || link.text);
+    out.push({
+      label: label && !/^click here$/i.test(label) ? label : isPdfUrl(url) ? "Download Notification PDF" : "Official Link",
+      url,
+    });
+  }
+  return out;
+}
+
+function isPromoParagraph(text: string) {
+  const s = cleanText(text);
+  if (!s) return true;
+  if (/^follow us\b/i.test(s)) return true;
+  if (/join\s*(whatsapp|telegram|instagram|youtube)/i.test(s) && s.length < 120) return true;
+  if (/never miss a govt job/i.test(s)) return true;
+  return false;
+}
+
+/** Article layout — keep every content section (catalog order), only strip promos/empty blocks. */
+function buildArticleSections(sections: unknown[], stripExtractedFee = false): DisplaySection[] {
+  const seenHeadings = new Set<string>();
+
+  return sections
+    .map((section) => {
+      const s = section as Record<string, unknown>;
+      const heading = cleanText(String(s.heading || ""));
+      if (stripExtractedFee && isFeeHeading(heading)) {
+        return null;
+      }
+      let tables = Array.isArray(s.tables) ? (s.tables as Record<string, string>[][]) : [];
+      if (stripExtractedFee) {
+        tables = stripFeeRowsFromTables(tables);
+      }
+      const paragraphs = Array.isArray(s.paragraphs)
+        ? s.paragraphs.map((p) => cleanText(p)).filter((p) => p && !isDumpParagraph(p) && !isPromoParagraph(p))
+        : [];
+      const lists = Array.isArray(s.lists)
+        ? (s.lists as string[][])
+            .map((list) =>
+              (Array.isArray(list) ? list : []).map((item) => cleanText(item)).filter(Boolean)
+            )
+            .filter((list) => list.length > 0)
+        : [];
+      const links = Array.isArray(s.links)
+        ? sanitizeSectionLinks(s.links as Array<{ label?: string; text?: string; url?: string }>)
+        : [];
+
+      return { heading, paragraphs, tables, lists, links };
+    })
+    .filter((section): section is DisplaySection => {
+      if (!section) return false;
+      if (!section.heading && !section.paragraphs.length && !section.tables.length && !section.lists.length && !section.links.length) {
+        return false;
+      }
+      const key = section.heading.toLowerCase().replace(/\s+/g, " ");
+      if (key && seenHeadings.has(key)) return false;
+      if (key) seenHeadings.add(key);
+      return (
+        section.paragraphs.length ||
+        section.tables.length ||
+        section.lists.length ||
+        section.links.length
+      );
+    });
 }
 
 function isSimilarText(a: string, b: string) {
@@ -309,7 +422,8 @@ function isKvOverviewTable(table: Record<string, string>[]) {
 function pruneDisplaySections(
   sections: unknown[],
   summary: string,
-  showTopDates: boolean
+  showTopDates: boolean,
+  showTopOverview: boolean
 ): DisplaySection[] {
   const seenHeadings = new Set<string>();
 
@@ -347,11 +461,11 @@ function pruneDisplaySections(
       if (section.kind === "intro" && summary) return false;
       if (section.kind === "dates" && showTopDates) return false;
       if (section.kind === "links") return false;
+      if (section.kind === "overview" && showTopOverview) return false;
       if (
         section.kind === "overview" &&
         section.tables.length > 0 &&
-        section.tables.every(isKvOverviewTable) &&
-        !section.lists.length
+        section.tables.every(isKvOverviewTable)
       ) {
         return false;
       }

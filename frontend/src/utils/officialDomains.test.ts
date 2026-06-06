@@ -4,6 +4,7 @@ import {
   isAllowedOfficialJob,
   isBlockedAggregatorHost,
   isOfficialRecruitmentUrl,
+  isPdfUrl,
   pickOfficialDetailUrl,
 } from './officialDomains'
 

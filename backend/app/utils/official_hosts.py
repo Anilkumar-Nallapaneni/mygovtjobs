@@ -105,6 +105,7 @@ _PDF_PATH = re.compile(
     r"\.pdf(\?|#|$)|/pdf/|/writereaddata/|/documents/|/attachments/|/uploads/|notification.*\.pdf|advt.*\.pdf",
     re.I,
 )
+_PDF_VIEWER = re.compile(r"viewpdf\.aspx|viewfile\.aspx|getfile\.aspx", re.I)
 
 
 def looks_like_notification_document(url: str) -> bool:
@@ -112,6 +113,8 @@ def looks_like_notification_document(url: str) -> bool:
         return False
     low = url.lower()
     if ".pdf" in low:
+        return True
+    if _PDF_VIEWER.search(url):
         return True
     return bool(_PDF_PATH.search(url))
 
@@ -152,14 +155,16 @@ def pick_best_official_url(urls: list[str]) -> str | None:
     def score(u: str) -> int:
         low = u.lower()
         s = 0
-        if re.search(r"apply|recruit|career|notification|advt|register|online", low):
-            s += 5
         if low.endswith(".pdf") or ".pdf?" in low:
-            s += 4
-        if "/career" in low or "/recruit" in low:
-            s += 3
+            s -= 100
+        if re.search(r"apply|recruit|career|notification|advt|register|online|login", low):
+            s += 10
+        if "/career" in low or "/recruit" in low or "/apply" in low:
+            s += 8
         if low.count("/") > 4:
-            s += 1
+            s += 2
         return s
 
-    return max(clean, key=score)
+    html = [u for u in clean if not (u.lower().endswith(".pdf") or ".pdf?" in u.lower())]
+    pool = html or clean
+    return max(pool, key=score)

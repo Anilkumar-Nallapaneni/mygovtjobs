@@ -1,10 +1,11 @@
-"""Sanitize scraped FreeJobAlert JSON — strip branding, keep official content only."""
+"""Sanitize scraped recruitment catalog JSON — strip aggregator branding, keep official content."""
 
 from __future__ import annotations
 
 import re
 from typing import Any
 
+# Block known job-aggregator hosts (patterns only — not exposed in product UI).
 _BLOCKED_URL_PATTERNS = [
     re.compile(r"freejobalert\.com", re.I),
     re.compile(r"img2\.freejobalert\.com", re.I),

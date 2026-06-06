@@ -53,8 +53,8 @@
     "supabase:full-sync:fast": "node scripts/run-python.mjs scripts/run-supabase-full-sync.py --concurrency 8 --source-timeout 120 --retries 1",
     "supabase:quick-sync": "node scripts/run-python.mjs scripts/run-supabase-full-sync.py --concurrency 8 --source-timeout 90 --retries 0 --skip-official-import",
     "supabase:import-official": "node scripts/run-python.mjs scripts/import-official-json-to-db.py",
-    "import:freejobalert": "node scripts/run-python.mjs scripts/import-freejobalert-to-db.py",
-    "import:freejobalert:dry": "node scripts/run-python.mjs scripts/import-freejobalert-to-db.py --dry-run",
+    "import:catalog": "node scripts/run-python.mjs scripts/import-recruitment-catalog-to-db.py",
+    "import:catalog:dry": "node scripts/run-python.mjs scripts/import-recruitment-catalog-to-db.py --dry-run",
     "db:test": "node scripts/run-python.mjs scripts/test-backend-db.py"
   },
   "dependencies": {

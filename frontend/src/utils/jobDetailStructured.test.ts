@@ -7,7 +7,7 @@ describe("buildStructuredJobDetail", () => {
     const job = {
       title: "NETRA CEO Recruitment 2026",
       detail: {
-        source: "fja-import",
+        source: "structured-import",
         summary: "NETRA has released CEO notification.",
         important_dates: [{ event: "Last Date", date: "22 June 2026" }],
         content_sections: [
@@ -66,12 +66,52 @@ describe("buildStructuredJobDetail", () => {
     expect(structured.displaySections.some((s) => /overview/i.test(s.heading))).toBe(false);
     expect(structured.displaySections.some((s) => /important links/i.test(s.heading))).toBe(false);
     expect(structured.displaySections.some((s) => /^introduction$/i.test(s.heading))).toBe(false);
+    expect(structured.articleSections.some((s) => /overview/i.test(s.heading))).toBe(true);
+    expect(structured.articleSections.some((s) => /important links/i.test(s.heading))).toBe(true);
+  });
+
+  it("dedupes application fee when detail.fee is extracted", () => {
+    const job = {
+      detail: {
+        source: "structured-import",
+        summary: "Sample recruitment with fee details.",
+        fee: {
+          General: "Rs. 500/-",
+          SC: "Rs. 250/-",
+        },
+        content_sections: [
+          {
+            heading: "Overview",
+            paragraphs: [],
+            tables: [
+              [
+                { label: "Post Name", value: "Clerk" },
+                { label: "Application Fee", value: "Rs. 500/-" },
+              ],
+            ],
+            lists: [],
+            links: [],
+          },
+          {
+            heading: "Application Fee",
+            paragraphs: [],
+            tables: [],
+            lists: [["General: Rs. 500/-", "SC: Rs. 250/-"]],
+            links: [],
+          },
+        ],
+      },
+    };
+
+    const structured = buildStructuredJobDetail(job);
+    expect(structured.overviewFacts.some((f) => /fee/i.test(f.label))).toBe(false);
+    expect(structured.articleSections.some((s) => /application fee/i.test(s.heading))).toBe(false);
   });
 
   it("drops placeholder date header rows", () => {
     const job = {
       detail: {
-        source: "fja-import",
+        source: "structured-import",
         summary: "Sample recruitment notice.",
         important_dates: [{ event: "Event", date: "Date" }, { event: "Last Date", date: "1 Jan 2027" }],
         content_sections: [

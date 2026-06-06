@@ -10,6 +10,7 @@ import {
   resolveTrustedApplyHref,
   resolveTrustedPdfHref,
 } from '@/utils/jobDetailLinks'
+import { isStructuredImportSource } from '@/utils/structuredJobSource'
 
 function sanitizeDetailForUi(detail) {
   if (!detail || typeof detail !== 'object') return {}
@@ -40,12 +41,16 @@ export function adaptLiveJob(row, index = 0) {
         ? 'hot'
         : 'new'
 
-  const isFjaImport = row?.detail?.source === 'fja-import'
-  const urls = isFjaImport
+  const isStructuredCatalog = isStructuredImportSource(row?.detail?.source)
+  const urls = isStructuredCatalog
     ? (() => {
         const links = collectDetailLinksFromJob(row)
         const apply = resolveTrustedApplyHref(row)
-        const pdf = resolveTrustedPdfHref(row)
+        let pdf = resolveTrustedPdfHref(row) || resolvePdfUrl(row)
+        if (!pdf) {
+          const rawApply = row.apply_url || row.applyUrl
+          if (typeof rawApply === 'string' && isPdfUrl(rawApply)) pdf = rawApply
+        }
         const pdfUrls = links.filter((l) => isPdfUrl(l.url)).map((l) => l.url)
         return {
           applyUrl: apply || '#',
@@ -79,7 +84,9 @@ export function adaptLiveJob(row, index = 0) {
     status: displayStatus,
     officialUrl: urls.officialUrl,
     applyUrl: urls.applyUrl,
+    apply_url: row.apply_url || row.applyUrl || urls.applyUrl,
     pdfUrl: urls.pdfUrl || resolvePdfUrl(row),
+    pdf_url: row.pdf_url || row.pdfUrl || urls.pdfUrl || resolvePdfUrl(row),
     pdfUrls: urls.pdfUrls?.length ? urls.pdfUrls : collectPdfUrls(row),
     about: row.detail?.summary || '',
     detail: sanitizeDetailForUi(row.detail || {}),

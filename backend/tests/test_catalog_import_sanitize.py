@@ -1,4 +1,4 @@
-from app.utils.freejobalert_sanitize import (
+from app.utils.catalog_import_sanitize import (
     clean_display_text,
     collect_apply_links,
     is_blocked_url,
@@ -6,7 +6,7 @@ from app.utils.freejobalert_sanitize import (
 )
 
 
-def test_blocks_freejobalert_urls():
+def test_blocks_aggregator_urls():
     assert is_blocked_url("https://www.freejobalert.com/articles/test-3041572")
     assert is_blocked_url("https://t.me/FreeJobAlertOfficially")
     assert not is_blocked_url("https://www.ncrtc.co.in/hr-module/user/Login.php")

@@ -5,8 +5,8 @@ import { DS } from "@/theme/designSystem";
 import { CATS } from "@/data/categories";
 import type { JobRecord } from "@/types/job";
 import { enrichJobMetadata } from "@/utils/jobMetadataUtils";
-import { resolveOfficialApplyHref } from "@/utils/officialDomains";
-import { resolveTrustedApplyHref } from "@/utils/jobDetailLinks";
+import { isPdfUrl, resolveOfficialApplyHref } from "@/utils/officialDomains";
+import { resolveTrustedApplyHref, resolveTrustedPdfHref } from "@/utils/jobDetailLinks";
 import { resolvePdfUrl } from "@/utils/resolvePdfUrl";
 
 const DAY_MS = 1000 * 60 * 60 * 24;
@@ -60,8 +60,18 @@ function JobCard({
       : null;
   const isUrgent = daysLeft != null && daysLeft >= 0 && daysLeft <= 7;
 
-  const officialHref = resolveOfficialApplyHref(enriched) || resolveTrustedApplyHref(enriched);
-  const pdfHref = resolvePdfUrl(enriched) || null;
+  const officialHref = resolveTrustedApplyHref(enriched) || resolveOfficialApplyHref(enriched);
+  const pdfHref = useMemo(() => {
+    const trusted = resolveTrustedPdfHref(enriched);
+    if (trusted) return trusted;
+    const official = resolvePdfUrl(enriched);
+    if (official) return official;
+    const stored = enriched?.pdfUrl || enriched?.pdf_url;
+    if (stored) return stored;
+    const apply = enriched?.applyUrl || enriched?.apply_url;
+    if (apply && isPdfUrl(apply)) return apply;
+    return null;
+  }, [enriched]);
   const postsDisplay =
     vacancies > 0
       ? vacancies.toLocaleString(dateLocale)
@@ -212,19 +222,7 @@ function JobCard({
           )}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {officialHref ? (
-            <a
-              href={officialHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="job-card__pdf"
-              onClick={(e) => e.stopPropagation()}
-              title={t("jobDetail.applyOfficial")}
-            >
-              🌐 {t("job.official", { defaultValue: "Official" })}
-            </a>
-          ) : null}
-          {pdfHref && pdfHref !== officialHref ? (
+          {pdfHref ? (
             <a
               href={pdfHref}
               target="_blank"

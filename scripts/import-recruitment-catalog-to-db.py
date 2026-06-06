@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Import sanitized jobs from FreeJobAlert-Data into Supabase (no aggregator branding)."""
+"""Import sanitized jobs from a local recruitment catalog into Supabase."""
 from __future__ import annotations
 
 import argparse
 import asyncio
+import csv
 import json
 import os
 import re
@@ -19,7 +20,7 @@ from app.services.dedupe_service import content_hash  # noqa: E402
 from app.services.job_persist_service import JobPersistService  # noqa: E402
 from app.services.source_sync_service import SourceSyncService  # noqa: E402
 from app.services.validation_service import ValidationService  # noqa: E402
-from app.utils.freejobalert_sanitize import collect_apply_links, sanitize_raw_job  # noqa: E402
+from app.utils.catalog_import_sanitize import collect_apply_links, sanitize_raw_job  # noqa: E402
 from app.utils.official_hosts import (  # noqa: E402
     collect_official_pdf_urls,
     looks_like_notification_document,
@@ -27,8 +28,9 @@ from app.utils.official_hosts import (  # noqa: E402
 )
 from app.utils.vacancy_extract import extract_vacancies, resolve_vacancies  # noqa: E402
 
-SOURCE_CODE = "fja-import"
-DEFAULT_DATA_DIR = Path(r"C:\Users\AnilPraveen\FreeJobAlert-Data")
+SOURCE_CODE = "structured-import"
+_catalog_env = os.environ.get("RECRUITMENT_CATALOG_PATH", "").strip()
+DEFAULT_DATA_DIR = Path(_catalog_env) if _catalog_env else None
 
 SOURCE_PAGE_STATE: dict[str, list[str]] = {
     "andhra-pradesh": ["ap"],
@@ -62,13 +64,18 @@ SOURCE_PAGE_CATEGORY: dict[str, str] = {
 
 
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Import FreeJobAlert scraped JSON into Supabase")
+    parser = argparse.ArgumentParser(description="Import recruitment catalog JSON/CSV into Supabase")
     parser.add_argument(
         "--source",
-        default=os.environ.get("FREEJOBALERT_DATA_PATH", str(DEFAULT_DATA_DIR)),
-        help="Path to FreeJobAlert-Data folder",
+        default=str(DEFAULT_DATA_DIR) if DEFAULT_DATA_DIR else "",
+        help="Path to local catalog folder (jobs/ + optional csv/); or set RECRUITMENT_CATALOG_PATH",
     )
     parser.add_argument("--limit", type=int, default=0, help="Max jobs to import (0 = all)")
+    parser.add_argument(
+        "--csv",
+        default="",
+        help="Job catalog CSV (default: {source}/csv/all_jobs.csv when present)",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Parse only; do not write to DB")
     return parser.parse_args()
 
@@ -86,21 +93,84 @@ def _find_job_files(data_dir: Path) -> list[Path]:
     return files
 
 
-def _load_deduped_jobs(data_dir: Path) -> list[dict]:
+def _merge_job_record(by_id: dict[str, dict], raw: dict) -> None:
+    job_id = str(raw.get("job_id") or (raw.get("listing") or {}).get("job_id") or "")
+    if not job_id:
+        return
+    prev = by_id.get(job_id)
+    if not prev:
+        by_id[job_id] = raw
+        return
+    prev_links = len(collect_apply_links(prev))
+    new_links = len(collect_apply_links(raw))
+    if new_links >= prev_links:
+        by_id[job_id] = raw
+
+
+def _load_job_json(jobs_dir: Path, source_page: str, job_id: str) -> dict | None:
+    if source_page:
+        path = jobs_dir / source_page / f"{job_id}.json"
+        if path.is_file():
+            return json.loads(path.read_text(encoding="utf-8"))
+    matches = sorted(jobs_dir.glob(f"**/{job_id}.json"))
+    if matches:
+        return json.loads(matches[0].read_text(encoding="utf-8"))
+    return None
+
+
+def _csv_row_to_raw(row: dict[str, str]) -> dict:
+    job_id = str(row.get("job_id") or "").strip()
+    title = (row.get("title") or row.get("exam_post_name") or "").strip()
+    return {
+        "job_id": job_id,
+        "listing": {
+            "job_id": job_id,
+            "source_page": (row.get("source_page") or "").strip(),
+            "section": (row.get("section") or "").strip(),
+            "post_date": (row.get("post_date") or "").strip(),
+            "recruitment_board": (row.get("recruitment_board") or "").strip(),
+            "exam_post_name": (row.get("exam_post_name") or "").strip(),
+            "qualification": (row.get("qualification") or "").strip(),
+            "advt_no": (row.get("advt_no") or "").strip(),
+            "last_date": (row.get("last_date") or "").strip(),
+        },
+        "detail": {
+            "title": title,
+            "summary": (row.get("summary") or "").strip(),
+            "apply_links": [],
+            "links": [],
+            "sections": [],
+        },
+    }
+
+
+def _resolve_csv_path(data_dir: Path, csv_arg: str) -> Path | None:
+    if csv_arg.strip():
+        path = Path(csv_arg.strip())
+        return path if path.is_file() else None
+    default = data_dir / "csv" / "all_jobs.csv"
+    return default if default.is_file() else None
+
+
+def _load_deduped_jobs(data_dir: Path, csv_path: Path | None = None) -> list[dict]:
     by_id: dict[str, dict] = {}
+    jobs_dir = data_dir / "jobs"
+
+    if csv_path and csv_path.is_file():
+        with csv_path.open(encoding="utf-8-sig", newline="") as handle:
+            for row in csv.DictReader(handle):
+                job_id = str(row.get("job_id") or "").strip()
+                if not job_id:
+                    continue
+                raw = _load_job_json(jobs_dir, (row.get("source_page") or "").strip(), job_id) if jobs_dir.is_dir() else None
+                if not raw:
+                    raw = _csv_row_to_raw(row)
+                _merge_job_record(by_id, raw)
+        return list(by_id.values())
+
     for path in _find_job_files(data_dir):
         raw = json.loads(path.read_text(encoding="utf-8"))
-        job_id = str(raw.get("job_id") or (raw.get("listing") or {}).get("job_id") or "")
-        if not job_id:
-            continue
-        prev = by_id.get(job_id)
-        if not prev:
-            by_id[job_id] = raw
-            continue
-        prev_links = len(collect_apply_links(prev))
-        new_links = len(collect_apply_links(raw))
-        if new_links >= prev_links:
-            by_id[job_id] = raw
+        _merge_job_record(by_id, raw)
     return list(by_id.values())
 
 
@@ -188,8 +258,11 @@ def _resolve_state_codes(clean: dict) -> list[str]:
 
 def _pick_official_urls(apply_links: list[dict[str, str]]) -> tuple[str | None, list[str]]:
     urls = [link["url"] for link in apply_links if link.get("url")]
-    apply_url = pick_best_official_url(urls)
+    html_urls = [u for u in urls if not looks_like_notification_document(u)]
     pdf_candidates = [u for u in urls if looks_like_notification_document(u)]
+    apply_url = pick_best_official_url(html_urls) or pick_best_official_url(urls)
+    if apply_url and looks_like_notification_document(apply_url) and html_urls:
+        apply_url = pick_best_official_url(html_urls)
     detail_stub = {"pdf_urls": pdf_candidates}
     pdf_urls = collect_official_pdf_urls(detail_stub, apply_url)
     if not apply_url and pdf_urls:
@@ -267,18 +340,23 @@ def _normalize_job(clean: dict) -> dict | None:
 
 async def main() -> None:
     args = _parse_args()
+    if not args.source:
+        print("Set RECRUITMENT_CATALOG_PATH or pass --source /path/to/catalog")
+        sys.exit(1)
     data_dir = Path(args.source).resolve()
     jobs_dir = data_dir / "jobs"
+    csv_path = _resolve_csv_path(data_dir, args.csv)
 
-    if not jobs_dir.is_dir():
+    if not csv_path and not jobs_dir.is_dir():
         print(f"Jobs directory not found: {jobs_dir}")
         sys.exit(1)
 
-    raw_jobs = _load_deduped_jobs(data_dir)
+    raw_jobs = _load_deduped_jobs(data_dir, csv_path)
     if args.limit > 0:
         raw_jobs = raw_jobs[: args.limit]
 
-    print(f"FreeJobAlert import: source={data_dir} unique_jobs={len(raw_jobs)}")
+    catalog = str(csv_path) if csv_path else str(jobs_dir)
+    print(f"Catalog import: source={data_dir} catalog={catalog} unique_jobs={len(raw_jobs)}")
 
     persist = JobPersistService()
     sync = SourceSyncService()
@@ -332,7 +410,7 @@ async def main() -> None:
         print(f"Exported live-jobs.json: {exported} items")
 
     print(
-        f"FreeJobAlert import done: parsed={len(raw_jobs)} saved={saved} "
+        f"Catalog import done: parsed={len(raw_jobs)} saved={saved} "
         f"rejected={rejected} skipped_no_official={skipped_no_official}"
     )
     if reject_reasons:

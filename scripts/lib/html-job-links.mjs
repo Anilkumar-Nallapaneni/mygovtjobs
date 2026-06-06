@@ -32,7 +32,7 @@ function scoreLink(text, abs, pageHost) {
   if (text.length >= 15) score += 1;
   if (text.length >= 30) score += 1;
   if (/login|signup|register|privacy|terms|contact|sitemap|gallery|tourism/i.test(probe)) score -= 5;
-  if (TENDER_URL_PATTERN.test(abs) || TENDER_TEXT_PATTERN.test(title)) score -= 20;
+  if (TENDER_URL_PATTERN.test(abs) || TENDER_TEXT_PATTERN.test(text)) score -= 20;
   if (
     /^(apply\s+online|notifications?|advertisements?|examination\s+syllabus|recruitment\s+calendar|results?)$/i.test(
       text.trim()
