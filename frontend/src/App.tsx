@@ -1,4 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { applyColorMode } from "@/theme/designSystem";
 import { STATES, toSvgStateId } from "@/data/states";
@@ -12,9 +13,11 @@ import Ticker from "@/components/layout/Ticker";
 import Navbar from "@/components/layout/Navbar";
 import CategoryGrid from "@/components/jobs/CategoryGrid";
 import { scrollToSection } from "@/utils/scrollToSection";
+import JobDetailPage from "@/pages/JobDetailPage";
+import type { JobRecord } from "@/types/job";
+import { jobDetailPath } from "@/utils/jobRoutes";
 
 const HomePage = lazy(() => import("@/components/home/HomePage"));
-const JobDetail = lazy(() => import("@/components/jobs/JobDetail"));
 
 const FEED_TICK_MS = 18_000;
 const INITIAL_FEED_SIZE = 6;
@@ -29,6 +32,9 @@ function PageFallback() {
 export default function App() {
   const { i18n, t } = useTranslation();
   const stateLabel = useStateLabel();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isJobRoute = location.pathname.startsWith("/jobs/");
   const {
     jobs,
     loading: jobsLoading,
@@ -48,7 +54,6 @@ export default function App() {
   const [selectedState, setSelectedState] = useState(null);
   const [activeCat, setActiveCat] = useState(null);
   const [quickFilter, setQuickFilter] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(null);
   const [search, setSearch] = useState("");
   const [headlinesTopicKey, setHeadlinesTopicKey] = useState(null);
   const [colorMode, setColorMode] = useState(() => {
@@ -84,14 +89,19 @@ export default function App() {
   const [feedItems, setFeedItems] = useState(() =>
     FEED_POOL.slice(0, INITIAL_FEED_SIZE).map((f, i) => ({ ...f, time: Date.now() - i * 120_000 }))
   );
+  const [officialFeedLoaded, setOfficialFeedLoaded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     loadOfficialFeed().then((json) => {
-      if (cancelled || !json) return;
-      const extra = feedItemsForTicker(json, 12);
-      if (!extra.length) return;
-      setFeedItems((prev) => [...extra, ...prev].slice(0, FEED_MAX));
+      if (cancelled) return;
+      const extra = json ? feedItemsForTicker(json, 12) : [];
+      if (extra.length) {
+        setFeedItems((prev) => [...extra, ...prev].slice(0, FEED_MAX));
+        setOfficialFeedLoaded(true);
+        return;
+      }
+      setOfficialFeedLoaded(Boolean(json));
     });
     return () => {
       cancelled = true;
@@ -99,14 +109,15 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (officialFeedLoaded) return;
     let idx = INITIAL_FEED_SIZE;
-    const t = setInterval(() => {
+    const timer = setInterval(() => {
       const item = { ...FEED_POOL[idx % FEED_POOL.length], time: Date.now() };
       setFeedItems((prev) => [item, ...prev].slice(0, FEED_MAX));
       idx++;
     }, FEED_TICK_MS);
-    return () => clearInterval(t);
-  }, []);
+    return () => clearInterval(timer);
+  }, [officialFeedLoaded]);
 
   const { stateCounts, categoryCounts } = useMemo(() => computeJobAggregates(jobs), [jobs]);
 
@@ -127,31 +138,36 @@ export default function App() {
     [stateCounts, stateLabel]
   );
 
-  const handleJobClick = useCallback((job) => {
-    setSelectedJob(job);
-    window.scrollTo(0, 0);
-  }, []);
+  const handleJobClick = useCallback(
+    (job: JobRecord) => {
+      const path = jobDetailPath(job);
+      if (!path) return;
+      navigate(path);
+      window.scrollTo(0, 0);
+    },
+    [navigate]
+  );
 
   const handleSearch = useCallback(() => {
+    if (location.pathname !== "/") navigate("/");
     setView("jobs");
-    setSelectedJob(null);
     setSelectedState(null);
     setActiveCat(null);
     setQuickFilter(null);
     setHeadlinesTopicKey(null);
     scrollToSection("main-jobs");
-  }, []);
+  }, [location.pathname, navigate]);
 
   const handleBrowseJobs = useCallback(() => {
+    if (location.pathname !== "/") navigate("/");
     setView("jobs");
-    setSelectedJob(null);
-  }, []);
+  }, [location.pathname, navigate]);
 
   const handleCategorySelect = useCallback(
     (catId) => {
       const next = activeCat === catId ? null : catId;
+      if (location.pathname !== "/") navigate("/");
       setView("jobs");
-      setSelectedJob(null);
       setSelectedState(null);
       setActiveCat(next);
       setQuickFilter(null);
@@ -160,12 +176,12 @@ export default function App() {
       setHomeResetKey((k) => k + 1);
       scrollToSection("main-jobs");
     },
-    [activeCat]
+    [activeCat, location.pathname, navigate]
   );
 
   const resetToHome = useCallback(() => {
+    navigate("/");
     setView("home");
-    setSelectedJob(null);
     setSelectedState(null);
     setActiveCat(null);
     setQuickFilter(null);
@@ -174,7 +190,7 @@ export default function App() {
     setHomeResetKey((k) => k + 1);
     refreshJobs();
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [refreshJobs]);
+  }, [navigate, refreshJobs]);
 
   const handleNavigate = useCallback(
     (nextView) => {
@@ -183,8 +199,8 @@ export default function App() {
         return;
       }
 
+      if (location.pathname !== "/") navigate("/");
       setView(nextView);
-      setSelectedJob(null);
 
       if (nextView === "admit-card") {
         setHeadlinesTopicKey("admit-card");
@@ -211,97 +227,107 @@ export default function App() {
       const sectionId = sectionByView[nextView];
       if (sectionId) scrollToSection(sectionId);
     },
-    [resetToHome]
+    [location.pathname, navigate, resetToHome]
   );
 
-  const handleFooterLink = useCallback((target) => {
-    setSelectedJob(null);
-    if (target.view) setView(target.view);
-    else if (target.section === "main-jobs" || target.section === "state-jobs-panel") setView("jobs");
-    else if (target.section === "official-headlines") setView("results");
-    else if (target.section === "alert-section") setView("alert");
+  const handleFooterLink = useCallback(
+    (target: {
+      view?: string;
+      section?: string;
+      topicKey?: string | null;
+      state?: string;
+      category?: string;
+    }) => {
+      if (location.pathname !== "/") navigate("/");
+      if (target.view) setView(target.view);
+      else if (target.section === "main-jobs" || target.section === "state-jobs-panel") setView("jobs");
+      else if (target.section === "official-headlines") setView("results");
+      else if (target.section === "alert-section") setView("alert");
 
-    if (target.topicKey !== undefined) setHeadlinesTopicKey(target.topicKey);
-    if (target.view === "admit-card") setHeadlinesTopicKey("admit-card");
+      if (target.topicKey !== undefined) setHeadlinesTopicKey(target.topicKey);
+      if (target.view === "admit-card") setHeadlinesTopicKey("admit-card");
 
-    if (target.section === "main-jobs") {
-      setSelectedState(null);
-      setActiveCat(null);
-      setQuickFilter(null);
-      scrollToSection("main-jobs");
-      return;
-    }
+      if (target.section === "main-jobs") {
+        setSelectedState(null);
+        setActiveCat(null);
+        setQuickFilter(null);
+        scrollToSection("main-jobs");
+        return;
+      }
 
-    if (target.state) {
-      setSelectedState(target.state);
-      if (target.category) setActiveCat(target.category);
-      else setActiveCat(null);
-      scrollToSection("state-jobs-panel");
-      return;
-    }
+      if (target.state) {
+        setSelectedState(target.state);
+        if (target.category) setActiveCat(target.category);
+        else setActiveCat(null);
+        scrollToSection("state-jobs-panel");
+        return;
+      }
 
-    if (target.category) {
-      setSelectedState(null);
-      setActiveCat(target.category);
-      scrollToSection("main-jobs");
-      return;
-    }
+      if (target.category) {
+        setSelectedState(null);
+        setActiveCat(target.category);
+        scrollToSection("main-jobs");
+        return;
+      }
 
-    if (target.section) scrollToSection(target.section);
-  }, []);
-
-  const handleCloseJob = useCallback(() => setSelectedJob(null), []);
+      if (target.section) scrollToSection(target.section);
+    },
+    [location.pathname, navigate]
+  );
 
   return (
-    <>
-      <div className="app-shell" key={i18n.resolvedLanguage || i18n.language}>
-        <Ticker feedItems={feedItems} jobItems={jobs} />
-        <Navbar
-          view={view}
-          onNavigate={handleNavigate}
-          search={search}
-          setSearch={setSearch}
-          onSearch={handleSearch}
-          colorMode={colorMode}
-          onColorModeChange={onColorModeChange}
-        />
-        <div style={{ flex: 1 }}>
-          {!selectedJob && (
-            <div className="app-sector-browser">
-              <CategoryGrid activeCat={activeCat} onSelectCategory={handleCategorySelect} counts={categoryCounts} />
-            </div>
-          )}
-          <Suspense fallback={<PageFallback />}>
-            {selectedJob ? (
-              <JobDetail key={`${selectedJob.id}-${i18n.language}`} job={selectedJob} onClose={handleCloseJob} />
-            ) : (
-              <HomePage
-                key={`home-${homeResetKey}-${i18n.resolvedLanguage || i18n.language}`}
-                jobs={jobs}
-                jobsLoading={jobsLoading}
-                liveCount={liveCount}
-                catalogStats={catalogStats}
-                selectedState={selectedState}
-                setSelectedState={setSelectedState}
-                activeCat={activeCat}
-                setActiveCat={setActiveCat}
-                quickFilter={quickFilter}
-                setQuickFilter={setQuickFilter}
-                onBrowseJobs={handleBrowseJobs}
-                stateCounts={stateCounts}
-                onJobClick={handleJobClick}
-                search={search}
-                setSearch={setSearch}
-                mapStateData={mapStateData}
-                onFooterLink={handleFooterLink}
-                headlinesTopicKey={headlinesTopicKey}
-                setHeadlinesTopicKey={setHeadlinesTopicKey}
-                dailySyncLine={dailySyncLine}
-              />
-            )}
-          </Suspense>
-        </div>
+    <div className="app-shell" key={i18n.resolvedLanguage || i18n.language}>
+      <Ticker feedItems={feedItems} jobItems={jobs} />
+      <Navbar
+        view={view}
+        onNavigate={handleNavigate}
+        search={search}
+        setSearch={setSearch}
+        onSearch={handleSearch}
+        colorMode={colorMode}
+        onColorModeChange={onColorModeChange}
+      />
+      <div style={{ flex: 1 }}>
+        {!isJobRoute && (
+          <div className="app-sector-browser">
+            <CategoryGrid activeCat={activeCat} onSelectCategory={handleCategorySelect} counts={categoryCounts} />
+          </div>
+        )}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <HomePage
+                  key={`home-${homeResetKey}-${i18n.resolvedLanguage || i18n.language}`}
+                  jobs={jobs}
+                  jobsLoading={jobsLoading}
+                  liveCount={liveCount}
+                  catalogStats={catalogStats}
+                  selectedState={selectedState}
+                  setSelectedState={setSelectedState}
+                  activeCat={activeCat}
+                  setActiveCat={setActiveCat}
+                  quickFilter={quickFilter}
+                  setQuickFilter={setQuickFilter}
+                  onBrowseJobs={handleBrowseJobs}
+                  stateCounts={stateCounts}
+                  onJobClick={handleJobClick}
+                  search={search}
+                  setSearch={setSearch}
+                  mapStateData={mapStateData}
+                  onFooterLink={handleFooterLink}
+                  headlinesTopicKey={headlinesTopicKey}
+                  setHeadlinesTopicKey={setHeadlinesTopicKey}
+                  dailySyncLine={dailySyncLine}
+                />
+              </Suspense>
+            }
+          />
+          <Route path="/jobs/:slug" element={<JobDetailPage jobs={jobs} loading={jobsLoading} />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </div>
-    </>
+    </div>
   );
 }

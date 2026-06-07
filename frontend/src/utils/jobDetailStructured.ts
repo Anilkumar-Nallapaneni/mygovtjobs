@@ -395,10 +395,10 @@ function buildArticleSections(sections: unknown[], stripExtractedFee = false): D
       if (key && seenHeadings.has(key)) return false;
       if (key) seenHeadings.add(key);
       return (
-        section.paragraphs.length ||
-        section.tables.length ||
-        section.lists.length ||
-        section.links.length
+        section.paragraphs.length > 0 ||
+        section.tables.length > 0 ||
+        section.lists.length > 0 ||
+        section.links.length > 0
       );
     });
 }

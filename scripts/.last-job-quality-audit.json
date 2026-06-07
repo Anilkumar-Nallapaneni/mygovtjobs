@@ -1,14 +1,14 @@
 {
-  "at": "2026-06-06T13:56:03.570Z",
-  "total": 1065,
+  "at": "2026-06-06T18:06:17.412Z",
+  "total": 1059,
   "stats": {
-    "live": 1065,
+    "live": 1059,
     "expired": 0,
-    "withPdf": 778,
-    "withApplyUrl": 1065,
-    "withLastDate": 185,
-    "withVacancy": 249,
-    "recruitmentLike": 866,
+    "withPdf": 793,
+    "withApplyUrl": 1059,
+    "withLastDate": 186,
+    "withVacancy": 247,
+    "recruitmentLike": 864,
     "blockedHost": 0,
     "shortTitle": 0,
     "noPdfNoApply": 0
@@ -43,6 +43,10 @@
         "title": "Walk-in Interview for Engagement of Full-Time Specialists and Senior Residents on Contract"
       },
       {
+        "slug": "corrigendum-walk-in-interview-for-engagement-of-full-time-specialists-and-senior-755e4504",
+        "title": "CORRIGENDUM - Walk-in Interview for Engagement of Full-Time Specialists and Senior Residen"
+      },
+      {
         "slug": "walk-in-interview-on-09-06-2026-for-teaching-faculty-broad-specialty-department--155b6d89",
         "title": "Walk-in Interview on 09.06.2026 for Teaching Faculty (Broad Specialty Department) on Contr"
       },
@@ -55,28 +59,24 @@
         "title": "Walk-in Interview on 08.06.2026 . For Teaching Faculty (Super Specialty Departıment) on Co"
       },
       {
-        "slug": "revised-standard-technical-specification-and-purchase-amc-of-computers-other-it--ecb1b11d",
-        "title": "Revised Standard Technical Specification and Purchase, AMC of Computers/other IT Equipment"
+        "slug": "5-engagement-of-project-manager-it-on-contract-basis-in-the-office-of-the-custod-8af7f255",
+        "title": "11 Engagement of Project Manager (IT) on Contract Basis in the Office of the Custodian of "
       },
       {
-        "slug": "right-to-information-17-manuals-of-cm-office-06fdeae5",
-        "title": "Right to Information 17 Manuals of CM Office"
+        "slug": "4-engagement-of-chief-supervisors-on-contract-basis-in-the-office-of-the-custodi-7a55d3df",
+        "title": "10 Engagement of Chief Supervisors on Contract Basis in the Office of the Custodian of Ene"
       },
       {
-        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-iii-46239ac6",
-        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-III"
+        "slug": "3-engagement-of-senior-consultants-on-contract-basis-in-the-office-of-the-custod-0c79069b",
+        "title": "9 Engagement of Senior Consultants on Contract Basis in the Office of the Custodian of Ene"
       },
       {
-        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-ii-c332a0b1",
-        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-II"
+        "slug": "2-engagement-of-supervisor-on-contract-basis-in-the-office-of-the-custodian-of-e-6d7c1c36",
+        "title": "8 Engagement of Supervisor on Contract Basis in the Office of the Custodian of Enemy Prope"
       },
       {
-        "slug": "marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-i-7af976ac",
-        "title": "MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) WAITLIST-I"
-      },
-      {
-        "slug": "1-0-2c88aa98",
-        "title": "राष्ट्रीय स्तर का केवीएस हैकाथॉन, एआई विद्यासेतु 1.0"
+        "slug": "1-engagement-of-surveyors-on-contract-basis-in-the-office-of-the-custodian-of-en-b1a4f7bf",
+        "title": "7 Engagement of Surveyors on Contract Basis in the Office of the Custodian of Enemy Proper"
       }
     ]
   }

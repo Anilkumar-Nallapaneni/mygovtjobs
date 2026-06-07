@@ -2,9 +2,8 @@ name: Scheduled API ingest
 
 on:
   workflow_dispatch:
-  schedule:
-    # 02:30 UTC daily — adjust after deploying API
-    - cron: "30 2 * * *"
+    # Manual only — scheduled ingest runs via supabase-auto-ingest.yml (direct DB sync).
+    # Set MYGOVTJOBS_API_URL + ADMIN_API_KEY when using a hosted FastAPI backend.
 
 jobs:
   ingest:

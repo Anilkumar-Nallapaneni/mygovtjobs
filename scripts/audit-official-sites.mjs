@@ -5,7 +5,7 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { OFFICIAL_SITES } from "../frontend/src/data/officialSites.js";
+import { OFFICIAL_SITES } from "../frontend/src/data/officialSites.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = join(__dirname, "data", "site-audit.json");

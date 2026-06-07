@@ -1,3 +1,5 @@
+import { getSupabase } from '@/lib/supabase'
+
 export type ApiJob = {
   id: string
   slug: string
@@ -162,6 +164,37 @@ export type AlertSubscribePayload = {
   state_codes?: string[]
   categories?: string[]
   qualification_tags?: string[]
+}
+
+export async function fetchJobBySlug(slug: string): Promise<ApiJob | null> {
+  if (!slug) return null
+
+  try {
+    const res = await fetchWithTimeout(apiUrl(`/api/jobs/${encodeURIComponent(slug)}`), {
+      cache: 'default',
+    })
+    if (res.ok) {
+      return (await res.json()) as ApiJob
+    }
+  } catch {
+    /* fall through to Supabase */
+  }
+
+  const supabase = getSupabase()
+  if (!supabase) return null
+
+  try {
+    const { data, error } = await supabase
+      .from('jobs')
+      .select('*')
+      .eq('slug', slug)
+      .in('status', ['live', 'expired'])
+      .maybeSingle()
+    if (error || !data) return null
+    return data as ApiJob
+  } catch {
+    return null
+  }
 }
 
 export async function subscribeToAlerts(

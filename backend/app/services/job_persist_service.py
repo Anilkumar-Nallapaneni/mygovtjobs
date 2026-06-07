@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import get_settings
 from app.models.job import Job
 from app.services.dedupe_service import content_hash
+from app.utils.live_jobs_export import slim_job_for_json_export
 
 _slug_re = re.compile(r"[^a-z0-9]+")
 
@@ -164,7 +165,7 @@ class JobPersistService:
         payload = {
             "generatedAt": datetime.now(timezone.utc).isoformat(),
             "dailySync": daily_block or None,
-            "items": [item.model_dump(mode="json") for item in items],
+            "items": [slim_job_for_json_export(item) for item in items],
         }
         path = Path(get_settings().live_jobs_json_path)
         path.parent.mkdir(parents=True, exist_ok=True)

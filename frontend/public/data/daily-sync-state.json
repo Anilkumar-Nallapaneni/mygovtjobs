@@ -1,6 +1,10 @@
 {
-  "status": "running",
-  "startedAt": "2026-06-06T14:00:02.725535+00:00",
-  "startedAtIst": "2026-06-06T19:30:02.725543+05:30",
-  "dateIst": "2026-06-06"
+  "status": "completed",
+  "completedAt": "2026-06-06T18:01:58.884458+00:00",
+  "completedAtIst": "2026-06-06T23:31:58.884534+05:30",
+  "lastCompletedDateIst": "2026-06-06",
+  "nextRunAtIst": "2026-06-07T08:00:00+05:30",
+  "jobCount": 1830,
+  "sourcesScraped": 103,
+  "notes": "IngestAgent: official India govt portals + RSS"
 }

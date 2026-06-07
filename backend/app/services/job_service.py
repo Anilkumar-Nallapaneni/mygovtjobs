@@ -91,6 +91,8 @@ def _to_job_out(row: Job) -> JobOut:
 
 
 class JobService:
+    _SCAN_BATCH = 250
+
     async def list_jobs(
         self,
         *,
@@ -121,14 +123,29 @@ class JobService:
                     )
                 )
 
-            rows = (
-                await session.execute(
-                    stmt.order_by(Job.published_at.desc().nullslast())
-                )
-            ).scalars().all()
-            filtered = [_to_job_out(r) for r in rows if _is_recruitment_job(r)]
-            total = len(filtered)
-            page = filtered[offset : offset + limit]
+            ordered = stmt.order_by(Job.published_at.desc().nullslast())
+            page: list[JobOut] = []
+            match_index = 0
+            total = 0
+            db_offset = 0
+
+            while True:
+                batch = (
+                    await session.execute(ordered.limit(self._SCAN_BATCH).offset(db_offset))
+                ).scalars().all()
+                if not batch:
+                    break
+                for row in batch:
+                    if not _is_recruitment_job(row):
+                        continue
+                    if match_index >= offset and len(page) < limit:
+                        page.append(_to_job_out(row))
+                    match_index += 1
+                    total += 1
+                db_offset += len(batch)
+                if len(batch) < self._SCAN_BATCH:
+                    break
+
             return page, total
         except Exception as exc:
             await session.rollback()
